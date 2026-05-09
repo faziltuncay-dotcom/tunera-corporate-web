@@ -12,7 +12,7 @@ export function BrandsPage({ locale }: Props) {
   const t = copy(locale);
   return (
     <div lang={locale}>
-      <Header locale={locale} />
+      <Header locale={locale} current="brands" />
       <main id="main">
         <Section
           eyebrow={t.brandsSection.title}

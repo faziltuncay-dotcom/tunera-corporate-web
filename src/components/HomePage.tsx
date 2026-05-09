@@ -14,7 +14,7 @@ export function HomePage({ locale }: Props) {
   const t = copy(locale);
   return (
     <div lang={locale}>
-      <Header locale={locale} />
+      <Header locale={locale} current="home" />
       <main id="main">
         <section
           aria-labelledby="hero-title"
@@ -54,8 +54,8 @@ export function HomePage({ locale }: Props) {
           </div>
         </section>
 
-        <Section id="about" eyebrow={t.about.title} title={t.about.title}>
-          <div className="grid gap-6 md:grid-cols-2">
+        <Section id="about" eyebrow={t.about.title}>
+          <div className="grid gap-6 md:grid-cols-2 md:gap-10">
             <p className="text-base leading-relaxed text-ink-200">{t.about.body}</p>
             <p className="text-base leading-relaxed text-ink-200">{t.home.intro}</p>
           </div>

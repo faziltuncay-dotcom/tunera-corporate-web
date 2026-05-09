@@ -98,8 +98,8 @@ export const tr = {
         body: "Servis ve bakım taleplerinin ilgili ekiplere yönlendirilmesi.",
       },
       {
-        title: "Denizcilik Çözümleri",
-        body: "Müşteri yönlendirme ve süreç bilgilendirmesi.",
+        title: "Müşteri İletişimi",
+        body: "Süreç bilgilendirmesi ve marka sayfalarına yönlendirme.",
       },
     ],
   },
@@ -180,8 +180,8 @@ export const en: typeof tr = {
         body: "Routing of service and maintenance requests to the relevant teams.",
       },
       {
-        title: "Marine solutions",
-        body: "Customer guidance and process information.",
+        title: "Customer communication",
+        body: "Process information and routing to brand pages.",
       },
     ],
   },

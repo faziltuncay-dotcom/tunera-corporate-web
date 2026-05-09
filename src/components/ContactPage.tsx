@@ -21,7 +21,7 @@ export function ContactPage({ locale }: Props) {
 
   return (
     <div lang={locale}>
-      <Header locale={locale} />
+      <Header locale={locale} current="contact" />
       <main id="main">
         <Section
           eyebrow={t.contactSection.title}
@@ -44,9 +44,6 @@ export function ContactPage({ locale }: Props) {
                 </div>
               ))}
             </dl>
-            {!contact.isFinalized ? (
-              <p className="mt-8 text-xs text-ink-400">{t.contactSection.detailsNote}</p>
-            ) : null}
           </div>
         </Section>
       </main>

@@ -32,10 +32,13 @@ export function BrandCard({ locale, id, name, status, href, external }: Props) {
           </h3>
           <span
             className={
-              "inline-flex shrink-0 items-center rounded-full border px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] " +
+              "inline-flex shrink-0 items-center gap-2 rounded-full border px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] " +
               (isActive ? "border-sunset-400/40 text-sunset-400" : "border-white/10 text-ink-400")
             }
           >
+            {isActive ? (
+              <span aria-hidden className="inline-block h-1.5 w-1.5 rounded-full bg-sunset-400" />
+            ) : null}
             {statusLabel}
           </span>
         </div>
@@ -50,7 +53,12 @@ export function BrandCard({ locale, id, name, status, href, external }: Props) {
             className="inline-flex items-center gap-2 rounded-sm text-sm text-sunset-400 transition-colors hover:text-sunset-300"
           >
             <span>{t.brandsSection.visit}</span>
-            <span aria-hidden>→</span>
+            <span
+              aria-hidden
+              className="transition-transform duration-200 group-hover:translate-x-0.5"
+            >
+              →
+            </span>
           </Link>
         ) : (
           <span className="inline-flex items-center rounded-full border border-white/10 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-ink-400">
