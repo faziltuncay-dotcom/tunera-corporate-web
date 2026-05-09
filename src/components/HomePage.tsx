@@ -121,19 +121,14 @@ export function HomePage({ locale }: Props) {
           <ServiceList locale={locale} />
         </Section>
 
-        {/* CONTACT CTA ---------------------------------------------- */}
-        <div className="relative overflow-hidden bg-tunera-graphite text-tunera-ivory">
-          <div
-            aria-hidden
-            className="pointer-events-none absolute -right-24 -top-24 h-[420px] w-[420px] bg-tunera-emblem bg-contain bg-center bg-no-repeat opacity-[0.08]"
-            style={{ filter: "invert(1)" }}
-          />
+        {/* CONTACT CTA — clean graphite; pattern atmosphere lives in the footer below
+            and softly fades upward across this band's boundary. */}
+        <div className="bg-tunera-graphite text-tunera-ivory">
           <Section
             id="contact"
             eyebrow={t.contactSection.title}
             title={t.contactSection.title}
             description={t.contactSection.body}
-            className="relative"
             tone="dark"
           >
             <Link

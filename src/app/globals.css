@@ -74,12 +74,33 @@ body {
   }
 }
 
+/*
+ * Mask gradients fade the pattern in from the top so the boundary
+ * with the contact CTA section above is atmospheric rather than a
+ * hard horizontal cut. Both surfaces are `tunera-graphite`; only the
+ * pattern density changes across the seam, and it does so gradually.
+ * The two layers fade in at slightly different rates for depth.
+ */
 .tunera-footer-pattern-a {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.55) 38%,
+    black 72%
+  );
+  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.55) 38%, black 72%);
   animation: tunera-footer-drift-a 32s linear infinite;
   will-change: transform;
 }
 
 .tunera-footer-pattern-b {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.45) 48%,
+    black 84%
+  );
+  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.45) 48%, black 84%);
   animation: tunera-footer-drift-b 26s linear infinite;
   will-change: transform;
 }

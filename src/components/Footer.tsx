@@ -23,13 +23,13 @@ export function Footer({ locale }: Props) {
 
   return (
     <footer className="relative isolate overflow-hidden bg-tunera-graphite text-tunera-ivory">
-      {/* Layer A — broad pattern atmosphere across the full footer */}
+      {/* Layer A — broad pattern atmosphere, masked to fade in from the top */}
       <div
         aria-hidden
         className="tunera-footer-pattern-a pointer-events-none absolute inset-0 bg-tunera-pattern bg-cover bg-center opacity-[0.06]"
         style={{ filter: "invert(1)" }}
       />
-      {/* Layer B — second, larger and offset, creates depth/parallax */}
+      {/* Layer B — second layer offset for depth, fades in slightly later */}
       <div
         aria-hidden
         className="tunera-footer-pattern-b pointer-events-none absolute inset-0 opacity-[0.04]"
@@ -41,13 +41,7 @@ export function Footer({ locale }: Props) {
           filter: "invert(1)",
         }}
       />
-      {/* Soft fade at the very top so the pattern doesn't compete with
-          the contact CTA section that sits just above the footer. */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 z-[1] h-16 bg-gradient-to-b from-tunera-graphite to-transparent"
-      />
-      <div className="relative z-10 mx-auto grid max-w-6xl gap-10 px-6 py-14 md:grid-cols-3 md:items-end md:gap-8">
+      <div className="relative z-10 mx-auto grid max-w-6xl gap-10 px-6 pb-14 pt-24 md:grid-cols-3 md:items-end md:gap-8 md:pt-28">
         <div>
           <Image
             src="/assets/brand/tunera/tunera-logo-white.png"

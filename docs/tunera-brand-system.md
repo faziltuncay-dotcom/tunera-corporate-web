@@ -35,13 +35,13 @@ Tailwind config. Phase 1E is the cutover: orange / ink / ivory dominate.
 
 ## Brand assets
 
-| File                    | Source                      | Variant                     | Use                                                     |
-| ----------------------- | --------------------------- | --------------------------- | ------------------------------------------------------- |
-| `tunera-logo-black.png` | `tunera-logo.pdf`           | Black wordmark, transparent | Header on light surface                                 |
-| `tunera-logo-white.png` | derived from black wordmark | White wordmark, transparent | Brand panel inside hero, footer                         |
-| `tunera-logo-color.png` | `tunera-renkli-logo.pdf`    | Full color stamp            | Reserve as full brand signature (not currently used)    |
-| `tunera-pattern.png`    | `tunera-desen.pdf`          | Black-on-transparent        | Hero brand panel overlay (~18% opacity, multiply blend) |
-| `tunera-emblem.png`     | `tunera-amblem.pdf`         | Black-on-transparent        | Watermark in contact CTA (~8%, corner)                  |
+| File                    | Source                      | Variant                     | Use                                                        |
+| ----------------------- | --------------------------- | --------------------------- | ---------------------------------------------------------- |
+| `tunera-logo-black.png` | `tunera-logo.pdf`           | Black wordmark, transparent | Header on light surface                                    |
+| `tunera-logo-white.png` | derived from black wordmark | White wordmark, transparent | Brand panel inside hero, footer                            |
+| `tunera-logo-color.png` | `tunera-renkli-logo.pdf`    | Full color stamp            | Reserve as full brand signature (not currently used)       |
+| `tunera-pattern.png`    | `tunera-desen.pdf`          | Black-on-transparent        | Hero brand panel overlay (~18% opacity, multiply blend)    |
+| `tunera-emblem.png`     | `tunera-amblem.pdf`         | Black-on-transparent        | Reserved (currently unused; previously a corner watermark) |
 
 Logo proportions are preserved exactly from the source PDFs. Crops are
 to artwork bounds (no PDF-page whitespace). The logo is **never**
@@ -72,8 +72,9 @@ hero       → ivory (default body)
 about      → ivory
 brands     → sand band  (premium mid-tone divider)
 services   → ivory
-contact CTA → graphite band  (single dark anchor with emblem watermark)
-footer     → graphite (with full-width animated wave-pattern atmosphere)
+contact CTA → clean graphite band (no decorative motif)
+footer     → graphite, with mask-faded animated wave-pattern that
+              breathes upward into the contact CTA boundary
 ```
 
 This keeps the site overwhelmingly light (per the brand spec — ivory /
@@ -123,12 +124,12 @@ Pattern usage is restrained:
 
 - Hero brand panel: `tunera-pattern.png` at 18% on orange (visible but
   refined, multiply-blended into the orange field).
-- Contact CTA: `tunera-emblem.png` at ~8% as a corner watermark on
-  graphite, inverted to white.
+- Contact CTA: clean graphite — no decorative motif. Pattern energy is
+  reserved for the footer below, and fades upward across the boundary.
 - Footer: full-width Tunera pattern atmosphere — see "Footer ambient
-  pattern" below. The previous corner-emblem watermark was promoted
-  to a broader, layered treatment that spreads the wave language across
-  the whole footer surface while still reading as background.
+  pattern" below. The pattern layers are mask-faded from the top so the
+  contact CTA / footer seam reads as a tonal deepening of one continuous
+  dark surface, not as two distinct sections.
 
 The pattern is **not** placed behind paragraph text and is **not**
 repeated as a generic background everywhere.
@@ -145,10 +146,13 @@ Tunera wave pattern over `tunera-graphite`. Both are inverted to white.
 
 Both keyframes are gentle back-and-forth translates (≤ ~1.8% on each
 axis). The slight scale > 1 keeps the layer covering the container so
-the translate never exposes the graphite ground. A short ~64px
-gradient fade sits on top of the layers at the footer's top edge so
-the pattern doesn't compete with the contact CTA section directly
-above. Footer content uses `relative z-10`.
+the translate never exposes the graphite ground. Each layer also
+carries a `mask-image: linear-gradient(to bottom, transparent → black)`
+so the pattern is invisible at the footer's top edge and gradually
+emerges toward the bottom — Layer A reaches full opacity at ~72% down,
+Layer B at ~84% down for parallax depth. The contact CTA section above
+is plain graphite, so the seam reads as a tonal deepening rather than
+a hard cutoff. Footer content uses `relative z-10`.
 
 Motion is disabled under `@media (prefers-reduced-motion: reduce)` —
 the keyframe selectors override `animation: none; transform: none`.
