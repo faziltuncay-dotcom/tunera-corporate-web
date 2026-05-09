@@ -278,6 +278,43 @@ body {
 }
 
 /*
+ * Editorial image reveal.
+ *
+ * Each illustration on the home hero and the services page is wrapped
+ * in `<ImageReveal>` (IntersectionObserver, single-shot). Images start
+ * at slight opacity / lift and settle once they cross ~20 % into the
+ * viewport. The reveal is intentionally calm — no parallax, no
+ * scroll-bound transforms after the settle, no spray/wave/propeller
+ * animation layered onto the image: the illustrations already carry
+ * that motion graphically, and adding more would tip into "noisy".
+ *
+ * Reduced motion: image visible immediately, no transforms.
+ */
+.tunera-image-reveal {
+  opacity: 0.55;
+  transform: translate3d(0, 14px, 0);
+  transition:
+    opacity 820ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 820ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, opacity;
+}
+
+.tunera-image-reveal[data-revealed="true"] {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tunera-image-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    will-change: auto;
+  }
+}
+
+/*
  * Footer reveal (Phase 2B).
  *
  * IntersectionObserver toggles `data-revealed="true"` on the footer

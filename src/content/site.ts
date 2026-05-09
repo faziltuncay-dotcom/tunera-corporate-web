@@ -55,6 +55,8 @@ export const tr = {
     eyebrow: "Denizcilik",
     title: "Tunera Denizcilik",
     lead: "Marka temsili, tekne satışı ve servis koordinasyonu üzerine çalışan bir denizcilik şirketi.",
+    heroIllustrationAlt:
+      "Tunera marka renklerinde editoryal bir illüstrasyon: dalga ve güneş kompozisyonu üzerinde hareket halinde bir tekne.",
     ctaPrimary: "Markalara Göz At",
     ctaPrimaryHref: "/tr/markalar",
     ctaSecondary: "İletişim",
@@ -298,6 +300,9 @@ export const tr = {
     items: [
       {
         title: "Marka Temsili ve Yeni Tekne Satışı",
+        illustration: "/assets/brand/web/boat-on-water.png",
+        illustrationAlt:
+          "Tunera marka renklerinde bir motoryat editoryal illüstrasyonu, dalga ve güneş kompozisyonu üzerinde.",
         paragraphs: [
           "Tunera Denizcilik, yurt dışında bilinirlik kazanmış ve kendi segmentinde değer üretmiş tekne ve motoryat markalarının Türkiye pazarındaki satış ve satış sonrası süreçlerini yürütmeyi hedefler.",
           "Müşterilerin doğru marka, doğru model ve doğru kullanım senaryosu ile buluşması için ürün tanıtımı, satış yönlendirmesi ve süreç koordinasyonu sağlanır.",
@@ -307,6 +312,9 @@ export const tr = {
       },
       {
         title: "İkinci El Tekne Alım-Satımı ve Danışmanlık",
+        illustration: "/assets/brand/web/boat-inspection.png",
+        illustrationAlt:
+          "İnceleme platformunda bir tekne ve teknik kontrol işareti taşıyan iki kişiyi gösteren editoryal illüstrasyon.",
         paragraphs: [
           "Tunera, ikinci el tekne ve deniz araçlarının alım-satım süreçlerinde müşterilerine danışmanlık sağlar.",
           "Bu kapsamda teknenin kullanım amacı, teknik durumu, piyasa konumu, satış potansiyeli ve operasyonel ihtiyaçları birlikte değerlendirilir.",
@@ -316,6 +324,9 @@ export const tr = {
       },
       {
         title: "Servis ve Bakım Hizmetleri",
+        illustration: "/assets/brand/web/boat-service.png",
+        illustrationAlt:
+          "Bir teknenin dıştan takma motorları üzerinde çalışan teknisyen ve takım dolabı içeren editoryal illüstrasyon.",
         paragraphs: [
           "Tekne, motor ve çeşitli marin ekipmanların servis ve bakım süreçleri, denizcilikte güvenli ve sürdürülebilir kullanımın temel parçalarından biridir.",
           "Tunera Denizcilik, bu süreçlerin planlanması, yönlendirilmesi ve takibinde müşterilerine destek verir.",
@@ -325,6 +336,9 @@ export const tr = {
       },
       {
         title: "Marin Römork Satış ve Satış Sonrası Hizmetleri",
+        illustration: "/assets/brand/web/boat-trailer.png",
+        illustrationAlt:
+          "Üç akslı marin römork üzerinde bir tekne ve servis simgelerini gösteren editoryal illüstrasyon.",
         paragraphs: [
           "Tunera, marin tip römork ürünlerinin satış, servis ve bakım süreçlerinde müşterilerine çözüm sunmayı hedefler.",
           "Teknenin taşınması, güvenli şekilde konumlandırılması ve doğru ekipmanla desteklenmesi; denizcilik operasyonlarının önemli bir parçasıdır.",
@@ -334,6 +348,9 @@ export const tr = {
       },
       {
         title: "Güvenli Depolama Hizmetleri",
+        illustration: "/assets/brand/web/boat-storage.png",
+        illustrationAlt:
+          "Çok katlı kapalı bir tekne deposu ve düzenli yerleşimi gösteren editoryal illüstrasyon.",
         paragraphs: [
           "Tunera, üçüncü kişilere ait tekne, deniz aracı ve marin römorkların güvenlik önlemleri alınmış tesis yapısı içinde depolanmasına yönelik hizmetler sunmayı hedefler.",
           "Depolama hizmeti; güvenlik, düzen, erişilebilirlik ve operasyonel kontrol ilkeleri üzerine kurulur.",
@@ -343,6 +360,9 @@ export const tr = {
       },
       {
         title: "Çekek Sahası ve Operasyon Yönetimi",
+        illustration: "/assets/brand/web/boat-yard.png",
+        illustrationAlt:
+          "Çekek sahasında travel-lift askılarıyla taşınan tekneyi gösteren editoryal illüstrasyon.",
         paragraphs: [
           "Tekne çekek sahası işlemleri; planlama, alan yönetimi, güvenlik, ekipman koordinasyonu ve operasyon takibi gerektiren ciddi bir süreçtir.",
           "Tunera Denizcilik, çekek sahası operasyonlarının yürütülmesi ve yönetilmesinde düzenli, kontrollü ve profesyonel bir yaklaşım benimser.",
@@ -468,6 +488,8 @@ export const en: typeof tr = {
     eyebrow: "Marine",
     title: "Tunera Denizcilik",
     lead: "A marine company focused on brand representation, boat sales and service coordination.",
+    heroIllustrationAlt:
+      "Editorial illustration in Tunera brand colors — a boat at speed across a calm wave and sun composition.",
     ctaPrimary: "View brands",
     ctaPrimaryHref: "/en/brands",
     ctaSecondary: "Contact",
@@ -711,6 +733,9 @@ export const en: typeof tr = {
     items: [
       {
         title: "Brand Representation & New Boat Sales",
+        illustration: "/assets/brand/web/boat-on-water.png",
+        illustrationAlt:
+          "Editorial illustration of a motor-yacht in Tunera brand colors moving across a calm wave and sun composition.",
         paragraphs: [
           "Tunera Denizcilik aims to manage the Turkish-market sales and after-sales processes for boat and motor-yacht brands that have established recognition abroad and built value within their segment.",
           "Customers are supported in finding the right brand, the right model and the right use-case fit through product introduction, sales guidance and process coordination.",
@@ -720,6 +745,9 @@ export const en: typeof tr = {
       },
       {
         title: "Pre-Owned Boat Sales & Advisory",
+        illustration: "/assets/brand/web/boat-inspection.png",
+        illustrationAlt:
+          "Editorial illustration of a boat on an inspection platform with two figures and a technical-check mark.",
         paragraphs: [
           "Tunera provides advisory support to customers throughout the buying and selling of pre-owned boats and marine vessels.",
           "Within this scope, the boat’s intended use, technical condition, market position, sales potential and operational needs are assessed together.",
@@ -729,6 +757,9 @@ export const en: typeof tr = {
       },
       {
         title: "Service & Maintenance Coordination",
+        illustration: "/assets/brand/web/boat-service.png",
+        illustrationAlt:
+          "Editorial illustration of a technician working at the outboard engines of a boat with a tool cart on the dock.",
         paragraphs: [
           "Service and maintenance processes for boats, engines and marine equipment are fundamental to safe and sustainable use at sea.",
           "Tunera Denizcilik supports customers in the planning, routing and follow-up of these processes.",
@@ -738,6 +769,9 @@ export const en: typeof tr = {
       },
       {
         title: "Marine Trailer Sales & After-Sales Support",
+        illustration: "/assets/brand/web/boat-trailer.png",
+        illustrationAlt:
+          "Editorial illustration of a boat resting on a triple-axle marine trailer alongside small service icons.",
         paragraphs: [
           "Tunera aims to deliver solutions across the sales, service and maintenance processes of marine-type trailer products.",
           "Transporting a boat, positioning it safely and pairing it with the right equipment is an important part of marine operations.",
@@ -747,6 +781,9 @@ export const en: typeof tr = {
       },
       {
         title: "Secure Storage Services",
+        illustration: "/assets/brand/web/boat-storage.png",
+        illustrationAlt:
+          "Editorial illustration of an indoor multi-bay marine storage hangar with neatly stacked boats.",
         paragraphs: [
           "Tunera aims to offer storage services for third-party boats, marine vessels and marine trailers within a facility structure that has security measures in place.",
           "The storage service is built on principles of security, order, accessibility and operational control.",
@@ -756,6 +793,9 @@ export const en: typeof tr = {
       },
       {
         title: "Yard & Haul-Out Operations Management",
+        illustration: "/assets/brand/web/boat-yard.png",
+        illustrationAlt:
+          "Editorial illustration of a boat carried in travel-lift slings at a marine haul-out yard.",
         paragraphs: [
           "Boat-yard operations are a serious process requiring planning, area management, security, equipment coordination and operations follow-up.",
           "Tunera Denizcilik adopts an orderly, controlled and professional approach to running and managing yard operations.",

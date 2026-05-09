@@ -4,6 +4,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Section } from "@/components/Section";
 import { HomeScrollStory } from "@/components/HomeScrollStory";
+import { ImageReveal } from "@/components/ImageReveal";
 import { contact, copy, type Locale } from "@/content/site";
 
 type Props = {
@@ -55,22 +56,24 @@ export function HomePage({ locale }: Props) {
                 </div>
               </div>
               <div className="lg:col-span-5">
-                <div className="relative aspect-[4/5] overflow-hidden rounded-md bg-tunera-orange md:aspect-[5/6]">
-                  <div
-                    aria-hidden
-                    className="absolute inset-0 bg-tunera-pattern bg-cover bg-center opacity-[0.18] mix-blend-multiply"
-                  />
-                  <div className="absolute inset-0 flex items-center justify-center p-10">
+                {/* Editorial brand illustration. The orange-stamp panel
+                    that previously lived here has been replaced with the
+                    new boat-on-water illustration; the brand wordmark
+                    keeps a permanent home in the header on every page,
+                    so brand presence is preserved without doubling. */}
+                <ImageReveal>
+                  <div className="relative aspect-[4/3] overflow-hidden rounded-md bg-tunera-ivory ring-1 ring-tunera-stone/50 shadow-[0_24px_60px_-32px_rgba(35,31,32,0.22)]">
                     <Image
-                      src="/assets/brand/tunera/tunera-logo-white.png"
-                      alt=""
-                      width={1482}
-                      height={343}
-                      className="h-auto w-3/4 max-w-[320px]"
+                      src="/assets/brand/web/boat-on-water.png"
+                      alt={t.home.heroIllustrationAlt}
+                      width={1448}
+                      height={1086}
                       priority
+                      className="h-full w-full object-cover"
+                      sizes="(min-width: 1024px) 480px, 100vw"
                     />
                   </div>
-                </div>
+                </ImageReveal>
               </div>
             </div>
           </div>

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -5,6 +6,7 @@ import { Section } from "@/components/Section";
 import { SectionTransition } from "@/components/SectionTransition";
 import { PageHero } from "@/components/PageHero";
 import { ServicesScrollStory } from "@/components/ServicesScrollStory";
+import { ImageReveal } from "@/components/ImageReveal";
 import { copy, type Locale } from "@/content/site";
 
 type Props = {
@@ -65,6 +67,22 @@ export function ServicesPage({ locale }: Props) {
               >
                 <div className="grid gap-8 lg:grid-cols-12 lg:gap-12">
                   <div className="lg:col-span-4">
+                    {/* Per-service editorial illustration. The same
+                        illustration appears with `priority` only on the
+                        first item; subsequent items lazy-load and softly
+                        reveal as they enter the viewport. */}
+                    <ImageReveal className="mb-6 block">
+                      <div className="relative aspect-[4/3] overflow-hidden rounded-md bg-tunera-ivory ring-1 ring-tunera-stone/50 shadow-[0_18px_40px_-28px_rgba(35,31,32,0.18)]">
+                        <Image
+                          src={item.illustration}
+                          alt={item.illustrationAlt}
+                          width={1448}
+                          height={1086}
+                          sizes="(min-width: 1024px) 360px, (min-width: 640px) 60vw, 100vw"
+                          className="h-full w-full object-cover"
+                        />
+                      </div>
+                    </ImageReveal>
                     <div className="mb-3 flex items-center gap-2">
                       <span aria-hidden className="h-1 w-5 bg-tunera-orange" />
                       <span className="text-[11px] font-medium uppercase tracking-[0.22em] text-tunera-orange">
