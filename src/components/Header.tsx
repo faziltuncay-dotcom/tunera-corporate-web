@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { copy, type Locale } from "@/content/site";
+import { HeaderProgress } from "@/components/HeaderProgress";
 
 export type NavSegment = "home" | "about" | "brands" | "services" | "contact";
 
@@ -50,7 +51,11 @@ export function Header({ locale, current }: Props) {
   };
 
   return (
-    <header className="relative border-b border-tunera-stone/50 bg-tunera-ivory">
+    <header
+      data-tunera-header
+      className="tunera-header sticky top-0 z-40 border-b border-tunera-stone/50 bg-tunera-ivory/85"
+    >
+      <HeaderProgress />
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-sm focus:bg-tunera-orange focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-white"
@@ -96,7 +101,7 @@ export function Header({ locale, current }: Props) {
       </div>
       <nav
         aria-label={t.nav.primaryAria}
-        className="border-t border-tunera-stone/40 bg-tunera-ivory md:hidden"
+        className="border-t border-tunera-stone/40 bg-tunera-ivory/85 md:hidden"
       >
         <ul className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-5 gap-y-2 px-6 py-3 text-sm">
           {links.map((link) => {
@@ -115,6 +120,18 @@ export function Header({ locale, current }: Props) {
           })}
         </ul>
       </nav>
+      {/*
+        Route-progress rail. Sits flush against the header's bottom
+        edge as a thin orange line that scales horizontally with the
+        page's scroll position. The actual scaleX value comes from
+        `--route-progress` written by HeaderProgress.
+      */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[2px] overflow-hidden"
+      >
+        <div className="tunera-header-progress h-full w-full bg-tunera-orange" />
+      </div>
     </header>
   );
 }

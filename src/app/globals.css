@@ -82,44 +82,68 @@ body {
  * Stage motion calibration (Phase 2B).
  *
  * Apple-inspired sharp ease-out with directional glide. Active stages
- * settle into place; previous stages drift up; pending stages wait
- * just below. Title/body/micro-content transition with a small
- * staggered delay so the lower area feels like it settles after the
- * headline rather than appearing all at once. Transforms and opacity
- * only — no layout-affecting properties animate.
+ * settle into place; previous stages drift up-and-slightly-back with
+ * a 1px blur; pending stages wait just below-and-slightly-forward,
+ * also softly blurred. Title/body/micro-content transition with a
+ * small staggered delay so the lower area feels like it settles after
+ * the headline rather than appearing all at once. The directional
+ * translateX gives the swap a sense of direction (settle inward from
+ * a side) without ever crossing into the orange-pattern margins.
+ *
+ * Transforms, opacity, and filter only — no layout-affecting properties.
  */
 .narrative-stage {
+  filter: blur(0);
   transition:
     opacity 380ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 380ms cubic-bezier(0.22, 1, 0.36, 1);
+    transform 380ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 380ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .narrative-stage.is-active {
   opacity: 1;
   transform: translate3d(0, 0, 0) scale(1);
+  filter: blur(0);
   pointer-events: auto;
 }
 
 .narrative-stage.is-prev {
   opacity: 0;
-  transform: translate3d(0, -18px, 0) scale(0.985);
+  transform: translate3d(-8px, -28px, 0) scale(0.982);
+  filter: blur(1px);
   pointer-events: none;
 }
 
 .narrative-stage.is-next {
   opacity: 0;
-  transform: translate3d(0, 22px, 0) scale(0.985);
+  transform: translate3d(8px, 32px, 0) scale(0.982);
+  filter: blur(1px);
   pointer-events: none;
 }
 
+/*
+ * Per-stage element timing. The body is delayed slightly so the
+ * eyebrow/title leads, then the body settles, then the micro-content
+ * cluster lands last with a longer ease — that cadence is what gives
+ * the lower area its "denser settling" feel.
+ */
+.narrative-stage-kicker,
+.narrative-stage-title {
+  transition:
+    opacity 360ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 .narrative-stage-body {
-  transition-delay: 60ms;
+  transition:
+    opacity 420ms cubic-bezier(0.22, 1, 0.36, 1) 60ms,
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1) 60ms;
 }
 
 .narrative-stage-micro {
   transition:
-    opacity 480ms cubic-bezier(0.22, 1, 0.36, 1) 120ms,
-    transform 480ms cubic-bezier(0.22, 1, 0.36, 1) 120ms;
+    opacity 520ms cubic-bezier(0.22, 1, 0.36, 1) 140ms,
+    transform 520ms cubic-bezier(0.22, 1, 0.36, 1) 140ms;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -128,10 +152,179 @@ body {
   .narrative-stage-micro {
     transition: none !important;
     transform: none !important;
+    filter: none !important;
   }
   .narrative-stage {
     opacity: 1 !important;
     pointer-events: auto !important;
+  }
+}
+
+/*
+ * Per-page wave personalities (Phase 2B).
+ *
+ * The wave-pattern background drift varies subtly per page so each
+ * page feels like its own surface inside one consistent system.
+ * The transform and pattern are otherwise identical — only direction,
+ * crop, and pace differ.
+ *
+ *   home     — broad horizontal drift, strongest pattern presence
+ *   about    — slow diagonal drift, editorial crop
+ *   services — slow vertical drift with geometric mask, calmest pace
+ *   brands   — compressed horizontal drift, very faint
+ *   contact  — soft drift fading toward the bottom into the footer's
+ *              graphite atmosphere
+ *
+ * The default `transform` rule on the layer is overridden per-variant.
+ */
+.tunera-narrative[data-variant="home"] .tunera-narrative-sticky > [aria-hidden="true"]:first-child {
+  transform: translate3d(calc((var(--story-progress, 0) - 0.5) * 6%), 0, 0) scale(1.08);
+}
+
+.tunera-narrative[data-variant="about"]
+  .tunera-narrative-sticky
+  > [aria-hidden="true"]:first-child {
+  transform: translate3d(
+      calc((var(--story-progress, 0) - 0.5) * 4%),
+      calc((var(--story-progress, 0) - 0.5) * 3%),
+      0
+    )
+    scale(1.1);
+}
+
+.tunera-narrative[data-variant="services"]
+  .tunera-narrative-sticky
+  > [aria-hidden="true"]:first-child {
+  transform: translate3d(0, calc((var(--story-progress, 0) - 0.5) * 4%), 0) scale(1.06);
+  -webkit-mask-image: radial-gradient(
+    ellipse at 50% 50%,
+    black 0%,
+    black 55%,
+    rgba(0, 0, 0, 0.35) 80%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(
+    ellipse at 50% 50%,
+    black 0%,
+    black 55%,
+    rgba(0, 0, 0, 0.35) 80%,
+    transparent 100%
+  );
+}
+
+.tunera-narrative[data-variant="brands"]
+  .tunera-narrative-sticky
+  > [aria-hidden="true"]:first-child {
+  transform: translate3d(calc((var(--story-progress, 0) - 0.5) * 3%), 0, 0) scale(1.04);
+}
+
+.tunera-narrative[data-variant="contact"]
+  .tunera-narrative-sticky
+  > [aria-hidden="true"]:first-child {
+  transform: translate3d(calc((var(--story-progress, 0) - 0.5) * 3%), 0, 0) scale(1.05);
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 60%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 0%, black 60%, transparent 100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tunera-narrative .tunera-narrative-sticky > [aria-hidden="true"]:first-child {
+    transform: none !important;
+  }
+}
+
+/*
+ * Header — scroll-aware elevated state and integrated route-progress rail.
+ *
+ * The header surface stays calm at the page top and gains a soft sand
+ * wash + slightly stronger hairline once the user scrolls past ~8px.
+ * The `--route-progress` custom property (0..1) is written by
+ * HeaderProgress on the <header> element from a single rAF-throttled
+ * scroll listener. The orange progress rail at the bottom of the
+ * header scales horizontally with that value.
+ *
+ * Reduced-motion: the elevated-state transition is removed, but the
+ * progress rail itself still updates — it's information, not motion.
+ */
+.tunera-header {
+  transition:
+    background-color 380ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 380ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 380ms cubic-bezier(0.22, 1, 0.36, 1),
+    backdrop-filter 380ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.tunera-header[data-scrolled="true"] {
+  background-color: rgba(255, 247, 240, 0.86);
+  backdrop-filter: saturate(1.1) blur(8px);
+  -webkit-backdrop-filter: saturate(1.1) blur(8px);
+  border-color: rgba(216, 205, 196, 0.9);
+  box-shadow: 0 1px 0 rgba(35, 31, 32, 0.04);
+}
+
+.tunera-header-progress {
+  transform-origin: left center;
+  transform: scaleX(var(--route-progress, 0));
+  transition: transform 80ms linear;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tunera-header {
+    transition: none;
+  }
+  .tunera-header-progress {
+    transition: none;
+  }
+}
+
+/*
+ * Footer reveal (Phase 2B).
+ *
+ * IntersectionObserver toggles `data-revealed="true"` on the footer
+ * content wrapper as the footer enters the viewport. The pattern
+ * atmosphere intensifies slightly and the inner content lifts/fades
+ * into place — both transform/opacity only. The seam between the
+ * page and the footer feels like one continuous flow rather than a
+ * hard cut to a dark block.
+ *
+ * Reduced-motion: content visible immediately, no transforms; the
+ * existing wave drift keyframes are already disabled separately.
+ */
+.tunera-footer-reveal {
+  opacity: 0.6;
+  transform: translate3d(0, 14px, 0);
+  transition:
+    opacity 720ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 720ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.tunera-footer-reveal[data-revealed="true"] {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.tunera-footer-pattern-a,
+.tunera-footer-pattern-b {
+  transition: opacity 1100ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+footer[data-revealed="true"] .tunera-footer-pattern-a {
+  opacity: 0.085;
+}
+
+footer[data-revealed="true"] .tunera-footer-pattern-b {
+  opacity: 0.06;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tunera-footer-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .tunera-footer-pattern-a,
+  .tunera-footer-pattern-b {
+    transition: none !important;
   }
 }
 

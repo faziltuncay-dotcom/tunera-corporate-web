@@ -4,7 +4,6 @@ import { Footer } from "@/components/Footer";
 import { Section } from "@/components/Section";
 import { SectionTransition } from "@/components/SectionTransition";
 import { PageHero } from "@/components/PageHero";
-import { RoleGrid } from "@/components/RoleGrid";
 import { AboutScrollStory } from "@/components/AboutScrollStory";
 import { copy, type Locale } from "@/content/site";
 
@@ -12,6 +11,17 @@ type Props = {
   locale: Locale;
 };
 
+/**
+ * About — fully narrative.
+ *
+ * The corporate story, "new era" moment, four values, and four
+ * working-structure roles all live inside `<AboutScrollStory>`. The
+ * page itself is therefore deliberately short on the desktop sticky
+ * branch: hero → narrative → CTA. Mobile / reduced-motion users see
+ * the same content stacked in document order via the narrative's
+ * always-rendered fallback, so screen-readers and search snapshots
+ * still receive the full editorial detail.
+ */
 export function AboutPage({ locale }: Props) {
   const t = copy(locale);
   const a = t.aboutPage;
@@ -21,91 +31,14 @@ export function AboutPage({ locale }: Props) {
       <main id="main">
         <PageHero eyebrow={a.hero.eyebrow} title={a.hero.title} lead={a.hero.lead} />
 
-        {/* Hero → story brand seam */}
-        <SectionTransition />
-
-        {/* CORPORATE STORY — narrative rail on the left */}
-        <Section eyebrow={a.story.eyebrow} tight>
-          <div className="max-w-3xl border-l border-tunera-orange/25 pl-6 sm:pl-8 lg:pl-10">
-            <div className="space-y-6 text-base leading-relaxed text-tunera-ink/80 md:text-lg md:leading-[1.7]">
-              {a.story.paragraphs.map((p, i) => (
-                <p key={i}>{p}</p>
-              ))}
-            </div>
-          </div>
-        </Section>
-
-        {/* Story → New Era brand seam (replaces previous border-y) */}
-        <SectionTransition />
-
-        {/* NEW ERA — centered editorial pull-quote with subtle right-side
-            pattern crop so the moment sits inside the brand world rather
-            than floating on plain ivory. */}
-        <section
-          aria-labelledby="new-era-title"
-          className="relative isolate overflow-hidden bg-tunera-ivory"
-        >
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-y-0 right-0 w-2/3 bg-tunera-pattern bg-cover bg-right opacity-[0.03]"
-          />
-          <div className="relative mx-auto max-w-5xl px-6 py-16 text-center sm:py-20 md:py-24 lg:py-28">
-            <div className="mb-7 flex items-center justify-center gap-3">
-              <span aria-hidden className="h-px w-10 bg-tunera-orange" />
-              <span className="text-[11px] font-medium uppercase tracking-[0.32em] text-tunera-orange">
-                {a.newEra.eyebrow}
-              </span>
-              <span aria-hidden className="h-px w-10 bg-tunera-orange" />
-            </div>
-            <p
-              id="new-era-title"
-              className="text-2xl font-semibold leading-[1.2] tracking-tighter2 text-tunera-ink sm:text-3xl md:text-4xl"
-            >
-              {a.newEra.body}
-            </p>
-            <p className="mt-10 text-[11px] font-medium uppercase tracking-[0.32em] text-tunera-orange">
-              {a.newEra.closingLine}
-            </p>
-          </div>
-        </section>
-
-        {/* New Era → scroll narrative brand seam */}
+        {/* Hero → narrative brand seam */}
         <SectionTransition />
 
         {/* SCROLL NARRATIVE — Apple-style sticky stages on lg+, stacked
-            on mobile / reduced-motion. Acts as the page's spine: the
-            story, new era, values, working structure and forward links
-            condense into a single sliding flow. The detailed values and
-            team grids below carry the full editorial reading. */}
+            on mobile / reduced-motion. Carries the full corporate
+            story, new-era moment, values and working-structure roles
+            in a single connected flow. */}
         <AboutScrollStory locale={locale} />
-
-        {/* Narrative → Values brand seam — surface gradient morphs from
-            ivory at the top to sand at the bottom so the colour change
-            into the values band reads as a smooth flow, not a cut. */}
-        <SectionTransition surface="to-sand" />
-
-        {/* VALUES — sand band */}
-        <div className="bg-tunera-sand/60">
-          <Section
-            id="values"
-            eyebrow={a.values.eyebrow}
-            title={a.values.title}
-            description={a.values.description}
-            tight
-          >
-            <RoleGrid items={a.values.items} cols={2} />
-          </Section>
-        </div>
-
-        {/* TEAM / WORKING STRUCTURE — back to ivory */}
-        <Section
-          id="team"
-          eyebrow={a.team.eyebrow}
-          title={a.team.title}
-          description={a.team.description}
-        >
-          <RoleGrid items={a.team.items} cols={2} />
-        </Section>
 
         {/* CTA — graphite anchor (footer pattern fades up across boundary) */}
         <div className="bg-tunera-graphite text-tunera-ivory">

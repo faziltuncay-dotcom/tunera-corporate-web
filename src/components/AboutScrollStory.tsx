@@ -9,9 +9,12 @@ type Props = {
 /**
  * Server-side wrapper for the About variant of the scroll narrative.
  *
- * Stages 01–04 build per-stage micro-content from the existing About
- * copy (the "new era" closing line, the four values, the four working
- * roles); the closing 05 stage offers branded next-step links.
+ * About is the only page where the narrative carries the *full*
+ * editorial detail — the four values and the four working-structure
+ * roles each render as titled tile clusters under the corresponding
+ * stage, replacing the previously static Values / Team grids on the
+ * page. This is what the brief calls "fully narrative About",
+ * deliberately avoiding the half-static-half-animated split.
  */
 export function AboutScrollStory({ locale }: Props) {
   const t = copy(locale);
@@ -26,9 +29,10 @@ export function AboutScrollStory({ locale }: Props) {
 
   const microContent: NarrativePayload["microContent"] = {
     "experience-vision": (
-      <div className="flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.28em] text-tunera-orange/80">
-        <span aria-hidden className="h-px w-8 bg-tunera-orange/60" />
-        <span>{a.story.eyebrow}</span>
+      <div className="max-w-xl border-l border-tunera-orange/30 pl-5">
+        <p className="text-sm leading-relaxed text-tunera-ink/75 sm:text-[15px]">
+          {a.story.paragraphs[1]}
+        </p>
       </div>
     ),
     "new-era-name": (
@@ -37,29 +41,41 @@ export function AboutScrollStory({ locale }: Props) {
       </p>
     ),
     values: (
-      <ol role="list" className="grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4">
+      <ol role="list" className="grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2">
         {a.values.items.map((item, i) => (
-          <li key={item.title} className="flex items-baseline gap-2">
-            <span className="text-[11px] font-medium tabular-nums tracking-[0.18em] text-tunera-orange/70">
-              {String(i + 1).padStart(2, "0")}
-            </span>
-            <span className="text-sm font-semibold tracking-tightish text-tunera-ink">
-              {item.title}
-            </span>
+          <li
+            key={item.title}
+            className="rounded-sm border border-tunera-stone/55 bg-white/60 p-4 backdrop-blur-[1px]"
+          >
+            <div className="flex items-baseline gap-2">
+              <span className="text-[11px] font-medium tabular-nums tracking-[0.18em] text-tunera-orange/80">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <span className="text-sm font-semibold tracking-tightish text-tunera-ink">
+                {item.title}
+              </span>
+            </div>
+            <p className="mt-2 text-[13px] leading-relaxed text-tunera-ink/75">{item.body}</p>
           </li>
         ))}
       </ol>
     ),
     "working-structure": (
-      <ol role="list" className="grid grid-cols-1 gap-x-8 gap-y-3 sm:grid-cols-2">
+      <ol role="list" className="grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2">
         {a.team.items.map((item, i) => (
-          <li key={item.title} className="flex items-baseline gap-2">
-            <span className="text-[11px] font-medium tabular-nums tracking-[0.18em] text-tunera-orange/70">
-              {String(i + 1).padStart(2, "0")}
-            </span>
-            <span className="text-sm font-semibold tracking-tightish text-tunera-ink">
-              {item.title}
-            </span>
+          <li
+            key={item.title}
+            className="rounded-sm border border-tunera-stone/55 bg-white/60 p-4 backdrop-blur-[1px]"
+          >
+            <div className="flex items-baseline gap-2">
+              <span className="text-[11px] font-medium tabular-nums tracking-[0.18em] text-tunera-orange/80">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <span className="text-sm font-semibold tracking-tightish text-tunera-ink">
+                {item.title}
+              </span>
+            </div>
+            <p className="mt-2 text-[13px] leading-relaxed text-tunera-ink/75">{item.body}</p>
           </li>
         ))}
       </ol>

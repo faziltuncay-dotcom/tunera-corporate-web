@@ -170,6 +170,8 @@ export function ScrollNarrativeClient({ payload }: { payload: NarrativePayload }
       className="tunera-narrative relative bg-tunera-ivory"
       style={containerStyle}
       data-variant={payload.variant}
+      data-stages={stageCount}
+      data-active-stage={activeStage}
     >
       {/* DESKTOP / TABLET — sticky scene. CSS hides this on sub-lg and
           on prefers-reduced-motion (see .tunera-narrative-sticky). */}
@@ -178,15 +180,20 @@ export function ScrollNarrativeClient({ payload }: { payload: NarrativePayload }
         className="tunera-narrative-sticky sticky top-0 hidden h-screen items-center overflow-hidden lg:flex"
         style={{ ["--story-progress" as string]: "0" }}
       >
-        {/* Faint pattern layer that drifts horizontally with scroll progress */}
+        {/*
+          Faint pattern layer.
+          The transform itself comes from `.tunera-narrative[data-variant="…"]`
+          rules in globals.css so each page can carry its own drift
+          personality (horizontal / diagonal / vertical / cropped /
+          fading) without the JS knowing anything about it.
+        */}
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 bg-tunera-pattern bg-cover bg-center"
           style={{
             opacity: variant.patternOpacity,
-            transform: "translate3d(calc((var(--story-progress, 0) - 0.5) * 6%), 0, 0) scale(1.08)",
             willChange: "transform",
-            transition: "transform 700ms cubic-bezier(0.22, 1, 0.36, 1)",
+            transition: "transform 900ms cubic-bezier(0.22, 1, 0.36, 1)",
           }}
         />
 
