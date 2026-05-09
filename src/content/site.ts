@@ -62,7 +62,7 @@ export const tr = {
     title: "Tunera Denizcilik",
     lead: "Marka temsili, tekne satışı ve servis koordinasyonu üzerine çalışan bir denizcilik şirketi.",
     intro:
-      "Tunera Denizcilik, temsil ettiği markalara özel resmi sayfaları üzerinden müşterilere ürün, servis ve süreç bilgilerini iletmek üzere yapılandırılmıştır. Bu kurumsal sayfa, ziyaretçileri ilgili marka sayfalarına yönlendirmek için bir başlangıç noktasıdır.",
+      "Tunera Denizcilik, temsil ettiği markaların sayfaları üzerinden müşterilere ürün, servis ve süreç bilgilerini iletmek üzere yapılandırılmıştır. Bu kurumsal sayfa, ziyaretçileri ilgili marka sayfalarına yönlendirmek için bir başlangıç noktasıdır.",
     ctaPrimary: "Markalara Göz At",
     ctaPrimaryHref: "/tr/markalar",
     ctaSecondary: "İletişim",
@@ -70,7 +70,7 @@ export const tr = {
   },
   about: {
     title: "Kurumsal",
-    body: "Tunera Denizcilik, denizcilik alanında marka temsili, tekne satışı ve servis ile bakım koordinasyonu yapar. Müşteri yönlendirmesi resmi marka sayfaları üzerinden sağlanır. Bu sayfa, lansman öncesi geçici bir kurumsal merkez sayfasıdır.",
+    body: "Tunera Denizcilik, denizcilik alanında marka temsili, tekne satışı ve servis ile bakım koordinasyonu yapar. Müşteri yönlendirmesi marka sayfaları üzerinden sağlanır. Bu sayfa, lansman öncesi geçici bir kurumsal merkez sayfasıdır.",
   },
   aboutPage: {
     hero: {
@@ -81,7 +81,7 @@ export const tr = {
     profile: {
       eyebrow: "Kurumsal Profil",
       title: "Kurumsal Profil",
-      body: "Tunera Denizcilik Ticaret A.Ş., denizcilik alanında marka temsili, tekne satışı ve servis süreçlerinin koordinasyonu üzerine çalışan bir yapıdır. Çalışma yaklaşımı, temsil edilen markaların resmi sayfaları üzerinden müşteriye doğru bilgi ve süreç akışını sağlamak üzerine kuruludur.",
+      body: "Tunera Denizcilik Ticaret A.Ş., denizcilik alanında marka temsili, tekne satışı ve servis süreçlerinin koordinasyonu üzerine çalışan bir yapıdır. Çalışma yaklaşımı, temsil edilen markaların sayfaları üzerinden müşteriye doğru bilgi ve süreç akışını sağlamak üzerine kuruludur.",
     },
     principles: {
       eyebrow: "Çalışma İlkeleri",
@@ -93,7 +93,7 @@ export const tr = {
         },
         {
           title: "Marka Odaklı İletişim",
-          body: "Ürün ve süreç iletişimi, temsil edilen markaların kendi resmi kanalları üzerinden yürütülür.",
+          body: "Ürün ve süreç iletişimi, temsil edilen markaların kendi kanalları üzerinden yürütülür.",
         },
         {
           title: "Süreç Takibi",
@@ -159,7 +159,7 @@ export const tr = {
       },
       {
         title: "Marka Temsilciliği",
-        body: "Resmi marka temsili ve dağıtım koordinasyonu.",
+        body: "Marka temsili ve dağıtım süreçlerinin koordinasyonu.",
       },
       {
         title: "Servis ve Bakım Yönlendirmesi",
@@ -218,7 +218,7 @@ export const tr = {
   },
   contactSection: {
     title: "İletişim",
-    body: "Detaylar lansman öncesi netleştirilecektir. Resmi iletişim bilgileri ilgili marka sayfaları üzerinden duyurulacaktır.",
+    body: "Detaylar lansman öncesi netleştirilecektir. İletişim bilgileri ilgili marka sayfaları üzerinden duyurulacaktır.",
     cta: "İletişim Sayfası",
     ctaHref: "/tr/iletisim",
     detailsTitle: "İletişim bilgileri",
@@ -257,7 +257,7 @@ export const en: typeof tr = {
     title: "Tunera Denizcilik",
     lead: "A marine company focused on brand representation, boat sales and service coordination.",
     intro:
-      "Tunera Denizcilik directs visitors to the official brand pages it represents, where product, service and process information is communicated. This corporate page is a starting point that routes visitors to the relevant brand pages.",
+      "Tunera Denizcilik directs visitors to the brand pages it represents, where product, service and process information is communicated. This corporate page is a starting point that routes visitors to the relevant brand pages.",
     ctaPrimary: "View brands",
     ctaPrimaryHref: "/en/brands",
     ctaSecondary: "Contact",
@@ -265,7 +265,7 @@ export const en: typeof tr = {
   },
   about: {
     title: "Corporate",
-    body: "Tunera Denizcilik works on brand representation, boat sales and service and maintenance coordination in the marine sector. Customer guidance is provided through official brand pages. This is a temporary pre-launch corporate hub page.",
+    body: "Tunera Denizcilik works on brand representation, boat sales and service and maintenance coordination in the marine sector. Customer guidance is provided through brand pages. This is a temporary pre-launch corporate hub page.",
   },
   aboutPage: {
     hero: {
@@ -276,7 +276,7 @@ export const en: typeof tr = {
     profile: {
       eyebrow: "Corporate profile",
       title: "Corporate profile",
-      body: "Tunera Denizcilik Ticaret A.Ş. is a marine-sector company focused on brand representation, boat sales, and service-process coordination. The working approach is built around delivering accurate information and process flow to customers via the official channels of the represented brands.",
+      body: "Tunera Denizcilik Ticaret A.Ş. is a marine-sector company focused on brand representation, boat sales, and service-process coordination. The working approach is built around delivering accurate information and process flow to customers via the channels of the represented brands.",
     },
     principles: {
       eyebrow: "Working principles",
@@ -288,7 +288,7 @@ export const en: typeof tr = {
         },
         {
           title: "Brand-focused communication",
-          body: "Product and process communication runs through the official channels of the represented brands.",
+          body: "Product and process communication runs through the channels of the represented brands.",
         },
         {
           title: "Process follow-up",
@@ -354,7 +354,7 @@ export const en: typeof tr = {
       },
       {
         title: "Brand Representation",
-        body: "Official brand representation and distribution coordination.",
+        body: "Brand representation and distribution-process coordination.",
       },
       {
         title: "Service & Maintenance Coordination",
@@ -413,7 +413,7 @@ export const en: typeof tr = {
   },
   contactSection: {
     title: "Contact",
-    body: "Contact details will be finalized before launch. Official contact information will be announced via the related brand pages.",
+    body: "Contact details will be finalized before launch. Contact information will be announced via the related brand pages.",
     cta: "Contact page",
     ctaHref: "/en/contact",
     detailsTitle: "Contact details",
