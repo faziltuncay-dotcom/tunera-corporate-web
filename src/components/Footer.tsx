@@ -12,8 +12,16 @@ export function Footer({ locale }: Props) {
   const base = `/${locale}`;
   const quickLinks = [
     {
+      href: locale === "tr" ? `${base}/hakkimizda` : `${base}/about`,
+      label: t.nav.about,
+    },
+    {
       href: locale === "tr" ? `${base}/markalar` : `${base}/brands`,
       label: t.nav.brands,
+    },
+    {
+      href: locale === "tr" ? `${base}/hizmetler` : `${base}/services`,
+      label: t.nav.services,
     },
     {
       href: locale === "tr" ? `${base}/iletisim` : `${base}/contact`,

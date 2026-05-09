@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { copy, type Locale } from "@/content/site";
 
-export type NavSegment = "home" | "brands" | "contact";
+export type NavSegment = "home" | "about" | "brands" | "services" | "contact";
 
 type Props = {
   locale: Locale;
@@ -15,9 +15,19 @@ export function Header({ locale, current }: Props) {
   const links: Array<{ href: string; label: string; segment: NavSegment }> = [
     { href: base, label: t.nav.home, segment: "home" },
     {
+      href: locale === "tr" ? `${base}/hakkimizda` : `${base}/about`,
+      label: t.nav.about,
+      segment: "about",
+    },
+    {
       href: locale === "tr" ? `${base}/markalar` : `${base}/brands`,
       label: t.nav.brands,
       segment: "brands",
+    },
+    {
+      href: locale === "tr" ? `${base}/hizmetler` : `${base}/services`,
+      label: t.nav.services,
+      segment: "services",
     },
     {
       href: locale === "tr" ? `${base}/iletisim` : `${base}/contact`,
@@ -58,8 +68,8 @@ export function Header({ locale, current }: Props) {
             className="h-6 w-auto sm:h-7"
           />
         </Link>
-        <nav aria-label={t.nav.primaryAria} className="flex items-center gap-5 sm:gap-7">
-          <ul className="hidden items-center gap-6 sm:flex sm:gap-8">
+        <nav aria-label={t.nav.primaryAria} className="flex items-center gap-4 sm:gap-6">
+          <ul className="hidden items-center gap-5 md:flex md:gap-7">
             {links.map((link) => {
               const isActive = link.segment === current;
               return (
@@ -86,9 +96,9 @@ export function Header({ locale, current }: Props) {
       </div>
       <nav
         aria-label={t.nav.primaryAria}
-        className="border-t border-tunera-stone/40 bg-tunera-ivory sm:hidden"
+        className="border-t border-tunera-stone/40 bg-tunera-ivory md:hidden"
       >
-        <ul className="mx-auto flex max-w-6xl items-center gap-6 px-6 py-3 text-sm">
+        <ul className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-5 gap-y-2 px-6 py-3 text-sm">
           {links.map((link) => {
             const isActive = link.segment === current;
             return (
