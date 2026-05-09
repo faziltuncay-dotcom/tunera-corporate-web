@@ -80,15 +80,28 @@ export function HomePage({ locale }: Props) {
           </div>
         </section>
 
-        {/* ABOUT ----------------------------------------------------- */}
-        <Section id="about" eyebrow={t.about.title}>
-          <div className="grid gap-8 md:grid-cols-2 md:gap-12">
-            <p className="text-base leading-relaxed text-tunera-ink/80 md:text-lg">
-              {t.about.body}
-            </p>
-            <p className="text-base leading-relaxed text-tunera-muted-ink md:text-lg">
-              {t.home.intro}
-            </p>
+        {/* STORY PREVIEW — replaces the previous "Kurumsal" duplicate block */}
+        <Section id="story" eyebrow={t.home.storyPreview.eyebrow}>
+          <div className="grid gap-10 lg:grid-cols-12 lg:gap-x-16">
+            <div className="lg:col-span-8">
+              <div className="space-y-5 text-base leading-relaxed text-tunera-ink/80 md:text-lg md:leading-[1.7]">
+                {t.home.storyPreview.paragraphs.map((p, i) => (
+                  <p key={i}>{p}</p>
+                ))}
+              </div>
+            </div>
+            <div className="flex flex-col justify-end gap-6 lg:col-span-4">
+              <p className="text-[11px] font-medium uppercase tracking-[0.32em] text-tunera-orange">
+                {t.home.storyPreview.closingLine}
+              </p>
+              <Link
+                href={t.home.storyPreview.ctaHref}
+                className="inline-flex items-center gap-2 self-start rounded-sm border border-tunera-ink/20 px-5 py-2.5 text-sm text-tunera-ink transition-colors hover:border-tunera-ink/50 hover:bg-tunera-sand/50"
+              >
+                <span>{t.home.storyPreview.cta}</span>
+                <span aria-hidden>→</span>
+              </Link>
+            </div>
           </div>
         </Section>
 

@@ -7,7 +7,7 @@ type Props = {
 export function ServiceList({ locale }: Props) {
   const t = copy(locale);
   return (
-    <ul role="list" className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:gap-6 lg:grid-cols-4">
+    <ul role="list" className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:gap-6 lg:grid-cols-3">
       {t.services.items.map((item, i) => (
         <li
           key={item.title}

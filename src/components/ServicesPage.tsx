@@ -19,29 +19,37 @@ export function ServicesPage({ locale }: Props) {
         <PageHero eyebrow={s.hero.eyebrow} title={s.hero.title} lead={s.hero.lead} />
 
         <Section>
-          <ol role="list" className="grid grid-cols-1 gap-5 md:gap-6 lg:grid-cols-2">
+          <ol role="list" className="space-y-12 md:space-y-16">
             {s.items.map((item, i) => (
               <li
                 key={item.title}
-                className="flex flex-col rounded-md border border-tunera-stone/60 bg-white p-7 transition-colors hover:border-tunera-ink/20 sm:p-9"
+                className="border-t border-tunera-stone/40 pt-10 first:border-t-0 first:pt-0 md:pt-12"
               >
-                <div className="mb-5 flex items-center gap-2">
-                  <span aria-hidden className="h-1 w-5 bg-tunera-orange" />
-                  <span className="text-[10px] font-medium uppercase tracking-[0.22em] text-tunera-orange">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
+                <div className="grid gap-8 lg:grid-cols-12 lg:gap-12">
+                  <div className="lg:col-span-4">
+                    <div className="mb-3 flex items-center gap-2">
+                      <span aria-hidden className="h-1 w-5 bg-tunera-orange" />
+                      <span className="text-[11px] font-medium uppercase tracking-[0.22em] text-tunera-orange">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                    </div>
+                    <h2 className="text-2xl font-semibold leading-[1.15] tracking-tighter2 text-tunera-ink sm:text-3xl">
+                      {item.title}
+                    </h2>
+                  </div>
+                  <div className="lg:col-span-8">
+                    <div className="space-y-4 text-base leading-relaxed text-tunera-ink/80 sm:text-[17px] sm:leading-[1.7]">
+                      {item.paragraphs.map((p, pi) => (
+                        <p key={pi}>{p}</p>
+                      ))}
+                    </div>
+                    {item.note ? (
+                      <p className="mt-6 border-t border-tunera-stone/50 pt-4 text-xs leading-relaxed text-tunera-muted-ink">
+                        {item.note}
+                      </p>
+                    ) : null}
+                  </div>
                 </div>
-                <h2 className="text-xl font-semibold tracking-tighter2 text-tunera-ink sm:text-2xl">
-                  {item.title}
-                </h2>
-                <p className="mt-4 text-sm leading-relaxed text-tunera-muted-ink sm:text-[15px]">
-                  {item.body}
-                </p>
-                {item.note ? (
-                  <p className="mt-5 border-t border-tunera-stone/50 pt-4 text-xs leading-relaxed text-tunera-muted-ink/90">
-                    {item.note}
-                  </p>
-                ) : null}
               </li>
             ))}
           </ol>
