@@ -1,33 +1,41 @@
+import { company, contact as contactConfig, granfort, ranieri } from "@/config/launch";
+
 export type Locale = "tr" | "en";
 
-// TODO: replace placeholder contact details with finalized info before launch.
+/**
+ * Convenience export: keep prior `contact` shape used across components,
+ * but source values from the central launch config. UI components should
+ * branch on `contact.isFinalized` rather than parse placeholder strings.
+ */
 export const contact = {
-  companyLegal: "Tunera Denizcilik Ticaret A.Ş.",
-  companyShort: "Tunera Denizcilik",
-  emailPlaceholder: "TODO: contact email to be finalized before launch",
-  phonePlaceholder: "TODO: contact phone to be finalized before launch",
-  addressPlaceholder: "TODO: address to be finalized before launch",
+  companyLegal: company.legal,
+  companyShort: company.short,
+  isFinalized: contactConfig.isFinalized,
+  email: contactConfig.email,
+  phone: contactConfig.phone,
+  address: contactConfig.address,
 };
 
-// Granfort Web App is hosted separately. During development the Granfort app
-// runs locally on a different port. Replace with the production URL when known.
-// TODO: replace with finalized Granfort production URL before launch.
-export const granfortDevUrl = "http://localhost:3000";
+// Granfort URL is read from the central launch config.
+export const granfortUrl = granfort.url;
+export const granfortIsProduction = granfort.isProduction;
 
 export const brands = [
   {
     id: "granfort",
     name: "Granfort",
     status: "active" as const,
-    href: granfortDevUrl,
+    href: granfort.url,
     external: true,
+    isProduction: granfort.isProduction,
   },
   {
     id: "ranieri",
     name: "Ranieri",
     status: "coming-soon" as const,
-    href: null,
+    href: ranieri.url,
     external: false,
+    isProduction: false,
   },
 ];
 
@@ -105,6 +113,7 @@ export const tr = {
     fieldEmail: "E-posta",
     fieldPhone: "Telefon",
     fieldAddress: "Adres",
+    toBeAnnounced: "Lansman öncesi paylaşılacak",
   },
   footer: {
     rights: "Tüm hakları saklıdır.",
@@ -186,6 +195,7 @@ export const en: typeof tr = {
     fieldEmail: "Email",
     fieldPhone: "Phone",
     fieldAddress: "Address",
+    toBeAnnounced: "To be shared before launch",
   },
   footer: {
     rights: "All rights reserved.",

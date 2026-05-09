@@ -1,19 +1,19 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { tr } from "@/content/site";
+import { launch } from "@/config/launch";
 
 export const metadata: Metadata = {
   title: tr.meta.title,
   description: tr.meta.description,
-  robots: {
-    index: false,
-    follow: false,
-    nocache: true,
-    googleBot: {
-      index: false,
-      follow: false,
-    },
-  },
+  robots: launch.allowIndexing
+    ? { index: true, follow: true }
+    : {
+        index: false,
+        follow: false,
+        nocache: true,
+        googleBot: { index: false, follow: false },
+      },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
