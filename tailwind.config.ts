@@ -1,26 +1,27 @@
 import type { Config } from "tailwindcss";
 
+/**
+ * Tunera brand color tokens.
+ *
+ * Primary palette comes from the official brand materials in
+ * `brand/source/tunera/`. Derived UI support tones are documented in
+ * `docs/tunera-brand-system.md`.
+ */
 const config: Config = {
   content: ["./src/**/*.{ts,tsx,mdx}"],
   theme: {
     extend: {
       colors: {
-        navy: {
-          950: "#06121f",
-          900: "#0a1a2e",
-          800: "#0f2440",
-          700: "#143257",
-          600: "#1c4476",
-        },
-        sunset: {
-          500: "#e8804a",
-          400: "#f0a26b",
-          300: "#f5c298",
-        },
-        ink: {
-          50: "#f4f7fb",
-          200: "#c3cfdd",
-          400: "#7d8fa6",
+        tunera: {
+          orange: "#FF4D00",
+          ink: "#231F20",
+          black: "#000000",
+          white: "#FFFFFF",
+          ivory: "#FFF7F0",
+          sand: "#F2E7DE",
+          stone: "#D8CDC4",
+          graphite: "#151212",
+          "muted-ink": "#5F5652",
         },
       },
       fontFamily: {
@@ -37,6 +38,12 @@ const config: Config = {
       },
       letterSpacing: {
         tightish: "-0.01em",
+        tighter2: "-0.02em",
+        tighter3: "-0.03em",
+      },
+      backgroundImage: {
+        "tunera-pattern": "url('/assets/brand/tunera/tunera-pattern.png')",
+        "tunera-emblem": "url('/assets/brand/tunera/tunera-emblem.png')",
       },
     },
   },

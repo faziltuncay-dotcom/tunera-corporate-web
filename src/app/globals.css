@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 html {
@@ -12,14 +12,8 @@ html {
 
 html,
 body {
-  background-color: #06121f;
-  color: #f4f7fb;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
+  background-color: #fff7f0;
+  color: #231f20;
 }
 
 body {
@@ -31,13 +25,19 @@ body {
 }
 
 ::selection {
-  background: rgba(232, 128, 74, 0.35);
-  color: #f4f7fb;
+  background: rgba(255, 77, 0, 0.18);
+  color: #231f20;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 @layer base {
   :focus-visible {
-    outline: 2px solid #f0a26b;
+    outline: 2px solid #ff4d00;
     outline-offset: 3px;
     border-radius: 2px;
   }

@@ -39,3 +39,6 @@ yarn-error.log*
 
 # misc
 *.log
+
+# Local brand-input drop zone (source PDFs are committed in brand/source/tunera/)
+brand-input/

@@ -28,15 +28,21 @@ export function ContactPage({ locale }: Props) {
           title={t.contactSection.title}
           description={t.contactSection.body}
         >
-          <div className="rounded-2xl border border-white/5 bg-navy-900/40 p-6 sm:p-8">
-            <h2 className="text-base font-medium text-ink-50">{t.contactSection.detailsTitle}</h2>
-            <dl className="mt-6 grid grid-cols-1 gap-x-10 gap-y-5 md:grid-cols-2">
+          <div className="relative overflow-hidden rounded-md border border-tunera-stone/60 bg-white p-7 sm:p-9">
+            <span aria-hidden className="absolute inset-x-0 top-0 h-[3px] bg-tunera-orange" />
+            <h2 className="text-base font-semibold tracking-tightish text-tunera-ink sm:text-lg">
+              {t.contactSection.detailsTitle}
+            </h2>
+            <dl className="mt-7 grid grid-cols-1 gap-x-12 gap-y-6 md:grid-cols-2">
               {fields.map((f) => (
                 <div key={f.label} className={f.full ? "md:col-span-2" : undefined}>
-                  <dt className="text-xs uppercase tracking-[0.2em] text-ink-400">{f.label}</dt>
+                  <dt className="text-[11px] font-medium uppercase tracking-[0.22em] text-tunera-orange">
+                    {f.label}
+                  </dt>
                   <dd
                     className={
-                      "mt-1 text-sm " + (isPlaceholder(f.value) ? "text-ink-400" : "text-ink-200")
+                      "mt-2 text-base " +
+                      (isPlaceholder(f.value) ? "text-tunera-muted-ink" : "text-tunera-ink")
                     }
                   >
                     {renderValue(f.value)}

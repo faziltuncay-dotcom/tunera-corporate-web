@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { copy, type Locale } from "@/content/site";
 
@@ -28,10 +29,10 @@ export function Header({ locale, current }: Props) {
   const linkClass = (segment: NavSegment) => {
     const isActive = segment === current;
     return [
-      "relative rounded-sm pb-1 transition-colors",
-      isActive ? "text-ink-50" : "text-ink-200 hover:text-sunset-400",
+      "relative inline-block rounded-sm pb-1 text-sm transition-colors",
+      isActive ? "text-tunera-ink" : "text-tunera-ink/70 hover:text-tunera-orange",
       isActive
-        ? "after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:bg-sunset-400"
+        ? "after:absolute after:inset-x-0 after:-bottom-0.5 after:h-[2px] after:bg-tunera-orange"
         : "",
     ]
       .filter(Boolean)
@@ -39,23 +40,26 @@ export function Header({ locale, current }: Props) {
   };
 
   return (
-    <header className="border-b border-white/5 bg-navy-950/60 backdrop-blur supports-[backdrop-filter]:bg-navy-950/40">
+    <header className="relative border-b border-tunera-stone/50 bg-tunera-ivory">
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-sunset-500 focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-navy-950"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-sm focus:bg-tunera-orange focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-white"
       >
         {t.nav.skipToContent}
       </a>
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-5">
-        <Link
-          href={base}
-          aria-label={`Tunera Denizcilik — ${t.nav.home}`}
-          className="rounded-sm text-sm font-medium uppercase tracking-[0.2em] text-ink-50 transition-colors hover:text-sunset-400"
-        >
-          Tunera Denizcilik
+        <Link href={base} aria-label={`Tunera Denizcilik — ${t.nav.home}`} className="block">
+          <Image
+            src="/assets/brand/tunera/tunera-logo-black.png"
+            alt="Tunera Denizcilik"
+            width={1482}
+            height={343}
+            priority
+            className="h-6 w-auto sm:h-7"
+          />
         </Link>
         <nav aria-label={t.nav.primaryAria} className="flex items-center gap-5 sm:gap-7">
-          <ul className="hidden items-center gap-5 text-sm sm:flex sm:gap-7">
+          <ul className="hidden items-center gap-6 sm:flex sm:gap-8">
             {links.map((link) => {
               const isActive = link.segment === current;
               return (
@@ -74,7 +78,7 @@ export function Header({ locale, current }: Props) {
           <Link
             href={t.nav.languageSwitchHref}
             aria-label={t.nav.languageSwitchAria}
-            className="rounded-full border border-white/10 px-3 py-1 text-xs tracking-widest text-ink-200 transition-colors hover:border-sunset-400 hover:text-sunset-400"
+            className="rounded-sm border border-tunera-ink/15 px-3 py-1 text-xs tracking-widest text-tunera-ink/80 transition-colors hover:border-tunera-orange hover:text-tunera-orange"
           >
             {t.nav.languageSwitch}
           </Link>
@@ -82,7 +86,7 @@ export function Header({ locale, current }: Props) {
       </div>
       <nav
         aria-label={t.nav.primaryAria}
-        className="border-t border-white/5 bg-navy-950/40 sm:hidden"
+        className="border-t border-tunera-stone/40 bg-tunera-ivory sm:hidden"
       >
         <ul className="mx-auto flex max-w-6xl items-center gap-6 px-6 py-3 text-sm">
           {links.map((link) => {

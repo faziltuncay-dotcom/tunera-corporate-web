@@ -90,15 +90,15 @@ export const tr = {
         body: "Temsil edilen markaların ürünlerinde satış süreci.",
       },
       {
-        title: "Marka Temsili",
+        title: "Marka Temsilciliği",
         body: "Resmi marka temsili ve dağıtım koordinasyonu.",
       },
       {
-        title: "Servis ve Bakım Koordinasyonu",
+        title: "Servis ve Bakım Yönlendirmesi",
         body: "Servis ve bakım taleplerinin ilgili ekiplere yönlendirilmesi.",
       },
       {
-        title: "Müşteri İletişimi",
+        title: "Müşteri Yönlendirme ve Süreç Koordinasyonu",
         body: "Süreç bilgilendirmesi ve marka sayfalarına yönlendirme.",
       },
     ],
@@ -168,19 +168,19 @@ export const en: typeof tr = {
     title: "Services",
     items: [
       {
-        title: "Boat sales",
+        title: "Boat Sales",
         body: "Sales coordination for the products of represented brands.",
       },
       {
-        title: "Brand representation",
+        title: "Brand Representation",
         body: "Official brand representation and distribution coordination.",
       },
       {
-        title: "Service and maintenance coordination",
+        title: "Service & Maintenance Coordination",
         body: "Routing of service and maintenance requests to the relevant teams.",
       },
       {
-        title: "Customer communication",
+        title: "Customer Guidance & Process Coordination",
         body: "Process information and routing to brand pages.",
       },
     ],
