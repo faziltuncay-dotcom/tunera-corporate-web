@@ -182,6 +182,34 @@ the divider. The footer's own mask-faded pattern atmosphere absorbs
 ivory/sand → graphite entries on its own — placing a flow-veil before
 the footer would only add visual noise.
 
+### Home scroll story
+
+The home page replaces its previous mid-page sections (story preview,
+brands preview, services preview, team preview) with a single
+**Apple-inspired scroll storytelling** scene. See
+`src/components/HomeScrollStory.tsx` and `HomeScrollStoryClient.tsx`.
+
+- Outer container `.tunera-home-story` is `(stages + 1) * 100vh` tall
+  on `lg+`. Below `lg` the container is auto-height and a stacked
+  fallback flows in document order.
+- Inside, a `sticky top-0 h-screen` stage cross-fades 4 stages:
+  New Era → Brand Work → Service Model → Working Structure.
+- A single rAF-throttled scroll listener computes container progress
+  (0–1), writes `--story-progress` to the sticky element so a faint
+  pattern layer can drift horizontally, and updates React state only
+  when the active stage index actually changes.
+- Stage micro-content (NewEra wordmark, Granfort/Ranieri pills,
+  service-model 01–06 labels, four working roles) is rendered on the
+  server from existing `site.ts` copy and passed as React children.
+- Native scroll only — no scroll hijacking, no wheel/touch trapping,
+  no scroll-snap, no animation library, no new dependencies.
+- `@media (prefers-reduced-motion: reduce)` forces the stacked
+  fallback (sticky branch hidden, container auto-height). The stacked
+  branch is also the layout used at sub-`lg` widths.
+- The dedicated `/hakkimizda`, `/markalar`, `/hizmetler` pages still
+  carry the full long-form content — the home story is for emotional
+  brand orientation, not detail.
+
 ### Hero-to-content tightening
 
 When the next section follows a hero or a transition seam, that section

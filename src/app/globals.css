@@ -44,6 +44,41 @@ body {
 }
 
 /*
+ * Home scroll story.
+ *
+ * The sticky narrative scene is only engaged at lg+ and only when
+ * the user has not requested reduced motion. The mobile / reduced-
+ * motion branch is a stacked column rendered always — this CSS
+ * controls which branch is visible and how tall the container is.
+ *
+ * Container height is `var(--story-height, 500vh)` only at lg+ so the
+ * sticky inner has scroll distance to traverse stages. On mobile or
+ * under reduced-motion, the container is auto-height and the stacked
+ * branch flows in document order.
+ */
+.tunera-home-story {
+  height: auto;
+}
+
+@media (min-width: 1024px) {
+  .tunera-home-story {
+    height: var(--story-height, 500vh);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tunera-home-story {
+    height: auto;
+  }
+  .tunera-home-story-sticky {
+    display: none !important;
+  }
+  .tunera-home-story-stack {
+    display: block !important;
+  }
+}
+
+/*
  * Section-flow veil.
  *
  * Used by the SectionTransition component at narrative pivots between

@@ -70,6 +70,36 @@ export const tr = {
       cta: "Hakkımızda",
       ctaHref: "/tr/hakkimizda",
     },
+    scrollStory: {
+      eyebrow: "Akış",
+      ariaLabel: "Tunera akış anlatısı",
+      stages: [
+        {
+          id: "new-era",
+          kicker: "01 — Yeni Dönem",
+          title: "Denizcilikte yeni bir dönem",
+          body: "Tunera, aile ve firma tecrübesinden doğan yeni vizyonunu günümüz denizcilik ihtiyaçlarıyla birleştirir.",
+        },
+        {
+          id: "brands",
+          kicker: "02 — Marka Çalışmaları",
+          title: "Markaları doğru zemine taşımak",
+          body: "Granfort aktif marka çalışması; Ranieri planlanan ayrı marka sayfası olarak konumlanır.",
+        },
+        {
+          id: "services",
+          kicker: "03 — Hizmet Modeli",
+          title: "Temsil, satış, servis, römork, depolama ve operasyon.",
+          body: "Hizmet modelimiz altı temel alan etrafında kurgulanır.",
+        },
+        {
+          id: "team",
+          kicker: "04 — Kadro ve Süreç",
+          title: "Dört temel işlevsel rol",
+          body: "Tunera Denizcilik; yönetim ve marka ilişkileri, satış, servis koordinasyonu ve operasyon süreç takibi olmak üzere dört rol etrafında çalışır.",
+        },
+      ],
+    },
   },
   aboutPage: {
     hero: {
@@ -326,6 +356,36 @@ export const en: typeof tr = {
       closingLine: "With Tunera, a new era in marine begins.",
       cta: "About",
       ctaHref: "/en/about",
+    },
+    scrollStory: {
+      eyebrow: "Flow",
+      ariaLabel: "Tunera flow narrative",
+      stages: [
+        {
+          id: "new-era",
+          kicker: "01 — New Era",
+          title: "A new era in marine",
+          body: "Tunera combines long-standing family and company experience with the needs of today’s marine sector.",
+        },
+        {
+          id: "brands",
+          kicker: "02 — Brand Work",
+          title: "Placing brands on the right ground",
+          body: "Granfort is the active brand work; Ranieri remains a planned separate brand page.",
+        },
+        {
+          id: "services",
+          kicker: "03 — Service Model",
+          title: "Representation, sales, service, trailers, storage, and operations.",
+          body: "Our service model is structured around six core areas.",
+        },
+        {
+          id: "team",
+          kicker: "04 — Working Structure",
+          title: "Four functional working roles",
+          body: "Tunera Denizcilik operates around four roles: management and brand relations, sales, service coordination and operations and process follow-up.",
+        },
+      ],
     },
   },
   aboutPage: {

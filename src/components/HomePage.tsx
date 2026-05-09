@@ -3,10 +3,8 @@ import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Section } from "@/components/Section";
-import { SectionTransition } from "@/components/SectionTransition";
-import { BrandCard } from "@/components/BrandCard";
-import { ServiceList } from "@/components/ServiceList";
-import { brands, contact, copy, type Locale } from "@/content/site";
+import { HomeScrollStory } from "@/components/HomeScrollStory";
+import { contact, copy, type Locale } from "@/content/site";
 
 type Props = {
   locale: Locale;
@@ -78,100 +76,11 @@ export function HomePage({ locale }: Props) {
           </div>
         </section>
 
-        {/* Brand seam between hero and story */}
-        <SectionTransition />
-
-        {/* STORY PREVIEW — connected to hero via the seam above */}
-        <Section id="story" eyebrow={t.home.storyPreview.eyebrow} tight>
-          <div className="grid gap-10 lg:grid-cols-12 lg:gap-x-16">
-            <div className="lg:col-span-8">
-              <div className="space-y-5 text-base leading-relaxed text-tunera-ink/80 md:text-lg md:leading-[1.7]">
-                {t.home.storyPreview.paragraphs.map((p, i) => (
-                  <p key={i}>{p}</p>
-                ))}
-              </div>
-            </div>
-            <div className="flex flex-col justify-end gap-6 lg:col-span-4">
-              <p className="text-[11px] font-medium uppercase tracking-[0.32em] text-tunera-orange">
-                {t.home.storyPreview.closingLine}
-              </p>
-              <Link
-                href={t.home.storyPreview.ctaHref}
-                className="inline-flex items-center gap-2 self-start rounded-sm border border-tunera-ink/20 px-5 py-2.5 text-sm text-tunera-ink transition-colors hover:border-tunera-ink/50 hover:bg-tunera-sand/50"
-              >
-                <span>{t.home.storyPreview.cta}</span>
-                <span aria-hidden>→</span>
-              </Link>
-            </div>
-          </div>
-        </Section>
-
-        {/* BRANDS — sand band */}
-        <div className="bg-tunera-sand/60">
-          <Section
-            id="brands"
-            eyebrow={t.brandsSection.title}
-            title={t.brandsSection.title}
-            description={t.brandsSection.description}
-          >
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-              {brands.map((b) => (
-                <BrandCard
-                  key={b.id}
-                  locale={locale}
-                  id={b.id}
-                  name={b.name}
-                  status={b.status}
-                  href={b.href}
-                  external={b.external}
-                />
-              ))}
-            </div>
-          </Section>
-        </div>
-
-        {/* SERVICES — back to ivory */}
-        <Section id="services" eyebrow={t.services.title} title={t.services.title}>
-          <ServiceList locale={locale} />
-        </Section>
-
-        {/* TEAM — sand band, mirrors brands tonally */}
-        <div className="bg-tunera-sand/60">
-          <Section
-            id="team"
-            eyebrow={t.homeTeamPreview.eyebrow}
-            title={t.homeTeamPreview.title}
-            description={t.homeTeamPreview.description}
-          >
-            <ul role="list" className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {t.aboutPage.team.items.map((item, i) => (
-                <li
-                  key={item.title}
-                  className="rounded-md border border-tunera-stone/60 bg-white p-5 sm:p-6"
-                >
-                  <div className="mb-3 flex items-center gap-2">
-                    <span aria-hidden className="h-1 w-5 bg-tunera-orange" />
-                    <span className="text-[10px] font-medium uppercase tracking-[0.22em] text-tunera-orange">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                  </div>
-                  <h3 className="text-sm font-semibold tracking-tightish text-tunera-ink sm:text-base">
-                    {item.title}
-                  </h3>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-8">
-              <Link
-                href={t.homeTeamPreview.ctaHref}
-                className="inline-flex items-center gap-2 rounded-sm border border-tunera-ink/20 px-5 py-2.5 text-sm text-tunera-ink transition-colors hover:border-tunera-ink/50 hover:bg-white"
-              >
-                <span>{t.homeTeamPreview.cta}</span>
-                <span aria-hidden>→</span>
-              </Link>
-            </div>
-          </Section>
-        </div>
+        {/* SCROLL STORY — sticky narrative on lg+, stacked on mobile.
+            Replaces the previous story preview, brands, services, and
+            team-strip sections; the dedicated /hakkimizda, /markalar,
+            /hizmetler pages still carry the full content. */}
+        <HomeScrollStory locale={locale} />
 
         {/* CONTACT CTA — graphite anchor; pattern atmosphere lives in
             the footer below and softly fades upward across this seam. */}
