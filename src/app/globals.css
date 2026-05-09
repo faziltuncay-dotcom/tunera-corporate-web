@@ -42,3 +42,52 @@ body {
     border-radius: 2px;
   }
 }
+
+/*
+ * Footer ambient pattern.
+ *
+ * Two transform-only animation layers drift back and forth at slightly
+ * different speeds and directions to create a subtle parallax over the
+ * Tunera wave pattern. Slight scale > 1 keeps the layers covering the
+ * container so the small translate never exposes the graphite ground.
+ * `will-change: transform` is set only on the animated layers.
+ *
+ * Motion is disabled entirely under `prefers-reduced-motion: reduce`.
+ */
+@keyframes tunera-footer-drift-a {
+  0%,
+  100% {
+    transform: translate3d(-1.6%, -0.8%, 0) scale(1.06);
+  }
+  50% {
+    transform: translate3d(1.6%, 0.8%, 0) scale(1.06);
+  }
+}
+
+@keyframes tunera-footer-drift-b {
+  0%,
+  100% {
+    transform: translate3d(1.8%, 0.6%, 0) scale(1.12);
+  }
+  50% {
+    transform: translate3d(-1.8%, -0.6%, 0) scale(1.12);
+  }
+}
+
+.tunera-footer-pattern-a {
+  animation: tunera-footer-drift-a 32s linear infinite;
+  will-change: transform;
+}
+
+.tunera-footer-pattern-b {
+  animation: tunera-footer-drift-b 26s linear infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tunera-footer-pattern-a,
+  .tunera-footer-pattern-b {
+    animation: none;
+    transform: none;
+  }
+}

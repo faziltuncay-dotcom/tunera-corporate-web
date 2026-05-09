@@ -41,7 +41,7 @@ Tailwind config. Phase 1E is the cutover: orange / ink / ivory dominate.
 | `tunera-logo-white.png` | derived from black wordmark | White wordmark, transparent | Brand panel inside hero, footer                         |
 | `tunera-logo-color.png` | `tunera-renkli-logo.pdf`    | Full color stamp            | Reserve as full brand signature (not currently used)    |
 | `tunera-pattern.png`    | `tunera-desen.pdf`          | Black-on-transparent        | Hero brand panel overlay (~18% opacity, multiply blend) |
-| `tunera-emblem.png`     | `tunera-amblem.pdf`         | Black-on-transparent        | Watermark in contact CTA (~8%) and footer (~6%)         |
+| `tunera-emblem.png`     | `tunera-amblem.pdf`         | Black-on-transparent        | Watermark in contact CTA (~8%, corner)                  |
 
 Logo proportions are preserved exactly from the source PDFs. Crops are
 to artwork bounds (no PDF-page whitespace). The logo is **never**
@@ -73,7 +73,7 @@ about      → ivory
 brands     → sand band  (premium mid-tone divider)
 services   → ivory
 contact CTA → graphite band  (single dark anchor with emblem watermark)
-footer     → graphite (with subtle inverted emblem watermark)
+footer     → graphite (with full-width animated wave-pattern atmosphere)
 ```
 
 This keeps the site overwhelmingly light (per the brand spec — ivory /
@@ -122,12 +122,36 @@ precedence over the supporting service grid.
 Pattern usage is restrained:
 
 - Hero brand panel: `tunera-pattern.png` at 18% on orange (visible but
-  refined, multiply-blended into the orange field)
-- Contact CTA + footer: `tunera-emblem.png` at 6–8% as a corner
-  watermark, inverted to white because both sit on graphite
+  refined, multiply-blended into the orange field).
+- Contact CTA: `tunera-emblem.png` at ~8% as a corner watermark on
+  graphite, inverted to white.
+- Footer: full-width Tunera pattern atmosphere — see "Footer ambient
+  pattern" below. The previous corner-emblem watermark was promoted
+  to a broader, layered treatment that spreads the wave language across
+  the whole footer surface while still reading as background.
 
 The pattern is **not** placed behind paragraph text and is **not**
 repeated as a generic background everywhere.
+
+### Footer ambient pattern
+
+The footer uses two stacked, transform-only animated layers of the
+Tunera wave pattern over `tunera-graphite`. Both are inverted to white.
+
+| Layer | Background                                  | Opacity | Animation                                                  |
+| ----- | ------------------------------------------- | ------- | ---------------------------------------------------------- |
+| A     | `bg-cover` centered                         | `0.06`  | `tunera-footer-drift-a` 32s linear infinite, `scale(1.06)` |
+| B     | `150%` size, offset to `70% 30%`, no repeat | `0.04`  | `tunera-footer-drift-b` 26s linear infinite, `scale(1.12)` |
+
+Both keyframes are gentle back-and-forth translates (≤ ~1.8% on each
+axis). The slight scale > 1 keeps the layer covering the container so
+the translate never exposes the graphite ground. A short ~64px
+gradient fade sits on top of the layers at the footer's top edge so
+the pattern doesn't compete with the contact CTA section directly
+above. Footer content uses `relative z-10`.
+
+Motion is disabled under `@media (prefers-reduced-motion: reduce)` —
+the keyframe selectors override `animation: none; transform: none`.
 
 ## What is intentionally not used
 

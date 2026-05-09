@@ -22,13 +22,32 @@ export function Footer({ locale }: Props) {
   ];
 
   return (
-    <footer className="relative overflow-hidden bg-tunera-graphite text-tunera-ivory">
+    <footer className="relative isolate overflow-hidden bg-tunera-graphite text-tunera-ivory">
+      {/* Layer A — broad pattern atmosphere across the full footer */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -bottom-24 -right-32 h-[420px] w-[420px] bg-tunera-emblem bg-contain bg-center bg-no-repeat opacity-[0.06]"
+        className="tunera-footer-pattern-a pointer-events-none absolute inset-0 bg-tunera-pattern bg-cover bg-center opacity-[0.06]"
         style={{ filter: "invert(1)" }}
       />
-      <div className="relative mx-auto grid max-w-6xl gap-10 px-6 py-14 md:grid-cols-3 md:items-end md:gap-8">
+      {/* Layer B — second, larger and offset, creates depth/parallax */}
+      <div
+        aria-hidden
+        className="tunera-footer-pattern-b pointer-events-none absolute inset-0 opacity-[0.04]"
+        style={{
+          backgroundImage: "url('/assets/brand/tunera/tunera-pattern.png')",
+          backgroundSize: "150%",
+          backgroundPosition: "70% 30%",
+          backgroundRepeat: "no-repeat",
+          filter: "invert(1)",
+        }}
+      />
+      {/* Soft fade at the very top so the pattern doesn't compete with
+          the contact CTA section that sits just above the footer. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 z-[1] h-16 bg-gradient-to-b from-tunera-graphite to-transparent"
+      />
+      <div className="relative z-10 mx-auto grid max-w-6xl gap-10 px-6 py-14 md:grid-cols-3 md:items-end md:gap-8">
         <div>
           <Image
             src="/assets/brand/tunera/tunera-logo-white.png"
