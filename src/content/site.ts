@@ -96,7 +96,13 @@ export const tr = {
           id: "team",
           kicker: "04 — Kadro ve Süreç",
           title: "Dört temel işlevsel rol",
-          body: "Tunera Denizcilik; yönetim ve marka ilişkileri, satış, servis koordinasyonu ve operasyon süreç takibi olmak üzere dört rol etrafında çalışır.",
+          body: "Yönetim, satış, servis koordinasyonu ve operasyon süreç takibi etrafında çalışırız.",
+        },
+        {
+          id: "first-contact",
+          kicker: "05 — İlk Temas",
+          title: "Yeni dönem için ilk temas",
+          body: "İletişim sayfası lansman öncesi sade bir köprü olarak konumlanır.",
         },
       ],
     },
@@ -169,6 +175,42 @@ export const tr = {
         },
       ],
     },
+    scrollStory: {
+      eyebrow: "Akış",
+      ariaLabel: "Tunera kurumsal hikaye akışı",
+      stages: [
+        {
+          id: "experience-vision",
+          kicker: "01 — Tecrübe ve Vizyon",
+          title: "Yıllara dayanan tecrübenin yeni vizyonu",
+          body: "Aile ve firma tecrübesi, günümüz denizciliğinin değişen ihtiyaçlarıyla yeniden yorumlanır.",
+        },
+        {
+          id: "new-era-name",
+          kicker: "02 — Adın Anlamı",
+          title: "Adında taşıdığı new era",
+          body: "Daha şeffaf iletişim, daha düzenli süreç yönetimi, daha güçlü marka ilişkileri.",
+        },
+        {
+          id: "values",
+          kicker: "03 — Değerler",
+          title: "Dürüstlük, yenilik, profesyonellik, girişimcilik.",
+          body: "Çalışma anlayışımızı şekillendiren dört temel değer.",
+        },
+        {
+          id: "working-structure",
+          kicker: "04 — Çalışma Yapısı",
+          title: "Dört işlevsel rol etrafında",
+          body: "Yönetim, satış, servis koordinasyonu ve operasyon süreç takibi.",
+        },
+        {
+          id: "explore",
+          kicker: "05 — Devamı",
+          title: "Markalara ve iletişime geçiş",
+          body: "Çalışma alanlarımıza dair daha fazla ayrıntı için ilgili sayfalar.",
+        },
+      ],
+    },
     cta: {
       title: "Devamı için",
       body: "Markalar ve iletişim sayfaları, çalışma alanlarımıza dair daha fazla ayrıntı sunar.",
@@ -191,6 +233,30 @@ export const tr = {
     visit: "Marka sayfası",
     placeholderTag: "Geliştirme bağlantısı",
     inPreparation: "Hazırlık aşamasında",
+    scrollStory: {
+      eyebrow: "Akış",
+      ariaLabel: "Tunera marka çalışmaları akışı",
+      stages: [
+        {
+          id: "brand-hub",
+          kicker: "01 — Marka Merkezi",
+          title: "Markaları doğru zemine taşımak",
+          body: "Bu sayfa, ziyaretçileri ilgili marka sayfalarına yönlendiren sade bir merkez olarak konumlanır.",
+        },
+        {
+          id: "granfort",
+          kicker: "02 — Granfort",
+          title: "Aktif marka çalışması",
+          body: "Granfort marka sayfası ayrı bir uygulama olarak yürütülür; bağlantı şu anda geliştirme ortamına yönlendirir.",
+        },
+        {
+          id: "ranieri",
+          kicker: "03 — Ranieri",
+          title: "Planlanan ayrı marka sayfası",
+          body: "Ranieri için ayrı bir marka deneyimi hazırlık aşamasındadır.",
+        },
+      ],
+    },
   },
   services: {
     title: "Hizmetler",
@@ -285,6 +351,42 @@ export const tr = {
         note: null,
       },
     ],
+    scrollStory: {
+      eyebrow: "Akış",
+      ariaLabel: "Tunera hizmet modeli akışı",
+      stages: [
+        {
+          id: "operating-model",
+          kicker: "01 — Hizmet Modeli",
+          title: "Altı temel alan etrafında bütüncül hizmet",
+          body: "Temsil, danışmanlık, servis, römork, depolama ve operasyon — tek çatı altında.",
+        },
+        {
+          id: "sales-and-brand",
+          kicker: "02 — Satış ve Temsil",
+          title: "Doğru marka, doğru model, doğru süreç",
+          body: "Yeni tekne satışı ve ikinci el danışmanlığı; markaların Türkiye’deki düzenli yansıması.",
+        },
+        {
+          id: "service-and-maintenance",
+          kicker: "03 — Servis ve Bakım",
+          title: "Süreklilik odaklı servis koordinasyonu",
+          body: "Tekne, motor ve marin ekipmanların planlı, düzenli takibi.",
+        },
+        {
+          id: "trailer-storage-yard",
+          kicker: "04 — Römork, Depolama, Çekek",
+          title: "Lojistik bütünlüğü tamamlayan alanlar",
+          body: "Marin römork süreçleri, güvenli depolama ve çekek sahası operasyonu.",
+        },
+        {
+          id: "explore",
+          kicker: "05 — Devamı",
+          title: "Süreçleri başlatmak için",
+          body: "Markalar ve iletişim sayfaları üzerinden ilk adım.",
+        },
+      ],
+    },
     cta: {
       title: "İlgili sayfalar",
       body: "Markalar ve iletişim sayfaları üzerinden süreçleri başlatabilirsiniz.",
@@ -313,6 +415,30 @@ export const tr = {
     fieldPhone: "Telefon",
     fieldAddress: "Adres",
     toBeAnnounced: "Lansman öncesi paylaşılacak",
+    scrollStory: {
+      eyebrow: "Akış",
+      ariaLabel: "Tunera iletişim akışı",
+      stages: [
+        {
+          id: "status",
+          kicker: "01 — Lansman Öncesi",
+          title: "Sade bir köprü olarak iletişim",
+          body: "İletişim sayfası, lansman öncesi dönemde kurumsal duruşu temsil eden sade bir köprüdür.",
+        },
+        {
+          id: "channels",
+          kicker: "02 — Kanallar",
+          title: "Bilgiler lansman öncesi netleşir",
+          body: "Telefon, e-posta ve adres bilgileri lansmandan önce paylaşılacak; ilgili marka sayfaları üzerinden duyurulacaktır.",
+        },
+        {
+          id: "explore",
+          kicker: "03 — Devamı",
+          title: "Markalar ve hizmetler sayfasına dönüş",
+          body: "Bu sürede çalışma alanlarımız hakkında bilgi almak için ilgili sayfalar.",
+        },
+      ],
+    },
   },
   footer: {
     rights: "Tüm hakları saklıdır.",
@@ -383,7 +509,13 @@ export const en: typeof tr = {
           id: "team",
           kicker: "04 — Working Structure",
           title: "Four functional working roles",
-          body: "Tunera Denizcilik operates around four roles: management and brand relations, sales, service coordination and operations and process follow-up.",
+          body: "We work around management, sales, service coordination and operations follow-up.",
+        },
+        {
+          id: "first-contact",
+          kicker: "05 — First Contact",
+          title: "First contact for the new era",
+          body: "The contact page is a simple bridge during the pre-launch phase.",
         },
       ],
     },
@@ -456,6 +588,42 @@ export const en: typeof tr = {
         },
       ],
     },
+    scrollStory: {
+      eyebrow: "Flow",
+      ariaLabel: "Tunera corporate story flow",
+      stages: [
+        {
+          id: "experience-vision",
+          kicker: "01 — Experience & Vision",
+          title: "A new vision shaped by long-standing experience",
+          body: "Family and company experience reinterpreted through the changing needs of today’s marine industry.",
+        },
+        {
+          id: "new-era-name",
+          kicker: "02 — A Name with Meaning",
+          title: "The new era carried in the name",
+          body: "Clearer communication, more orderly process management, stronger brand relationships.",
+        },
+        {
+          id: "values",
+          kicker: "03 — Values",
+          title: "Integrity, innovation, professionalism, entrepreneurship.",
+          body: "Four core values that shape how we work.",
+        },
+        {
+          id: "working-structure",
+          kicker: "04 — Working Structure",
+          title: "Around four functional roles",
+          body: "Management, sales, service coordination and operations follow-up.",
+        },
+        {
+          id: "explore",
+          kicker: "05 — More to explore",
+          title: "Onward to brands and contact",
+          body: "The brands and contact pages give further detail on our working areas.",
+        },
+      ],
+    },
     cta: {
       title: "More to explore",
       body: "The brands and contact pages provide further detail on our working areas.",
@@ -478,6 +646,30 @@ export const en: typeof tr = {
     visit: "Brand page",
     placeholderTag: "Development link",
     inPreparation: "In preparation",
+    scrollStory: {
+      eyebrow: "Flow",
+      ariaLabel: "Tunera brand work flow",
+      stages: [
+        {
+          id: "brand-hub",
+          kicker: "01 — Brand Hub",
+          title: "Placing brands on the right ground",
+          body: "This page is a simple hub that directs visitors to the related brand pages.",
+        },
+        {
+          id: "granfort",
+          kicker: "02 — Granfort",
+          title: "The active brand work",
+          body: "The Granfort brand page is operated as a separate application; the link currently routes to the development environment.",
+        },
+        {
+          id: "ranieri",
+          kicker: "03 — Ranieri",
+          title: "A planned separate brand page",
+          body: "A dedicated Ranieri brand experience is in preparation.",
+        },
+      ],
+    },
   },
   services: {
     title: "Services",
@@ -572,6 +764,42 @@ export const en: typeof tr = {
         note: null,
       },
     ],
+    scrollStory: {
+      eyebrow: "Flow",
+      ariaLabel: "Tunera service model flow",
+      stages: [
+        {
+          id: "operating-model",
+          kicker: "01 — Service Model",
+          title: "A holistic model across six core areas",
+          body: "Representation, advisory, service, trailer, storage and operations — under one roof.",
+        },
+        {
+          id: "sales-and-brand",
+          kicker: "02 — Sales & Representation",
+          title: "The right brand, the right model, the right process",
+          body: "New boat sales and pre-owned advisory; orderly representation of international brands in Turkey.",
+        },
+        {
+          id: "service-and-maintenance",
+          kicker: "03 — Service & Maintenance",
+          title: "Continuity-focused service coordination",
+          body: "Planned, orderly follow-up for boats, engines and marine equipment.",
+        },
+        {
+          id: "trailer-storage-yard",
+          kicker: "04 — Trailer, Storage, Yard",
+          title: "The areas that complete logistics integrity",
+          body: "Marine trailer processes, secure storage and yard operations.",
+        },
+        {
+          id: "explore",
+          kicker: "05 — More to explore",
+          title: "Starting a process",
+          body: "Begin via the brands or contact pages.",
+        },
+      ],
+    },
     cta: {
       title: "Related pages",
       body: "You can start a process via the brands or contact pages.",
@@ -600,6 +828,30 @@ export const en: typeof tr = {
     fieldPhone: "Phone",
     fieldAddress: "Address",
     toBeAnnounced: "To be shared before launch",
+    scrollStory: {
+      eyebrow: "Flow",
+      ariaLabel: "Tunera contact flow",
+      stages: [
+        {
+          id: "status",
+          kicker: "01 — Pre-launch",
+          title: "A simple bridge into contact",
+          body: "The contact page acts as a simple corporate bridge during the pre-launch phase.",
+        },
+        {
+          id: "channels",
+          kicker: "02 — Channels",
+          title: "Details finalized before launch",
+          body: "Phone, email and address details will be shared before launch and announced via the related brand pages.",
+        },
+        {
+          id: "explore",
+          kicker: "03 — More to explore",
+          title: "Back to brands and services",
+          body: "Visit our brands and services pages for more on our working areas.",
+        },
+      ],
+    },
   },
   footer: {
     rights: "All rights reserved.",

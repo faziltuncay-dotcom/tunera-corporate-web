@@ -5,6 +5,7 @@ import { Section } from "@/components/Section";
 import { SectionTransition } from "@/components/SectionTransition";
 import { PageHero } from "@/components/PageHero";
 import { RoleGrid } from "@/components/RoleGrid";
+import { AboutScrollStory } from "@/components/AboutScrollStory";
 import { copy, type Locale } from "@/content/site";
 
 type Props = {
@@ -68,7 +69,17 @@ export function AboutPage({ locale }: Props) {
           </div>
         </section>
 
-        {/* New Era → Values brand seam — surface gradient morphs from
+        {/* New Era → scroll narrative brand seam */}
+        <SectionTransition />
+
+        {/* SCROLL NARRATIVE — Apple-style sticky stages on lg+, stacked
+            on mobile / reduced-motion. Acts as the page's spine: the
+            story, new era, values, working structure and forward links
+            condense into a single sliding flow. The detailed values and
+            team grids below carry the full editorial reading. */}
+        <AboutScrollStory locale={locale} />
+
+        {/* Narrative → Values brand seam — surface gradient morphs from
             ivory at the top to sand at the bottom so the colour change
             into the values band reads as a smooth flow, not a cut. */}
         <SectionTransition surface="to-sand" />

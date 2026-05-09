@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer";
 import { Section } from "@/components/Section";
 import { SectionTransition } from "@/components/SectionTransition";
 import { PageHero } from "@/components/PageHero";
+import { ServicesScrollStory } from "@/components/ServicesScrollStory";
 import { copy, type Locale } from "@/content/site";
 
 type Props = {
@@ -45,6 +46,14 @@ export function ServicesPage({ locale }: Props) {
             </ol>
           </div>
         </section>
+
+        {/* SCROLL NARRATIVE — Apple-style sticky stages on lg+, stacked
+            on mobile / reduced-motion. Provides a calm overview of the
+            service model before the detailed editorial cards below. */}
+        <ServicesScrollStory locale={locale} />
+
+        {/* Narrative → detailed services brand seam */}
+        <SectionTransition />
 
         {/* DETAILED SERVICES — editorial 4/8 split with intentional dividers */}
         <Section tight>

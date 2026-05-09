@@ -182,33 +182,54 @@ the divider. The footer's own mask-faded pattern atmosphere absorbs
 ivory/sand → graphite entries on its own — placing a flow-veil before
 the footer would only add visual noise.
 
-### Home scroll story
+### Site-wide scroll narrative
 
-The home page replaces its previous mid-page sections (story preview,
-brands preview, services preview, team preview) with a single
-**Apple-inspired scroll storytelling** scene. See
-`src/components/HomeScrollStory.tsx` and `HomeScrollStoryClient.tsx`.
+Every primary page carries an **Apple-inspired sticky scroll narrative**
+keyed off the same shared client. The shared engine lives in
+`src/components/ScrollNarrativeClient.tsx`; per-page server wrappers
+build the payload and supply per-stage micro-content as React:
 
-- Outer container `.tunera-home-story` is `(stages + 1) * 100vh` tall
-  on `lg+`. Below `lg` the container is auto-height and a stacked
+| Variant    | Wrapper               | Stages | Content focus                                            |
+| ---------- | --------------------- | ------ | -------------------------------------------------------- |
+| `home`     | `HomeScrollStory`     | 5      | New Era → Brands → Services → Team → First Contact       |
+| `about`    | `AboutScrollStory`    | 5      | Experience → Name → Values → Working Structure → Explore |
+| `services` | `ServicesScrollStory` | 5      | Model → Sales/Brand → Service → Trailer/Storage/Yard → … |
+| `brands`   | `BrandsScrollStory`   | 3      | Brand hub → Granfort → Ranieri (embeds `BrandCard`)      |
+| `contact`  | `ContactScrollStory`  | 3      | Pre-launch posture → Channels → Explore                  |
+
+- Outer container `.tunera-narrative` is `stages * 100vh` tall on
+  `lg+`. Below `lg` the container is auto-height and a stacked
   fallback flows in document order.
-- Inside, a `sticky top-0 h-screen` stage cross-fades 4 stages:
-  New Era → Brand Work → Service Model → Working Structure.
-- A single rAF-throttled scroll listener computes container progress
-  (0–1), writes `--story-progress` to the sticky element so a faint
-  pattern layer can drift horizontally, and updates React state only
-  when the active stage index actually changes.
-- Stage micro-content (NewEra wordmark, Granfort/Ranieri pills,
-  service-model 01–06 labels, four working roles) is rendered on the
-  server from existing `site.ts` copy and passed as React children.
+- Inside, a `sticky top-0 h-screen` stage absolutely positions all
+  stages and applies one of three state classes — `is-active` (settled
+  in place), `is-prev` (drifted up `-18px` at scale `0.985`),
+  `is-next` (waiting `+22px` below at scale `0.985`). Title/body
+  transition over `380 ms` with body delayed `60 ms`; per-stage
+  micro-content uses a calmer `480 ms` curve with `120 ms` delay so
+  the lower area settles after the headline. All curves are
+  `cubic-bezier(0.22, 1, 0.36, 1)` — a sharp Apple-like ease-out.
+- A single rAF-throttled passive scroll listener computes container
+  progress (0–1), writes `--story-progress` to the sticky element for
+  a faint pattern parallax (`±3%` translate, scale `1.08`), and only
+  re-renders when the active stage index changes.
+- Variant differentiation is light: type scale and pattern opacity
+  shift slightly per archetype, but the orange micro-rule grammar
+  and the vertical side index `01/02/.../N` are shared. Each variant
+  declares its own `aria-label` (TR + EN) so screen-reader output
+  reads the correct flow name per page.
+- Stage micro-content (NewEra wordmark, brand pills, service-model
+  index, role names, contact CTA, active brand cards) is rendered on
+  the server from existing `site.ts` copy and passed as React
+  children. The sticky branch and the stacked fallback render the
+  same micro-content so both reading paths show identical detail.
 - Native scroll only — no scroll hijacking, no wheel/touch trapping,
   no scroll-snap, no animation library, no new dependencies.
 - `@media (prefers-reduced-motion: reduce)` forces the stacked
   fallback (sticky branch hidden, container auto-height). The stacked
   branch is also the layout used at sub-`lg` widths.
-- The dedicated `/hakkimizda`, `/markalar`, `/hizmetler` pages still
-  carry the full long-form content — the home story is for emotional
-  brand orientation, not detail.
+- Long-form pages (`/hakkimizda`, `/hizmetler`) keep their full
+  detail below the narrative; the narrative acts as the emotional
+  spine, not as a content replacement.
 
 ### Hero-to-content tightening
 

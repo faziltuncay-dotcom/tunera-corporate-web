@@ -1,19 +1,19 @@
 import Image from "next/image";
+import Link from "next/link";
 import { copy, type Locale } from "@/content/site";
-import { HomeScrollStoryClient, type StoryPayload } from "@/components/HomeScrollStoryClient";
+import { ScrollNarrativeClient, type NarrativePayload } from "@/components/ScrollNarrativeClient";
 
 type Props = {
   locale: Locale;
 };
 
 /**
- * Server-side wrapper for the home scroll story.
+ * Server-side wrapper for the home variant of the scroll narrative.
  *
- * Builds the micro-content for each stage (NewEra wordmark, brand
- * pills, service-model index, role names) from existing site.ts copy,
- * then hands the payload to the client component. The micro-content
- * for each stage is React, so it stays composable but rendered on the
- * server — the only client work is the scroll listener itself.
+ * Builds the per-stage micro-content (NewEra wordmark, brand pills,
+ * service-model index, role names, contact CTA) from existing site.ts
+ * copy and hands the payload to the shared client. Micro-content is
+ * React, so it stays composable but is rendered on the server.
  */
 export function HomeScrollStory({ locale }: Props) {
   const t = copy(locale);
@@ -25,7 +25,7 @@ export function HomeScrollStory({ locale }: Props) {
     body: s.body,
   }));
 
-  const microContent: StoryPayload["microContent"] = {
+  const microContent: NarrativePayload["microContent"] = {
     "new-era": (
       <div className="flex items-center gap-4">
         <Image
@@ -83,14 +83,31 @@ export function HomeScrollStory({ locale }: Props) {
         ))}
       </ol>
     ),
+    "first-contact": (
+      <div className="flex flex-wrap items-center gap-3">
+        <Link
+          href={t.home.ctaSecondaryHref}
+          className="inline-flex items-center gap-2 rounded-sm bg-tunera-orange px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#E64500]"
+        >
+          {t.home.ctaSecondary}
+        </Link>
+        <Link
+          href={t.home.ctaPrimaryHref}
+          className="inline-flex items-center gap-2 rounded-sm border border-tunera-ink/20 px-5 py-2.5 text-sm text-tunera-ink transition-colors hover:border-tunera-ink/50 hover:bg-tunera-sand/50"
+        >
+          {t.home.ctaPrimary}
+        </Link>
+      </div>
+    ),
   };
 
-  const payload: StoryPayload = {
+  const payload: NarrativePayload = {
     ariaLabel: t.home.scrollStory.ariaLabel,
     eyebrow: t.home.scrollStory.eyebrow,
+    variant: "home",
     stages,
     microContent,
   };
 
-  return <HomeScrollStoryClient payload={payload} />;
+  return <ScrollNarrativeClient payload={payload} />;
 }

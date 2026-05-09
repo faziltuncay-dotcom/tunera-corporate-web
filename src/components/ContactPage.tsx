@@ -3,6 +3,7 @@ import { Footer } from "@/components/Footer";
 import { Section } from "@/components/Section";
 import { SectionTransition } from "@/components/SectionTransition";
 import { PageHero } from "@/components/PageHero";
+import { ContactScrollStory } from "@/components/ContactScrollStory";
 import { contact, copy, type Locale } from "@/content/site";
 
 type Props = {
@@ -31,7 +32,16 @@ export function ContactPage({ locale }: Props) {
           lead={t.contactSection.body}
         />
 
-        {/* Hero → contact card brand seam */}
+        {/* Hero → narrative brand seam */}
+        <SectionTransition />
+
+        {/* SCROLL NARRATIVE — Apple-style sticky stages on lg+, stacked
+            on mobile / reduced-motion. Carries the pre-launch posture
+            and forward links into a single calm flow before the
+            detailed contact card below. */}
+        <ContactScrollStory locale={locale} />
+
+        {/* Narrative → contact card brand seam */}
         <SectionTransition />
 
         <Section tight>

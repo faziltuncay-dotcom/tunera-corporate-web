@@ -44,37 +44,94 @@ body {
 }
 
 /*
- * Home scroll story.
+ * Site-wide scroll narrative system.
  *
- * The sticky narrative scene is only engaged at lg+ and only when
- * the user has not requested reduced motion. The mobile / reduced-
- * motion branch is a stacked column rendered always — this CSS
- * controls which branch is visible and how tall the container is.
+ * Used by Home, About, Services, Brands, and Contact. The sticky
+ * narrative scene is only engaged at lg+ and only when the user has
+ * not requested reduced motion. The mobile / reduced-motion branch
+ * is a stacked column rendered always.
  *
  * Container height is `var(--story-height, 500vh)` only at lg+ so the
  * sticky inner has scroll distance to traverse stages. On mobile or
  * under reduced-motion, the container is auto-height and the stacked
  * branch flows in document order.
  */
-.tunera-home-story {
+.tunera-narrative {
   height: auto;
 }
 
 @media (min-width: 1024px) {
-  .tunera-home-story {
+  .tunera-narrative {
     height: var(--story-height, 500vh);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .tunera-home-story {
+  .tunera-narrative {
     height: auto;
   }
-  .tunera-home-story-sticky {
+  .tunera-narrative-sticky {
     display: none !important;
   }
-  .tunera-home-story-stack {
+  .tunera-narrative-stack {
     display: block !important;
+  }
+}
+
+/*
+ * Stage motion calibration (Phase 2B).
+ *
+ * Apple-inspired sharp ease-out with directional glide. Active stages
+ * settle into place; previous stages drift up; pending stages wait
+ * just below. Title/body/micro-content transition with a small
+ * staggered delay so the lower area feels like it settles after the
+ * headline rather than appearing all at once. Transforms and opacity
+ * only — no layout-affecting properties animate.
+ */
+.narrative-stage {
+  transition:
+    opacity 380ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 380ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.narrative-stage.is-active {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  pointer-events: auto;
+}
+
+.narrative-stage.is-prev {
+  opacity: 0;
+  transform: translate3d(0, -18px, 0) scale(0.985);
+  pointer-events: none;
+}
+
+.narrative-stage.is-next {
+  opacity: 0;
+  transform: translate3d(0, 22px, 0) scale(0.985);
+  pointer-events: none;
+}
+
+.narrative-stage-body {
+  transition-delay: 60ms;
+}
+
+.narrative-stage-micro {
+  transition:
+    opacity 480ms cubic-bezier(0.22, 1, 0.36, 1) 120ms,
+    transform 480ms cubic-bezier(0.22, 1, 0.36, 1) 120ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .narrative-stage,
+  .narrative-stage-body,
+  .narrative-stage-micro {
+    transition: none !important;
+    transform: none !important;
+  }
+  .narrative-stage {
+    opacity: 1 !important;
+    pointer-events: auto !important;
   }
 }
 
