@@ -13,19 +13,30 @@ type Props = {
 export function HomePage({ locale }: Props) {
   const t = copy(locale);
   return (
-    <>
+    <div lang={locale}>
       <Header locale={locale} />
-      <main>
-        <section className="relative overflow-hidden border-b border-white/5">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(232,128,74,0.12),_transparent_60%)]" />
-          <div className="relative mx-auto flex max-w-6xl flex-col gap-8 px-6 py-28 md:py-36">
-            <div className="text-xs uppercase tracking-[0.32em] text-sunset-400">
+      <main id="main">
+        <section
+          aria-labelledby="hero-title"
+          className="relative overflow-hidden border-b border-white/5"
+        >
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(232,128,74,0.10),_transparent_60%)]"
+          />
+          <div className="relative mx-auto flex max-w-6xl flex-col gap-7 px-6 py-20 sm:py-24 md:py-32 lg:py-36">
+            <div className="text-[11px] uppercase tracking-[0.32em] text-sunset-400">
               {t.home.eyebrow}
             </div>
-            <h1 className="max-w-3xl text-4xl font-light tracking-tightish text-ink-50 md:text-6xl">
+            <h1
+              id="hero-title"
+              className="max-w-3xl text-4xl font-light leading-[1.1] tracking-tightish text-ink-50 sm:text-5xl md:text-6xl"
+            >
               {t.home.title}
             </h1>
-            <p className="max-w-2xl text-lg leading-relaxed text-ink-200">{t.home.lead}</p>
+            <p className="max-w-2xl text-base leading-relaxed text-ink-200 sm:text-lg">
+              {t.home.lead}
+            </p>
             <div className="mt-2 flex flex-wrap gap-3">
               <Link
                 href={t.home.ctaPrimaryHref}
@@ -43,9 +54,11 @@ export function HomePage({ locale }: Props) {
           </div>
         </section>
 
-        <Section id="about" eyebrow={t.about.title}>
-          <p className="max-w-3xl text-base leading-relaxed text-ink-200">{t.about.body}</p>
-          <p className="mt-6 max-w-3xl text-base leading-relaxed text-ink-200">{t.home.intro}</p>
+        <Section id="about" eyebrow={t.about.title} title={t.about.title}>
+          <div className="grid gap-6 md:grid-cols-2">
+            <p className="text-base leading-relaxed text-ink-200">{t.about.body}</p>
+            <p className="text-base leading-relaxed text-ink-200">{t.home.intro}</p>
+          </div>
         </Section>
 
         <div className="border-t border-white/5 bg-navy-900/30">
@@ -92,6 +105,6 @@ export function HomePage({ locale }: Props) {
         </div>
       </main>
       <Footer locale={locale} />
-    </>
+    </div>
   );
 }

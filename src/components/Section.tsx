@@ -13,17 +13,19 @@ export function Section({ id, eyebrow, title, description, children, className }
   return (
     <section
       id={id}
-      className={"mx-auto w-full max-w-6xl px-6 py-20 md:py-28 " + (className ?? "")}
+      className={
+        "mx-auto w-full max-w-6xl px-6 py-16 sm:py-20 md:py-24 lg:py-28 " + (className ?? "")
+      }
     >
       {(eyebrow || title || description) && (
         <header className="mb-10 max-w-2xl">
           {eyebrow ? (
-            <div className="mb-3 text-xs uppercase tracking-[0.28em] text-sunset-400">
+            <div className="mb-3 text-[11px] uppercase tracking-[0.28em] text-sunset-400">
               {eyebrow}
             </div>
           ) : null}
           {title ? (
-            <h2 className="text-3xl font-light tracking-tightish text-ink-50 md:text-4xl">
+            <h2 className="text-3xl font-light leading-tight tracking-tightish text-ink-50 md:text-4xl">
               {title}
             </h2>
           ) : null}

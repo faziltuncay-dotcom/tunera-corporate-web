@@ -43,6 +43,9 @@ export const tr = {
     contact: "İletişim",
     languageSwitch: "EN",
     languageSwitchHref: "/en",
+    languageSwitchAria: "İngilizce sayfaya geç",
+    skipToContent: "İçeriğe geç",
+    primaryAria: "Ana gezinti",
   },
   home: {
     eyebrow: "Denizcilik",
@@ -62,12 +65,14 @@ export const tr = {
   brandsSection: {
     title: "Markalar",
     description: "Tunera Denizcilik tarafından yürütülen marka çalışmaları.",
-    granfortNote: "Resmi Granfort marka sayfasına yönlendirme.",
+    granfortNote:
+      "Granfort marka sayfası ayrı bir uygulamadır. Bağlantı şu anda geliştirme ortamına yönlendirir.",
     ranieriNote: "Planlanan ayrı marka sayfası. Yakında.",
     statusActive: "Aktif",
     statusComingSoon: "Yakında",
     visit: "Marka sayfası",
     placeholderTag: "Geliştirme bağlantısı",
+    inPreparation: "Hazırlık aşamasında",
   },
   services: {
     title: "Hizmetler",
@@ -97,6 +102,9 @@ export const tr = {
     ctaHref: "/tr/iletisim",
     detailsTitle: "İletişim bilgileri",
     detailsNote: "İletişim bilgileri lansman öncesi netleştirilecektir.",
+    fieldEmail: "E-posta",
+    fieldPhone: "Telefon",
+    fieldAddress: "Adres",
   },
   footer: {
     rights: "Tüm hakları saklıdır.",
@@ -116,6 +124,9 @@ export const en: typeof tr = {
     contact: "Contact",
     languageSwitch: "TR",
     languageSwitchHref: "/tr",
+    languageSwitchAria: "Switch to Turkish site",
+    skipToContent: "Skip to content",
+    primaryAria: "Primary navigation",
   },
   home: {
     eyebrow: "Marine",
@@ -135,12 +146,14 @@ export const en: typeof tr = {
   brandsSection: {
     title: "Brands",
     description: "Brand activities operated by Tunera Denizcilik.",
-    granfortNote: "Routes to the official Granfort brand page.",
+    granfortNote:
+      "The Granfort brand page is a separate application. The link currently routes to the development environment.",
     ranieriNote: "Planned separate brand page. Coming soon.",
     statusActive: "Active",
     statusComingSoon: "Coming soon",
     visit: "Brand page",
     placeholderTag: "Development link",
+    inPreparation: "In preparation",
   },
   services: {
     title: "Services",
@@ -165,11 +178,14 @@ export const en: typeof tr = {
   },
   contactSection: {
     title: "Contact",
-    body: "Contact details can be finalized before launch. Official contact information will be announced via the related brand pages.",
+    body: "Contact details will be finalized before launch. Official contact information will be announced via the related brand pages.",
     cta: "Contact page",
     ctaHref: "/en/contact",
     detailsTitle: "Contact details",
-    detailsNote: "Contact details can be finalized before launch.",
+    detailsNote: "Contact details will be finalized before launch.",
+    fieldEmail: "Email",
+    fieldPhone: "Phone",
+    fieldAddress: "Address",
   },
   footer: {
     rights: "All rights reserved.",

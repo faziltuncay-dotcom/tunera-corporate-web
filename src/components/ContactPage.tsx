@@ -10,27 +10,33 @@ type Props = {
 export function ContactPage({ locale }: Props) {
   const t = copy(locale);
   return (
-    <>
+    <div lang={locale}>
       <Header locale={locale} />
-      <main>
+      <main id="main">
         <Section
           eyebrow={t.contactSection.title}
           title={t.contactSection.title}
           description={t.contactSection.body}
         >
-          <div className="rounded-2xl border border-white/5 bg-navy-900/40 p-8">
-            <h3 className="text-base font-medium text-ink-50">{t.contactSection.detailsTitle}</h3>
+          <div className="rounded-2xl border border-white/5 bg-navy-900/40 p-6 sm:p-8">
+            <h2 className="text-base font-medium text-ink-50">{t.contactSection.detailsTitle}</h2>
             <dl className="mt-6 grid grid-cols-1 gap-x-10 gap-y-5 md:grid-cols-2">
               <div>
-                <dt className="text-xs uppercase tracking-[0.2em] text-ink-400">Email</dt>
+                <dt className="text-xs uppercase tracking-[0.2em] text-ink-400">
+                  {t.contactSection.fieldEmail}
+                </dt>
                 <dd className="mt-1 text-sm text-ink-200">{contact.emailPlaceholder}</dd>
               </div>
               <div>
-                <dt className="text-xs uppercase tracking-[0.2em] text-ink-400">Phone</dt>
+                <dt className="text-xs uppercase tracking-[0.2em] text-ink-400">
+                  {t.contactSection.fieldPhone}
+                </dt>
                 <dd className="mt-1 text-sm text-ink-200">{contact.phonePlaceholder}</dd>
               </div>
               <div className="md:col-span-2">
-                <dt className="text-xs uppercase tracking-[0.2em] text-ink-400">Address</dt>
+                <dt className="text-xs uppercase tracking-[0.2em] text-ink-400">
+                  {t.contactSection.fieldAddress}
+                </dt>
                 <dd className="mt-1 text-sm text-ink-200">{contact.addressPlaceholder}</dd>
               </div>
             </dl>
@@ -39,6 +45,6 @@ export function ContactPage({ locale }: Props) {
         </Section>
       </main>
       <Footer locale={locale} />
-    </>
+    </div>
   );
 }

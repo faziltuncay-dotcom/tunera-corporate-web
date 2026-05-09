@@ -11,9 +11,9 @@ type Props = {
 export function BrandsPage({ locale }: Props) {
   const t = copy(locale);
   return (
-    <>
+    <div lang={locale}>
       <Header locale={locale} />
-      <main>
+      <main id="main">
         <Section
           eyebrow={t.brandsSection.title}
           title={t.brandsSection.title}
@@ -35,6 +35,6 @@ export function BrandsPage({ locale }: Props) {
         </Section>
       </main>
       <Footer locale={locale} />
-    </>
+    </div>
   );
 }
