@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Section } from "@/components/Section";
+import { SectionTransition } from "@/components/SectionTransition";
 import { BrandCard } from "@/components/BrandCard";
 import { ServiceList } from "@/components/ServiceList";
 import { brands, contact, copy, type Locale } from "@/content/site";
@@ -18,10 +19,7 @@ export function HomePage({ locale }: Props) {
       <Header locale={locale} current="home" />
       <main id="main">
         {/* HERO ----------------------------------------------------- */}
-        <section
-          aria-labelledby="hero-title"
-          className="relative overflow-hidden border-b border-tunera-stone/40 bg-tunera-ivory"
-        >
+        <section aria-labelledby="hero-title" className="relative overflow-hidden bg-tunera-ivory">
           <div className="mx-auto max-w-6xl px-6 py-16 sm:py-24 md:py-28 lg:py-32">
             <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-x-16">
               <div className="lg:col-span-7">
@@ -80,8 +78,11 @@ export function HomePage({ locale }: Props) {
           </div>
         </section>
 
-        {/* STORY PREVIEW — replaces the previous "Kurumsal" duplicate block */}
-        <Section id="story" eyebrow={t.home.storyPreview.eyebrow}>
+        {/* Brand seam between hero and story */}
+        <SectionTransition />
+
+        {/* STORY PREVIEW — connected to hero via the seam above */}
+        <Section id="story" eyebrow={t.home.storyPreview.eyebrow} tight>
           <div className="grid gap-10 lg:grid-cols-12 lg:gap-x-16">
             <div className="lg:col-span-8">
               <div className="space-y-5 text-base leading-relaxed text-tunera-ink/80 md:text-lg md:leading-[1.7]">
@@ -105,8 +106,8 @@ export function HomePage({ locale }: Props) {
           </div>
         </Section>
 
-        {/* BRANDS ---------------------------------------------------- */}
-        <div className="border-y border-tunera-stone/40 bg-tunera-sand/60">
+        {/* BRANDS — sand band */}
+        <div className="bg-tunera-sand/60">
           <Section
             id="brands"
             eyebrow={t.brandsSection.title}
@@ -129,13 +130,13 @@ export function HomePage({ locale }: Props) {
           </Section>
         </div>
 
-        {/* SERVICES -------------------------------------------------- */}
+        {/* SERVICES — back to ivory */}
         <Section id="services" eyebrow={t.services.title} title={t.services.title}>
           <ServiceList locale={locale} />
         </Section>
 
-        {/* TEAM / WORKING STRUCTURE — compact preview, links to About */}
-        <div className="border-t border-tunera-stone/40 bg-tunera-sand/60">
+        {/* TEAM — sand band, mirrors brands tonally */}
+        <div className="bg-tunera-sand/60">
           <Section
             id="team"
             eyebrow={t.homeTeamPreview.eyebrow}
@@ -172,8 +173,8 @@ export function HomePage({ locale }: Props) {
           </Section>
         </div>
 
-        {/* CONTACT CTA — clean graphite; pattern atmosphere lives in the footer below
-            and softly fades upward across this band's boundary. */}
+        {/* CONTACT CTA — graphite anchor; pattern atmosphere lives in
+            the footer below and softly fades upward across this seam. */}
         <div className="bg-tunera-graphite text-tunera-ivory">
           <Section
             id="contact"

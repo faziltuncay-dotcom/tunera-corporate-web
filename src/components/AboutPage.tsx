@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Section } from "@/components/Section";
+import { SectionTransition } from "@/components/SectionTransition";
 import { PageHero } from "@/components/PageHero";
 import { RoleGrid } from "@/components/RoleGrid";
 import { copy, type Locale } from "@/content/site";
@@ -19,21 +20,35 @@ export function AboutPage({ locale }: Props) {
       <main id="main">
         <PageHero eyebrow={a.hero.eyebrow} title={a.hero.title} lead={a.hero.lead} />
 
-        {/* CORPORATE STORY ----------------------------------------- */}
-        <Section eyebrow={a.story.eyebrow}>
-          <div className="max-w-3xl space-y-6 text-base leading-relaxed text-tunera-ink/80 md:text-lg md:leading-[1.7]">
-            {a.story.paragraphs.map((p, i) => (
-              <p key={i}>{p}</p>
-            ))}
+        {/* Hero → story brand seam */}
+        <SectionTransition />
+
+        {/* CORPORATE STORY — narrative rail on the left */}
+        <Section eyebrow={a.story.eyebrow} tight>
+          <div className="max-w-3xl border-l border-tunera-orange/40 pl-6 sm:pl-8 lg:pl-10">
+            <div className="space-y-6 text-base leading-relaxed text-tunera-ink/80 md:text-lg md:leading-[1.7]">
+              {a.story.paragraphs.map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
+            </div>
           </div>
         </Section>
 
-        {/* NEW ERA — centered editorial pull-quote on ivory */}
+        {/* Story → New Era brand seam (replaces previous border-y) */}
+        <SectionTransition />
+
+        {/* NEW ERA — centered editorial pull-quote with subtle right-side
+            pattern crop so the moment sits inside the brand world rather
+            than floating on plain ivory. */}
         <section
           aria-labelledby="new-era-title"
-          className="border-y border-tunera-stone/40 bg-tunera-ivory"
+          className="relative isolate overflow-hidden bg-tunera-ivory"
         >
-          <div className="mx-auto max-w-5xl px-6 py-20 text-center sm:py-24 md:py-28 lg:py-32">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-y-0 right-0 w-2/3 bg-tunera-pattern bg-cover bg-right opacity-[0.045]"
+          />
+          <div className="relative mx-auto max-w-5xl px-6 py-16 text-center sm:py-20 md:py-24 lg:py-28">
             <div className="mb-7 flex items-center justify-center gap-3">
               <span aria-hidden className="h-px w-10 bg-tunera-orange" />
               <span className="text-[11px] font-medium uppercase tracking-[0.32em] text-tunera-orange">
@@ -53,19 +68,24 @@ export function AboutPage({ locale }: Props) {
           </div>
         </section>
 
-        {/* VALUES --------------------------------------------------- */}
-        <div className="border-b border-tunera-stone/40 bg-tunera-sand/60">
+        {/* New Era → Values brand seam (sand-toned to prepare the eye
+            for the upcoming sand band) */}
+        <SectionTransition surface="sand" />
+
+        {/* VALUES — sand band */}
+        <div className="bg-tunera-sand/60">
           <Section
             id="values"
             eyebrow={a.values.eyebrow}
             title={a.values.title}
             description={a.values.description}
+            tight
           >
             <RoleGrid items={a.values.items} cols={2} />
           </Section>
         </div>
 
-        {/* TEAM / WORKING STRUCTURE -------------------------------- */}
+        {/* TEAM / WORKING STRUCTURE — back to ivory */}
         <Section
           id="team"
           eyebrow={a.team.eyebrow}
@@ -75,7 +95,7 @@ export function AboutPage({ locale }: Props) {
           <RoleGrid items={a.team.items} cols={2} />
         </Section>
 
-        {/* CTA — graphite anchor, footer pattern fades up */}
+        {/* CTA — graphite anchor (footer pattern fades up across boundary) */}
         <div className="bg-tunera-graphite text-tunera-ivory">
           <Section eyebrow={a.cta.title} description={a.cta.body} tone="dark">
             <div className="flex flex-wrap gap-3">

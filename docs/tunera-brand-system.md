@@ -118,6 +118,74 @@ Brand cards are visually stronger than service cards (top rule, larger
 title, larger surface padding) — per spec, the brand hub takes
 precedence over the supporting service grid.
 
+## Section rhythm & transitions
+
+The site uses a recurring grammar to keep section boundaries
+intentional rather than relying on whitespace alone.
+
+### Background tone rhythm
+
+| Tone              | Token             | Where it is used                                          |
+| ----------------- | ----------------- | --------------------------------------------------------- |
+| Ivory (default)   | `tunera-ivory`    | Body, hero, story, services, team-on-About                |
+| Sand              | `tunera-sand/60`  | Brands (home + Brands page), home Team, About Values      |
+| Graphite (anchor) | `tunera-graphite` | Single dark band per page (contact CTA / About final CTA) |
+| Graphite (footer) | `tunera-graphite` | Footer, with mask-faded animated wave-pattern             |
+
+Each page shows ivory dominantly, with **at most one** sand band and
+**one** graphite anchor at the page tail. The footer is the only dark
+band that carries the animated pattern atmosphere.
+
+### Brand seam (`SectionTransition` component)
+
+Same-tone section boundaries (ivory → ivory, sand → sand) would visually
+blur into one block. The `SectionTransition` component is dropped in at
+those pivots:
+
+- ~56–64 px tall band
+- Faint Tunera wave pattern wash at `0.035` opacity (0.04 around the
+  About New Era moment)
+- A single centered hairline in `tunera-orange/55`, ~56 px wide
+- Decorative — `aria-hidden`, no interactive content
+
+Two surface variants:
+
+- `surface="ivory"` (default) — used when both adjacent sections are ivory
+- `surface="sand"` — used when transitioning to a sand band, so the seam
+  pre-figures the next surface tone
+
+### Where each transition lives
+
+| Page     | Transitions                                                            |
+| -------- | ---------------------------------------------------------------------- |
+| Home     | hero → story (ivory seam)                                              |
+| About    | hero → story (ivory) · story → newEra (ivory) · newEra → values (sand) |
+| Services | hero → service-model strip (ivory)                                     |
+| Brands   | brands cards → footer (ivory seam, carries pattern down to the footer) |
+| Contact  | hero → contact card (ivory) · contact card → footer (sand)             |
+
+Color-changing boundaries (ivory → sand, sand → ivory, ivory/sand →
+graphite) do **not** carry an explicit seam — the tone change itself is
+the divider. Adding seams to every boundary would over-decorate.
+
+### Hero-to-content tightening
+
+When the next section follows a hero or a transition seam, that section
+uses `<Section tight>` which reduces vertical padding to
+`py-14 sm:py-16 md:py-20 lg:py-24` (about 60% of the default rhythm).
+This keeps narrative flow tight without losing premium breathing room.
+
+### Recurring micro-grammar
+
+The same visual elements repeat across the site:
+
+- 8 px orange micro-rule + uppercase spaced eyebrow → section headers
+- 56 px centered orange hairline → between sections (`SectionTransition`)
+- 20 px orange marker rule + `01–06` index → cards and service detail
+- 1.5 px orange dot in pill → live brand status
+- 3 px orange top rule → contact card and active brand card
+- Vertical orange rail (`border-l border-tunera-orange/40`) → About story narrative
+
 ## Pattern and emblem usage
 
 Pattern usage is restrained:

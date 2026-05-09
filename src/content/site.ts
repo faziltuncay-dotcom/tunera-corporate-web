@@ -151,6 +151,8 @@ export const tr = {
   brandsSection: {
     title: "Markalar",
     description: "Tunera Denizcilik tarafından yürütülen marka çalışmaları.",
+    contextNote:
+      "Marka çalışmaları, ziyaretçileri ilgili marka sayfalarına yönlendiren sade bir merkez olarak konumlanır.",
     granfortNote:
       "Granfort marka sayfası ayrı bir uygulamadır. Bağlantı şu anda geliştirme ortamına yönlendirir.",
     ranieriNote: "Planlanan ayrı marka sayfası. Yakında.",
@@ -195,6 +197,8 @@ export const tr = {
       title: "Hizmetler",
       lead: "Tunera Denizcilik; marka temsili, satış, servis koordinasyonu, römork süreçleri, depolama ve çekek sahası operasyonlarında bütüncül bir hizmet anlayışı sunmayı hedefler.",
     },
+    modelStripLabel: "Hizmet Modeli",
+    modelStrip: ["Temsil", "Danışmanlık", "Servis", "Römork", "Depolama", "Operasyon"],
     items: [
       {
         title: "Marka Temsili ve Yeni Tekne Satışı",
@@ -404,6 +408,8 @@ export const en: typeof tr = {
   brandsSection: {
     title: "Brands",
     description: "Brand activities operated by Tunera Denizcilik.",
+    contextNote:
+      "Brand work is presented as a simple hub that directs visitors to the related brand pages.",
     granfortNote:
       "The Granfort brand page is a separate application. The link currently routes to the development environment.",
     ranieriNote: "Planned separate brand page. Coming soon.",
@@ -448,6 +454,8 @@ export const en: typeof tr = {
       title: "Services",
       lead: "Tunera Denizcilik aims to deliver a holistic service approach across brand representation, sales, service coordination, trailer processes, storage and yard operations.",
     },
+    modelStripLabel: "Service model",
+    modelStrip: ["Representation", "Advisory", "Service", "Trailer", "Storage", "Operations"],
     items: [
       {
         title: "Brand Representation & New Boat Sales",

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Section } from "@/components/Section";
+import { SectionTransition } from "@/components/SectionTransition";
 import { PageHero } from "@/components/PageHero";
 import { copy, type Locale } from "@/content/site";
 
@@ -18,7 +19,38 @@ export function ServicesPage({ locale }: Props) {
       <main id="main">
         <PageHero eyebrow={s.hero.eyebrow} title={s.hero.title} lead={s.hero.lead} />
 
-        <Section>
+        {/* Hero → service model brand seam */}
+        <SectionTransition />
+
+        {/* SERVICE MODEL STRIP — compact 6-step overview before the detail */}
+        <section aria-label={s.modelStripLabel} className="bg-tunera-ivory">
+          <div className="mx-auto max-w-6xl px-6 py-10 sm:py-12">
+            <div className="mb-5 flex items-center gap-3">
+              <span aria-hidden className="h-px w-8 bg-tunera-orange" />
+              <span className="text-[11px] font-medium uppercase tracking-[0.28em] text-tunera-orange">
+                {s.modelStripLabel}
+              </span>
+            </div>
+            <ol
+              role="list"
+              className="grid grid-cols-2 gap-x-6 gap-y-3 sm:grid-cols-3 lg:grid-cols-6"
+            >
+              {s.modelStrip.map((label, i) => (
+                <li key={label} className="flex items-baseline gap-2">
+                  <span className="text-[10px] font-medium uppercase tracking-[0.22em] text-tunera-orange">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="text-sm font-semibold tracking-tightish text-tunera-ink">
+                    {label}
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
+        {/* DETAILED SERVICES — editorial 4/8 split with intentional dividers */}
+        <Section tight>
           <ol role="list" className="space-y-12 md:space-y-16">
             {s.items.map((item, i) => (
               <li
@@ -37,7 +69,7 @@ export function ServicesPage({ locale }: Props) {
                       {item.title}
                     </h2>
                   </div>
-                  <div className="lg:col-span-8">
+                  <div className="lg:col-span-8 lg:border-l lg:border-tunera-stone/40 lg:pl-12">
                     <div className="space-y-4 text-base leading-relaxed text-tunera-ink/80 sm:text-[17px] sm:leading-[1.7]">
                       {item.paragraphs.map((p, pi) => (
                         <p key={pi}>{p}</p>
@@ -55,6 +87,7 @@ export function ServicesPage({ locale }: Props) {
           </ol>
         </Section>
 
+        {/* CTA — graphite anchor */}
         <div className="bg-tunera-graphite text-tunera-ivory">
           <Section eyebrow={s.cta.title} description={s.cta.body} tone="dark">
             <div className="flex flex-wrap gap-3">
