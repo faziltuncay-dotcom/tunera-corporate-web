@@ -22,22 +22,19 @@ export function ServicesPage({ locale }: Props) {
         {/* Hero → service model brand seam */}
         <SectionTransition />
 
-        {/* SERVICE MODEL STRIP — compact 6-step overview before the detail */}
+        {/* SERVICE MODEL STRIP — editorial brand-index, not a stepper */}
         <section aria-label={s.modelStripLabel} className="bg-tunera-ivory">
           <div className="mx-auto max-w-6xl px-6 py-10 sm:py-12">
-            <div className="mb-5 flex items-center gap-3">
+            <div className="mb-4 flex items-center gap-3">
               <span aria-hidden className="h-px w-8 bg-tunera-orange" />
               <span className="text-[11px] font-medium uppercase tracking-[0.28em] text-tunera-orange">
                 {s.modelStripLabel}
               </span>
             </div>
-            <ol
-              role="list"
-              className="grid grid-cols-2 gap-x-6 gap-y-3 sm:grid-cols-3 lg:grid-cols-6"
-            >
+            <ol role="list" className="flex flex-wrap items-baseline gap-x-7 gap-y-3">
               {s.modelStrip.map((label, i) => (
                 <li key={label} className="flex items-baseline gap-2">
-                  <span className="text-[10px] font-medium uppercase tracking-[0.22em] text-tunera-orange">
+                  <span className="text-[11px] font-medium tabular-nums tracking-[0.18em] text-tunera-orange/70">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <span className="text-sm font-semibold tracking-tightish text-tunera-ink">

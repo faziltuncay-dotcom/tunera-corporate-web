@@ -44,6 +44,48 @@ body {
 }
 
 /*
+ * Section-flow veil.
+ *
+ * Used by the SectionTransition component at narrative pivots between
+ * same-tone sections. The pattern drifts slowly underneath a masked
+ * window whose top and bottom fade to transparent, so the brand wave
+ * dissolves in and out rather than appearing as a rectangular band.
+ *
+ * Motion is transform-only and intentionally calmer than the footer
+ * (36s vs 26–32s) so section veils never compete with the footer's
+ * pattern atmosphere. Disabled entirely under reduced-motion.
+ */
+@keyframes tunera-section-veil-drift {
+  0%,
+  100% {
+    transform: translate3d(-1.2%, 0, 0) scale(1.04);
+  }
+  50% {
+    transform: translate3d(1.2%, 0, 0) scale(1.04);
+  }
+}
+
+.tunera-section-veil {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 38%,
+    black 62%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(to bottom, transparent 0%, black 38%, black 62%, transparent 100%);
+  animation: tunera-section-veil-drift 36s linear infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tunera-section-veil {
+    animation: none;
+    transform: none;
+  }
+}
+
+/*
  * Footer ambient pattern.
  *
  * Two transform-only animation layers drift back and forth at slightly

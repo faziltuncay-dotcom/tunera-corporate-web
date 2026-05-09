@@ -1,7 +1,6 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Section } from "@/components/Section";
-import { SectionTransition } from "@/components/SectionTransition";
 import { BrandCard } from "@/components/BrandCard";
 import { brands, copy, type Locale } from "@/content/site";
 
@@ -37,9 +36,6 @@ export function BrandsPage({ locale }: Props) {
             ))}
           </div>
         </Section>
-
-        {/* Brand seam carrying the pattern down to the footer transition */}
-        <SectionTransition />
       </main>
       <Footer locale={locale} />
     </div>

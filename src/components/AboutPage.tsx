@@ -25,7 +25,7 @@ export function AboutPage({ locale }: Props) {
 
         {/* CORPORATE STORY — narrative rail on the left */}
         <Section eyebrow={a.story.eyebrow} tight>
-          <div className="max-w-3xl border-l border-tunera-orange/40 pl-6 sm:pl-8 lg:pl-10">
+          <div className="max-w-3xl border-l border-tunera-orange/25 pl-6 sm:pl-8 lg:pl-10">
             <div className="space-y-6 text-base leading-relaxed text-tunera-ink/80 md:text-lg md:leading-[1.7]">
               {a.story.paragraphs.map((p, i) => (
                 <p key={i}>{p}</p>
@@ -46,7 +46,7 @@ export function AboutPage({ locale }: Props) {
         >
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-y-0 right-0 w-2/3 bg-tunera-pattern bg-cover bg-right opacity-[0.045]"
+            className="pointer-events-none absolute inset-y-0 right-0 w-2/3 bg-tunera-pattern bg-cover bg-right opacity-[0.03]"
           />
           <div className="relative mx-auto max-w-5xl px-6 py-16 text-center sm:py-20 md:py-24 lg:py-28">
             <div className="mb-7 flex items-center justify-center gap-3">
@@ -68,9 +68,10 @@ export function AboutPage({ locale }: Props) {
           </div>
         </section>
 
-        {/* New Era → Values brand seam (sand-toned to prepare the eye
-            for the upcoming sand band) */}
-        <SectionTransition surface="sand" />
+        {/* New Era → Values brand seam — surface gradient morphs from
+            ivory at the top to sand at the bottom so the colour change
+            into the values band reads as a smooth flow, not a cut. */}
+        <SectionTransition surface="to-sand" />
 
         {/* VALUES — sand band */}
         <div className="bg-tunera-sand/60">

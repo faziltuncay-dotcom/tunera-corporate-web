@@ -59,9 +59,6 @@ export function ContactPage({ locale }: Props) {
             </dl>
           </div>
         </Section>
-
-        {/* Sand seam to ease into the graphite footer */}
-        <SectionTransition surface="sand" />
       </main>
       <Footer locale={locale} />
     </div>

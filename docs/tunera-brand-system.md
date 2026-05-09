@@ -136,37 +136,51 @@ Each page shows ivory dominantly, with **at most one** sand band and
 **one** graphite anchor at the page tail. The footer is the only dark
 band that carries the animated pattern atmosphere.
 
-### Brand seam (`SectionTransition` component)
+### Section-flow veil (`SectionTransition` component)
 
-Same-tone section boundaries (ivory → ivory, sand → sand) would visually
-blur into one block. The `SectionTransition` component is dropped in at
-those pivots:
+Same-tone section boundaries (ivory → ivory) would visually blur into
+one block. Earlier phases used a visible "pattern band + centered orange
+line" separator at those pivots, which read too much like a divider
+component. The current treatment is a **soft brand-flow dissolve**:
 
-- ~56–64 px tall band
-- Faint Tunera wave pattern wash at `0.035` opacity (0.04 around the
-  About New Era moment)
-- A single centered hairline in `tunera-orange/55`, ~56 px wide
-- Decorative — `aria-hidden`, no interactive content
+- 80 / 112 / 128 px tall band on mobile / sm / md (`h-20 sm:h-28 md:h-32`)
+- The wrapper either matches the surrounding tone or smoothly morphs
+  surface colour, so its top and bottom edges never read as a hard band
+- A single decorative pattern layer carries `.tunera-section-veil`:
+  - `mask-image: linear-gradient(to bottom, transparent 0%, black 38%, black 62%, transparent 100%)`
+    — pattern fades **in** at the top edge, peaks at the centre, fades
+    **out** at the bottom edge, so the wave dissolves into the page
+  - opacity `0.028` (slightly lower than the previous 0.035, since the
+    masked window plus the slow drift make the pattern more felt)
+  - `tunera-section-veil-drift` keyframes — 36 s linear infinite,
+    `translate3d(±1.2%, 0, 0) scale(1.04)` back-and-forth, transform-only
+  - Disabled under `@media (prefers-reduced-motion: reduce)`
+- **No centered orange hairline.** The orange micro-rule grammar
+  continues to live in eyebrows, the About story rail, card markers,
+  and the contact card top — never as a centered separator line.
 
 Two surface variants:
 
-- `surface="ivory"` (default) — used when both adjacent sections are ivory
-- `surface="sand"` — used when transitioning to a sand band, so the seam
-  pre-figures the next surface tone
+| Variant           | Used when                                     | Treatment                                                                            |
+| ----------------- | --------------------------------------------- | ------------------------------------------------------------------------------------ |
+| `ivory` (default) | Both adjacent sections are ivory              | Solid `bg-tunera-ivory`; the seam disappears against its neighbours                  |
+| `to-sand`         | Section above is ivory, section below is sand | `bg-gradient-to-b from-tunera-ivory to-tunera-sand/60` — surface morphs continuously |
 
 ### Where each transition lives
 
-| Page     | Transitions                                                            |
-| -------- | ---------------------------------------------------------------------- |
-| Home     | hero → story (ivory seam)                                              |
-| About    | hero → story (ivory) · story → newEra (ivory) · newEra → values (sand) |
-| Services | hero → service-model strip (ivory)                                     |
-| Brands   | brands cards → footer (ivory seam, carries pattern down to the footer) |
-| Contact  | hero → contact card (ivory) · contact card → footer (sand)             |
+| Page     | Transitions                                                               |
+| -------- | ------------------------------------------------------------------------- |
+| Home     | hero → story (ivory)                                                      |
+| About    | hero → story (ivory) · story → newEra (ivory) · newEra → values (to-sand) |
+| Services | hero → service-model strip (ivory)                                        |
+| Brands   | none (cards close cleanly into the footer's own pattern atmosphere)       |
+| Contact  | hero → contact card (ivory)                                               |
 
-Color-changing boundaries (ivory → sand, sand → ivory, ivory/sand →
-graphite) do **not** carry an explicit seam — the tone change itself is
-the divider. Adding seams to every boundary would over-decorate.
+Color-changing boundaries that do not have a flow-veil (ivory → sand,
+sand → ivory, ivory/sand → graphite) rely on the tone change alone as
+the divider. The footer's own mask-faded pattern atmosphere absorbs
+ivory/sand → graphite entries on its own — placing a flow-veil before
+the footer would only add visual noise.
 
 ### Hero-to-content tightening
 
@@ -180,7 +194,7 @@ This keeps narrative flow tight without losing premium breathing room.
 The same visual elements repeat across the site:
 
 - 8 px orange micro-rule + uppercase spaced eyebrow → section headers
-- 56 px centered orange hairline → between sections (`SectionTransition`)
+- (no centered orange hairline; section veils carry only a masked, drifting pattern)
 - 20 px orange marker rule + `01–06` index → cards and service detail
 - 1.5 px orange dot in pill → live brand status
 - 3 px orange top rule → contact card and active brand card
