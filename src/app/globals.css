@@ -315,6 +315,64 @@ body {
 }
 
 /*
+ * Immersive service stories (services page).
+ *
+ * Each `<ServiceStorySection>` reuses `<ImageReveal>` as its scroll
+ * trigger. The wrapper itself stays static — translating a 100svh
+ * full-bleed surface would visibly jolt the layout — and the motion
+ * is delegated to two inner elements:
+ *
+ *   - `.tunera-service-image` — the background photograph eases from
+ *     `scale(1.04)` to `scale(1)` over 1100ms once the section reveals.
+ *   - `.tunera-service-panel` — the floating copy card lifts 18 px
+ *     and fades in from opacity 0, slightly delayed so the image
+ *     settle leads the text settle.
+ *
+ * Reduced-motion users get the settled state immediately and no
+ * transitions; everything stays visible.
+ */
+.tunera-image-reveal.tunera-service-story {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+.tunera-service-image {
+  transform: scale(1.04);
+  transition: transform 1100ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.tunera-service-story[data-revealed="true"] .tunera-service-image {
+  transform: scale(1);
+  will-change: auto;
+}
+
+.tunera-service-panel {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+  transition:
+    opacity 720ms cubic-bezier(0.22, 1, 0.36, 1) 120ms,
+    transform 720ms cubic-bezier(0.22, 1, 0.36, 1) 120ms;
+  will-change: transform, opacity;
+}
+
+.tunera-service-story[data-revealed="true"] .tunera-service-panel {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tunera-service-image,
+  .tunera-service-panel {
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+/*
  * Footer reveal (Phase 2B).
  *
  * IntersectionObserver toggles `data-revealed="true"` on the footer

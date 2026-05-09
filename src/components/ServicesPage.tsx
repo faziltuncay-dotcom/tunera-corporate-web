@@ -1,31 +1,61 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Section } from "@/components/Section";
 import { SectionTransition } from "@/components/SectionTransition";
 import { PageHero } from "@/components/PageHero";
-import { ServicesScrollStory } from "@/components/ServicesScrollStory";
-import { ImageReveal } from "@/components/ImageReveal";
+import { ServiceStorySection, type ServicePanelSide } from "@/components/ServiceStorySection";
 import { copy, type Locale } from "@/content/site";
 
 type Props = {
   locale: Locale;
 };
 
+/**
+ * Per-item layout intent for the immersive service sections.
+ *
+ * `panelSide` puts the floating copy card on the side opposite the
+ * boat in each illustration so the visual subject and the text never
+ * fight for the same area. `imagePosition` nudges the background
+ * `object-position` so the boat / hangar / lift stays inside the
+ * visible frame at common viewport ratios.
+ *
+ * Indexed in declaration order matching `t.servicesPage.items`:
+ *   0  Marka Temsili / Brand Representation     — boat-on-water
+ *   1  İkinci El / Pre-Owned Advisory           — boat-inspection
+ *   2  Servis ve Bakım / Service & Maintenance  — boat-service
+ *   3  Marin Römork / Marine Trailer            — boat-trailer
+ *   4  Güvenli Depolama / Secure Storage        — boat-storage
+ *   5  Çekek Sahası / Yard & Haul-Out           — boat-yard
+ */
+const SERVICE_LAYOUTS: ReadonlyArray<{
+  panelSide: ServicePanelSide;
+  imagePosition: string;
+}> = [
+  { panelSide: "left", imagePosition: "65% center" },
+  { panelSide: "right", imagePosition: "30% center" },
+  { panelSide: "right", imagePosition: "35% center" },
+  { panelSide: "left", imagePosition: "60% center" },
+  { panelSide: "left", imagePosition: "65% center" },
+  { panelSide: "right", imagePosition: "30% center" },
+];
+
 export function ServicesPage({ locale }: Props) {
   const t = copy(locale);
   const s = t.servicesPage;
+  const total = s.items.length;
   return (
     <div lang={locale}>
       <Header locale={locale} current="services" />
       <main id="main">
         <PageHero eyebrow={s.hero.eyebrow} title={s.hero.title} lead={s.hero.lead} />
 
-        {/* Hero → service model brand seam */}
+        {/* Hero → service-model index brand seam */}
         <SectionTransition />
 
-        {/* SERVICE MODEL STRIP — editorial brand-index, not a stepper */}
+        {/* SERVICE MODEL STRIP — calm 6-item index. Acts as the
+            page's "table of contents" before the immersive editorial
+            sections below. */}
         <section aria-label={s.modelStripLabel} className="bg-tunera-ivory">
           <div className="mx-auto max-w-6xl px-6 py-10 sm:py-12">
             <div className="mb-4 flex items-center gap-3">
@@ -49,69 +79,32 @@ export function ServicesPage({ locale }: Props) {
           </div>
         </section>
 
-        {/* SCROLL NARRATIVE — Apple-style sticky stages on lg+, stacked
-            on mobile / reduced-motion. Provides a calm overview of the
-            service model before the detailed editorial cards below. */}
-        <ServicesScrollStory locale={locale} />
+        {/* IMMERSIVE SERVICE STORIES — six full-bleed editorial
+            sections. Each one is `min-h-[100svh]` with the matched
+            illustration as a true background and a floating panel
+            carrying kicker / 0N / title / lead / note. The intentional
+            absence of `SectionTransition` between them keeps the
+            cinematic flow uninterrupted. */}
+        {s.items.map((item, i) => {
+          const layout = SERVICE_LAYOUTS[i] ?? SERVICE_LAYOUTS[0];
+          return (
+            <ServiceStorySection
+              key={item.title}
+              index={i}
+              total={total}
+              kicker={s.modelStrip[i]}
+              title={item.title}
+              description={item.paragraphs[0]}
+              note={item.note}
+              image={item.illustration}
+              imageAlt={item.illustrationAlt}
+              panelSide={layout.panelSide}
+              imagePosition={layout.imagePosition}
+            />
+          );
+        })}
 
-        {/* Narrative → detailed services brand seam */}
-        <SectionTransition />
-
-        {/* DETAILED SERVICES — editorial 4/8 split with intentional dividers */}
-        <Section tight>
-          <ol role="list" className="space-y-12 md:space-y-16">
-            {s.items.map((item, i) => (
-              <li
-                key={item.title}
-                className="border-t border-tunera-stone/40 pt-10 first:border-t-0 first:pt-0 md:pt-12"
-              >
-                <div className="grid gap-8 lg:grid-cols-12 lg:gap-12">
-                  <div className="lg:col-span-4">
-                    {/* Per-service editorial illustration. The same
-                        illustration appears with `priority` only on the
-                        first item; subsequent items lazy-load and softly
-                        reveal as they enter the viewport. */}
-                    <ImageReveal className="mb-6 block">
-                      <div className="relative aspect-[4/3] overflow-hidden rounded-md bg-tunera-ivory ring-1 ring-tunera-stone/50 shadow-[0_18px_40px_-28px_rgba(35,31,32,0.18)]">
-                        <Image
-                          src={item.illustration}
-                          alt={item.illustrationAlt}
-                          width={1448}
-                          height={1086}
-                          sizes="(min-width: 1024px) 360px, (min-width: 640px) 60vw, 100vw"
-                          className="h-full w-full object-cover"
-                        />
-                      </div>
-                    </ImageReveal>
-                    <div className="mb-3 flex items-center gap-2">
-                      <span aria-hidden className="h-1 w-5 bg-tunera-orange" />
-                      <span className="text-[11px] font-medium uppercase tracking-[0.22em] text-tunera-orange">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                    </div>
-                    <h2 className="text-2xl font-semibold leading-[1.15] tracking-tighter2 text-tunera-ink sm:text-3xl">
-                      {item.title}
-                    </h2>
-                  </div>
-                  <div className="lg:col-span-8 lg:border-l lg:border-tunera-stone/40 lg:pl-12">
-                    <div className="space-y-4 text-base leading-relaxed text-tunera-ink/80 sm:text-[17px] sm:leading-[1.7]">
-                      {item.paragraphs.map((p, pi) => (
-                        <p key={pi}>{p}</p>
-                      ))}
-                    </div>
-                    {item.note ? (
-                      <p className="mt-6 border-t border-tunera-stone/50 pt-4 text-xs leading-relaxed text-tunera-muted-ink">
-                        {item.note}
-                      </p>
-                    ) : null}
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </Section>
-
-        {/* CTA — graphite anchor */}
+        {/* CTA — graphite anchor (footer pattern fades up across boundary) */}
         <div className="bg-tunera-graphite text-tunera-ivory">
           <Section eyebrow={s.cta.title} description={s.cta.body} tone="dark">
             <div className="flex flex-wrap gap-3">
