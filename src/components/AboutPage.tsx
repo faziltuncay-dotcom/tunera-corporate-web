@@ -34,13 +34,20 @@ export function AboutPage({ locale }: Props) {
 
         {/* FULL-BLEED EDITORIAL VISUAL — calm coastal scene. Carries
             the page emotionally before the narrative takes over. */}
+        {/*
+          Image-aware placement: about-coastal puts the boat in the
+          mid-right and palms / figures on the left; the safest
+          horizontal anchor is the left edge so the boat (the most
+          identifiable subject) stays clear. The palms behind the
+          panel act as decorative texture rather than focal content.
+        */}
         <PageVisualBleed
           image={a.pageVisual.image}
           imageAlt={a.pageVisual.imageAlt}
           kicker={a.pageVisual.kicker}
           caption={a.pageVisual.caption}
-          panelSide="right"
-          imagePosition="40% center"
+          panelPlacement="left"
+          imagePosition="center center"
         />
 
         {/* SCROLL NARRATIVE — Apple-style sticky stages on lg+, stacked

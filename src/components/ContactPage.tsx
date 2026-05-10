@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Section } from "@/components/Section";
@@ -36,12 +37,19 @@ export function ContactPage({ locale }: Props) {
         {/* FULL-BLEED EDITORIAL VISUAL — calmest scene on the site,
             single boat heading toward an orange sunset. Connects the
             pre-launch contact posture to the closing footer. */}
+        {/*
+          Image-aware placement: contact-horizon has a single boat
+          and the orange sunset on the right side. A left-anchored
+          panel keeps the subject and horizon clear; pushing
+          object-position right ensures the sunset stays inside the
+          visible frame at common viewport ratios.
+        */}
         <PageVisualBleed
           image={t.contactSection.pageVisual.image}
           imageAlt={t.contactSection.pageVisual.imageAlt}
           kicker={t.contactSection.pageVisual.kicker}
           caption={t.contactSection.pageVisual.caption}
-          panelSide="left"
+          panelPlacement="left"
           imagePosition="60% center"
         />
 
@@ -79,6 +87,32 @@ export function ContactPage({ locale }: Props) {
             </dl>
           </div>
         </Section>
+
+        {/* CLOSING CTA — graphite anchor matching the page-end rhythm
+            on Home/About/Services so the Contact route does not feel
+            visibly shorter than the rest of the site. */}
+        <div className="bg-tunera-graphite text-tunera-ivory">
+          <Section
+            eyebrow={t.contactSection.endCta.title}
+            description={t.contactSection.endCta.body}
+            tone="dark"
+          >
+            <div className="flex flex-wrap gap-3">
+              <Link
+                href={t.contactSection.endCta.primaryHref}
+                className="inline-flex items-center gap-2 rounded-sm bg-tunera-orange px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#E64500]"
+              >
+                {t.contactSection.endCta.primaryLabel}
+              </Link>
+              <Link
+                href={t.contactSection.endCta.secondaryHref}
+                className="inline-flex items-center gap-2 rounded-sm border border-tunera-ivory/30 px-6 py-3 text-sm text-tunera-ivory transition-colors hover:border-tunera-orange hover:text-tunera-orange"
+              >
+                {t.contactSection.endCta.secondaryLabel}
+              </Link>
+            </div>
+          </Section>
+        </div>
       </main>
       <Footer locale={locale} />
     </div>

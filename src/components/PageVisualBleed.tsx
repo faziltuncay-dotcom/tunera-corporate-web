@@ -1,13 +1,17 @@
 import Image from "next/image";
 import { ImageReveal } from "@/components/ImageReveal";
-
-export type PageVisualSide = "left" | "right";
+import { panelPlacementClasses, type PanelPlacement } from "@/lib/visualComposition";
 
 type Props = {
   image: string;
   imageAlt: string;
-  /** Side the floating caption panel anchors to at lg+. */
-  panelSide?: PageVisualSide;
+  /**
+   * Image-aware panel placement at lg+. Defaults to "left" — but
+   * each consumer should pick the placement that matches the safe
+   * zone in its specific illustration so the panel never covers the
+   * subject.
+   */
+  panelPlacement?: PanelPlacement;
   /** CSS object-position to keep the subject visible. */
   imagePosition?: string;
   /** Small uppercase label above the caption. */
@@ -32,6 +36,12 @@ type Props = {
  * the visual carries the section emotionally and the text never
  * fights the imagery.
  *
+ * Placement is image-aware: each consumer picks the safe zone for
+ * its specific illustration (see `lib/visualComposition.ts`). The
+ * lg+ side gradient and panel anchor follow the placement; mobile
+ * always stacks the panel to the bottom with a stronger bottom-up
+ * gradient so reading stays comfortable on small surfaces.
+ *
  * Motion sources:
  *
  *   - `<ImageReveal>` outer — `data-revealed` triggers the
@@ -47,7 +57,7 @@ type Props = {
 export function PageVisualBleed({
   image,
   imageAlt,
-  panelSide = "left",
+  panelPlacement = "left",
   imagePosition,
   kicker,
   caption,
@@ -55,13 +65,7 @@ export function PageVisualBleed({
 }: Props) {
   const heightClass = height === "full" ? "min-h-[100svh]" : "min-h-[70svh] sm:min-h-[80svh]";
 
-  const panelJustify = panelSide === "right" ? "lg:justify-end" : "lg:justify-start";
-
-  const sideGradient =
-    panelSide === "right"
-      ? "bg-gradient-to-l from-tunera-graphite/85 via-tunera-graphite/30 to-tunera-graphite/0"
-      : "bg-gradient-to-r from-tunera-graphite/85 via-tunera-graphite/30 to-tunera-graphite/0";
-
+  const { flexClass, gradientClass } = panelPlacementClasses(panelPlacement);
   const showPanel = Boolean(kicker || caption);
 
   return (
@@ -85,7 +89,7 @@ export function PageVisualBleed({
             <>
               <div
                 aria-hidden
-                className={`pointer-events-none absolute inset-0 hidden lg:block ${sideGradient}`}
+                className={`pointer-events-none absolute inset-0 hidden lg:block ${gradientClass}`}
               />
               <div
                 aria-hidden
@@ -102,7 +106,7 @@ export function PageVisualBleed({
 
         {showPanel ? (
           <div
-            className={`relative z-10 mx-auto flex ${heightClass} max-w-6xl items-end px-6 py-16 sm:px-8 sm:py-20 lg:items-center ${panelJustify}`}
+            className={`relative z-10 mx-auto flex ${heightClass} max-w-6xl items-end px-6 py-16 sm:px-8 sm:py-20 ${flexClass}`}
           >
             <div className="tunera-service-panel w-full max-w-md rounded-md border border-tunera-orange/30 bg-tunera-graphite/88 p-6 shadow-[0_24px_60px_-30px_rgba(0,0,0,0.55)] backdrop-blur-md sm:p-8">
               {kicker ? (

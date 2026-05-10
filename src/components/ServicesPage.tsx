@@ -6,44 +6,54 @@ import { SectionTransition } from "@/components/SectionTransition";
 import { PageHero } from "@/components/PageHero";
 import { ServicesStickyStory, type ServiceStoryItem } from "@/components/ServicesStickyStory";
 import { copy, type Locale } from "@/content/site";
+import type { PanelPlacement } from "@/lib/visualComposition";
 
 type Props = {
   locale: Locale;
 };
 
 /**
- * Per-item `object-position` hints. Set so each illustration's main
- * subject (boat, hangar, lift) sits inside the visible frame at
- * common viewport ratios. Indexed against `t.servicesPage.items`:
- *   0 Brand Representation     — boat slightly left of center
- *   1 Pre-Owned Advisory       — figures slightly right
- *   2 Service & Maintenance    — boat on lift slightly right
- *   3 Marine Trailer           — slightly left
- *   4 Secure Storage           — hangar at right
- *   5 Yard & Haul-Out          — lift at left
+ * Per-item composition metadata. Each service illustration has its
+ * own subject location, so the panel placement and object-position
+ * are tuned per stage to keep the panel out of the boat / lighthouse
+ * / lift / hangar focal area:
+ *
+ *   0 Brand Representation  — boat L + marina/lighthouse R   → panel top-left over open sky
+ *   1 Pre-Owned Advisory    — figures L + boat R             → panel bottom-right over water
+ *   2 Service & Maintenance — boat on lift center-right      → panel left over water/reflection
+ *   3 Marine Trailer        — trailer spread across mid-band → panel top-right over open sky
+ *   4 Secure Storage        — hangar R + palms L decorative  → panel left over palms area
+ *   5 Yard & Haul-Out       — travel-lift center-left        → panel right over open right side
  */
-const SERVICE_OBJECT_POSITIONS = [
-  "65% center",
-  "30% center",
-  "35% center",
-  "60% center",
-  "65% center",
-  "30% center",
-] as const;
+const SERVICE_COMPOSITION: ReadonlyArray<{
+  panelPlacement: PanelPlacement;
+  imagePosition: string;
+}> = [
+  { panelPlacement: "top-left", imagePosition: "center center" },
+  { panelPlacement: "bottom-right", imagePosition: "40% center" },
+  { panelPlacement: "left", imagePosition: "60% center" },
+  { panelPlacement: "top-right", imagePosition: "center center" },
+  { panelPlacement: "left", imagePosition: "60% center" },
+  { panelPlacement: "right", imagePosition: "30% center" },
+];
 
 export function ServicesPage({ locale }: Props) {
   const t = copy(locale);
   const s = t.servicesPage;
 
-  const storyItems: ServiceStoryItem[] = s.items.map((item, i) => ({
-    kicker: s.modelStrip[i] ?? item.title,
-    title: item.title,
-    description: item.paragraphs[0],
-    note: item.note,
-    image: item.illustration,
-    imageAlt: item.illustrationAlt,
-    imagePosition: SERVICE_OBJECT_POSITIONS[i] ?? "center",
-  }));
+  const storyItems: ServiceStoryItem[] = s.items.map((item, i) => {
+    const c = SERVICE_COMPOSITION[i] ?? SERVICE_COMPOSITION[0];
+    return {
+      kicker: s.modelStrip[i] ?? item.title,
+      title: item.title,
+      description: item.paragraphs[0],
+      note: item.note,
+      image: item.illustration,
+      imageAlt: item.illustrationAlt,
+      imagePosition: c.imagePosition,
+      panelPlacement: c.panelPlacement,
+    };
+  });
 
   return (
     <div lang={locale}>
@@ -83,11 +93,7 @@ export function ServicesPage({ locale }: Props) {
             service stage's image and floating panel cross-fade as the
             user scrolls. Replaces the previous six stacked 100svh
             sections that hard-cut between unrelated illustrations. */}
-        <ServicesStickyStory
-          ariaLabel={s.scrollStory.ariaLabel}
-          eyebrow={s.scrollStory.eyebrow}
-          items={storyItems}
-        />
+        <ServicesStickyStory ariaLabel={s.scrollStory.ariaLabel} items={storyItems} />
 
         {/* CTA — graphite anchor (footer pattern fades up across boundary) */}
         <div className="bg-tunera-graphite text-tunera-ivory">

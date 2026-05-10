@@ -250,6 +250,14 @@ export const tr = {
       kicker: "Marka merkezi",
       caption: "Markaları doğru zemine taşıyan sade bir denizcilik merkezi olarak konumlanır.",
     },
+    endCta: {
+      title: "Devamı için",
+      body: "Hizmetler ve iletişim sayfaları, çalışma alanlarımıza dair daha fazla ayrıntı sunar.",
+      primaryLabel: "Hizmetler",
+      primaryHref: "/tr/hizmetler",
+      secondaryLabel: "İletişim",
+      secondaryHref: "/tr/iletisim",
+    },
     scrollStory: {
       eyebrow: "Akış",
       ariaLabel: "Tunera marka çalışmaları akışı",
@@ -456,6 +464,14 @@ export const tr = {
         "Editoryal illüstrasyon: turuncu bir günbatımına doğru ilerleyen tek bir motoryat ve dingin bir ufuk kompozisyonu.",
       kicker: "Lansman öncesi",
       caption: "İletişim, lansman öncesi sade bir köprü olarak konumlanır.",
+    },
+    endCta: {
+      title: "İlgili sayfalar",
+      body: "Markalar ve hizmetler sayfaları üzerinden çalışma alanlarımıza dair bilgi alabilirsiniz.",
+      primaryLabel: "Markalar",
+      primaryHref: "/tr/markalar",
+      secondaryLabel: "Hizmetler",
+      secondaryHref: "/tr/hizmetler",
     },
     scrollStory: {
       eyebrow: "Akış",
@@ -705,6 +721,14 @@ export const en: typeof tr = {
       kicker: "Brand hub",
       caption: "A measured marine hub that places brands on the right ground.",
     },
+    endCta: {
+      title: "More to explore",
+      body: "The services and contact pages give further detail on our working areas.",
+      primaryLabel: "Services",
+      primaryHref: "/en/services",
+      secondaryLabel: "Contact",
+      secondaryHref: "/en/contact",
+    },
     scrollStory: {
       eyebrow: "Flow",
       ariaLabel: "Tunera brand work flow",
@@ -911,6 +935,14 @@ export const en: typeof tr = {
         "Editorial illustration — a single motoryacht moving toward an orange sunset across a calm horizon.",
       kicker: "Pre-launch",
       caption: "Contact stays a simple corporate bridge during the pre-launch phase.",
+    },
+    endCta: {
+      title: "Related pages",
+      body: "Visit the brands and services pages for more on our working areas.",
+      primaryLabel: "Brands",
+      primaryHref: "/en/brands",
+      secondaryLabel: "Services",
+      secondaryHref: "/en/services",
     },
     scrollStory: {
       eyebrow: "Flow",

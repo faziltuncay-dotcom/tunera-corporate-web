@@ -60,7 +60,16 @@ export function HomePage({ locale }: Props) {
                   className="pointer-events-none absolute inset-0 bg-gradient-to-t from-tunera-graphite/85 via-tunera-graphite/15 to-transparent lg:hidden"
                 />
               </div>
-              <div className="relative z-10 mx-auto flex min-h-[80svh] max-w-6xl items-end px-6 py-20 sm:px-8 sm:py-24 lg:items-center lg:justify-start lg:py-28">
+              {/*
+                Image-aware panel placement: hero-marine-pair has the
+                two boats centered horizontally with a decorative
+                orange/ink wave foreground occupying the lower-left.
+                Anchoring the panel to bottom-left (lg+) puts it over
+                the wave area while leaving the boats above unblocked.
+                Mobile keeps `items-end` so the panel stacks at the
+                bottom regardless.
+              */}
+              <div className="relative z-10 mx-auto flex min-h-[80svh] max-w-6xl items-end px-6 py-20 sm:px-8 sm:py-24 lg:items-end lg:justify-start lg:py-28">
                 <div className="tunera-service-panel w-full max-w-xl rounded-md border border-tunera-orange/30 bg-tunera-graphite/88 p-7 shadow-[0_28px_70px_-30px_rgba(0,0,0,0.6)] backdrop-blur-md sm:p-9">
                   <div className="flex items-center gap-3">
                     <span aria-hidden className="h-px w-8 bg-tunera-orange" />

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { panelPlacementClasses, type PanelPlacement } from "@/lib/visualComposition";
 
 export type ServiceStoryItem = {
   /** Short kicker label (e.g. "Temsil", "Service"). */
@@ -18,13 +19,18 @@ export type ServiceStoryItem = {
   imageAlt: string;
   /** Optional `object-position` hint to keep the subject visible. */
   imagePosition?: string;
+  /**
+   * Image-aware panel placement at lg+. Each service illustration has
+   * its own subject location (boat / lighthouse / lift / hangar) so
+   * the panel side and gradient direction must follow the safe zone
+   * for that specific image, not a single hard-coded side.
+   */
+  panelPlacement?: PanelPlacement;
 };
 
 type Props = {
   /** Aria-label on the outer section element. */
   ariaLabel: string;
-  /** Eyebrow shown above the panel stack. */
-  eyebrow: string;
   items: ReadonlyArray<ServiceStoryItem>;
 };
 
@@ -58,7 +64,7 @@ type Props = {
  * Native scroll only — no preventDefault, no wheel/touch hijacking,
  * no scroll-snap.
  */
-export function ServicesStickyStory({ ariaLabel, eyebrow, items }: Props) {
+export function ServicesStickyStory({ ariaLabel, items }: Props) {
   const containerRef = useRef<HTMLElement>(null);
   const stickyRef = useRef<HTMLDivElement>(null);
   const [activeStage, setActiveStage] = useState(0);
@@ -154,73 +160,74 @@ export function ServicesStickyStory({ ariaLabel, eyebrow, items }: Props) {
           })}
         </div>
 
-        {/* Side gradient at lg+ keeps the panel side legible without
-            darkening the whole image. */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 hidden bg-gradient-to-r from-tunera-graphite/85 via-tunera-graphite/35 to-tunera-graphite/0 lg:block"
-        />
+        {/* Per-stage side gradient at lg+ keeps the panel side
+            legible without darkening the whole image. The gradient
+            direction follows each item's `panelPlacement` so it
+            always sits under the active panel and the imagery stays
+            open on the opposite side. */}
+        {items.map((item, i) => {
+          const isActive = i === activeStage;
+          const placement = item.panelPlacement ?? "left";
+          const { gradientClass } = panelPlacementClasses(placement);
+          return (
+            <div
+              key={`grad-${item.title}`}
+              aria-hidden
+              data-active={isActive}
+              className={`tunera-services-sticky-image pointer-events-none absolute inset-0 hidden lg:block ${gradientClass}`}
+            />
+          );
+        })}
         {/* Bottom-up gradient on mobile / tablet where the panel
-            stacks at the bottom of the section. */}
+            always stacks at the bottom of the section regardless of
+            its lg+ placement. */}
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 bg-gradient-to-t from-tunera-graphite/85 via-tunera-graphite/15 to-transparent lg:hidden"
         />
-
-        {/* Eyebrow — small label above the panel stack, anchored to
-            the top-left of the page area at lg+. */}
-        <div className="pointer-events-none absolute inset-x-0 top-0 z-10 mx-auto hidden max-w-6xl px-6 pt-10 sm:px-8 sm:pt-14 lg:block">
-          <div className="flex items-center gap-3">
-            <span aria-hidden className="h-px w-8 bg-tunera-orange" />
-            <span className="text-[11px] font-medium uppercase tracking-[0.32em] text-tunera-orange">
-              {eyebrow}
-            </span>
-          </div>
-        </div>
 
         {/* Panel stack — every panel is absolute-positioned on top of
             the same container; only the active one is opacity-1 and
             pointer-events-auto. The container gives the stack
             explicit min-height so the longest panel always fits
             without truncation, no matter which stage is active. */}
-        <div className="relative z-10 mx-auto flex h-[100svh] max-w-6xl items-end px-6 py-16 sm:px-8 sm:py-20 lg:items-center lg:justify-start lg:py-24">
-          <div className="relative w-full max-w-xl min-h-[420px] sm:min-h-[480px]">
-            {items.map((item, i) => {
-              const isActive = i === activeStage;
-              const indexLabel = String(i + 1).padStart(2, "0");
-              return (
-                <article
-                  key={item.title}
-                  data-active={isActive}
-                  aria-hidden={!isActive}
-                  className="tunera-services-sticky-panel absolute inset-x-0 top-0 rounded-md border border-tunera-orange/30 bg-tunera-graphite/88 p-7 shadow-[0_28px_70px_-30px_rgba(0,0,0,0.6)] backdrop-blur-md sm:p-9"
-                >
-                  <div className="flex items-center gap-3">
-                    <span aria-hidden className="h-px w-8 bg-tunera-orange" />
-                    <span className="text-[11px] font-medium uppercase tracking-[0.32em] text-tunera-orange">
-                      {item.kicker}
-                    </span>
-                  </div>
-                  <div className="mt-4 text-[11px] font-medium tabular-nums tracking-[0.22em] text-tunera-orange/80">
-                    {indexLabel}
-                    <span className="text-tunera-ivory/40"> / {totalLabel}</span>
-                  </div>
-                  <h2 className="mt-3 text-3xl font-semibold leading-[1.05] tracking-tighter2 text-tunera-ivory sm:text-4xl md:text-5xl">
-                    {item.title}
-                  </h2>
-                  <p className="mt-5 text-base leading-relaxed text-tunera-ivory/90 sm:text-lg sm:leading-[1.6]">
-                    {item.description}
+        {items.map((item, stageIdx) => {
+          const placement = item.panelPlacement ?? "left";
+          const { flexClass } = panelPlacementClasses(placement);
+          const isActive = stageIdx === activeStage;
+          return (
+            <div
+              key={`flex-${item.title}`}
+              data-active={isActive}
+              aria-hidden={!isActive}
+              className={`tunera-services-sticky-image pointer-events-none absolute inset-0 z-10 mx-auto flex h-[100svh] max-w-6xl items-end px-6 py-16 sm:px-8 sm:py-20 lg:py-24 ${flexClass}`}
+            >
+              <article className="tunera-services-sticky-panel pointer-events-auto w-full max-w-xl rounded-md border border-tunera-orange/30 bg-tunera-graphite/88 p-7 shadow-[0_28px_70px_-30px_rgba(0,0,0,0.6)] backdrop-blur-md sm:p-9">
+                <div className="flex items-center gap-3">
+                  <span aria-hidden className="h-px w-8 bg-tunera-orange" />
+                  <span className="text-[11px] font-medium uppercase tracking-[0.32em] text-tunera-orange">
+                    {item.kicker}
+                  </span>
+                </div>
+                <div className="mt-4 text-[11px] font-medium tabular-nums tracking-[0.22em] text-tunera-orange/80">
+                  {String(stageIdx + 1).padStart(2, "0")}
+                  <span className="text-tunera-ivory/40"> / {totalLabel}</span>
+                </div>
+                <h2 className="mt-3 text-3xl font-semibold leading-[1.05] tracking-tighter2 text-tunera-ivory sm:text-4xl md:text-5xl">
+                  {item.title}
+                </h2>
+                <p className="mt-5 text-base leading-relaxed text-tunera-ivory/90 sm:text-lg sm:leading-[1.6]">
+                  {item.description}
+                </p>
+                {item.note ? (
+                  <p className="mt-5 border-t border-tunera-ivory/15 pt-4 text-xs leading-relaxed text-tunera-ivory/65">
+                    {item.note}
                   </p>
-                  {item.note ? (
-                    <p className="mt-5 border-t border-tunera-ivory/15 pt-4 text-xs leading-relaxed text-tunera-ivory/65">
-                      {item.note}
-                    </p>
-                  ) : null}
-                </article>
-              );
-            })}
-          </div>
-        </div>
+                ) : null}
+              </article>
+            </div>
+          );
+        })}
 
         {/* Vertical side index — stage progress on the right edge.
             Hidden on small screens to keep the surface uncluttered. */}
