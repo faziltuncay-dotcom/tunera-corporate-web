@@ -175,10 +175,10 @@ export function PageVisualBleed({
           <div
             className={`relative z-10 mx-auto flex ${desktopHeightClass} max-w-6xl items-end px-6 py-16 sm:px-8 sm:py-20 ${flexClass}`}
           >
-            <div className="tunera-service-panel w-full max-w-md rounded-md border border-tunera-orange/30 bg-tunera-graphite/88 p-6 shadow-[0_24px_60px_-30px_rgba(0,0,0,0.55)] backdrop-blur-md sm:p-8">
+            <div className="tunera-service-panel tunera-floating-copy w-full max-w-md">
               {kicker ? (
                 <div className="flex items-center gap-3">
-                  <span aria-hidden className="h-px w-8 bg-tunera-orange" />
+                  <span aria-hidden className="tunera-floating-rail" />
                   <span className="text-[11px] font-medium uppercase tracking-[0.32em] text-tunera-orange">
                     {kicker}
                   </span>
@@ -186,7 +186,7 @@ export function PageVisualBleed({
               ) : null}
               {caption ? (
                 <p
-                  className={`${kicker ? "mt-4" : ""} text-base leading-relaxed text-tunera-ivory/90 sm:text-lg sm:leading-[1.55]`}
+                  className={`${kicker ? "mt-4" : ""} text-base leading-relaxed text-tunera-ivory sm:text-lg sm:leading-[1.55]`}
                 >
                   {caption}
                 </p>

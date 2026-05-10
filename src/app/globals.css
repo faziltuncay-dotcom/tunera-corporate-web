@@ -116,6 +116,55 @@ body {
 }
 
 /*
+ * Floating-text system for premium overlays.
+ *
+ * Replaces the old "translucent graphite card with backdrop-blur"
+ * pattern that used to wrap hero / services / page-visual-bleed copy.
+ * The new approach pushes readability onto the IMAGE layer (a per-
+ * section gradient scrim that's tuned to the artwork's safe zone) and
+ * keeps the copy itself completely unboxed — eyebrow, title, lead and
+ * CTAs feel suspended over the marine artwork instead of sitting in a
+ * SaaS-style frosted panel.
+ *
+ *   - .tunera-floating-copy  — apply on the wrapping <article>/<div>.
+ *     Inherited text-shadow gives every descendant text node enough
+ *     atmospheric separation to read on busy artwork without resorting
+ *     to a solid box. Two-stop shadow: a tight 1 px shadow for letter
+ *     edges and a softer 6 px halo for body weight. Both are graphite,
+ *     not pure black, so the warm light on the marine artwork stays
+ *     intact.
+ *
+ *   - .tunera-floating-copy--ink  — same treatment but tuned for
+ *     dark-on-light overlays (rare, used only when copy lands on a
+ *     bright zone of the image).
+ *
+ *   - .tunera-floating-rail  — the small horizontal orange accent line
+ *     that prefixes every eyebrow. Same width / weight everywhere so
+ *     the brand thread is consistent.
+ *
+ * Reduced motion / contrast has no special handling here — text-shadow
+ * is static and respects browser-level forced-color modes.
+ */
+.tunera-floating-copy {
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.55),
+    0 2px 8px rgba(0, 0, 0, 0.32);
+}
+
+.tunera-floating-copy--ink {
+  text-shadow:
+    0 1px 1px rgba(255, 255, 255, 0.65),
+    0 1px 4px rgba(255, 255, 255, 0.4);
+}
+
+.tunera-floating-rail {
+  display: inline-block;
+  height: 1px;
+  width: 2rem;
+  background-color: #ff4d00;
+}
+
+/*
  * Site-wide scroll narrative system.
  *
  * Used by Home, About, Services, Brands, and Contact. The sticky

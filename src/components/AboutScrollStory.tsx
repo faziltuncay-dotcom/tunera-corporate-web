@@ -43,10 +43,7 @@ export function AboutScrollStory({ locale }: Props) {
     values: (
       <ol role="list" className="grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2">
         {a.values.items.map((item, i) => (
-          <li
-            key={item.title}
-            className="rounded-sm border border-tunera-stone/55 bg-white/60 p-4 backdrop-blur-[1px]"
-          >
+          <li key={item.title} className="rounded-sm border border-tunera-stone/55 bg-white/70 p-4">
             <div className="flex items-baseline gap-2">
               <span
                 aria-hidden
@@ -66,10 +63,7 @@ export function AboutScrollStory({ locale }: Props) {
     "working-structure": (
       <ol role="list" className="grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2">
         {a.team.items.map((item, i) => (
-          <li
-            key={item.title}
-            className="rounded-sm border border-tunera-stone/55 bg-white/60 p-4 backdrop-blur-[1px]"
-          >
+          <li key={item.title} className="rounded-sm border border-tunera-stone/55 bg-white/70 p-4">
             <div className="flex items-baseline gap-2">
               <span
                 aria-hidden

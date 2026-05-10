@@ -254,26 +254,26 @@ export function ServicesStickyStory({ ariaLabel, items }: Props) {
               >
                 <article
                   data-active={isActive}
-                  className="tunera-services-sticky-panel pointer-events-auto w-full max-w-xl rounded-md border border-tunera-orange/30 bg-tunera-graphite/88 p-9 shadow-[0_28px_70px_-30px_rgba(0,0,0,0.6)] backdrop-blur-md"
+                  className="tunera-services-sticky-panel tunera-floating-copy pointer-events-auto w-full max-w-xl"
                 >
                   <div className="tunera-stagger tunera-stagger--kicker flex items-center gap-3">
-                    <span aria-hidden className="h-px w-8 bg-tunera-orange" />
+                    <span aria-hidden className="tunera-floating-rail" />
                     <span className="text-[11px] font-medium uppercase tracking-[0.32em] text-tunera-orange">
                       {item.kicker}
                     </span>
                   </div>
                   <div className="tunera-stagger tunera-stagger--number mt-4 text-[11px] font-medium tabular-nums tracking-[0.22em] text-tunera-orange/80">
                     {String(stageIdx + 1).padStart(2, "0")}
-                    <span className="text-tunera-ivory/40"> / {totalLabel}</span>
+                    <span className="text-tunera-ivory/45"> / {totalLabel}</span>
                   </div>
                   <h2 className="tunera-stagger tunera-stagger--title mt-3 text-3xl font-semibold leading-[1.05] tracking-tighter2 text-tunera-ivory md:text-4xl xl:text-5xl">
                     {item.title}
                   </h2>
-                  <p className="tunera-stagger tunera-stagger--body mt-5 text-base leading-relaxed text-tunera-ivory/90 md:text-lg md:leading-[1.6]">
+                  <p className="tunera-stagger tunera-stagger--body mt-5 text-base leading-relaxed text-tunera-ivory md:text-lg md:leading-[1.6]">
                     {item.description}
                   </p>
                   {item.note ? (
-                    <p className="tunera-stagger tunera-stagger--note mt-5 border-t border-tunera-ivory/15 pt-4 text-xs leading-relaxed text-tunera-ivory/65">
+                    <p className="tunera-stagger tunera-stagger--note mt-5 border-t border-tunera-ivory/20 pt-4 text-xs leading-relaxed text-tunera-ivory/75">
                       {item.note}
                     </p>
                   ) : null}

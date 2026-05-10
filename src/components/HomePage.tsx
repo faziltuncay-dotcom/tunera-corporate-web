@@ -191,17 +191,20 @@ export function HomePage({ locale }: Props) {
                     imgClassName="tunera-service-image"
                   />
                 </div>
-                {/* Right-side scrim only — darkens the band the card
-                    sits on, leaves the boat/sun side untouched. */}
+                {/* Right-side scrim — broad image-level gradient that
+                    darkens just enough of the right band so the floating
+                    copy reads cleanly without ever needing a panel
+                    behind it. The boat / water spray / sun side stays
+                    completely clear. */}
                 <div
                   aria-hidden
-                  className="pointer-events-none absolute inset-0 bg-gradient-to-l from-tunera-graphite/80 via-tunera-graphite/20 to-tunera-graphite/0"
+                  className="pointer-events-none absolute inset-0 bg-gradient-to-l from-tunera-graphite/85 via-tunera-graphite/45 via-30% to-tunera-graphite/0 to-65%"
                 />
               </div>
               <div className="relative z-10 mx-auto flex min-h-[80svh] max-w-6xl items-end justify-end px-8 py-28 lg:pr-10 xl:pr-4">
-                <div className="tunera-service-panel w-full max-w-md rounded-md border border-tunera-orange/30 bg-tunera-graphite/85 p-9 shadow-[0_28px_70px_-30px_rgba(0,0,0,0.6)] backdrop-blur-md">
+                <div className="tunera-service-panel tunera-floating-copy w-full max-w-md">
                   <div className="flex items-center gap-3">
-                    <span aria-hidden className="h-px w-8 bg-tunera-orange" />
+                    <span aria-hidden className="tunera-floating-rail" />
                     <span className="text-[11px] font-medium uppercase tracking-[0.32em] text-tunera-orange">
                       {t.home.eyebrow}
                     </span>
@@ -212,10 +215,10 @@ export function HomePage({ locale }: Props) {
                   >
                     {t.home.title}
                   </h1>
-                  <p className="mt-4 text-[11px] uppercase tracking-[0.24em] text-tunera-ivory/65">
+                  <p className="mt-4 text-[11px] uppercase tracking-[0.24em] text-tunera-ivory/70">
                     {contact.companyLegal}
                   </p>
-                  <p className="mt-6 max-w-xl text-base leading-relaxed text-tunera-ivory/85 md:text-lg">
+                  <p className="mt-6 max-w-xl text-base leading-relaxed text-tunera-ivory/90 md:text-lg">
                     {t.home.lead}
                   </p>
                   <div className="mt-8 flex flex-wrap gap-3">
