@@ -202,7 +202,20 @@ export function ServicesStickyStory({ ariaLabel, items }: Props) {
               aria-hidden={!isActive}
               className={`tunera-services-sticky-image pointer-events-none absolute inset-0 z-10 mx-auto flex h-[100svh] max-w-6xl items-end px-6 py-16 sm:px-8 sm:py-20 lg:py-24 ${flexClass}`}
             >
-              <article className="tunera-services-sticky-panel pointer-events-auto w-full max-w-xl rounded-md border border-tunera-orange/30 bg-tunera-graphite/88 p-7 shadow-[0_28px_70px_-30px_rgba(0,0,0,0.6)] backdrop-blur-md sm:p-9">
+              {/*
+                The article carries `data-active` directly because the
+                CSS rule for `.tunera-services-sticky-panel` keys on
+                that attribute (opacity 0 → 1 + soft lift). The outer
+                flex container also carries `data-active` so the calmer
+                820 ms image-style fade runs in parallel with the
+                panel's 520 ms lift; without `data-active` on the
+                article itself the inner opacity stays 0 and the text
+                is invisible regardless of the outer state.
+              */}
+              <article
+                data-active={isActive}
+                className="tunera-services-sticky-panel pointer-events-auto w-full max-w-xl rounded-md border border-tunera-orange/30 bg-tunera-graphite/88 p-7 shadow-[0_28px_70px_-30px_rgba(0,0,0,0.6)] backdrop-blur-md sm:p-9"
+              >
                 <div className="flex items-center gap-3">
                   <span aria-hidden className="h-px w-8 bg-tunera-orange" />
                   <span className="text-[11px] font-medium uppercase tracking-[0.32em] text-tunera-orange">
