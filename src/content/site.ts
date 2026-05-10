@@ -81,7 +81,7 @@ export const tr = {
     title: "Tunera Denizcilik",
     lead: "Marka temsili, tekne satışı ve servis koordinasyonu üzerine çalışan bir denizcilik şirketi.",
     heroIllustrationAlt:
-      "Editoryal illüstrasyon: sakin sularda yan yana ilerleyen iki motoryat ve geniş dalga kompozisyonu.",
+      "Editoryal illüstrasyon: altın bir günbatımına doğru ilerleyen tek bir beyaz motoryat, sakin deniz ve uzakta dağ silüetleri.",
     ctaPrimary: "Markaları Gör",
     ctaPrimaryHref: "/tr#markalar",
     ctaSecondary: "İletişim",
@@ -157,7 +157,7 @@ export const tr = {
     pageVisual: {
       image: "/assets/brand/web/about-coastal.png",
       imageAlt:
-        "Editoryal illüstrasyon: kıyıdaki bir iskelenin yanında demirli bir motoryat ve dingin bir kompozisyonda iki figür.",
+        "Editoryal illüstrasyon: dingin bir koy üzerinde ilerleyen tek bir beyaz motoryat ve uzakta yumuşak ışıklı dağlar.",
       kicker: "Çalışma alanı",
       caption: "Tekne sahibinin satış, servis ve marka tarafıyla temasını tek noktadan yürütür.",
     },
@@ -218,7 +218,7 @@ export const tr = {
     pageVisual: {
       image: "/assets/brand/web/brands-passing.png",
       imageAlt:
-        "Editoryal illüstrasyon: sakin sularda yan yana ilerleyen iki motoryat ve geniş dalga kompozisyonu.",
+        "Editoryal illüstrasyon: sakin sularda yan yana geçen iki beyaz motoryat ve uzakta yumuşak günbatımı.",
       kicker: "Marka çalışmaları",
       caption: "Granfort ve planlanan Ranieri sayfasına yönlendiren sade bir başlangıç noktası.",
     },
@@ -260,7 +260,7 @@ export const tr = {
         title: "Marka Temsili ve Yeni Tekne Satışı",
         illustration: "/assets/brand/web/service-representation.png",
         illustrationAlt:
-          "Editoryal illüstrasyon: deniz fenerli bir marinaya doğru ilerleyen bir motoryat ve yelkenli silüetleri.",
+          "Editoryal illüstrasyon: modern bir villa iskelesine yanaşmış yeni bir beyaz motoryat ve sağ ufukta altın bir günbatımı.",
         paragraphs: [
           "Yurt dışında bilinirlik kazanmış tekne ve motoryat markalarının Türkiye’deki satış ve satış sonrası süreçleri Tunera tarafından yürütülür.",
           "Müşterinin doğru marka, doğru model ve doğru kullanım biçimine ulaşması için ürün tanıtımı, satış yönlendirmesi ve süreç koordinasyonu sağlanır.",
@@ -272,7 +272,7 @@ export const tr = {
         title: "İkinci El Tekne Alım-Satımı ve Danışmanlık",
         illustration: "/assets/brand/web/service-advisory.png",
         illustrationAlt:
-          "Editoryal illüstrasyon: kıyıdaki bir iskelede yan yana duran iki figür ve demirli bir motoryat.",
+          "Editoryal illüstrasyon: çekek sahası önünde hareket halindeki birkaç motoryat ve arka planda hangar ile travel-lift.",
         paragraphs: [
           "İkinci el tekne ve deniz araçlarının alım-satım süreçlerinde müşterilere danışmanlık verilir.",
           "Teknenin kullanım amacı, teknik durumu, piyasa konumu ve operasyonel ihtiyaçları birlikte değerlendirilir.",
@@ -284,7 +284,7 @@ export const tr = {
         title: "Servis ve Bakım Koordinasyonu",
         illustration: "/assets/brand/web/service-maintenance.png",
         illustrationAlt:
-          "Editoryal illüstrasyon: tesis yapısı içinde lift üzerinde bir motoryat ve servis ortamı.",
+          "Editoryal illüstrasyon: modern bir hangarda servis sehpasındaki beyaz bir motoryata eşlik eden iki teknisyen ve arka planda deniz manzarası.",
         paragraphs: [
           "Tekne, motor ve marin ekipman için servis ve bakım süreçlerinin planlanmasında, ilgili teknik ekiplerle eşgüdümünde ve takibinde Tunera müşterinin yanında durur.",
           "Yaklaşım yalnızca arıza çözümüne değil, kullanım sürekliliğine ve düzenli süreç takibine odaklanır.",
@@ -295,7 +295,7 @@ export const tr = {
         title: "Marin Römork Satış ve Satış Sonrası Hizmetleri",
         illustration: "/assets/brand/web/service-trailer.png",
         illustrationAlt:
-          "Editoryal illüstrasyon: marin römorkla taşınan bir motoryat ve sahil yolunda hareket halindeki çekici araç.",
+          "Editoryal illüstrasyon: marin römork üzerinde beyaz bir motoryat çeken turuncu bir pikap ve sahil yolunda altın bir günbatımı.",
         paragraphs: [
           "Marin tip römork ürünlerinin satış, servis ve bakım süreçlerinde müşterilere çözüm sağlanır.",
           "Teknenin taşınması, güvenli konumlandırılması ve doğru ekipmanla desteklenmesi denizcilik operasyonunun bir parçasıdır.",
@@ -307,7 +307,7 @@ export const tr = {
         title: "Güvenli Depolama Hizmetleri",
         illustration: "/assets/brand/web/service-storage.png",
         illustrationAlt:
-          "Editoryal illüstrasyon: açık bayları içinde tekneler bulunan modern bir depolama tesisi ve ön planda dalga kompozisyonu.",
+          "Editoryal illüstrasyon: solda çok katlı tekne depolama rafları, sağda aydınlatılmış modern bir hangar ve önünde forklift ile bekleyen tekneler.",
         paragraphs: [
           "Üçüncü kişilere ait tekne, deniz aracı ve marin römorklar için güvenlik önlemleri alınmış tesis içinde depolama hizmeti sunulur.",
           "Hizmet; güvenlik, düzen, erişilebilirlik ve operasyonel kontrol başlıkları üzerine kurulur.",
@@ -318,7 +318,7 @@ export const tr = {
         title: "Çekek Sahası ve Operasyon Yönetimi",
         illustration: "/assets/brand/web/service-yard.png",
         illustrationAlt:
-          "Editoryal illüstrasyon: çekek sahasında travel-lift askılarıyla taşınan bir motoryat ve operasyona eşlik eden çalışanlar.",
+          "Editoryal illüstrasyon: çekek sahasında travel-lift askılarıyla taşınan bir motoryat, sol uzakta deniz feneri ve sağda hangar binası.",
         paragraphs: [
           "Çekek sahası işlemleri planlama, alan yönetimi, güvenlik, ekipman koordinasyonu ve operasyon takibi gerektirir.",
           "Tunera; teknenin karaya alınmasını, sahada konumlandırılmasını, bakım sürecine hazırlanmasını ve operasyonel akışın güvenli yürütülmesini bu çerçevede ele alır.",
@@ -342,7 +342,7 @@ export const tr = {
     pageVisual: {
       image: "/assets/brand/web/contact-horizon.png",
       imageAlt:
-        "Editoryal illüstrasyon: turuncu bir günbatımına doğru ilerleyen tek bir motoryat ve dingin bir ufuk kompozisyonu.",
+        "Editoryal illüstrasyon: özel bir iskeleye yanaşmış tek bir beyaz motoryat, kıyıdaki villa ışıkları ve uzakta dingin bir günbatımı.",
       kicker: "Lansman öncesi",
       caption: "İletişim bilgileri lansman öncesinde paylaşılacaktır.",
     },
@@ -400,7 +400,7 @@ export const en: typeof tr = {
     title: "Tunera Denizcilik",
     lead: "A marine company working on brand representation, boat sales and service coordination.",
     heroIllustrationAlt:
-      "Editorial illustration — two motoryachts moving across calm water with a wide wave composition.",
+      "Editorial illustration — a single white motoryacht heading toward a golden sunset across calm water with distant mountain silhouettes.",
     ctaPrimary: "View brands",
     ctaPrimaryHref: "/en#brands",
     ctaSecondary: "Contact",
@@ -476,7 +476,7 @@ export const en: typeof tr = {
     pageVisual: {
       image: "/assets/brand/web/about-coastal.png",
       imageAlt:
-        "Editorial illustration — a calm coastal scene with a moored motoryacht beside a quay and two figures.",
+        "Editorial illustration — a single white motoryacht cruising across a calm bay with soft, warm-lit mountains on the horizon.",
       kicker: "Working area",
       caption:
         "Coordinating the boat owner’s contact with the sales, service and brand sides from one point.",
@@ -538,7 +538,7 @@ export const en: typeof tr = {
     pageVisual: {
       image: "/assets/brand/web/brands-passing.png",
       imageAlt:
-        "Editorial illustration — two motoryachts moving across calm water with a wide wave composition.",
+        "Editorial illustration — two white motoryachts passing each other on calm water with a soft sunset behind.",
       kicker: "Brand work",
       caption:
         "A simple starting point that points visitors to Granfort and the planned Ranieri page.",
@@ -581,7 +581,7 @@ export const en: typeof tr = {
         title: "Brand Representation & New Boat Sales",
         illustration: "/assets/brand/web/service-representation.png",
         illustrationAlt:
-          "Editorial illustration of a motoryacht heading toward a marina with a lighthouse and moored sailboats.",
+          "Editorial illustration of a new white motoryacht moored at a modern villa private dock with a golden sunset on the right horizon.",
         paragraphs: [
           "Sales and after-sales processes for boat and motor-yacht brands with established recognition abroad are handled by Tunera in the Turkish market.",
           "Customers are supported in reaching the right brand, the right model and the right way of using the boat through product introduction, sales guidance and process coordination.",
@@ -593,7 +593,7 @@ export const en: typeof tr = {
         title: "Pre-Owned Boat Sales & Advisory",
         illustration: "/assets/brand/web/service-advisory.png",
         illustrationAlt:
-          "Editorial illustration of two figures standing on a coastal quay beside a moored motoryacht.",
+          "Editorial illustration of several motoryachts moving in front of a marine yard, with hangars and a travel-lift gantry in the background.",
         paragraphs: [
           "Tunera advises customers through the buying and selling of pre-owned boats and marine vessels.",
           "The boat’s intended use, technical condition, market position and operational needs are reviewed together.",
@@ -605,7 +605,7 @@ export const en: typeof tr = {
         title: "Service & Maintenance Coordination",
         illustration: "/assets/brand/web/service-maintenance.png",
         illustrationAlt:
-          "Editorial illustration of a motoryacht raised on a service lift inside a maintenance facility.",
+          "Editorial illustration of a white motoryacht on a service stand inside a modern hangar, with two technicians attending the boat and a sea view through the opening.",
         paragraphs: [
           "Tunera supports customers through planning service and maintenance work for boats, engines and marine equipment, coordinating with the relevant technical teams and following up on each step.",
           "The approach focuses not only on resolving faults but on continuity of use and orderly process follow-up.",
@@ -616,7 +616,7 @@ export const en: typeof tr = {
         title: "Marine Trailer Sales & After-Sales Support",
         illustration: "/assets/brand/web/service-trailer.png",
         illustrationAlt:
-          "Editorial illustration of a motoryacht being towed on a marine trailer along a coastal road.",
+          "Editorial illustration of an orange pickup truck towing a white motoryacht on a marine trailer along a coastal road at golden hour.",
         paragraphs: [
           "Sales, service and maintenance for marine-type trailer products are supported by Tunera.",
           "Transporting a boat, positioning it safely and pairing it with the right equipment is part of marine operations.",
@@ -628,7 +628,7 @@ export const en: typeof tr = {
         title: "Secure Storage Services",
         illustration: "/assets/brand/web/service-storage.png",
         illustrationAlt:
-          "Editorial illustration of a modern boat-storage facility with open bays revealing the vessels inside.",
+          "Editorial illustration of a marine storage yard — multi-level boat racks on the left, a lit modern hangar on the right with a forklift and stored vessels in front.",
         paragraphs: [
           "Storage is offered for third-party boats, marine vessels and marine trailers within a facility that has security measures in place.",
           "The service is built on security, order, accessibility and operational control.",
@@ -639,7 +639,7 @@ export const en: typeof tr = {
         title: "Yard & Haul-Out Operations Management",
         illustration: "/assets/brand/web/service-yard.png",
         illustrationAlt:
-          "Editorial illustration of a motoryacht held in travel-lift slings at a haul-out yard with workers attending.",
+          "Editorial illustration of a motoryacht held in travel-lift slings at a haul-out yard, with a lighthouse far on the left and a hangar building on the right.",
         paragraphs: [
           "Yard operations require planning, area management, security, equipment coordination and follow-up.",
           "Tunera handles hauling boats out of the water, positioning them on site, preparing them for maintenance and running the operational flow safely within this scope.",
@@ -663,7 +663,7 @@ export const en: typeof tr = {
     pageVisual: {
       image: "/assets/brand/web/contact-horizon.png",
       imageAlt:
-        "Editorial illustration — a single motoryacht moving toward an orange sunset across a calm horizon.",
+        "Editorial illustration — a single white motoryacht moored at a private dock beside a cliffside villa with dock lights and a calm distant sunset.",
       kicker: "Pre-launch",
       caption: "Contact details will be shared before launch.",
     },

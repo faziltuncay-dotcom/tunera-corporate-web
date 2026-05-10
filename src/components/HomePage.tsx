@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { CSSProperties } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Section } from "@/components/Section";
@@ -20,19 +21,30 @@ type Props = {
 
 /**
  * Per-service composition metadata so each illustration's subject
- * (boat, lighthouse, lift, hangar) stays clear of the panel that
- * floats above it inside ServicesStickyStory.
+ * (boat, lighthouse, lift, hangar, truck) stays clear of the panel
+ * that floats above it inside ServicesStickyStory. Each entry encodes
+ * the safe overlay zone for one image plus a desktop and mobile
+ * `object-position` so the subject stays inside the visible window
+ * at both 16:9-ish desktop and portrait mobile crops.
+ *
+ *   0  Brand Representation  — boat at modern villa dock, sun right    → panel top-left over sky+palm
+ *   1  Pre-Owned Advisory    — multiple boats at marina hub             → panel top-left over sky above hangar
+ *   2  Service & Maintenance — boat in hangar, technicians L+R          → panel top-left over dark hangar interior
+ *   3  Marine Trailer        — pickup towing trailer, sun right edge    → panel top-left over open sky
+ *   4  Secure Storage        — racks left, lit hangar right             → panel top-left over morning sky
+ *   5  Yard & Haul-Out       — travel-lift center, lighthouse far left  → panel top-left over sky+lighthouse
  */
 const SERVICE_COMPOSITION: ReadonlyArray<{
   panelPlacement: PanelPlacement;
   imagePosition: string;
+  imagePositionMobile: string;
 }> = [
-  { panelPlacement: "top-left", imagePosition: "center center" },
-  { panelPlacement: "bottom-right", imagePosition: "40% center" },
-  { panelPlacement: "left", imagePosition: "60% center" },
-  { panelPlacement: "top-right", imagePosition: "center center" },
-  { panelPlacement: "left", imagePosition: "60% center" },
-  { panelPlacement: "right", imagePosition: "30% center" },
+  { panelPlacement: "top-left", imagePosition: "40% 60%", imagePositionMobile: "40% 60%" },
+  { panelPlacement: "top-left", imagePosition: "center 60%", imagePositionMobile: "center 60%" },
+  { panelPlacement: "top-left", imagePosition: "center 60%", imagePositionMobile: "center 65%" },
+  { panelPlacement: "top-left", imagePosition: "30% 50%", imagePositionMobile: "35% 50%" },
+  { panelPlacement: "top-left", imagePosition: "60% 50%", imagePositionMobile: "65% 55%" },
+  { panelPlacement: "top-left", imagePosition: "center 60%", imagePositionMobile: "center 60%" },
 ];
 
 export function HomePage({ locale }: Props) {
@@ -53,6 +65,7 @@ export function HomePage({ locale }: Props) {
       image: item.illustration,
       imageAlt: item.illustrationAlt,
       imagePosition: comp.imagePosition,
+      imagePositionMobile: comp.imagePositionMobile,
       panelPlacement: comp.panelPlacement,
     };
   });
@@ -70,9 +83,18 @@ export function HomePage({ locale }: Props) {
       <Header locale={locale} />
       <main id="main">
         {/* HERO — anchor target for "home" / "anasayfa". Full-bleed
-            graphite scene with the editorial two-boats illustration and
-            a tinted panel anchored to the bottom-left over the wave
-            foreground so the boats stay unobstructed. */}
+            graphite scene with the cinematic single-boat sunset
+            illustration. Composition: boat sits in the lower-left
+            third, sun glow on the right edge mid-vertical. Panel is
+            anchored to the bottom-right (lg+) over the calm water
+            zone so it covers neither the boat nor the sun, and the
+            side gradient darkens the right side under the panel
+            without ever sitting on top of the sun (which is
+            mid-vertical, while the panel is bottom). Mobile keeps
+            its bottom-stack default with a softer bottom-up gradient.
+            `imagePositionMobile` shifts the crop right of center on
+            portrait viewports so the boat (lower-left of source)
+            stays inside the visible window. */}
         <section
           id={ids.home}
           aria-labelledby="hero-title"
@@ -88,20 +110,29 @@ export function HomePage({ locale }: Props) {
                     fill
                     priority
                     sizes="100vw"
-                    className="tunera-service-image object-cover"
-                    style={{ objectPosition: "center" }}
+                    className="tunera-service-image object-cover [object-position:var(--obj-m)] sm:[object-position:var(--obj-d)]"
+                    style={
+                      {
+                        ["--obj-d"]: "center 50%",
+                        ["--obj-m"]: "20% 50%",
+                      } as CSSProperties
+                    }
                   />
                 </div>
+                {/* Corner-direction gradient (toward top-left) so only the
+                    bottom-right area under the panel is darkened. The
+                    upper-right — where the sun glow sits in this hero — stays
+                    clear. */}
                 <div
                   aria-hidden
-                  className="pointer-events-none absolute inset-0 hidden bg-gradient-to-r from-tunera-graphite/85 via-tunera-graphite/35 to-tunera-graphite/0 lg:block"
+                  className="pointer-events-none absolute inset-0 hidden bg-gradient-to-tl from-tunera-graphite/85 via-tunera-graphite/30 to-tunera-graphite/0 lg:block"
                 />
                 <div
                   aria-hidden
                   className="pointer-events-none absolute inset-0 bg-gradient-to-t from-tunera-graphite/85 via-tunera-graphite/15 to-transparent lg:hidden"
                 />
               </div>
-              <div className="relative z-10 mx-auto flex min-h-[80svh] max-w-6xl items-end px-6 py-20 sm:px-8 sm:py-24 lg:items-end lg:justify-start lg:py-28">
+              <div className="relative z-10 mx-auto flex min-h-[80svh] max-w-6xl items-end px-6 py-20 sm:px-8 sm:py-24 lg:items-end lg:justify-end lg:py-28">
                 <div className="tunera-service-panel w-full max-w-xl rounded-md border border-tunera-orange/30 bg-tunera-graphite/88 p-7 shadow-[0_28px_70px_-30px_rgba(0,0,0,0.6)] backdrop-blur-md sm:p-9">
                   <div className="flex items-center gap-3">
                     <span aria-hidden className="h-px w-8 bg-tunera-orange" />
@@ -147,13 +178,19 @@ export function HomePage({ locale }: Props) {
             hero (h2) + full-bleed coastal visual + sticky scroll story
             carrying the corporate detail. */}
         <PageHero id={ids.about} eyebrow={a.hero.eyebrow} title={a.hero.title} lead={a.hero.lead} />
+        {/* About visual: single boat lower-left + soft golden glow upper-right
+            + decorative gold arc lines across upper-right. Safe zone is the
+            top-left sky band, so the panel anchors top-left at lg+.
+            Mobile crop shifts right of source center to keep the boat visible
+            in portrait windows. */}
         <PageVisualBleed
           image={a.pageVisual.image}
           imageAlt={a.pageVisual.imageAlt}
           kicker={a.pageVisual.kicker}
           caption={a.pageVisual.caption}
-          panelPlacement="left"
-          imagePosition="center center"
+          panelPlacement="top-left"
+          imagePosition="30% 50%"
+          imagePositionMobile="30% 55%"
         />
         <AboutScrollStory locale={locale} />
 
@@ -163,13 +200,20 @@ export function HomePage({ locale }: Props) {
             with the two-yachts visual then per-brand sticky stages
             (Granfort active, Ranieri planned). */}
         <PageHero id={ids.brands} eyebrow={b.title} title={b.title} lead={b.description} />
+        {/* Brands visual: TWO motoryachts side-by-side passing each other in the
+            lower-center band, soft sun behind upper-right, cliffs+villa+palms
+            upper-left. Safe zone is the top-right sky band so the panel anchors
+            top-right at lg+ — never sits over either boat and clears the soft
+            sun haze. Mobile crop moves the focal centre slightly right so both
+            boats stay in frame on portrait. */}
         <PageVisualBleed
           image={b.pageVisual.image}
           imageAlt={b.pageVisual.imageAlt}
           kicker={b.pageVisual.kicker}
           caption={b.pageVisual.caption}
-          panelPlacement="bottom-right"
-          imagePosition="center center"
+          panelPlacement="top-right"
+          imagePosition="center 60%"
+          imagePositionMobile="60% 60%"
         />
         <BrandsScrollStory locale={locale} />
 
@@ -219,13 +263,20 @@ export function HomePage({ locale }: Props) {
             email/phone/address, and the closing card mirrors the same
             fields without inventing a submission flow. */}
         <PageHero id={ids.contact} eyebrow={c.title} title={c.title} lead={c.body} />
+        {/* Contact visual: boat moored at private dock center-left with villa
+            and dock lights, distant calm sunset on the right horizon. Safe
+            zone is the top-right sky band — the panel anchors top-right at
+            lg+, never covers the boat / dock / villa and never sits on the
+            sunset (which is mid-vertical, while the panel is top). Mobile
+            crop favours the dock+boat side to keep the subject visible. */}
         <PageVisualBleed
           image={c.pageVisual.image}
           imageAlt={c.pageVisual.imageAlt}
           kicker={c.pageVisual.kicker}
           caption={c.pageVisual.caption}
-          panelPlacement="left"
-          imagePosition="60% center"
+          panelPlacement="top-right"
+          imagePosition="30% 55%"
+          imagePositionMobile="30% 60%"
         />
         <ContactScrollStory locale={locale} />
 

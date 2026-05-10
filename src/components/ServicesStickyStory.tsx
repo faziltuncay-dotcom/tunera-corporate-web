@@ -17,8 +17,15 @@ export type ServiceStoryItem = {
   image: string;
   /** Image alt for the active stage. */
   imageAlt: string;
-  /** Optional `object-position` hint to keep the subject visible. */
+  /** Desktop / tablet `object-position` hint. */
   imagePosition?: string;
+  /**
+   * Mobile `object-position` hint. The mobile portrait container
+   * crops a centered desktop position aggressively, so each image's
+   * mobile crop is tuned to keep its subject (boat / lift / truck)
+   * inside the visible window.
+   */
+  imagePositionMobile?: string;
   /**
    * Image-aware panel placement at lg+. Each service illustration has
    * its own subject location (boat / lighthouse / lift / hangar) so
@@ -137,6 +144,12 @@ export function ServicesStickyStory({ ariaLabel, items }: Props) {
         <div className="absolute inset-0">
           {items.map((item, i) => {
             const isActive = i === activeStage;
+            const objPosDesktop = item.imagePosition ?? "center";
+            const objPosMobile = item.imagePositionMobile ?? objPosDesktop;
+            const objPosVars = {
+              ["--obj-d"]: objPosDesktop,
+              ["--obj-m"]: objPosMobile,
+            } as CSSProperties;
             return (
               <div
                 key={item.title}
@@ -151,8 +164,8 @@ export function ServicesStickyStory({ ariaLabel, items }: Props) {
                     fill
                     sizes="100vw"
                     priority={i === 0}
-                    className="object-cover"
-                    style={{ objectPosition: item.imagePosition ?? "center" }}
+                    className="object-cover [object-position:var(--obj-m)] sm:[object-position:var(--obj-d)]"
+                    style={objPosVars}
                   />
                 </div>
               </div>

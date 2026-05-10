@@ -1,4 +1,5 @@
 import Image from "next/image";
+import type { CSSProperties } from "react";
 import { ImageReveal } from "@/components/ImageReveal";
 import { panelPlacementClasses, type PanelPlacement } from "@/lib/visualComposition";
 
@@ -12,8 +13,19 @@ type Props = {
    * subject.
    */
   panelPlacement?: PanelPlacement;
-  /** CSS object-position to keep the subject visible. */
+  /**
+   * Desktop / tablet (sm+) `object-position`. Each image has its own
+   * focal point (boat, sun, dock); pick the value that keeps that
+   * subject visible at the cinematic 16:9-ish desktop crop.
+   */
   imagePosition?: string;
+  /**
+   * Mobile (sub-sm) `object-position`. The mobile container is
+   * portrait-oriented so a centered desktop crop will often slide the
+   * subject off-screen. Pick a value that keeps the boat / sun visible
+   * at narrow viewports. Falls back to `imagePosition` if omitted.
+   */
+  imagePositionMobile?: string;
   /** Small uppercase label above the caption. */
   kicker?: string;
   /** Single short caption line that floats over the image. */
@@ -59,6 +71,7 @@ export function PageVisualBleed({
   imageAlt,
   panelPlacement = "left",
   imagePosition,
+  imagePositionMobile,
   kicker,
   caption,
   height = "tall",
@@ -67,6 +80,13 @@ export function PageVisualBleed({
 
   const { flexClass, gradientClass } = panelPlacementClasses(panelPlacement);
   const showPanel = Boolean(kicker || caption);
+
+  const objPosDesktop = imagePosition ?? "center";
+  const objPosMobile = imagePositionMobile ?? objPosDesktop;
+  const objPosVars = {
+    ["--obj-d"]: objPosDesktop,
+    ["--obj-m"]: objPosMobile,
+  } as CSSProperties;
 
   return (
     <ImageReveal className="tunera-service-story relative isolate block overflow-hidden bg-tunera-graphite text-tunera-ivory">
@@ -81,8 +101,8 @@ export function PageVisualBleed({
               alt={imageAlt}
               fill
               sizes="100vw"
-              className="tunera-service-image object-cover"
-              style={{ objectPosition: imagePosition ?? "center" }}
+              className="tunera-service-image object-cover [object-position:var(--obj-m)] sm:[object-position:var(--obj-d)]"
+              style={objPosVars}
             />
           </div>
           {showPanel ? (

@@ -33,11 +33,30 @@ export type PanelPlacement =
   | "bottom-left"
   | "bottom-right";
 
-const SIDE_GRADIENT_RIGHT =
-  "bg-gradient-to-l from-tunera-graphite/85 via-tunera-graphite/35 to-tunera-graphite/0";
-
-const SIDE_GRADIENT_LEFT =
-  "bg-gradient-to-r from-tunera-graphite/85 via-tunera-graphite/35 to-tunera-graphite/0";
+/**
+ * Per-placement readability gradient.
+ *
+ * The pure `left` / `right` placements anchor the panel mid-vertically,
+ * so they need a full-column horizontal gradient — the panel covers the
+ * full vertical band on its side. The four corner placements only sit
+ * in one corner; their gradient is *diagonal*, anchored at the panel's
+ * corner and fading out toward the opposite corner. That keeps the
+ * sun / sky / distant horizon bright on the side opposite the panel
+ * — important for these illustrations where the sunset and the boat
+ * frequently sit on opposite halves.
+ */
+const GRADIENTS: Record<PanelPlacement, string> = {
+  left: "bg-gradient-to-r from-tunera-graphite/85 via-tunera-graphite/35 to-tunera-graphite/0",
+  right: "bg-gradient-to-l from-tunera-graphite/85 via-tunera-graphite/35 to-tunera-graphite/0",
+  "top-left":
+    "bg-gradient-to-br from-tunera-graphite/85 via-tunera-graphite/25 to-tunera-graphite/0",
+  "top-right":
+    "bg-gradient-to-bl from-tunera-graphite/85 via-tunera-graphite/25 to-tunera-graphite/0",
+  "bottom-left":
+    "bg-gradient-to-tr from-tunera-graphite/85 via-tunera-graphite/25 to-tunera-graphite/0",
+  "bottom-right":
+    "bg-gradient-to-tl from-tunera-graphite/85 via-tunera-graphite/25 to-tunera-graphite/0",
+};
 
 export function panelPlacementClasses(p: PanelPlacement): {
   flexClass: string;
@@ -54,6 +73,6 @@ export function panelPlacementClasses(p: PanelPlacement): {
 
   return {
     flexClass: `${items} ${justify}`,
-    gradientClass: isRight ? SIDE_GRADIENT_RIGHT : SIDE_GRADIENT_LEFT,
+    gradientClass: GRADIENTS[p],
   };
 }
