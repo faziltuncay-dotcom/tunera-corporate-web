@@ -315,18 +315,24 @@ body {
 }
 
 /*
- * Immersive service stories (services page).
+ * Immersive editorial visuals (Home hero, PageVisualBleed,
+ * ServicesStickyStory).
  *
- * Each `<ServiceStorySection>` reuses `<ImageReveal>` as its scroll
- * trigger. The wrapper itself stays static — translating a 100svh
- * full-bleed surface would visibly jolt the layout — and the motion
- * is delegated to two inner elements:
+ * Each editorial visual element reuses these classes so the motion
+ * grammar stays consistent across the site. Two motions are tied to
+ * `<ImageReveal>`'s `data-revealed` attribute:
  *
  *   - `.tunera-service-image` — the background photograph eases from
- *     `scale(1.04)` to `scale(1)` over 1100ms once the section reveals.
+ *     `scale(1.04)` to `scale(1)` over 1100ms once the section enters
+ *     the viewport.
  *   - `.tunera-service-panel` — the floating copy card lifts 18 px
  *     and fades in from opacity 0, slightly delayed so the image
  *     settle leads the text settle.
+ *
+ * The wrapping element itself stays static — translating a 100svh
+ * full-bleed surface would visibly jolt the layout — so when the
+ * `<ImageReveal>` carries the `tunera-service-story` class its own
+ * lift/fade is suppressed.
  *
  * Reduced-motion users get the settled state immediately and no
  * transitions; everything stays visible.
@@ -369,6 +375,98 @@ body {
     transition: none !important;
     transform: none !important;
     opacity: 1 !important;
+  }
+}
+
+/*
+ * Wave breathing.
+ *
+ * Each editorial illustration ships its own painted waves. Rather
+ * than overlaying fake spray or animated SVG water, this keyframe
+ * applies a *very* subtle horizontal drift to a wrapper around the
+ * image so the painted waves themselves feel gently alive. The
+ * wrapper sits at `scale(1.02)` so the small translate never exposes
+ * the parent surface. Cycle is 24 s ease-in-out — well below the
+ * threshold where motion becomes attention-grabbing.
+ *
+ * Used by:
+ *   - HomePage hero
+ *   - PageVisualBleed (About / Brands / Contact)
+ *   - ServicesStickyStory (per-stage image)
+ *
+ * Reduced motion: animation removed and transform reset.
+ */
+@keyframes tunera-image-wave-breathe {
+  0%,
+  100% {
+    transform: translate3d(-0.5%, 0, 0) scale(1.02);
+  }
+  50% {
+    transform: translate3d(0.5%, 0, 0) scale(1.02);
+  }
+}
+
+.tunera-image-wave-breathe {
+  animation: tunera-image-wave-breathe 24s ease-in-out infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tunera-image-wave-breathe {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+/*
+ * Services sticky story (Phase 3).
+ *
+ * Single sticky scene for /hizmetler. Six service stages share one
+ * full-bleed surface; the active stage's image and panel reach
+ * opacity 1, all others fade to 0. The pattern keeps the eye on a
+ * single composition while content evolves under it — much smoother
+ * than the previous stacked 100svh sections that hard-cut between
+ * unrelated illustrations.
+ *
+ * The image transition is intentionally longer (820 ms) than the
+ * panel transition (520 ms) so the visual lingers slightly while the
+ * copy settles, giving the cross-fade a sense of weight.
+ */
+.tunera-services-sticky-image {
+  opacity: 0;
+  transition: opacity 820ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.tunera-services-sticky-image[data-active="true"] {
+  opacity: 1;
+}
+
+.tunera-services-sticky-panel {
+  opacity: 0;
+  transform: translate3d(0, 14px, 0);
+  transition:
+    opacity 520ms cubic-bezier(0.22, 1, 0.36, 1) 60ms,
+    transform 520ms cubic-bezier(0.22, 1, 0.36, 1) 60ms;
+  pointer-events: none;
+}
+
+.tunera-services-sticky-panel[data-active="true"] {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  pointer-events: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tunera-services-sticky-image,
+  .tunera-services-sticky-panel {
+    transition: none !important;
+    transform: none !important;
+  }
+  /* Under reduced motion the active stage stays opacity 1 and
+     all the others get hidden via display rather than animated. */
+  .tunera-services-sticky-image:not([data-active="true"]),
+  .tunera-services-sticky-panel:not([data-active="true"]) {
+    opacity: 0 !important;
   }
 }
 

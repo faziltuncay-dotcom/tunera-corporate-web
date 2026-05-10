@@ -17,7 +17,7 @@ type Props = {
   /**
    * Section height. About / Brands / Contact use `tall` (≈70svh) so
    * the visual feels cinematic without dominating these calmer pages;
-   * Services keeps its own 100svh treatment via ServiceStorySection.
+   * Services keeps its own 100svh treatment via ServicesStickyStory.
    */
   height?: "tall" | "full";
 };
@@ -32,10 +32,17 @@ type Props = {
  * the visual carries the section emotionally and the text never
  * fights the imagery.
  *
- * Motion is shared with `<ServiceStorySection>` via the same
- * `data-revealed` hook on the wrapping `<ImageReveal>` element:
- * background eases from `scale(1.04) → 1`, panel lifts from 18 px and
- * fades in slightly delayed. Reduced-motion settles immediately.
+ * Motion sources:
+ *
+ *   - `<ImageReveal>` outer — `data-revealed` triggers the
+ *     `tunera-service-image` scale-down on first viewport entry.
+ *   - `tunera-image-wave-breathe` inner wrapper — continuous ±0.5%
+ *     horizontal drift over 24 s so the painted waves feel alive
+ *     after the reveal settles.
+ *   - `tunera-service-panel` — soft lift and fade-in for the copy
+ *     panel, slightly delayed behind the image settle.
+ *
+ * Reduced motion: every transform is removed; content stays visible.
  */
 export function PageVisualBleed({
   image,
@@ -63,15 +70,17 @@ export function PageVisualBleed({
         aria-hidden={!showPanel}
         className={`relative isolate ${heightClass} w-full overflow-hidden`}
       >
-        <div className="absolute inset-0">
-          <Image
-            src={image}
-            alt={imageAlt}
-            fill
-            sizes="100vw"
-            className="tunera-service-image object-cover"
-            style={{ objectPosition: imagePosition ?? "center" }}
-          />
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="tunera-image-wave-breathe absolute inset-0">
+            <Image
+              src={image}
+              alt={imageAlt}
+              fill
+              sizes="100vw"
+              className="tunera-service-image object-cover"
+              style={{ objectPosition: imagePosition ?? "center" }}
+            />
+          </div>
           {showPanel ? (
             <>
               <div
@@ -95,7 +104,7 @@ export function PageVisualBleed({
           <div
             className={`relative z-10 mx-auto flex ${heightClass} max-w-6xl items-end px-6 py-16 sm:px-8 sm:py-20 lg:items-center ${panelJustify}`}
           >
-            <div className="tunera-service-panel w-full max-w-md rounded-md border border-tunera-orange/30 bg-tunera-graphite/82 p-6 shadow-[0_24px_60px_-30px_rgba(0,0,0,0.55)] backdrop-blur-md sm:p-8">
+            <div className="tunera-service-panel w-full max-w-md rounded-md border border-tunera-orange/30 bg-tunera-graphite/88 p-6 shadow-[0_24px_60px_-30px_rgba(0,0,0,0.55)] backdrop-blur-md sm:p-8">
               {kicker ? (
                 <div className="flex items-center gap-3">
                   <span aria-hidden className="h-px w-8 bg-tunera-orange" />

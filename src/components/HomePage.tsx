@@ -35,16 +35,22 @@ export function HomePage({ locale }: Props) {
         >
           <ImageReveal className="tunera-service-story relative isolate block">
             <div className="relative isolate min-h-[80svh] w-full overflow-hidden">
-              <div className="absolute inset-0">
-                <Image
-                  src="/assets/brand/web/hero-marine-pair.png"
-                  alt={t.home.heroIllustrationAlt}
-                  fill
-                  priority
-                  sizes="100vw"
-                  className="tunera-service-image object-cover"
-                  style={{ objectPosition: "center" }}
-                />
+              <div className="absolute inset-0 overflow-hidden">
+                {/* Wave-breathing wrapper drifts the hero illustration
+                    horizontally by ±0.5% on a 24s loop so the painted
+                    waves and the boats feel gently alive. The inner
+                    Image keeps its scale-down reveal motion. */}
+                <div className="tunera-image-wave-breathe absolute inset-0">
+                  <Image
+                    src="/assets/brand/web/hero-marine-pair.png"
+                    alt={t.home.heroIllustrationAlt}
+                    fill
+                    priority
+                    sizes="100vw"
+                    className="tunera-service-image object-cover"
+                    style={{ objectPosition: "center" }}
+                  />
+                </div>
                 <div
                   aria-hidden
                   className="pointer-events-none absolute inset-0 hidden bg-gradient-to-r from-tunera-graphite/85 via-tunera-graphite/35 to-tunera-graphite/0 lg:block"
@@ -55,7 +61,7 @@ export function HomePage({ locale }: Props) {
                 />
               </div>
               <div className="relative z-10 mx-auto flex min-h-[80svh] max-w-6xl items-end px-6 py-20 sm:px-8 sm:py-24 lg:items-center lg:justify-start lg:py-28">
-                <div className="tunera-service-panel w-full max-w-xl rounded-md border border-tunera-orange/30 bg-tunera-graphite/82 p-7 shadow-[0_28px_70px_-30px_rgba(0,0,0,0.6)] backdrop-blur-md sm:p-9">
+                <div className="tunera-service-panel w-full max-w-xl rounded-md border border-tunera-orange/30 bg-tunera-graphite/88 p-7 shadow-[0_28px_70px_-30px_rgba(0,0,0,0.6)] backdrop-blur-md sm:p-9">
                   <div className="flex items-center gap-3">
                     <span aria-hidden className="h-px w-8 bg-tunera-orange" />
                     <span className="text-[11px] font-medium uppercase tracking-[0.32em] text-tunera-orange">
