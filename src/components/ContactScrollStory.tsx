@@ -11,8 +11,9 @@ type Props = {
  *
  * The status stage echoes the pre-launch posture; the channels stage
  * surfaces the email/phone/address fields with placeholder treatment
- * matching ContactPage; the explore stage links onward to brands and
- * services so visitors are not left at a dead end.
+ * matching the closing details card; the explore stage links onward
+ * to the brands and services anchors so visitors are not left at a
+ * dead end.
  */
 export function ContactScrollStory({ locale }: Props) {
   const t = copy(locale);

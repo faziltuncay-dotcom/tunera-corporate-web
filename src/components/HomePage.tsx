@@ -19,8 +19,9 @@ type Props = {
 };
 
 /**
- * Per-service composition metadata, lifted from the previous standalone
- * ServicesPage so each illustration's subject stays clear of the panel.
+ * Per-service composition metadata so each illustration's subject
+ * (boat, lighthouse, lift, hangar) stays clear of the panel that
+ * floats above it inside ServicesStickyStory.
  */
 const SERVICE_COMPOSITION: ReadonlyArray<{
   panelPlacement: PanelPlacement;
