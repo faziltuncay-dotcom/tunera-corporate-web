@@ -1,3 +1,4 @@
+import { type BrandImageSlug } from "@/components/ResponsiveBrandImage";
 import { company, contact as contactConfig, granfort, offices, ranieri } from "@/config/launch";
 
 export type Locale = "tr" | "en";
@@ -159,7 +160,7 @@ export const tr = {
       ],
     },
     pageVisual: {
-      image: "/assets/brand/web/about-coastal.png",
+      slug: "about-coastal" as BrandImageSlug,
       imageAlt:
         "Editoryal illüstrasyon: dingin bir koy üzerinde ilerleyen tek bir beyaz motoryat ve uzakta yumuşak ışıklı dağlar.",
       kicker: "Çalışma alanı",
@@ -224,7 +225,7 @@ export const tr = {
     siteInProgress: "Marka web sitesi geliştirme aşamasında",
     sitePlanned: "Marka web sitesi planlama aşamasında",
     pageVisual: {
-      image: "/assets/brand/web/brands-passing.png",
+      slug: "brands-passing" as BrandImageSlug,
       imageAlt:
         "Editoryal illüstrasyon: sakin sularda yan yana geçen iki beyaz motoryat ve uzakta yumuşak günbatımı.",
       kicker: "Türkiye temsilciliği",
@@ -266,7 +267,7 @@ export const tr = {
     items: [
       {
         title: "Marka Temsili ve Yeni Tekne Satışı",
-        illustration: "/assets/brand/web/service-representation.png",
+        slug: "service-representation" as BrandImageSlug,
         illustrationAlt:
           "Editoryal illüstrasyon: modern bir villa iskelesine yanaşmış yeni bir beyaz motoryat ve sağ ufukta altın bir günbatımı.",
         paragraphs: [
@@ -278,7 +279,7 @@ export const tr = {
       },
       {
         title: "İkinci El Tekne Alım-Satımı ve Danışmanlık",
-        illustration: "/assets/brand/web/service-advisory.png",
+        slug: "service-advisory" as BrandImageSlug,
         illustrationAlt:
           "Editoryal illüstrasyon: çekek sahası önünde hareket halindeki birkaç motoryat ve arka planda hangar ile travel-lift.",
         paragraphs: [
@@ -290,7 +291,7 @@ export const tr = {
       },
       {
         title: "Servis ve Bakım Koordinasyonu",
-        illustration: "/assets/brand/web/service-maintenance.png",
+        slug: "service-maintenance" as BrandImageSlug,
         illustrationAlt:
           "Editoryal illüstrasyon: modern bir hangarda servis sehpasındaki beyaz bir motoryata eşlik eden iki teknisyen ve arka planda deniz manzarası.",
         paragraphs: [
@@ -301,7 +302,7 @@ export const tr = {
       },
       {
         title: "Marin Römork Satış ve Satış Sonrası Hizmetleri",
-        illustration: "/assets/brand/web/service-trailer.png",
+        slug: "service-trailer" as BrandImageSlug,
         illustrationAlt:
           "Editoryal illüstrasyon: marin römork üzerinde beyaz bir motoryat çeken turuncu bir pikap ve sahil yolunda altın bir günbatımı.",
         paragraphs: [
@@ -313,7 +314,7 @@ export const tr = {
       },
       {
         title: "Güvenli Depolama Hizmetleri",
-        illustration: "/assets/brand/web/service-storage.png",
+        slug: "service-storage" as BrandImageSlug,
         illustrationAlt:
           "Editoryal illüstrasyon: solda çok katlı tekne depolama rafları, sağda aydınlatılmış modern bir hangar ve önünde forklift ile bekleyen tekneler.",
         paragraphs: [
@@ -324,7 +325,7 @@ export const tr = {
       },
       {
         title: "Çekek Sahası ve Operasyon Yönetimi",
-        illustration: "/assets/brand/web/service-yard.png",
+        slug: "service-yard" as BrandImageSlug,
         illustrationAlt:
           "Editoryal illüstrasyon: çekek sahasında travel-lift askılarıyla taşınan bir motoryat, sol uzakta deniz feneri ve sağda hangar binası.",
         paragraphs: [
@@ -353,7 +354,7 @@ export const tr = {
     fieldMersisNo: "MERSİS No",
     fieldTicaretSicilNo: "Ticaret Sicil No",
     pageVisual: {
-      image: "/assets/brand/web/contact-horizon.png",
+      slug: "contact-horizon" as BrandImageSlug,
       imageAlt:
         "Editoryal illüstrasyon: özel bir iskeleye yanaşmış tek bir beyaz motoryat, kıyıdaki villa ışıkları ve uzakta dingin bir günbatımı.",
       kicker: "İletişim",
@@ -489,7 +490,7 @@ export const en: typeof tr = {
       ],
     },
     pageVisual: {
-      image: "/assets/brand/web/about-coastal.png",
+      slug: "about-coastal" as BrandImageSlug,
       imageAlt:
         "Editorial illustration — a single white motoryacht cruising across a calm bay with soft, warm-lit mountains on the horizon.",
       kicker: "Working area",
@@ -555,7 +556,7 @@ export const en: typeof tr = {
     siteInProgress: "Brand website in development",
     sitePlanned: "Brand website in planning",
     pageVisual: {
-      image: "/assets/brand/web/brands-passing.png",
+      slug: "brands-passing" as BrandImageSlug,
       imageAlt:
         "Editorial illustration — two white motoryachts passing each other on calm water with a soft sunset behind.",
       kicker: "Turkey representation",
@@ -597,7 +598,7 @@ export const en: typeof tr = {
     items: [
       {
         title: "Brand Representation & New Boat Sales",
-        illustration: "/assets/brand/web/service-representation.png",
+        slug: "service-representation" as BrandImageSlug,
         illustrationAlt:
           "Editorial illustration of a new white motoryacht moored at a modern villa private dock with a golden sunset on the right horizon.",
         paragraphs: [
@@ -609,7 +610,7 @@ export const en: typeof tr = {
       },
       {
         title: "Pre-Owned Boat Sales & Advisory",
-        illustration: "/assets/brand/web/service-advisory.png",
+        slug: "service-advisory" as BrandImageSlug,
         illustrationAlt:
           "Editorial illustration of several motoryachts moving in front of a marine yard, with hangars and a travel-lift gantry in the background.",
         paragraphs: [
@@ -621,7 +622,7 @@ export const en: typeof tr = {
       },
       {
         title: "Service & Maintenance Coordination",
-        illustration: "/assets/brand/web/service-maintenance.png",
+        slug: "service-maintenance" as BrandImageSlug,
         illustrationAlt:
           "Editorial illustration of a white motoryacht on a service stand inside a modern hangar, with two technicians attending the boat and a sea view through the opening.",
         paragraphs: [
@@ -632,7 +633,7 @@ export const en: typeof tr = {
       },
       {
         title: "Marine Trailer Sales & After-Sales Support",
-        illustration: "/assets/brand/web/service-trailer.png",
+        slug: "service-trailer" as BrandImageSlug,
         illustrationAlt:
           "Editorial illustration of an orange pickup truck towing a white motoryacht on a marine trailer along a coastal road at golden hour.",
         paragraphs: [
@@ -644,7 +645,7 @@ export const en: typeof tr = {
       },
       {
         title: "Secure Storage Services",
-        illustration: "/assets/brand/web/service-storage.png",
+        slug: "service-storage" as BrandImageSlug,
         illustrationAlt:
           "Editorial illustration of a marine storage yard — multi-level boat racks on the left, a lit modern hangar on the right with a forklift and stored vessels in front.",
         paragraphs: [
@@ -655,7 +656,7 @@ export const en: typeof tr = {
       },
       {
         title: "Yard & Haul-Out Operations Management",
-        illustration: "/assets/brand/web/service-yard.png",
+        slug: "service-yard" as BrandImageSlug,
         illustrationAlt:
           "Editorial illustration of a motoryacht held in travel-lift slings at a haul-out yard, with a lighthouse far on the left and a hangar building on the right.",
         paragraphs: [
@@ -684,7 +685,7 @@ export const en: typeof tr = {
     fieldMersisNo: "MERSIS no.",
     fieldTicaretSicilNo: "Trade registry no.",
     pageVisual: {
-      image: "/assets/brand/web/contact-horizon.png",
+      slug: "contact-horizon" as BrandImageSlug,
       imageAlt:
         "Editorial illustration — a single white motoryacht moored at a private dock beside a cliffside villa with dock lights and a calm distant sunset.",
       kicker: "Contact",

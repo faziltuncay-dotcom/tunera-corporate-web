@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { ResponsiveBrandImage, type BrandImageSlug } from "@/components/ResponsiveBrandImage";
 import { panelPlacementClasses, type PanelPlacement } from "@/lib/visualComposition";
 
 export type ServiceStoryItem = {
@@ -13,8 +13,8 @@ export type ServiceStoryItem = {
   description: string;
   /** Optional fine-print line. */
   note: string | null;
-  /** Image src under /assets/brand/web. */
-  image: string;
+  /** Brand image slug — picked up from `optimized/{slug}-{w}w.{avif|webp|jpg}`. */
+  slug: BrandImageSlug;
   /** Image alt for the active stage. */
   imageAlt: string;
   /** Desktop / tablet `object-position` hint. */
@@ -144,12 +144,6 @@ export function ServicesStickyStory({ ariaLabel, items }: Props) {
         <div className="absolute inset-0">
           {items.map((item, i) => {
             const isActive = i === activeStage;
-            const objPosDesktop = item.imagePosition ?? "center";
-            const objPosMobile = item.imagePositionMobile ?? objPosDesktop;
-            const objPosVars = {
-              ["--obj-d"]: objPosDesktop,
-              ["--obj-m"]: objPosMobile,
-            } as CSSProperties;
             return (
               <div
                 key={item.title}
@@ -158,14 +152,14 @@ export function ServicesStickyStory({ ariaLabel, items }: Props) {
                 className="tunera-services-sticky-image absolute inset-0"
               >
                 <div className="tunera-image-wave-breathe absolute inset-0">
-                  <Image
-                    src={item.image}
+                  <ResponsiveBrandImage
+                    slug={item.slug}
                     alt={isActive ? item.imageAlt : ""}
-                    fill
                     sizes="100vw"
+                    fill
                     priority={i === 0}
-                    className="object-cover [object-position:var(--obj-m)] sm:[object-position:var(--obj-d)]"
-                    style={objPosVars}
+                    objectPosition={item.imagePosition}
+                    objectPositionMobile={item.imagePositionMobile}
                   />
                 </div>
               </div>

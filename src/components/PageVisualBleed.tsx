@@ -1,10 +1,10 @@
-import Image from "next/image";
-import type { CSSProperties } from "react";
 import { ImageReveal } from "@/components/ImageReveal";
+import { ResponsiveBrandImage, type BrandImageSlug } from "@/components/ResponsiveBrandImage";
 import { panelPlacementClasses, type PanelPlacement } from "@/lib/visualComposition";
 
 type Props = {
-  image: string;
+  /** Brand image slug — picked up from `optimized/{slug}-{w}w.{avif|webp|jpg}`. */
+  slug: BrandImageSlug;
   imageAlt: string;
   /**
    * Image-aware panel placement at lg+. Defaults to "left" — but
@@ -48,6 +48,13 @@ type Props = {
  * the visual carries the section emotionally and the text never
  * fights the imagery.
  *
+ * Image delivery is handled by `<ResponsiveBrandImage>`, which emits
+ * a `<picture>` with AVIF / WebP / JPG sources pointing at the
+ * prebuilt variants under `/assets/brand/web/optimized/`. The browser
+ * picks the smallest format-and-width pair its decoder supports — the
+ * 4K PNG masters next to that folder are never linked from production
+ * HTML.
+ *
  * Placement is image-aware: each consumer picks the safe zone for
  * its specific illustration (see `lib/visualComposition.ts`). The
  * lg+ side gradient and panel anchor follow the placement; mobile
@@ -67,7 +74,7 @@ type Props = {
  * Reduced motion: every transform is removed; content stays visible.
  */
 export function PageVisualBleed({
-  image,
+  slug,
   imageAlt,
   panelPlacement = "left",
   imagePosition,
@@ -81,13 +88,6 @@ export function PageVisualBleed({
   const { flexClass, gradientClass } = panelPlacementClasses(panelPlacement);
   const showPanel = Boolean(kicker || caption);
 
-  const objPosDesktop = imagePosition ?? "center";
-  const objPosMobile = imagePositionMobile ?? objPosDesktop;
-  const objPosVars = {
-    ["--obj-d"]: objPosDesktop,
-    ["--obj-m"]: objPosMobile,
-  } as CSSProperties;
-
   return (
     <ImageReveal className="tunera-service-story relative isolate block overflow-hidden bg-tunera-graphite text-tunera-ivory">
       <section
@@ -96,13 +96,14 @@ export function PageVisualBleed({
       >
         <div className="absolute inset-0 overflow-hidden">
           <div className="tunera-image-wave-breathe absolute inset-0">
-            <Image
-              src={image}
+            <ResponsiveBrandImage
+              slug={slug}
               alt={imageAlt}
-              fill
               sizes="100vw"
-              className="tunera-service-image object-cover [object-position:var(--obj-m)] sm:[object-position:var(--obj-d)]"
-              style={objPosVars}
+              fill
+              objectPosition={imagePosition}
+              objectPositionMobile={imagePositionMobile}
+              imgClassName="tunera-service-image"
             />
           </div>
           {showPanel ? (

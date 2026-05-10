@@ -1,6 +1,4 @@
-import Image from "next/image";
 import Link from "next/link";
-import type { CSSProperties } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Section } from "@/components/Section";
@@ -12,6 +10,7 @@ import { BrandsScrollStory } from "@/components/BrandsScrollStory";
 import { ContactScrollStory } from "@/components/ContactScrollStory";
 import { ServicesStickyStory, type ServiceStoryItem } from "@/components/ServicesStickyStory";
 import { ImageReveal } from "@/components/ImageReveal";
+import { ResponsiveBrandImage } from "@/components/ResponsiveBrandImage";
 import { SmoothAnchorNav } from "@/components/SmoothAnchorNav";
 import { anchors, contact, copy, type Locale } from "@/content/site";
 import type { PanelPlacement } from "@/lib/visualComposition";
@@ -63,7 +62,7 @@ export function HomePage({ locale }: Props) {
       title: item.title,
       description: item.paragraphs[0],
       note: item.note,
-      image: item.illustration,
+      slug: item.slug,
       imageAlt: item.illustrationAlt,
       imagePosition: comp.imagePosition,
       imagePositionMobile: comp.imagePositionMobile,
@@ -114,19 +113,15 @@ export function HomePage({ locale }: Props) {
             <div className="relative isolate min-h-[80svh] w-full overflow-hidden">
               <div className="absolute inset-0 overflow-hidden">
                 <div className="tunera-image-wave-breathe absolute inset-0">
-                  <Image
-                    src="/assets/brand/web/hero-marine-pair.png"
+                  <ResponsiveBrandImage
+                    slug="hero-marine-pair"
                     alt={t.home.heroIllustrationAlt}
-                    fill
-                    priority
                     sizes="100vw"
-                    className="tunera-service-image object-cover [object-position:var(--obj-m)] sm:[object-position:var(--obj-d)]"
-                    style={
-                      {
-                        ["--obj-d"]: "center 50%",
-                        ["--obj-m"]: "20% 50%",
-                      } as CSSProperties
-                    }
+                    priority
+                    fill
+                    objectPosition="center 50%"
+                    objectPositionMobile="20% 50%"
+                    imgClassName="tunera-service-image"
                   />
                 </div>
                 {/* Corner-direction gradient (toward top-left) so only the
@@ -194,7 +189,7 @@ export function HomePage({ locale }: Props) {
             Mobile crop shifts right of source center to keep the boat visible
             in portrait windows. */}
         <PageVisualBleed
-          image={a.pageVisual.image}
+          slug={a.pageVisual.slug}
           imageAlt={a.pageVisual.imageAlt}
           kicker={a.pageVisual.kicker}
           caption={a.pageVisual.caption}
@@ -217,7 +212,7 @@ export function HomePage({ locale }: Props) {
             sun haze. Mobile crop moves the focal centre slightly right so both
             boats stay in frame on portrait. */}
         <PageVisualBleed
-          image={b.pageVisual.image}
+          slug={b.pageVisual.slug}
           imageAlt={b.pageVisual.imageAlt}
           kicker={b.pageVisual.kicker}
           caption={b.pageVisual.caption}
@@ -280,7 +275,7 @@ export function HomePage({ locale }: Props) {
             sunset (which is mid-vertical, while the panel is top). Mobile
             crop favours the dock+boat side to keep the subject visible. */}
         <PageVisualBleed
-          image={c.pageVisual.image}
+          slug={c.pageVisual.slug}
           imageAlt={c.pageVisual.imageAlt}
           kicker={c.pageVisual.kicker}
           caption={c.pageVisual.caption}
