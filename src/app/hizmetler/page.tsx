@@ -1,9 +1,5 @@
-import type { Metadata } from "next";
-import { ServicesPage } from "@/components/ServicesPage";
-import { pageMetadata } from "@/content/metadata";
+import { redirect } from "next/navigation";
 
-export const metadata: Metadata = pageMetadata("tr", "services");
-
-export default function HizmetlerRoot() {
-  return <ServicesPage locale="tr" />;
+export default function HizmetlerLegacyRoute() {
+  redirect("/tr#hizmetler");
 }

@@ -1,9 +1,5 @@
-import type { Metadata } from "next";
-import { ServicesPage } from "@/components/ServicesPage";
-import { pageMetadata } from "@/content/metadata";
-
-export const metadata: Metadata = pageMetadata("en", "services");
+import { redirect } from "next/navigation";
 
 export default function EnServices() {
-  return <ServicesPage locale="en" />;
+  redirect("/en#services");
 }

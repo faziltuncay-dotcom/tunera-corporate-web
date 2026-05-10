@@ -2,6 +2,31 @@ import { company, contact as contactConfig, granfort, ranieri } from "@/config/l
 
 export type Locale = "tr" | "en";
 
+/**
+ * Per-locale section anchor IDs for the one-page corporate experience.
+ * Headers and in-page CTAs link to `/{locale}#{anchors(locale).key}`;
+ * the corresponding section element on /{locale} carries that id.
+ *
+ *   tr  → anasayfa, hakkimizda, markalar, hizmetler, iletisim
+ *   en  → home,     about,      brands,   services, contact
+ */
+export const anchors = (locale: Locale) =>
+  locale === "tr"
+    ? {
+        home: "anasayfa",
+        about: "hakkimizda",
+        brands: "markalar",
+        services: "hizmetler",
+        contact: "iletisim",
+      }
+    : {
+        home: "home",
+        about: "about",
+        brands: "brands",
+        services: "services",
+        contact: "contact",
+      };
+
 export const contact = {
   companyLegal: company.legal,
   companyShort: company.short,
@@ -58,9 +83,9 @@ export const tr = {
     heroIllustrationAlt:
       "Tunera marka renklerinde editoryal bir illüstrasyon: sakin sularda yan yana ilerleyen iki motoryat ve geniş dalga kompozisyonu.",
     ctaPrimary: "Markalara Göz At",
-    ctaPrimaryHref: "/tr/markalar",
+    ctaPrimaryHref: "/tr#markalar",
     ctaSecondary: "İletişim",
-    ctaSecondaryHref: "/tr/iletisim",
+    ctaSecondaryHref: "/tr#iletisim",
     storyPreview: {
       eyebrow: "Hikaye",
       paragraphs: [
@@ -70,7 +95,7 @@ export const tr = {
       ],
       closingLine: "Tunera ile denizcilikte yeni bir dönem başlıyor.",
       cta: "Hakkımızda",
-      ctaHref: "/tr/hakkimizda",
+      ctaHref: "/tr#hakkimizda",
     },
     scrollStory: {
       eyebrow: "Akış",
@@ -225,9 +250,9 @@ export const tr = {
       title: "Devamı için",
       body: "Markalar ve iletişim sayfaları, çalışma alanlarımıza dair daha fazla ayrıntı sunar.",
       primaryLabel: "Markalar",
-      primaryHref: "/tr/markalar",
+      primaryHref: "/tr#markalar",
       secondaryLabel: "İletişim",
-      secondaryHref: "/tr/iletisim",
+      secondaryHref: "/tr#iletisim",
     },
   },
   brandsSection: {
@@ -254,9 +279,9 @@ export const tr = {
       title: "Devamı için",
       body: "Hizmetler ve iletişim sayfaları, çalışma alanlarımıza dair daha fazla ayrıntı sunar.",
       primaryLabel: "Hizmetler",
-      primaryHref: "/tr/hizmetler",
+      primaryHref: "/tr#hizmetler",
       secondaryLabel: "İletişim",
-      secondaryHref: "/tr/iletisim",
+      secondaryHref: "/tr#iletisim",
     },
     scrollStory: {
       eyebrow: "Akış",
@@ -434,24 +459,24 @@ export const tr = {
       title: "İlgili sayfalar",
       body: "Markalar ve iletişim sayfaları üzerinden süreçleri başlatabilirsiniz.",
       primaryLabel: "Markalar",
-      primaryHref: "/tr/markalar",
+      primaryHref: "/tr#markalar",
       secondaryLabel: "İletişim",
-      secondaryHref: "/tr/iletisim",
+      secondaryHref: "/tr#iletisim",
     },
   },
   homeTeamPreview: {
     eyebrow: "Kadro",
     title: "Kadro ve Çalışma Yapısı",
     description:
-      "Tunera Denizcilik dört temel işlevsel rol etrafında çalışır. Detaylı yapı için Hakkımızda sayfasına göz atabilirsiniz.",
+      "Tunera Denizcilik dört temel işlevsel rol etrafında çalışır. Detaylı yapı için Hakkımızda bölümüne göz atabilirsiniz.",
     cta: "Hakkımızda",
-    ctaHref: "/tr/hakkimizda",
+    ctaHref: "/tr#hakkimizda",
   },
   contactSection: {
     title: "İletişim",
     body: "Detaylar lansman öncesi netleştirilecektir. İletişim bilgileri ilgili marka sayfaları üzerinden duyurulacaktır.",
-    cta: "İletişim Sayfası",
-    ctaHref: "/tr/iletisim",
+    cta: "İletişim",
+    ctaHref: "/tr#iletisim",
     detailsTitle: "İletişim bilgileri",
     detailsNote: "İletişim bilgileri lansman öncesi netleştirilecektir.",
     fieldEmail: "E-posta",
@@ -469,9 +494,9 @@ export const tr = {
       title: "İlgili sayfalar",
       body: "Markalar ve hizmetler sayfaları üzerinden çalışma alanlarımıza dair bilgi alabilirsiniz.",
       primaryLabel: "Markalar",
-      primaryHref: "/tr/markalar",
+      primaryHref: "/tr#markalar",
       secondaryLabel: "Hizmetler",
-      secondaryHref: "/tr/hizmetler",
+      secondaryHref: "/tr#hizmetler",
     },
     scrollStory: {
       eyebrow: "Akış",
@@ -529,9 +554,9 @@ export const en: typeof tr = {
     heroIllustrationAlt:
       "Editorial illustration in Tunera brand colors — two motoryachts moving across calm water with a wide wave composition.",
     ctaPrimary: "View brands",
-    ctaPrimaryHref: "/en/brands",
+    ctaPrimaryHref: "/en#brands",
     ctaSecondary: "Contact",
-    ctaSecondaryHref: "/en/contact",
+    ctaSecondaryHref: "/en#contact",
     storyPreview: {
       eyebrow: "Story",
       paragraphs: [
@@ -541,7 +566,7 @@ export const en: typeof tr = {
       ],
       closingLine: "With Tunera, a new era in marine begins.",
       cta: "About",
-      ctaHref: "/en/about",
+      ctaHref: "/en#about",
     },
     scrollStory: {
       eyebrow: "Flow",
@@ -696,9 +721,9 @@ export const en: typeof tr = {
       title: "More to explore",
       body: "The brands and contact pages provide further detail on our working areas.",
       primaryLabel: "Brands",
-      primaryHref: "/en/brands",
+      primaryHref: "/en#brands",
       secondaryLabel: "Contact",
-      secondaryHref: "/en/contact",
+      secondaryHref: "/en#contact",
     },
   },
   brandsSection: {
@@ -725,9 +750,9 @@ export const en: typeof tr = {
       title: "More to explore",
       body: "The services and contact pages give further detail on our working areas.",
       primaryLabel: "Services",
-      primaryHref: "/en/services",
+      primaryHref: "/en#services",
       secondaryLabel: "Contact",
-      secondaryHref: "/en/contact",
+      secondaryHref: "/en#contact",
     },
     scrollStory: {
       eyebrow: "Flow",
@@ -905,24 +930,24 @@ export const en: typeof tr = {
       title: "Related pages",
       body: "You can start a process via the brands or contact pages.",
       primaryLabel: "Brands",
-      primaryHref: "/en/brands",
+      primaryHref: "/en#brands",
       secondaryLabel: "Contact",
-      secondaryHref: "/en/contact",
+      secondaryHref: "/en#contact",
     },
   },
   homeTeamPreview: {
     eyebrow: "Team",
     title: "Team & Working Structure",
     description:
-      "Tunera Denizcilik operates around four functional roles. See the About page for the full structure.",
+      "Tunera Denizcilik operates around four functional roles. See the About section for the full structure.",
     cta: "About",
-    ctaHref: "/en/about",
+    ctaHref: "/en#about",
   },
   contactSection: {
     title: "Contact",
     body: "Contact details will be finalized before launch. Contact information will be announced via the related brand pages.",
-    cta: "Contact page",
-    ctaHref: "/en/contact",
+    cta: "Contact",
+    ctaHref: "/en#contact",
     detailsTitle: "Contact details",
     detailsNote: "Contact details will be finalized before launch.",
     fieldEmail: "Email",
@@ -940,9 +965,9 @@ export const en: typeof tr = {
       title: "Related pages",
       body: "Visit the brands and services pages for more on our working areas.",
       primaryLabel: "Brands",
-      primaryHref: "/en/brands",
+      primaryHref: "/en#brands",
       secondaryLabel: "Services",
-      secondaryHref: "/en/services",
+      secondaryHref: "/en#services",
     },
     scrollStory: {
       eyebrow: "Flow",

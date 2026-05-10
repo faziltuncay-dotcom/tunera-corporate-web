@@ -10,6 +10,26 @@ html {
   scroll-behavior: smooth;
 }
 
+/*
+ * Anchor offset for the one-page corporate experience.
+ *
+ * Each /tr and /en section is reachable via /{locale}#{anchor}. The
+ * navbar is sticky, so anchored navigation needs a `scroll-margin-top`
+ * on every section that carries an `id` to stop the header from
+ * covering the section heading after a smooth-scroll. The mobile
+ * header is taller (logo row + wrap nav row), so the offset is bumped
+ * at smaller breakpoints. Pure CSS — no JS.
+ */
+main section[id] {
+  scroll-margin-top: 132px;
+}
+
+@media (min-width: 768px) {
+  main section[id] {
+    scroll-margin-top: 80px;
+  }
+}
+
 html,
 body {
   background-color: #fff7f0;

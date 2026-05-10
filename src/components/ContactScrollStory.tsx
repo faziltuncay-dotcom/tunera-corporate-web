@@ -36,8 +36,8 @@ export function ContactScrollStory({ locale }: Props) {
 
   const exploreHref =
     locale === "en"
-      ? { brands: "/en/brands", services: "/en/services" }
-      : { brands: "/tr/markalar", services: "/tr/hizmetler" };
+      ? { brands: "/en#brands", services: "/en#services" }
+      : { brands: "/tr#markalar", services: "/tr#hizmetler" };
   const exploreLabels =
     locale === "en"
       ? { brands: "Brands", services: "Services" }

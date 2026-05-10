@@ -1,9 +1,5 @@
-import type { Metadata } from "next";
-import { ContactPage } from "@/components/ContactPage";
-import { pageMetadata } from "@/content/metadata";
+import { redirect } from "next/navigation";
 
-export const metadata: Metadata = pageMetadata("tr", "contact");
-
-export default function IletisimRoot() {
-  return <ContactPage locale="tr" />;
+export default function IletisimLegacyRoute() {
+  redirect("/tr#iletisim");
 }

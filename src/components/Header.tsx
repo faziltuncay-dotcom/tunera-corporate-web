@@ -1,8 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
-import { copy, type Locale } from "@/content/site";
+import { anchors, copy, type Locale } from "@/content/site";
 import { HeaderProgress } from "@/components/HeaderProgress";
 
+/**
+ * NavSegment is kept for callers that still pass a `current` prop, but
+ * the one-page experience does not surface a per-segment active state
+ * (no scroll-spy yet). The prop is accepted and ignored visually.
+ */
 export type NavSegment = "home" | "about" | "brands" | "services" | "contact";
 
 type Props = {
@@ -10,45 +15,20 @@ type Props = {
   current?: NavSegment;
 };
 
-export function Header({ locale, current }: Props) {
+export function Header({ locale }: Props) {
   const t = copy(locale);
   const base = `/${locale}`;
+  const ids = anchors(locale);
   const links: Array<{ href: string; label: string; segment: NavSegment }> = [
-    { href: base, label: t.nav.home, segment: "home" },
-    {
-      href: locale === "tr" ? `${base}/hakkimizda` : `${base}/about`,
-      label: t.nav.about,
-      segment: "about",
-    },
-    {
-      href: locale === "tr" ? `${base}/markalar` : `${base}/brands`,
-      label: t.nav.brands,
-      segment: "brands",
-    },
-    {
-      href: locale === "tr" ? `${base}/hizmetler` : `${base}/services`,
-      label: t.nav.services,
-      segment: "services",
-    },
-    {
-      href: locale === "tr" ? `${base}/iletisim` : `${base}/contact`,
-      label: t.nav.contact,
-      segment: "contact",
-    },
+    { href: `${base}#${ids.home}`, label: t.nav.home, segment: "home" },
+    { href: `${base}#${ids.about}`, label: t.nav.about, segment: "about" },
+    { href: `${base}#${ids.brands}`, label: t.nav.brands, segment: "brands" },
+    { href: `${base}#${ids.services}`, label: t.nav.services, segment: "services" },
+    { href: `${base}#${ids.contact}`, label: t.nav.contact, segment: "contact" },
   ];
 
-  const linkClass = (segment: NavSegment) => {
-    const isActive = segment === current;
-    return [
-      "relative inline-block rounded-sm pb-1 text-sm transition-colors",
-      isActive ? "text-tunera-ink" : "text-tunera-ink/70 hover:text-tunera-orange",
-      isActive
-        ? "after:absolute after:inset-x-0 after:-bottom-0.5 after:h-[2px] after:bg-tunera-orange"
-        : "",
-    ]
-      .filter(Boolean)
-      .join(" ");
-  };
+  const linkClass =
+    "relative inline-block rounded-sm pb-1 text-sm text-tunera-ink/70 transition-colors hover:text-tunera-orange";
 
   return (
     <header
@@ -63,7 +43,11 @@ export function Header({ locale, current }: Props) {
         {t.nav.skipToContent}
       </a>
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-5">
-        <Link href={base} aria-label={`Tunera Denizcilik — ${t.nav.home}`} className="block">
+        <Link
+          href={`${base}#${ids.home}`}
+          aria-label={`Tunera Denizcilik — ${t.nav.home}`}
+          className="block"
+        >
           <Image
             src="/assets/brand/tunera/tunera-logo-black.png"
             alt="Tunera Denizcilik"
@@ -75,20 +59,13 @@ export function Header({ locale, current }: Props) {
         </Link>
         <nav aria-label={t.nav.primaryAria} className="flex items-center gap-4 sm:gap-6">
           <ul className="hidden items-center gap-5 md:flex md:gap-7">
-            {links.map((link) => {
-              const isActive = link.segment === current;
-              return (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    aria-current={isActive ? "page" : undefined}
-                    className={linkClass(link.segment)}
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              );
-            })}
+            {links.map((link) => (
+              <li key={link.href}>
+                <Link href={link.href} className={linkClass}>
+                  {link.label}
+                </Link>
+              </li>
+            ))}
           </ul>
           <Link
             href={t.nav.languageSwitchHref}
@@ -104,20 +81,13 @@ export function Header({ locale, current }: Props) {
         className="border-t border-tunera-stone/40 bg-tunera-ivory/85 md:hidden"
       >
         <ul className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-5 gap-y-2 px-6 py-3 text-sm">
-          {links.map((link) => {
-            const isActive = link.segment === current;
-            return (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  aria-current={isActive ? "page" : undefined}
-                  className={linkClass(link.segment)}
-                >
-                  {link.label}
-                </Link>
-              </li>
-            );
-          })}
+          {links.map((link) => (
+            <li key={link.href}>
+              <Link href={link.href} className={linkClass}>
+                {link.label}
+              </Link>
+            </li>
+          ))}
         </ul>
       </nav>
       {/*
