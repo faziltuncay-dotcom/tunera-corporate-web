@@ -8,14 +8,21 @@ type Props = {
   status: "active" | "coming-soon";
   href: string | null;
   external: boolean;
+  /**
+   * Whether the brand's dedicated site is in production. When `false`
+   * (current state for both Granfort and Ranieri), the card never
+   * renders an outbound link — it shows the "Marka web sitesi yakında"
+   * inactive pill instead, regardless of the brand's `status`.
+   */
+  isProduction: boolean;
 };
 
-export function BrandCard({ locale, id, name, status, href, external }: Props) {
+export function BrandCard({ locale, id, name, status, href, external, isProduction }: Props) {
   const t = copy(locale);
   const isActive = status === "active";
   const note = id === "granfort" ? t.brandsSection.granfortNote : t.brandsSection.ranieriNote;
   const statusLabel = isActive ? t.brandsSection.statusActive : t.brandsSection.statusComingSoon;
-  const isLocalDevLink = !!href && href.startsWith("http://localhost");
+  const siteLive = isActive && !!href && isProduction;
 
   return (
     <article
@@ -48,7 +55,7 @@ export function BrandCard({ locale, id, name, status, href, external }: Props) {
       </div>
       <p className="mt-5 text-sm leading-relaxed text-tunera-muted-ink sm:text-[15px]">{note}</p>
       <div className="mt-auto flex flex-wrap items-center gap-3 pt-8">
-        {isActive && href ? (
+        {siteLive ? (
           <Link
             href={href}
             target={external ? "_blank" : undefined}
@@ -64,15 +71,17 @@ export function BrandCard({ locale, id, name, status, href, external }: Props) {
             </span>
           </Link>
         ) : (
-          <span className="inline-flex items-center rounded-sm border border-tunera-ink/15 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-tunera-muted-ink">
-            {t.brandsSection.inPreparation}
+          <span
+            aria-disabled="true"
+            className="inline-flex items-center gap-2 rounded-sm border border-tunera-ink/15 bg-tunera-sand/40 px-3 py-1.5 text-[11px] uppercase tracking-[0.18em] text-tunera-muted-ink"
+          >
+            <span
+              aria-hidden
+              className="inline-block h-1.5 w-1.5 rounded-full bg-tunera-muted-ink/55"
+            />
+            {t.brandsSection.siteComingSoon}
           </span>
         )}
-        {isLocalDevLink ? (
-          <span className="rounded-sm border border-tunera-ink/15 bg-tunera-sand/50 px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-tunera-muted-ink">
-            {t.brandsSection.placeholderTag}
-          </span>
-        ) : null}
       </div>
     </article>
   );

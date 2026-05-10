@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { anchors, copy, type Locale } from "@/content/site";
 import { HeaderProgress } from "@/components/HeaderProgress";
+import { MobileMenu } from "@/components/MobileMenu";
 
 /**
  * NavSegment is kept for callers that still pass a `current` prop, but
@@ -29,14 +30,11 @@ export function Header({ locale }: Props) {
 
   const linkClass =
     "relative inline-block rounded-sm pb-1 text-sm text-tunera-ink/70 transition-colors hover:text-tunera-orange";
-  // Mobile-only nav row uses larger tap targets (~40px) without
-  // changing the desktop link affordance.
-  const mobileLinkClass = `${linkClass} inline-flex min-h-[40px] items-center`;
 
   return (
     <header
       data-tunera-header
-      className="tunera-header sticky top-0 z-40 border-b border-tunera-stone/50 bg-tunera-ivory/85"
+      className="tunera-header sticky top-0 z-40 border-b border-tunera-stone/50 bg-tunera-ivory/85 backdrop-blur-sm"
     >
       <HeaderProgress />
       <a
@@ -45,7 +43,7 @@ export function Header({ locale }: Props) {
       >
         {t.nav.skipToContent}
       </a>
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-5">
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-3 md:py-5">
         <Link
           href={`${base}#${ids.home}`}
           aria-label={`Tunera Denizcilik — ${t.nav.home}`}
@@ -61,7 +59,7 @@ export function Header({ locale }: Props) {
             className="h-6 w-auto sm:h-7"
           />
         </Link>
-        <nav aria-label={t.nav.primaryAria} className="flex items-center gap-4 sm:gap-6">
+        <nav aria-label={t.nav.primaryAria} className="hidden items-center gap-4 md:flex md:gap-6">
           <ul className="hidden items-center gap-5 md:flex md:gap-7">
             {links.map((link) => (
               <li key={link.href}>
@@ -74,26 +72,21 @@ export function Header({ locale }: Props) {
           <Link
             href={t.nav.languageSwitchHref}
             aria-label={t.nav.languageSwitchAria}
-            className="rounded-sm border border-tunera-ink/15 px-3 py-1.5 text-xs tracking-widest text-tunera-ink/80 transition-colors hover:border-tunera-orange hover:text-tunera-orange md:py-1"
+            className="rounded-sm border border-tunera-ink/15 px-3 py-1 text-xs tracking-widest text-tunera-ink/80 transition-colors hover:border-tunera-orange hover:text-tunera-orange"
           >
             {t.nav.languageSwitch}
           </Link>
         </nav>
+        <MobileMenu
+          links={links.map((l) => ({ href: l.href, label: l.label }))}
+          triggerLabel={t.nav.menuOpen}
+          closeLabel={t.nav.menuClose}
+          languageSwitchHref={t.nav.languageSwitchHref}
+          languageSwitchLabel={t.nav.languageSwitch}
+          languageSwitchAria={t.nav.languageSwitchAria}
+          primaryAria={t.nav.primaryAria}
+        />
       </div>
-      <nav
-        aria-label={t.nav.primaryAria}
-        className="border-t border-tunera-stone/40 bg-tunera-ivory/85 md:hidden"
-      >
-        <ul className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-5 gap-y-1 px-6 py-1.5 text-sm">
-          {links.map((link) => (
-            <li key={link.href}>
-              <Link href={link.href} className={mobileLinkClass}>
-                {link.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
       {/*
         Route-progress rail. Sits flush against the header's bottom
         edge as a thin orange line that scales horizontally with the

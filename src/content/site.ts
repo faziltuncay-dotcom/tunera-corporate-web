@@ -80,6 +80,8 @@ export const tr = {
     languageSwitchAria: "İngilizce sayfaya geç",
     skipToContent: "İçeriğe geç",
     primaryAria: "Ana gezinti",
+    menuOpen: "Menüyü aç",
+    menuClose: "Menüyü kapat",
   },
   home: {
     eyebrow: "Denizcilik",
@@ -110,7 +112,8 @@ export const tr = {
     newEra: {
       eyebrow: "Adın Anlamı",
       body: "Adında taşıdığı “new era” fikri Tunera için süreçleri daha açık, ilişkileri daha düzenli ve müşteri tarafına bilgi akışını daha net tutmak anlamına gelir.",
-      closingLine: "Hedef, denizcilik süreçlerini sade ve takip edilebilir biçimde yürütmektir.",
+      closingLine:
+        "Tunera New Era, bizim için yalnızca bir slogan değil; denizcilik süreçlerini dürüst, şeffaf ve profesyonel bir yaklaşımla yürütme anlayışıdır.",
     },
     values: {
       eyebrow: "Değerler",
@@ -197,8 +200,8 @@ export const tr = {
         {
           id: "explore",
           kicker: "05 — Devamı",
-          title: "Markalara ve iletişime geçiş",
-          body: "Çalışma alanlarımıza dair daha fazla ayrıntı için ilgili bölümler.",
+          title: "Markalar ve İletişim",
+          body: "Diğer bölümler için aşağıdaki bağlantılar.",
         },
       ],
     },
@@ -224,6 +227,7 @@ export const tr = {
     inPreparation: "Hazırlık aşamasında",
     siteInProgress: "Marka web sitesi geliştirme aşamasında",
     sitePlanned: "Marka web sitesi planlama aşamasında",
+    siteComingSoon: "Marka web sitesi yakında",
     pageVisual: {
       slug: "brands-passing" as BrandImageSlug,
       imageAlt:
@@ -379,8 +383,8 @@ export const tr = {
         {
           id: "explore",
           kicker: "03 — Devamı",
-          title: "Markalar ve hizmetler",
-          body: "Çalışma alanları hakkında daha fazla bilgi için Markalar ve Hizmetler bölümleri.",
+          title: "Markalar ve Hizmetler",
+          body: "Diğer bölümler için aşağıdaki bağlantılar.",
         },
       ],
     },
@@ -410,6 +414,8 @@ export const en: typeof tr = {
     languageSwitchAria: "Switch to Turkish site",
     skipToContent: "Skip to content",
     primaryAria: "Primary navigation",
+    menuOpen: "Open menu",
+    menuClose: "Close menu",
   },
   home: {
     eyebrow: "Marine",
@@ -440,7 +446,8 @@ export const en: typeof tr = {
     newEra: {
       eyebrow: "Meaning of the name",
       body: "The “new era” idea in the name means keeping processes clearer, relationships more orderly and information to the customer side more direct.",
-      closingLine: "The aim is to run marine processes in a simple and trackable way.",
+      closingLine:
+        "Tunera New Era is more than a slogan for us; it reflects our commitment to handling marine processes with honesty, transparency, and professional care.",
     },
     values: {
       eyebrow: "Values",
@@ -461,7 +468,7 @@ export const en: typeof tr = {
         },
         {
           title: "Initiative",
-          body: "Staying open to new partnerships. Reviewing brand, product and process opportunities from outside Turkey, and testing fit through concrete steps.",
+          body: "Staying open to new partnerships. Reviewing brand, product and process opportunities from outside Türkiye, and testing fit through concrete steps.",
         },
       ],
     },
@@ -528,8 +535,8 @@ export const en: typeof tr = {
         {
           id: "explore",
           kicker: "05 — More",
-          title: "On to brands and contact",
-          body: "More detail on each working area in the related sections.",
+          title: "Brands & Contact",
+          body: "Use the links below to jump to the related sections.",
         },
       ],
     },
@@ -543,11 +550,11 @@ export const en: typeof tr = {
   brandsSection: {
     title: "Brands",
     description:
-      "Tunera Denizcilik is the Turkey distributor and representative for Granfort and Ranieri. Detailed brand content will live on each brand’s dedicated site.",
+      "Tunera Denizcilik is the Türkiye distributor and representative for Granfort and Ranieri. Detailed brand content will live on each brand’s dedicated site.",
     granfortNote:
-      "Granfort is a motoryacht brand represented by Tunera Denizcilik in Turkey. The brand’s dedicated website is in development; once it goes live, model, equipment and process detail will be reachable from this section.",
+      "Granfort is a motoryacht brand represented by Tunera Denizcilik in Türkiye. The brand’s dedicated website is in development; once it goes live, model, equipment and process detail will be reachable from this section.",
     ranieriNote:
-      "Ranieri is another marine brand represented by Tunera Denizcilik in Turkey. The brand’s dedicated website is in planning; the link will be shared from this section once a launch date is confirmed.",
+      "Ranieri is another marine brand represented by Tunera Denizcilik in Türkiye. The brand’s dedicated website is in planning; the link will be shared from this section once a launch date is confirmed.",
     statusActive: "Active",
     statusComingSoon: "Coming soon",
     visit: "Brand page",
@@ -555,12 +562,13 @@ export const en: typeof tr = {
     inPreparation: "In preparation",
     siteInProgress: "Brand website in development",
     sitePlanned: "Brand website in planning",
+    siteComingSoon: "Brand website coming soon",
     pageVisual: {
       slug: "brands-passing" as BrandImageSlug,
       imageAlt:
         "Editorial illustration — two white motoryachts passing each other on calm water with a soft sunset behind.",
-      kicker: "Turkey representation",
-      caption: "Turkey representation and distribution point for Granfort and Ranieri.",
+      kicker: "Türkiye representation",
+      caption: "Türkiye representation and distribution point for Granfort and Ranieri.",
     },
     scrollStory: {
       eyebrow: "Flow",
@@ -568,20 +576,20 @@ export const en: typeof tr = {
       stages: [
         {
           id: "brand-hub",
-          kicker: "01 — Turkey representation",
-          title: "Turkey distributor for Granfort and Ranieri",
-          body: "Tunera Denizcilik is the Turkey distributor and representative for Granfort and Ranieri. Detailed information will live on each brand’s dedicated site.",
+          kicker: "01 — Türkiye representation",
+          title: "Türkiye distributor for Granfort and Ranieri",
+          body: "Tunera Denizcilik is the Türkiye distributor and representative for Granfort and Ranieri. Detailed information will live on each brand’s dedicated site.",
         },
         {
           id: "granfort",
           kicker: "02 — Granfort",
-          title: "Granfort — Turkey representation",
+          title: "Granfort — Türkiye representation",
           body: "A dedicated brand site covering models, equipment and the buying process is in development. The link will be shared from this section once it goes live.",
         },
         {
           id: "ranieri",
           kicker: "03 — Ranieri",
-          title: "Ranieri — Turkey representation",
+          title: "Ranieri — Türkiye representation",
           body: "A dedicated Ranieri brand site is in planning. Information will be shared from this section once it is ready.",
         },
       ],
@@ -602,9 +610,9 @@ export const en: typeof tr = {
         illustrationAlt:
           "Editorial illustration of a new white motoryacht moored at a modern villa private dock with a golden sunset on the right horizon.",
         paragraphs: [
-          "Sales and after-sales processes for boat and motor-yacht brands with established recognition abroad are handled by Tunera in the Turkish market.",
+          "Sales and after-sales processes for boat and motor-yacht brands with established recognition abroad are handled by Tunera in the Türkiye market.",
           "Customers are supported in reaching the right brand, the right model and the right way of using the boat through product introduction, sales guidance and process coordination.",
-          "The work covers more than the sale itself; it also includes orderly representation of the brand in Turkey and follow-up of after-sales steps.",
+          "The work covers more than the sale itself; it also includes orderly representation of the brand in Türkiye and follow-up of after-sales steps.",
         ],
         note: null,
       },
@@ -710,8 +718,8 @@ export const en: typeof tr = {
         {
           id: "explore",
           kicker: "03 — More",
-          title: "Brands and services",
-          body: "Visit the Brands and Services sections for more on the working areas.",
+          title: "Brands & Services",
+          body: "Use the links below to jump to the related sections.",
         },
       ],
     },

@@ -50,6 +50,7 @@ export function BrandsScrollStory({ locale }: Props) {
         status={granfort.status}
         href={granfort.href}
         external={granfort.external}
+        isProduction={granfort.isProduction}
       />
     ),
     ranieri: (
@@ -60,6 +61,7 @@ export function BrandsScrollStory({ locale }: Props) {
         status={ranieri.status}
         href={ranieri.href}
         external={ranieri.external}
+        isProduction={ranieri.isProduction}
       />
     ),
   };

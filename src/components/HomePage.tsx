@@ -110,7 +110,7 @@ export function HomePage({ locale }: Props) {
           className="tunera-anchor relative overflow-hidden bg-tunera-graphite text-tunera-ivory"
         >
           <ImageReveal className="tunera-service-story relative isolate block">
-            <div className="relative isolate min-h-[80svh] w-full overflow-hidden">
+            <div className="relative isolate min-h-[88svh] w-full overflow-hidden lg:min-h-[80svh]">
               <div className="absolute inset-0 overflow-hidden">
                 <div className="tunera-image-wave-breathe absolute inset-0">
                   <ResponsiveBrandImage
@@ -120,7 +120,7 @@ export function HomePage({ locale }: Props) {
                     priority
                     fill
                     objectPosition="center 50%"
-                    objectPositionMobile="20% 50%"
+                    objectPositionMobile="32% 42%"
                     imgClassName="tunera-service-image"
                   />
                 </div>
@@ -132,13 +132,16 @@ export function HomePage({ locale }: Props) {
                   aria-hidden
                   className="pointer-events-none absolute inset-0 hidden bg-gradient-to-tl from-tunera-graphite/85 via-tunera-graphite/30 to-tunera-graphite/0 lg:block"
                 />
+                {/* Mobile: stronger bottom-up scrim under the compact
+                    panel so the boat / sunset stay crisp above and the
+                    text below has firm contrast. */}
                 <div
                   aria-hidden
-                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-tunera-graphite/85 via-tunera-graphite/15 to-transparent lg:hidden"
+                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-tunera-graphite/92 via-tunera-graphite/35 via-50% to-transparent lg:hidden"
                 />
               </div>
-              <div className="relative z-10 mx-auto flex min-h-[80svh] max-w-6xl items-end px-6 py-20 sm:px-8 sm:py-24 lg:items-end lg:justify-end lg:py-28">
-                <div className="tunera-service-panel w-full max-w-xl rounded-md border border-tunera-orange/30 bg-tunera-graphite/88 p-7 shadow-[0_28px_70px_-30px_rgba(0,0,0,0.6)] backdrop-blur-md sm:p-9">
+              <div className="relative z-10 mx-auto flex min-h-[88svh] max-w-6xl items-end px-5 py-12 sm:px-8 sm:py-24 lg:min-h-[80svh] lg:items-end lg:justify-end lg:py-28">
+                <div className="tunera-service-panel w-full max-w-xl rounded-md border border-tunera-orange/25 bg-tunera-graphite/72 p-5 shadow-[0_28px_70px_-30px_rgba(0,0,0,0.6)] backdrop-blur-md sm:border-tunera-orange/30 sm:bg-tunera-graphite/88 sm:p-9">
                   <div className="flex items-center gap-3">
                     <span aria-hidden className="h-px w-8 bg-tunera-orange" />
                     <span className="text-[11px] font-medium uppercase tracking-[0.32em] text-tunera-orange">
@@ -147,26 +150,26 @@ export function HomePage({ locale }: Props) {
                   </div>
                   <h1
                     id="hero-title"
-                    className="mt-5 max-w-[14ch] text-5xl font-semibold leading-[1.0] tracking-tighter2 text-tunera-ivory sm:text-6xl md:text-7xl"
+                    className="mt-4 max-w-[14ch] text-4xl font-semibold leading-[1.02] tracking-tighter2 text-tunera-ivory sm:mt-5 sm:text-6xl md:text-7xl"
                   >
                     {t.home.title}
                   </h1>
-                  <p className="mt-4 text-[11px] uppercase tracking-[0.24em] text-tunera-ivory/65">
+                  <p className="mt-3 text-[10px] uppercase tracking-[0.22em] text-tunera-ivory/60 sm:mt-4 sm:text-[11px] sm:tracking-[0.24em] sm:text-tunera-ivory/65">
                     {contact.companyLegal}
                   </p>
-                  <p className="mt-6 max-w-xl text-base leading-relaxed text-tunera-ivory/85 sm:text-lg">
+                  <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-tunera-ivory/85 sm:mt-6 sm:text-lg">
                     {t.home.lead}
                   </p>
-                  <div className="mt-8 flex flex-wrap gap-3">
+                  <div className="mt-6 flex flex-wrap gap-3 sm:mt-8">
                     <Link
                       href={t.home.ctaPrimaryHref}
-                      className="inline-flex items-center gap-2 rounded-sm bg-tunera-orange px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#E64500]"
+                      className="inline-flex items-center gap-2 rounded-sm bg-tunera-orange px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-[#E64500] sm:px-6"
                     >
                       {t.home.ctaPrimary}
                     </Link>
                     <Link
                       href={t.home.ctaSecondaryHref}
-                      className="inline-flex items-center gap-2 rounded-sm border border-tunera-ivory/30 px-6 py-3 text-sm text-tunera-ivory transition-colors hover:border-tunera-orange hover:text-tunera-orange"
+                      className="inline-flex items-center gap-2 rounded-sm border border-tunera-ivory/30 px-5 py-3 text-sm text-tunera-ivory transition-colors hover:border-tunera-orange hover:text-tunera-orange sm:px-6"
                     >
                       {t.home.ctaSecondary}
                     </Link>

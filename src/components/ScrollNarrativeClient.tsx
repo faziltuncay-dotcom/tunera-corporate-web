@@ -274,8 +274,15 @@ export function ScrollNarrativeClient({ payload }: { payload: NarrativePayload }
           sub-lg and on prefers-reduced-motion. Always rendered so
           screen-readers and search-engine snapshots see the full
           narrative regardless of breakpoint. */}
-      <div className="tunera-narrative-stack block lg:hidden">
-        <div className="mx-auto max-w-3xl px-6 py-16 sm:py-20">
+      <div className="tunera-narrative-stack relative isolate block overflow-hidden lg:hidden">
+        {/* Subtle Tunera wave motif — same pattern the desktop sticky
+            scene drifts behind, dialled down so mobile carries the
+            brand thread without ever fighting the editorial copy. */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-tunera-pattern bg-cover bg-center opacity-[0.04]"
+        />
+        <div className="relative mx-auto max-w-3xl px-6 py-16 sm:py-20">
           {payload.eyebrow ? (
             <div className="mb-10 flex items-center gap-3">
               <span aria-hidden className="h-px w-8 bg-tunera-orange" />

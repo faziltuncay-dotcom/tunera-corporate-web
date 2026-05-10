@@ -16,9 +16,21 @@ export function PageHero({ eyebrow, title, lead, id, headingLevel = "h2" }: Prop
     <section
       id={id}
       aria-labelledby={titleId}
-      className="border-b border-tunera-stone/40 bg-tunera-ivory"
+      className="relative isolate overflow-hidden border-b border-tunera-stone/40 bg-tunera-ivory"
     >
-      <div className="mx-auto max-w-6xl px-6 py-16 sm:py-20 md:py-24 lg:py-28">
+      {/* Subtle Tunera wave motif. Positioned in the upper-right and
+          masked so it fades out toward the lead text — premium brand
+          thread that connects mobile section openings to the desktop
+          pattern language. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-tunera-pattern bg-cover bg-center opacity-[0.045]"
+        style={{
+          maskImage: "linear-gradient(to bottom left, rgba(0,0,0,0.85), transparent 70%)",
+          WebkitMaskImage: "linear-gradient(to bottom left, rgba(0,0,0,0.85), transparent 70%)",
+        }}
+      />
+      <div className="relative mx-auto max-w-6xl px-6 py-16 sm:py-20 md:py-24 lg:py-28">
         <div className="mb-6 flex items-center gap-3">
           <span aria-hidden className="h-px w-8 bg-tunera-orange" />
           <span className="text-[11px] font-medium uppercase tracking-[0.32em] text-tunera-orange">
