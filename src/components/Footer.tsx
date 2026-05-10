@@ -105,12 +105,12 @@ export function Footer({ locale }: Props) {
               <div className="text-[11px] font-medium uppercase tracking-[0.28em] text-tunera-orange">
                 {t.footer.sectionsLabel}
               </div>
-              <ul className="mt-5 space-y-2.5 text-sm text-tunera-stone">
+              <ul className="mt-3 text-sm text-tunera-stone">
                 {quickLinks.map((link) => (
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="rounded-sm transition-colors hover:text-tunera-orange"
+                      className="-mx-1 inline-block rounded-sm px-1 py-2 transition-colors hover:text-tunera-orange"
                     >
                       {link.label}
                     </Link>
@@ -132,7 +132,7 @@ export function Footer({ locale }: Props) {
                   <dd className="mt-1.5">
                     <a
                       href={`mailto:${contact.email}`}
-                      className="text-tunera-ivory underline-offset-4 transition-colors hover:text-tunera-orange hover:underline"
+                      className="-mx-1 inline-block rounded-sm px-1 py-1.5 text-tunera-ivory underline-offset-4 transition-colors hover:text-tunera-orange hover:underline"
                     >
                       {contact.email}
                     </a>

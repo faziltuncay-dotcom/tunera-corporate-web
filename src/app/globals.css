@@ -16,17 +16,17 @@ html {
  * Each /tr and /en section is reachable via /{locale}#{anchor}. The
  * navbar is sticky, so anchored navigation needs a `scroll-margin-top`
  * on every section that carries an `id` to stop the header from
- * covering the section heading after a smooth-scroll. Browser QA
- * (T1.1) measured the wrapped Turkish mobile header at 148 px — when
- * the longer TR labels (Ana Sayfa / Hakkımızda / Markalar / Hizmetler
- * / İletişim) wrap to two rows on the bottom mobile-nav strip — and
- * the unwrapped EN/desktop header at 69 px. The mobile value is set
- * to 160 px (148 + 12 buffer) so the section top edge clears even
- * the worst-case wrapped header; the desktop value at md+ stays at
- * 80 px (69 + 11 buffer). Pure CSS — no JS.
+ * covering the section heading after a smooth-scroll. Worst-case
+ * mobile header is 168 px — TR labels (Ana Sayfa / Hakkımızda /
+ * Markalar / Hizmetler / İletişim) wrap to two 40 px tap-target rows
+ * on the bottom mobile-nav strip — and the unwrapped EN/desktop
+ * header is 69 px. The mobile value is set to 180 px (168 + 12 buffer)
+ * so the section top edge clears even the worst-case wrapped header;
+ * the desktop value at md+ stays at 80 px (69 + 11 buffer). Pure CSS
+ * — no JS.
  */
 main section[id] {
-  scroll-margin-top: 160px;
+  scroll-margin-top: 180px;
 }
 
 @media (min-width: 768px) {

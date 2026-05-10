@@ -53,7 +53,7 @@ export function BrandCard({ locale, id, name, status, href, external }: Props) {
             href={href}
             target={external ? "_blank" : undefined}
             rel={external ? "noreferrer noopener" : undefined}
-            className="inline-flex items-center gap-2 rounded-sm text-sm font-medium text-tunera-ink transition-colors hover:text-tunera-orange"
+            className="-mx-1 inline-flex items-center gap-2 rounded-sm px-1 py-2 text-sm font-medium text-tunera-ink transition-colors hover:text-tunera-orange"
           >
             <span>{t.brandsSection.visit}</span>
             <span

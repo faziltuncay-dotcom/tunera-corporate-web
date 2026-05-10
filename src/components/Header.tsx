@@ -29,6 +29,9 @@ export function Header({ locale }: Props) {
 
   const linkClass =
     "relative inline-block rounded-sm pb-1 text-sm text-tunera-ink/70 transition-colors hover:text-tunera-orange";
+  // Mobile-only nav row uses larger tap targets (~40px) without
+  // changing the desktop link affordance.
+  const mobileLinkClass = `${linkClass} inline-flex min-h-[40px] items-center`;
 
   return (
     <header
@@ -71,7 +74,7 @@ export function Header({ locale }: Props) {
           <Link
             href={t.nav.languageSwitchHref}
             aria-label={t.nav.languageSwitchAria}
-            className="rounded-sm border border-tunera-ink/15 px-3 py-1 text-xs tracking-widest text-tunera-ink/80 transition-colors hover:border-tunera-orange hover:text-tunera-orange"
+            className="rounded-sm border border-tunera-ink/15 px-3 py-1.5 text-xs tracking-widest text-tunera-ink/80 transition-colors hover:border-tunera-orange hover:text-tunera-orange md:py-1"
           >
             {t.nav.languageSwitch}
           </Link>
@@ -81,10 +84,10 @@ export function Header({ locale }: Props) {
         aria-label={t.nav.primaryAria}
         className="border-t border-tunera-stone/40 bg-tunera-ivory/85 md:hidden"
       >
-        <ul className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-5 gap-y-2 px-6 py-3 text-sm">
+        <ul className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-5 gap-y-1 px-6 py-1.5 text-sm">
           {links.map((link) => (
             <li key={link.href}>
-              <Link href={link.href} className={linkClass}>
+              <Link href={link.href} className={mobileLinkClass}>
                 {link.label}
               </Link>
             </li>
