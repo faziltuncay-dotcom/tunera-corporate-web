@@ -444,22 +444,37 @@ body {
 }
 
 /*
- * Services sticky story (Phase 3).
+ * Services sticky story.
  *
  * Single sticky scene for /hizmetler. Six service stages share one
  * full-bleed surface; the active stage's image and panel reach
  * opacity 1, all others fade to 0. The pattern keeps the eye on a
- * single composition while content evolves under it — much smoother
- * than the previous stacked 100svh sections that hard-cut between
- * unrelated illustrations.
+ * single composition while content evolves under it.
  *
- * The image transition is intentionally longer (820 ms) than the
- * panel transition (520 ms) so the visual lingers slightly while the
- * copy settles, giving the cross-fade a sense of weight.
+ * Timing layers (T1.4 polish — calmer, deeper, continuous):
+ *
+ *   1. Image cross-fade  — 1100 ms cubic-bezier ease-out. Longest
+ *      layer; the visual is the anchor and lingers across the change.
+ *   2. Panel envelope    —  720 ms ease-out, +80 ms delay. The whole
+ *      panel container fades and lifts as a single unit so the box
+ *      itself never feels like it pops in suddenly.
+ *   3. Inner stagger     — kicker → number → title → body → note
+ *      each settle in sequence (520–760 ms with progressively larger
+ *      delays). The headline lands first and the details follow,
+ *      giving the change a "settling" feel instead of a flat flip.
+ *
+ * Outgoing direction reverts to a short 360 ms calm exit because the
+ * staggered "from active" rules no longer match once `data-active`
+ * flips off — so leaving stages clear quickly and incoming stages
+ * land deliberately.
+ *
+ * Reduced motion: every transition is removed and inactive stages
+ * are flattened to opacity 0 immediately so screen-readers and AT
+ * users see exactly the active stage with no animation at all.
  */
 .tunera-services-sticky-image {
   opacity: 0;
-  transition: opacity 820ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 1100ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .tunera-services-sticky-image[data-active="true"] {
@@ -468,10 +483,10 @@ body {
 
 .tunera-services-sticky-panel {
   opacity: 0;
-  transform: translate3d(0, 14px, 0);
+  transform: translate3d(0, 18px, 0);
   transition:
-    opacity 520ms cubic-bezier(0.22, 1, 0.36, 1) 60ms,
-    transform 520ms cubic-bezier(0.22, 1, 0.36, 1) 60ms;
+    opacity 720ms cubic-bezier(0.22, 1, 0.36, 1) 80ms,
+    transform 720ms cubic-bezier(0.22, 1, 0.36, 1) 80ms;
   pointer-events: none;
 }
 
@@ -481,9 +496,59 @@ body {
   pointer-events: auto;
 }
 
+/*
+ * Inner content stagger — base rule (used for the outgoing direction):
+ * fast, no delay so leaving panels clear cleanly.
+ */
+.tunera-services-sticky-panel .tunera-stagger {
+  opacity: 0;
+  transform: translate3d(0, 10px, 0);
+  transition:
+    opacity 360ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/*
+ * Active-state stagger — each child gets a progressively longer
+ * delay so the panel content lands in sequence. These rules only
+ * apply while the parent panel is `data-active="true"`; once it
+ * flips off, the base rule above takes over and the elements
+ * leave together with a short 360 ms ease-out.
+ */
+.tunera-services-sticky-panel[data-active="true"] .tunera-stagger {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+.tunera-services-sticky-panel[data-active="true"] .tunera-stagger--kicker {
+  transition:
+    opacity 520ms cubic-bezier(0.22, 1, 0.36, 1) 140ms,
+    transform 520ms cubic-bezier(0.22, 1, 0.36, 1) 140ms;
+}
+.tunera-services-sticky-panel[data-active="true"] .tunera-stagger--number {
+  transition:
+    opacity 560ms cubic-bezier(0.22, 1, 0.36, 1) 200ms,
+    transform 560ms cubic-bezier(0.22, 1, 0.36, 1) 200ms;
+}
+.tunera-services-sticky-panel[data-active="true"] .tunera-stagger--title {
+  transition:
+    opacity 640ms cubic-bezier(0.22, 1, 0.36, 1) 260ms,
+    transform 640ms cubic-bezier(0.22, 1, 0.36, 1) 260ms;
+}
+.tunera-services-sticky-panel[data-active="true"] .tunera-stagger--body {
+  transition:
+    opacity 680ms cubic-bezier(0.22, 1, 0.36, 1) 340ms,
+    transform 680ms cubic-bezier(0.22, 1, 0.36, 1) 340ms;
+}
+.tunera-services-sticky-panel[data-active="true"] .tunera-stagger--note {
+  transition:
+    opacity 720ms cubic-bezier(0.22, 1, 0.36, 1) 420ms,
+    transform 720ms cubic-bezier(0.22, 1, 0.36, 1) 420ms;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .tunera-services-sticky-image,
-  .tunera-services-sticky-panel {
+  .tunera-services-sticky-panel,
+  .tunera-services-sticky-panel .tunera-stagger {
     transition: none !important;
     transform: none !important;
   }
@@ -492,6 +557,10 @@ body {
   .tunera-services-sticky-image:not([data-active="true"]),
   .tunera-services-sticky-panel:not([data-active="true"]) {
     opacity: 0 !important;
+  }
+  /* Inner stagger elements always visible inside the active panel. */
+  .tunera-services-sticky-panel[data-active="true"] .tunera-stagger {
+    opacity: 1 !important;
   }
 }
 

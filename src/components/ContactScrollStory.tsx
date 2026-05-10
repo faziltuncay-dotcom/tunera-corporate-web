@@ -9,18 +9,16 @@ type Props = {
 /**
  * Server-side wrapper for the Contact variant of the scroll narrative.
  *
- * The status stage echoes the pre-launch posture; the channels stage
- * surfaces the email/phone/address fields with placeholder treatment
- * matching the closing details card; the explore stage links onward
+ * The status stage frames Tunera as a direct point of contact for
+ * brand / sales / service enquiries; the channels stage surfaces the
+ * real email link plus the two operating addresses (Yönetim Ofisi in
+ * Kartal, Operasyon Tesisi in Tuzla); the explore stage routes onward
  * to the brands and services anchors so visitors are not left at a
- * dead end.
+ * dead end. No phone number is published — none was provided.
  */
 export function ContactScrollStory({ locale }: Props) {
   const t = copy(locale);
   const c = t.contactSection;
-  const fallback = c.toBeAnnounced;
-  const renderValue = (v: string | null) => v ?? fallback;
-  const isPlaceholder = (v: string | null) => !v;
 
   const stages = c.scrollStory.stages.map((s) => ({
     id: s.id,
@@ -29,10 +27,9 @@ export function ContactScrollStory({ locale }: Props) {
     body: s.body,
   }));
 
-  const fields: Array<{ label: string; value: string | null }> = [
-    { label: c.fieldEmail, value: contact.email },
-    { label: c.fieldPhone, value: contact.phone },
-    { label: c.fieldAddress, value: contact.address },
+  const offices = [
+    { label: c.fieldOfficeManagement, ...contact.offices.management },
+    { label: c.fieldOfficeOperations, ...contact.offices.operations },
   ];
 
   const exploreHref =
@@ -46,24 +43,39 @@ export function ContactScrollStory({ locale }: Props) {
 
   const microContent: NarrativePayload["microContent"] = {
     status: (
-      <p className="text-[11px] font-medium uppercase tracking-[0.32em] text-tunera-orange">
-        {c.detailsNote}
-      </p>
+      <a
+        href={`mailto:${contact.email}`}
+        className="inline-flex items-center gap-2 rounded-sm border border-tunera-orange/30 bg-tunera-orange/5 px-4 py-2 text-sm font-medium text-tunera-ink transition-colors hover:border-tunera-orange hover:text-tunera-orange"
+      >
+        <span aria-hidden className="text-tunera-orange">
+          @
+        </span>
+        {contact.email}
+      </a>
     ),
     channels: (
       <dl className="grid grid-cols-1 gap-x-10 gap-y-5 sm:grid-cols-2">
-        {fields.map((f) => (
-          <div key={f.label}>
-            <dt className="text-[11px] font-medium uppercase tracking-[0.22em] text-tunera-orange">
-              {f.label}
-            </dt>
-            <dd
-              className={
-                "mt-2 text-sm " +
-                (isPlaceholder(f.value) ? "text-tunera-muted-ink" : "text-tunera-ink")
-              }
+        <div className="sm:col-span-2">
+          <dt className="text-[11px] font-medium uppercase tracking-[0.22em] text-tunera-orange">
+            {c.fieldEmail}
+          </dt>
+          <dd className="mt-2 text-sm">
+            <a
+              href={`mailto:${contact.email}`}
+              className="text-tunera-ink underline-offset-4 transition-colors hover:text-tunera-orange hover:underline"
             >
-              {renderValue(f.value)}
+              {contact.email}
+            </a>
+          </dd>
+        </div>
+        {offices.map((o) => (
+          <div key={o.label}>
+            <dt className="text-[11px] font-medium uppercase tracking-[0.22em] text-tunera-orange">
+              {o.label}
+            </dt>
+            <dd className="mt-2 text-sm text-tunera-ink">
+              <span className="block">{o.line1}</span>
+              <span className="mt-1 block text-tunera-muted-ink">{o.line2}</span>
             </dd>
           </div>
         ))}

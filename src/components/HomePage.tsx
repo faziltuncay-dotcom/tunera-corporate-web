@@ -12,6 +12,7 @@ import { BrandsScrollStory } from "@/components/BrandsScrollStory";
 import { ContactScrollStory } from "@/components/ContactScrollStory";
 import { ServicesStickyStory, type ServiceStoryItem } from "@/components/ServicesStickyStory";
 import { ImageReveal } from "@/components/ImageReveal";
+import { SmoothAnchorNav } from "@/components/SmoothAnchorNav";
 import { anchors, contact, copy, type Locale } from "@/content/site";
 import type { PanelPlacement } from "@/lib/visualComposition";
 
@@ -70,16 +71,25 @@ export function HomePage({ locale }: Props) {
     };
   });
 
-  const contactFields: Array<{ label: string; value: string | null; full?: boolean }> = [
-    { label: c.fieldEmail, value: contact.email },
-    { label: c.fieldPhone, value: contact.phone },
-    { label: c.fieldAddress, value: contact.address, full: true },
+  const officeBlocks = [
+    { label: c.fieldOfficeManagement, ...contact.offices.management },
+    { label: c.fieldOfficeOperations, ...contact.offices.operations },
   ];
-  const renderContactValue = (v: string | null) => v ?? c.toBeAnnounced;
-  const isContactPlaceholder = (v: string | null) => !v;
+  const companyRows = [
+    { label: c.fieldCompanyLegalName, value: contact.companyLegalFull },
+    {
+      label: c.fieldCompanyAddress,
+      value: `${contact.offices.management.line1}, ${contact.offices.management.line2}`,
+    },
+    { label: c.fieldTaxOffice, value: contact.taxOffice },
+    { label: c.fieldTaxNumber, value: contact.taxNumber },
+    { label: c.fieldMersisNo, value: contact.mersisNo },
+    { label: c.fieldTicaretSicilNo, value: contact.ticaretSicilNo },
+  ];
 
   return (
     <div lang={locale}>
+      <SmoothAnchorNav />
       <Header locale={locale} />
       <main id="main">
         {/* HERO — anchor target for "home" / "anasayfa". Full-bleed
@@ -283,29 +293,59 @@ export function HomePage({ locale }: Props) {
         <SectionTransition />
 
         <Section tight>
+          {/* Two-card stack: the top card carries the real, day-to-day
+              channels (email + the two offices); the bottom card carries
+              the formal company information (legal name, tax office,
+              tax/MERSİS/trade-registry numbers). Splitting the two keeps
+              the everyday channels prominent while the formal record is
+              still available for visitors who need it. */}
           <div className="relative overflow-hidden rounded-md border border-tunera-stone/60 bg-white p-7 sm:p-9">
             <span aria-hidden className="absolute inset-x-0 top-0 h-[3px] bg-tunera-orange" />
             <h3 className="text-base font-semibold tracking-tightish text-tunera-ink sm:text-lg">
               {c.detailsTitle}
             </h3>
-            <dl className="mt-7 grid grid-cols-1 gap-x-12 gap-y-6 md:grid-cols-2">
-              {contactFields.map((f) => (
-                <div key={f.label} className={f.full ? "md:col-span-2" : undefined}>
-                  <dt className="text-[11px] font-medium uppercase tracking-[0.22em] text-tunera-orange">
-                    {f.label}
-                  </dt>
-                  <dd
-                    className={
-                      "mt-2 text-base " +
-                      (isContactPlaceholder(f.value) ? "text-tunera-muted-ink" : "text-tunera-ink")
-                    }
+            <dl className="mt-7 grid grid-cols-1 gap-x-12 gap-y-7 md:grid-cols-3">
+              <div>
+                <dt className="text-[11px] font-medium uppercase tracking-[0.22em] text-tunera-orange">
+                  {c.fieldEmail}
+                </dt>
+                <dd className="mt-2 text-base">
+                  <a
+                    href={`mailto:${contact.email}`}
+                    className="text-tunera-ink underline-offset-4 transition-colors hover:text-tunera-orange hover:underline"
                   >
-                    {renderContactValue(f.value)}
+                    {contact.email}
+                  </a>
+                </dd>
+              </div>
+              {officeBlocks.map((o) => (
+                <div key={o.label}>
+                  <dt className="text-[11px] font-medium uppercase tracking-[0.22em] text-tunera-orange">
+                    {o.label}
+                  </dt>
+                  <dd className="mt-2 text-base text-tunera-ink">
+                    <span className="block">{o.line1}</span>
+                    <span className="mt-1 block text-tunera-muted-ink">{o.line2}</span>
                   </dd>
                 </div>
               ))}
             </dl>
-            <p className="mt-6 text-sm text-tunera-muted-ink">{c.detailsNote}</p>
+          </div>
+
+          <div className="mt-6 relative overflow-hidden rounded-md border border-tunera-stone/60 bg-tunera-ivory p-7 sm:p-9">
+            <h3 className="text-base font-semibold tracking-tightish text-tunera-ink sm:text-lg">
+              {c.companyInfoTitle}
+            </h3>
+            <dl className="mt-7 grid grid-cols-1 gap-x-12 gap-y-5 md:grid-cols-2">
+              {companyRows.map((row) => (
+                <div key={row.label}>
+                  <dt className="text-[11px] font-medium uppercase tracking-[0.22em] text-tunera-orange">
+                    {row.label}
+                  </dt>
+                  <dd className="mt-2 text-sm text-tunera-ink">{row.value}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
         </Section>
       </main>

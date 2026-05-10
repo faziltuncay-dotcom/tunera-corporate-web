@@ -54,6 +54,7 @@ export function Header({ locale }: Props) {
             width={1482}
             height={343}
             priority
+            sizes="(min-width: 640px) 132px, 110px"
             className="h-6 w-auto sm:h-7"
           />
         </Link>

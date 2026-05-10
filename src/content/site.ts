@@ -1,4 +1,4 @@
-import { company, contact as contactConfig, granfort, ranieri } from "@/config/launch";
+import { company, contact as contactConfig, granfort, offices, ranieri } from "@/config/launch";
 
 export type Locale = "tr" | "en";
 
@@ -29,11 +29,15 @@ export const anchors = (locale: Locale) =>
 
 export const contact = {
   companyLegal: company.legal,
+  companyLegalFull: company.legalFull,
   companyShort: company.short,
+  taxOffice: company.taxOffice,
+  taxNumber: company.taxNumber,
+  mersisNo: company.mersisNo,
+  ticaretSicilNo: company.ticaretSicilNo,
   isFinalized: contactConfig.isFinalized,
   email: contactConfig.email,
-  phone: contactConfig.phone,
-  address: contactConfig.address,
+  offices,
 };
 
 export const granfortUrl = granfort.url;
@@ -206,21 +210,25 @@ export const tr = {
   },
   brandsSection: {
     title: "Markalar",
-    description: "Tunera Denizcilik tarafından yürütülen marka çalışmaları.",
+    description:
+      "Tunera Denizcilik, Granfort ve Ranieri markalarının Türkiye distribütörü ve temsilcisidir. Markalara dair detaylı içerik ilgili marka sayfalarında yer alacaktır.",
     granfortNote:
-      "Granfort marka sayfası ayrı bir uygulamadır. Bağlantı şu anda geliştirme ortamına yönlendirir.",
-    ranieriNote: "Planlanan ayrı marka sayfası. Yakında.",
+      "Granfort, Tunera Denizcilik’in Türkiye’de temsil ettiği motoryat markasıdır. Markaya özel web sitesi geliştirme aşamasındadır; modeller, donanım ve süreç detayları yayına alındığında bu bölümden ulaşılabilir olacaktır.",
+    ranieriNote:
+      "Ranieri, Tunera Denizcilik’in Türkiye’de temsil ettiği bir diğer markadır. Markaya özel web sitesi planlama aşamasındadır; site yayına alındığında bağlantı bu bölümden paylaşılır.",
     statusActive: "Aktif",
     statusComingSoon: "Yakında",
     visit: "Marka sayfası",
     placeholderTag: "Geliştirme bağlantısı",
     inPreparation: "Hazırlık aşamasında",
+    siteInProgress: "Marka web sitesi geliştirme aşamasında",
+    sitePlanned: "Marka web sitesi planlama aşamasında",
     pageVisual: {
       image: "/assets/brand/web/brands-passing.png",
       imageAlt:
         "Editoryal illüstrasyon: sakin sularda yan yana geçen iki beyaz motoryat ve uzakta yumuşak günbatımı.",
-      kicker: "Marka çalışmaları",
-      caption: "Granfort ve planlanan Ranieri sayfasına yönlendiren sade bir başlangıç noktası.",
+      kicker: "Türkiye temsilciliği",
+      caption: "Granfort ve Ranieri markalarının Türkiye’deki temsil ve distribütörlük noktası.",
     },
     scrollStory: {
       eyebrow: "Akış",
@@ -228,21 +236,21 @@ export const tr = {
       stages: [
         {
           id: "brand-hub",
-          kicker: "01 — Marka Sayfaları",
-          title: "Marka sayfalarına yönlendirme",
-          body: "Ziyaretçi, doğru marka sayfasına bu bölümden ulaşır.",
+          kicker: "01 — Türkiye Temsilciliği",
+          title: "Granfort ve Ranieri için Türkiye distribütörü",
+          body: "Tunera Denizcilik, Granfort ve Ranieri markalarının Türkiye distribütörü ve temsilcisidir. Detaylı bilgi ilgili marka sayfalarında yayına alınacaktır.",
         },
         {
           id: "granfort",
           kicker: "02 — Granfort",
-          title: "Aktif marka çalışması",
-          body: "Granfort marka sayfası ayrı bir uygulama olarak yürütülür; bağlantı şu anda geliştirme ortamına yönlendirir.",
+          title: "Granfort — Türkiye temsilciliği",
+          body: "Modeller, donanım seçenekleri ve satın alma süreci için markaya özel web sitesi hazırlanmaktadır. Yayına alındığında bağlantı bu bölümden paylaşılır.",
         },
         {
           id: "ranieri",
           kicker: "03 — Ranieri",
-          title: "Planlanan ayrı marka sayfası",
-          body: "Ranieri için ayrı bir marka deneyimi hazırlık aşamasındadır.",
+          title: "Ranieri — Türkiye temsilciliği",
+          body: "Ranieri için ayrı marka web sitesi planlama aşamasındadır. Bilgiler hazır olduğunda bu bölümden duyurulur.",
         },
       ],
     },
@@ -332,19 +340,24 @@ export const tr = {
   },
   contactSection: {
     title: "İletişim",
-    body: "İletişim bilgileri lansman öncesinde paylaşılacaktır. Detaylar ilgili marka sayfaları üzerinden de duyurulur.",
+    body: "Marka temsili, satış ve servis süreçlerine ilişkin başvurular için doğrudan iletişime geçebilirsiniz.",
     detailsTitle: "İletişim bilgileri",
-    detailsNote: "İletişim bilgileri lansman öncesi netleştirilecektir.",
     fieldEmail: "E-posta",
-    fieldPhone: "Telefon",
-    fieldAddress: "Adres",
-    toBeAnnounced: "Lansman öncesi paylaşılacak",
+    fieldOfficeManagement: "Yönetim Ofisi",
+    fieldOfficeOperations: "Operasyon Tesisi",
+    companyInfoTitle: "Firma bilgileri",
+    fieldCompanyLegalName: "Ünvan",
+    fieldCompanyAddress: "Adres",
+    fieldTaxOffice: "Vergi Dairesi",
+    fieldTaxNumber: "Vergi No",
+    fieldMersisNo: "MERSİS No",
+    fieldTicaretSicilNo: "Ticaret Sicil No",
     pageVisual: {
       image: "/assets/brand/web/contact-horizon.png",
       imageAlt:
         "Editoryal illüstrasyon: özel bir iskeleye yanaşmış tek bir beyaz motoryat, kıyıdaki villa ışıkları ve uzakta dingin bir günbatımı.",
-      kicker: "Lansman öncesi",
-      caption: "İletişim bilgileri lansman öncesinde paylaşılacaktır.",
+      kicker: "İletişim",
+      caption: "Marka, satış ve servis süreçleri için doğrudan iletişim noktası.",
     },
     scrollStory: {
       eyebrow: "Akış",
@@ -352,28 +365,30 @@ export const tr = {
       stages: [
         {
           id: "status",
-          kicker: "01 — Lansman Öncesi",
-          title: "İletişim bilgileri henüz yayında değil",
-          body: "İletişim bilgileri lansmandan önce yayına alınır. O zamana kadar bu bölüm sade bir bilgilendirme olarak durur.",
+          kicker: "01 — Doğrudan İletişim",
+          title: "Doğrudan iletişim noktası",
+          body: "Marka temsili, satış ve servis süreçlerine ilişkin başvurular doğrudan Tunera Denizcilik üzerinden değerlendirilir.",
         },
         {
           id: "channels",
           kicker: "02 — Kanallar",
-          title: "Telefon, e-posta, adres",
-          body: "Telefon, e-posta ve adres bilgileri lansmandan önce paylaşılır ve ilgili marka sayfaları üzerinden de duyurulur.",
+          title: "E-posta ve ofisler",
+          body: "info@tunera.com.tr adresine yazabilir, Yönetim Ofisi (Kartal) veya Operasyon Tesisi (Tuzla) bilgilerine bu bölümden ulaşabilirsiniz.",
         },
         {
           id: "explore",
           kicker: "03 — Devamı",
           title: "Markalar ve hizmetler",
-          body: "Bu sürede çalışma alanları hakkında bilgi almak için ilgili bölümler.",
+          body: "Çalışma alanları hakkında daha fazla bilgi için Markalar ve Hizmetler bölümleri.",
         },
       ],
     },
   },
   footer: {
     rights: "Tüm hakları saklıdır.",
-    note: "Bu site lansman öncesi durumdadır.",
+    sectionsLabel: "Bölümler",
+    contactLabel: "İletişim",
+    companyLabel: "Firma",
   },
 };
 
@@ -526,22 +541,25 @@ export const en: typeof tr = {
   },
   brandsSection: {
     title: "Brands",
-    description: "Brand activities operated by Tunera Denizcilik.",
+    description:
+      "Tunera Denizcilik is the Turkey distributor and representative for Granfort and Ranieri. Detailed brand content will live on each brand’s dedicated site.",
     granfortNote:
-      "The Granfort brand page is a separate application. The link currently routes to the development environment.",
-    ranieriNote: "Planned separate brand page. Coming soon.",
+      "Granfort is a motoryacht brand represented by Tunera Denizcilik in Turkey. The brand’s dedicated website is in development; once it goes live, model, equipment and process detail will be reachable from this section.",
+    ranieriNote:
+      "Ranieri is another marine brand represented by Tunera Denizcilik in Turkey. The brand’s dedicated website is in planning; the link will be shared from this section once a launch date is confirmed.",
     statusActive: "Active",
     statusComingSoon: "Coming soon",
     visit: "Brand page",
     placeholderTag: "Development link",
     inPreparation: "In preparation",
+    siteInProgress: "Brand website in development",
+    sitePlanned: "Brand website in planning",
     pageVisual: {
       image: "/assets/brand/web/brands-passing.png",
       imageAlt:
         "Editorial illustration — two white motoryachts passing each other on calm water with a soft sunset behind.",
-      kicker: "Brand work",
-      caption:
-        "A simple starting point that points visitors to Granfort and the planned Ranieri page.",
+      kicker: "Turkey representation",
+      caption: "Turkey representation and distribution point for Granfort and Ranieri.",
     },
     scrollStory: {
       eyebrow: "Flow",
@@ -549,21 +567,21 @@ export const en: typeof tr = {
       stages: [
         {
           id: "brand-hub",
-          kicker: "01 — Brand pages",
-          title: "Pointing to the brand pages",
-          body: "Visitors reach the right brand page from this section.",
+          kicker: "01 — Turkey representation",
+          title: "Turkey distributor for Granfort and Ranieri",
+          body: "Tunera Denizcilik is the Turkey distributor and representative for Granfort and Ranieri. Detailed information will live on each brand’s dedicated site.",
         },
         {
           id: "granfort",
           kicker: "02 — Granfort",
-          title: "The active brand work",
-          body: "The Granfort brand page is operated as a separate application; the link currently routes to the development environment.",
+          title: "Granfort — Turkey representation",
+          body: "A dedicated brand site covering models, equipment and the buying process is in development. The link will be shared from this section once it goes live.",
         },
         {
           id: "ranieri",
           kicker: "03 — Ranieri",
-          title: "A planned separate brand page",
-          body: "A dedicated Ranieri brand page is in preparation.",
+          title: "Ranieri — Turkey representation",
+          body: "A dedicated Ranieri brand site is in planning. Information will be shared from this section once it is ready.",
         },
       ],
     },
@@ -653,19 +671,24 @@ export const en: typeof tr = {
   },
   contactSection: {
     title: "Contact",
-    body: "Contact details will be shared before launch. They will also be announced via the related brand pages.",
+    body: "For brand representation, sales and service enquiries you can reach Tunera Denizcilik directly.",
     detailsTitle: "Contact details",
-    detailsNote: "Contact details will be finalized before launch.",
     fieldEmail: "Email",
-    fieldPhone: "Phone",
-    fieldAddress: "Address",
-    toBeAnnounced: "To be shared before launch",
+    fieldOfficeManagement: "Management Office",
+    fieldOfficeOperations: "Operations Facility",
+    companyInfoTitle: "Company information",
+    fieldCompanyLegalName: "Legal name",
+    fieldCompanyAddress: "Address",
+    fieldTaxOffice: "Tax office",
+    fieldTaxNumber: "Tax number",
+    fieldMersisNo: "MERSIS no.",
+    fieldTicaretSicilNo: "Trade registry no.",
     pageVisual: {
       image: "/assets/brand/web/contact-horizon.png",
       imageAlt:
         "Editorial illustration — a single white motoryacht moored at a private dock beside a cliffside villa with dock lights and a calm distant sunset.",
-      kicker: "Pre-launch",
-      caption: "Contact details will be shared before launch.",
+      kicker: "Contact",
+      caption: "Direct point of contact for brand, sales and service enquiries.",
     },
     scrollStory: {
       eyebrow: "Flow",
@@ -673,28 +696,30 @@ export const en: typeof tr = {
       stages: [
         {
           id: "status",
-          kicker: "01 — Pre-launch",
-          title: "Contact details are not live yet",
-          body: "Contact details will be published before launch. Until then this section stays as a simple status note.",
+          kicker: "01 — Direct contact",
+          title: "Direct point of contact",
+          body: "Brand representation, sales and service enquiries are handled directly by Tunera Denizcilik.",
         },
         {
           id: "channels",
           kicker: "02 — Channels",
-          title: "Phone, email, address",
-          body: "Phone, email and address details will be shared before launch and will also be announced via the related brand pages.",
+          title: "Email and offices",
+          body: "Write to info@tunera.com.tr, or reach the Management Office (Kartal) and Operations Facility (Tuzla) listed in this section.",
         },
         {
           id: "explore",
           kicker: "03 — More",
           title: "Brands and services",
-          body: "In the meantime, the related sections cover the working areas.",
+          body: "Visit the Brands and Services sections for more on the working areas.",
         },
       ],
     },
   },
   footer: {
     rights: "All rights reserved.",
-    note: "This site is in a pre-launch state.",
+    sectionsLabel: "Sections",
+    contactLabel: "Contact",
+    companyLabel: "Company",
   },
 };
 
