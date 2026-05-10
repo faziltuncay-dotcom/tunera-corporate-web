@@ -5,6 +5,7 @@ import { Section } from "@/components/Section";
 import { SectionTransition } from "@/components/SectionTransition";
 import { PageHero } from "@/components/PageHero";
 import { AboutScrollStory } from "@/components/AboutScrollStory";
+import { PageVisualBleed } from "@/components/PageVisualBleed";
 import { copy, type Locale } from "@/content/site";
 
 type Props = {
@@ -31,8 +32,16 @@ export function AboutPage({ locale }: Props) {
       <main id="main">
         <PageHero eyebrow={a.hero.eyebrow} title={a.hero.title} lead={a.hero.lead} />
 
-        {/* Hero → narrative brand seam */}
-        <SectionTransition />
+        {/* FULL-BLEED EDITORIAL VISUAL — calm coastal scene. Carries
+            the page emotionally before the narrative takes over. */}
+        <PageVisualBleed
+          image={a.pageVisual.image}
+          imageAlt={a.pageVisual.imageAlt}
+          kicker={a.pageVisual.kicker}
+          caption={a.pageVisual.caption}
+          panelSide="right"
+          imagePosition="40% center"
+        />
 
         {/* SCROLL NARRATIVE — Apple-style sticky stages on lg+, stacked
             on mobile / reduced-motion. Carries the full corporate

@@ -18,65 +18,80 @@ export function HomePage({ locale }: Props) {
       <Header locale={locale} current="home" />
       <main id="main">
         {/* HERO ----------------------------------------------------- */}
-        <section aria-labelledby="hero-title" className="relative overflow-hidden bg-tunera-ivory">
-          <div className="mx-auto max-w-6xl px-6 py-16 sm:py-24 md:py-28 lg:py-32">
-            <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-x-16">
-              <div className="lg:col-span-7">
-                <div className="mb-6 flex items-center gap-3">
-                  <span aria-hidden className="h-px w-8 bg-tunera-orange" />
-                  <span className="text-[11px] font-medium uppercase tracking-[0.32em] text-tunera-orange">
-                    {t.home.eyebrow}
-                  </span>
-                </div>
-                <h1
-                  id="hero-title"
-                  className="max-w-[14ch] text-5xl font-semibold leading-[0.95] tracking-tighter2 text-tunera-ink sm:text-6xl md:text-7xl"
-                >
-                  {t.home.title}
-                </h1>
-                <p className="mt-3 text-[11px] uppercase tracking-[0.24em] text-tunera-muted-ink">
-                  {contact.companyLegal}
-                </p>
-                <p className="mt-7 max-w-xl text-base leading-relaxed text-tunera-muted-ink sm:text-lg">
-                  {t.home.lead}
-                </p>
-                <div className="mt-9 flex flex-wrap gap-3">
-                  <Link
-                    href={t.home.ctaPrimaryHref}
-                    className="inline-flex items-center gap-2 rounded-sm bg-tunera-orange px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#E64500]"
-                  >
-                    {t.home.ctaPrimary}
-                  </Link>
-                  <Link
-                    href={t.home.ctaSecondaryHref}
-                    className="inline-flex items-center gap-2 rounded-sm border border-tunera-ink/20 px-6 py-3 text-sm text-tunera-ink transition-colors hover:border-tunera-ink/50 hover:bg-tunera-sand/50"
-                  >
-                    {t.home.ctaSecondary}
-                  </Link>
-                </div>
+        {/*
+          Cinematic hero. The previous 7/5 grid (text on the left,
+          framed illustration on the right) is replaced with a single
+          full-bleed editorial scene: the new two-boats illustration
+          fills the surface and the eyebrow/h1/legal/lead/CTA cluster
+          floats above it inside a tinted graphite panel anchored to
+          the left. The same `tunera-service-*` motion classes drive
+          a calm scale-down on the image and a soft lift on the panel
+          via `<ImageReveal>`. min-h-[80svh] keeps the hero cinematic
+          without dominating the rest of the home page.
+        */}
+        <section
+          aria-labelledby="hero-title"
+          className="relative overflow-hidden bg-tunera-graphite text-tunera-ivory"
+        >
+          <ImageReveal className="tunera-service-story relative isolate block">
+            <div className="relative isolate min-h-[80svh] w-full overflow-hidden">
+              <div className="absolute inset-0">
+                <Image
+                  src="/assets/brand/web/hero-marine-pair.png"
+                  alt={t.home.heroIllustrationAlt}
+                  fill
+                  priority
+                  sizes="100vw"
+                  className="tunera-service-image object-cover"
+                  style={{ objectPosition: "center" }}
+                />
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 hidden bg-gradient-to-r from-tunera-graphite/85 via-tunera-graphite/35 to-tunera-graphite/0 lg:block"
+                />
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-tunera-graphite/85 via-tunera-graphite/15 to-transparent lg:hidden"
+                />
               </div>
-              <div className="lg:col-span-5">
-                {/* Editorial brand illustration. The orange-stamp panel
-                    that previously lived here has been replaced with the
-                    new boat-on-water illustration; the brand wordmark
-                    keeps a permanent home in the header on every page,
-                    so brand presence is preserved without doubling. */}
-                <ImageReveal>
-                  <div className="relative aspect-[4/3] overflow-hidden rounded-md bg-tunera-ivory ring-1 ring-tunera-stone/50 shadow-[0_24px_60px_-32px_rgba(35,31,32,0.22)]">
-                    <Image
-                      src="/assets/brand/web/boat-on-water.png"
-                      alt={t.home.heroIllustrationAlt}
-                      width={1448}
-                      height={1086}
-                      priority
-                      className="h-full w-full object-cover"
-                      sizes="(min-width: 1024px) 480px, 100vw"
-                    />
+              <div className="relative z-10 mx-auto flex min-h-[80svh] max-w-6xl items-end px-6 py-20 sm:px-8 sm:py-24 lg:items-center lg:justify-start lg:py-28">
+                <div className="tunera-service-panel w-full max-w-xl rounded-md border border-tunera-orange/30 bg-tunera-graphite/82 p-7 shadow-[0_28px_70px_-30px_rgba(0,0,0,0.6)] backdrop-blur-md sm:p-9">
+                  <div className="flex items-center gap-3">
+                    <span aria-hidden className="h-px w-8 bg-tunera-orange" />
+                    <span className="text-[11px] font-medium uppercase tracking-[0.32em] text-tunera-orange">
+                      {t.home.eyebrow}
+                    </span>
                   </div>
-                </ImageReveal>
+                  <h1
+                    id="hero-title"
+                    className="mt-5 max-w-[14ch] text-5xl font-semibold leading-[1.0] tracking-tighter2 text-tunera-ivory sm:text-6xl md:text-7xl"
+                  >
+                    {t.home.title}
+                  </h1>
+                  <p className="mt-4 text-[11px] uppercase tracking-[0.24em] text-tunera-ivory/65">
+                    {contact.companyLegal}
+                  </p>
+                  <p className="mt-6 max-w-xl text-base leading-relaxed text-tunera-ivory/85 sm:text-lg">
+                    {t.home.lead}
+                  </p>
+                  <div className="mt-8 flex flex-wrap gap-3">
+                    <Link
+                      href={t.home.ctaPrimaryHref}
+                      className="inline-flex items-center gap-2 rounded-sm bg-tunera-orange px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[#E64500]"
+                    >
+                      {t.home.ctaPrimary}
+                    </Link>
+                    <Link
+                      href={t.home.ctaSecondaryHref}
+                      className="inline-flex items-center gap-2 rounded-sm border border-tunera-ivory/30 px-6 py-3 text-sm text-tunera-ivory transition-colors hover:border-tunera-orange hover:text-tunera-orange"
+                    >
+                      {t.home.ctaSecondary}
+                    </Link>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+          </ImageReveal>
         </section>
 
         {/* SCROLL STORY — sticky narrative on lg+, stacked on mobile.

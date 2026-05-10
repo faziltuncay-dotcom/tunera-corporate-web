@@ -4,6 +4,7 @@ import { Section } from "@/components/Section";
 import { SectionTransition } from "@/components/SectionTransition";
 import { PageHero } from "@/components/PageHero";
 import { ContactScrollStory } from "@/components/ContactScrollStory";
+import { PageVisualBleed } from "@/components/PageVisualBleed";
 import { contact, copy, type Locale } from "@/content/site";
 
 type Props = {
@@ -32,8 +33,17 @@ export function ContactPage({ locale }: Props) {
           lead={t.contactSection.body}
         />
 
-        {/* Hero → narrative brand seam */}
-        <SectionTransition />
+        {/* FULL-BLEED EDITORIAL VISUAL — calmest scene on the site,
+            single boat heading toward an orange sunset. Connects the
+            pre-launch contact posture to the closing footer. */}
+        <PageVisualBleed
+          image={t.contactSection.pageVisual.image}
+          imageAlt={t.contactSection.pageVisual.imageAlt}
+          kicker={t.contactSection.pageVisual.kicker}
+          caption={t.contactSection.pageVisual.caption}
+          panelSide="left"
+          imagePosition="60% center"
+        />
 
         {/* SCROLL NARRATIVE — Apple-style sticky stages on lg+, stacked
             on mobile / reduced-motion. Carries the pre-launch posture
