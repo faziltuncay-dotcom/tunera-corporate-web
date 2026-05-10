@@ -48,7 +48,10 @@ export function AboutScrollStory({ locale }: Props) {
             className="rounded-sm border border-tunera-stone/55 bg-white/60 p-4 backdrop-blur-[1px]"
           >
             <div className="flex items-baseline gap-2">
-              <span className="text-[11px] font-medium tabular-nums tracking-[0.18em] text-tunera-orange/80">
+              <span
+                aria-hidden
+                className="text-[11px] font-medium tabular-nums tracking-[0.18em] text-tunera-orange/80"
+              >
                 {String(i + 1).padStart(2, "0")}
               </span>
               <span className="text-sm font-semibold tracking-tightish text-tunera-ink">
@@ -68,7 +71,10 @@ export function AboutScrollStory({ locale }: Props) {
             className="rounded-sm border border-tunera-stone/55 bg-white/60 p-4 backdrop-blur-[1px]"
           >
             <div className="flex items-baseline gap-2">
-              <span className="text-[11px] font-medium tabular-nums tracking-[0.18em] text-tunera-orange/80">
+              <span
+                aria-hidden
+                className="text-[11px] font-medium tabular-nums tracking-[0.18em] text-tunera-orange/80"
+              >
                 {String(i + 1).padStart(2, "0")}
               </span>
               <span className="text-sm font-semibold tracking-tightish text-tunera-ink">

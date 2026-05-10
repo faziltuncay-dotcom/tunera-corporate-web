@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { contact, copy, type Locale } from "@/content/site";
+import { anchors, contact, copy, type Locale } from "@/content/site";
 import { FooterReveal } from "@/components/FooterReveal";
 
 type Props = {
@@ -11,23 +11,12 @@ export function Footer({ locale }: Props) {
   const t = copy(locale);
   const year = new Date().getFullYear();
   const base = `/${locale}`;
+  const ids = anchors(locale);
   const quickLinks = [
-    {
-      href: locale === "tr" ? `${base}/hakkimizda` : `${base}/about`,
-      label: t.nav.about,
-    },
-    {
-      href: locale === "tr" ? `${base}/markalar` : `${base}/brands`,
-      label: t.nav.brands,
-    },
-    {
-      href: locale === "tr" ? `${base}/hizmetler` : `${base}/services`,
-      label: t.nav.services,
-    },
-    {
-      href: locale === "tr" ? `${base}/iletisim` : `${base}/contact`,
-      label: t.nav.contact,
-    },
+    { href: `${base}#${ids.about}`, label: t.nav.about },
+    { href: `${base}#${ids.brands}`, label: t.nav.brands },
+    { href: `${base}#${ids.services}`, label: t.nav.services },
+    { href: `${base}#${ids.contact}`, label: t.nav.contact },
   ];
 
   return (

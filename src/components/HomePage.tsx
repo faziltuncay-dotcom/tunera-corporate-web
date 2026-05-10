@@ -195,7 +195,10 @@ export function HomePage({ locale }: Props) {
             <ol role="list" className="flex flex-wrap items-baseline gap-x-7 gap-y-3">
               {s.modelStrip.map((label, i) => (
                 <li key={label} className="flex items-baseline gap-2">
-                  <span className="text-[11px] font-medium tabular-nums tracking-[0.18em] text-tunera-orange/70">
+                  <span
+                    aria-hidden
+                    className="text-[11px] font-medium tabular-nums tracking-[0.18em] text-tunera-orange/70"
+                  >
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <span className="text-sm font-semibold tracking-tightish text-tunera-ink">
