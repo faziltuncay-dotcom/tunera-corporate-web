@@ -122,10 +122,7 @@ export function PageVisualBleed({
             aria-label={kicker || caption}
             className="relative isolate overflow-hidden bg-tunera-ivory text-tunera-ink"
           >
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-0 bg-tunera-pattern bg-cover bg-center opacity-[0.05]"
-            />
+            <div aria-hidden className="tunera-wave-motif--ambient" />
             <div className="relative mx-auto max-w-2xl px-6 py-10 sm:py-12">
               {kicker ? (
                 <div className="flex items-center gap-3">

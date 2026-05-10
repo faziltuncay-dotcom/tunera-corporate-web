@@ -39,8 +39,12 @@ export function SectionTransition({ surface = "ivory" }: Props) {
       : "bg-tunera-ivory";
   return (
     <div aria-hidden className={`relative isolate overflow-hidden ${bg}`}>
-      <div className="tunera-section-veil pointer-events-none absolute inset-0 bg-tunera-pattern bg-cover bg-center opacity-[0.028]" />
-      <div className="h-20 sm:h-28 md:h-32" />
+      {/* Symmetric seam: motif fades in then out across the band so
+          the wave reads as continuous thread between the two ivory
+          sections it joins, not a hard cut. Drift loop kept on
+          .tunera-section-veil. */}
+      <div className="tunera-section-veil tunera-wave-motif--seam" />
+      <div className="h-16 sm:h-20 md:h-24" />
     </div>
   );
 }

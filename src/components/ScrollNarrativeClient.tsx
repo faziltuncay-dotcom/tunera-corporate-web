@@ -275,13 +275,10 @@ export function ScrollNarrativeClient({ payload }: { payload: NarrativePayload }
           screen-readers and search-engine snapshots see the full
           narrative regardless of breakpoint. */}
       <div className="tunera-narrative-stack relative isolate block overflow-hidden lg:hidden">
-        {/* Subtle Tunera wave motif — same pattern the desktop sticky
-            scene drifts behind, dialled down so mobile carries the
-            brand thread without ever fighting the editorial copy. */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 bg-tunera-pattern bg-cover bg-center opacity-[0.04]"
-        />
+        {/* Shared Tunera wave motif — calm full-bleed ambient layer so
+            the mobile narrative stack carries the same brand thread
+            the desktop sticky scene drifts behind. */}
+        <div aria-hidden className="tunera-wave-motif--ambient" />
         <div className="relative mx-auto max-w-3xl px-6 py-16 sm:py-20">
           {payload.eyebrow ? (
             <div className="mb-10 flex items-center gap-3">

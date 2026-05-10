@@ -131,16 +131,9 @@ export function MobileMenu({
           open ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        {/* Soft Tunera wave motif, masked so it fades from top-right
-            into the centre — tiny, premium, never noisy. */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 bg-tunera-pattern bg-cover bg-center opacity-[0.05]"
-          style={{
-            maskImage: "linear-gradient(to bottom left, rgba(0,0,0,0.85), transparent 70%)",
-            WebkitMaskImage: "linear-gradient(to bottom left, rgba(0,0,0,0.85), transparent 70%)",
-          }}
-        />
+        {/* Shared Tunera wave motif — same top-right fade the rest of
+            the site uses so the drawer feels like part of the system. */}
+        <div aria-hidden className="tunera-wave-motif" />
 
         <div className="relative flex items-center justify-between border-b border-tunera-stone/40 px-6 py-5">
           <span className="text-[11px] font-medium uppercase tracking-[0.32em] text-tunera-orange">

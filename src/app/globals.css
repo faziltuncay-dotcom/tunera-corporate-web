@@ -66,6 +66,56 @@ body {
 }
 
 /*
+ * Tunera wave motif — shared brand-thread layer.
+ *
+ * Single utility used by every ivory section opening (PageHero,
+ * PageVisualBleed mobile caption, ScrollNarrative mobile stack,
+ * SectionTransition seam, drawer panel) so the wave motif feels
+ * like one continuous system instead of many disjointed bits. The
+ * pattern image, opacity, scale and fade-mask all live here — bump
+ * once, propagate everywhere.
+ *
+ * Variants:
+ *   - default `.tunera-wave-motif` — top-right fade, ~5% opacity.
+ *   - `.tunera-wave-motif--seam` — symmetrical fade for transitions
+ *     between two ivory sections so the motif joins instead of
+ *     cutting at the boundary.
+ *   - `.tunera-wave-motif--ambient` — full-bleed, slightly lower
+ *     opacity, used as a calm background under stacked content.
+ */
+.tunera-wave-motif,
+.tunera-wave-motif--seam,
+.tunera-wave-motif--ambient {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("/assets/brand/tunera/tunera-pattern.png");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.05;
+}
+
+.tunera-wave-motif {
+  -webkit-mask-image: linear-gradient(to bottom left, rgba(0, 0, 0, 0.85), transparent 70%);
+  mask-image: linear-gradient(to bottom left, rgba(0, 0, 0, 0.85), transparent 70%);
+}
+
+.tunera-wave-motif--seam {
+  opacity: 0.04;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.9) 50%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.9) 50%, transparent 100%);
+}
+
+.tunera-wave-motif--ambient {
+  opacity: 0.04;
+}
+
+/*
  * Site-wide scroll narrative system.
  *
  * Used by Home, About, Services, Brands, and Contact. The sticky
