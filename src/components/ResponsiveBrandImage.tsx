@@ -23,8 +23,29 @@ const OPTIMIZED_BASE = "/assets/brand/web/optimized";
 const WIDTHS = [640, 1280, 1920, 2560, 3840] as const;
 const FALLBACK_WIDTH = 1920 as const;
 
-const buildSrcSet = (slug: BrandImageSlug, ext: "avif" | "webp" | "jpg") =>
-  WIDTHS.map((w) => `${OPTIMIZED_BASE}/${slug}-${w}w.${ext} ${w}w`).join(", ");
+/**
+ * Cache-bust token for slugs whose master + variants were re-rendered
+ * in place. Filenames stay the same (no broken references), but the
+ * URL gains a `?v=…` query so CDN / browser caches don't serve the
+ * stale bytes. Only the slugs in `REFRESHED_SLUGS` carry the token;
+ * the untouched seven slugs keep their original URLs (no needless
+ * cache miss). Bump the token whenever the same artwork is replaced
+ * again.
+ */
+const CACHE_BUST_TOKEN = "2026-05-10";
+const REFRESHED_SLUGS: ReadonlySet<BrandImageSlug> = new Set([
+  "hero-marine-pair",
+  "about-coastal",
+  "service-yard",
+]);
+
+const versionSuffix = (slug: BrandImageSlug) =>
+  REFRESHED_SLUGS.has(slug) ? `?v=${CACHE_BUST_TOKEN}` : "";
+
+const buildSrcSet = (slug: BrandImageSlug, ext: "avif" | "webp" | "jpg") => {
+  const v = versionSuffix(slug);
+  return WIDTHS.map((w) => `${OPTIMIZED_BASE}/${slug}-${w}w.${ext}${v} ${w}w`).join(", ");
+};
 
 type Props = {
   /** Brand visual slug. Must match a file family in `optimized/`. */
@@ -127,7 +148,7 @@ export function ResponsiveBrandImage({
       <source type="image/avif" srcSet={buildSrcSet(slug, "avif")} sizes={sizes} />
       <source type="image/webp" srcSet={buildSrcSet(slug, "webp")} sizes={sizes} />
       <img
-        src={`${OPTIMIZED_BASE}/${slug}-${FALLBACK_WIDTH}w.jpg`}
+        src={`${OPTIMIZED_BASE}/${slug}-${FALLBACK_WIDTH}w.jpg${versionSuffix(slug)}`}
         srcSet={buildSrcSet(slug, "jpg")}
         sizes={sizes}
         width={3840}

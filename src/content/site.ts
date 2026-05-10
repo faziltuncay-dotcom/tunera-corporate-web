@@ -88,7 +88,7 @@ export const tr = {
     title: "Tunera Denizcilik",
     lead: "Marka temsili, tekne satışı ve servis koordinasyonu üzerine çalışan bir denizcilik şirketi.",
     heroIllustrationAlt:
-      "Editoryal illüstrasyon: altın bir günbatımına doğru ilerleyen tek bir beyaz motoryat, sakin deniz ve uzakta dağ silüetleri.",
+      "Editoryal illüstrasyon: gün batımında kıyıda seyir halinde Granfort 3000TX motoryat ve uzakta dağ silüetleri.",
     ctaPrimary: "Markaları Gör",
     ctaPrimaryHref: "/tr#markalar",
     ctaSecondary: "İletişim",
@@ -164,8 +164,7 @@ export const tr = {
     },
     pageVisual: {
       slug: "about-coastal" as BrandImageSlug,
-      imageAlt:
-        "Editoryal illüstrasyon: dingin bir koy üzerinde ilerleyen tek bir beyaz motoryat ve uzakta yumuşak ışıklı dağlar.",
+      imageAlt: "Tunera mavi tekne — Ege kıyısında seyir halinde.",
       kicker: "Çalışma alanı",
       caption: "Tekne sahibinin satış, servis ve marka tarafıyla temasını tek noktadan yürütür.",
     },
@@ -330,8 +329,7 @@ export const tr = {
       {
         title: "Çekek Sahası ve Operasyon Yönetimi",
         slug: "service-yard" as BrandImageSlug,
-        illustrationAlt:
-          "Editoryal illüstrasyon: çekek sahasında travel-lift askılarıyla taşınan bir motoryat, sol uzakta deniz feneri ve sağda hangar binası.",
+        illustrationAlt: "Tunera servis tersanesi — travel-lift ile çekiliş ve iskele ekibi.",
         paragraphs: [
           "Çekek sahası işlemleri planlama, alan yönetimi, güvenlik, ekipman koordinasyonu ve operasyon takibi gerektirir.",
           "Tunera; teknenin karaya alınmasını, sahada konumlandırılmasını, bakım sürecine hazırlanmasını ve operasyonel akışın güvenli yürütülmesini bu çerçevede ele alır.",
@@ -422,7 +420,7 @@ export const en: typeof tr = {
     title: "Tunera Denizcilik",
     lead: "A marine company working on brand representation, boat sales and service coordination.",
     heroIllustrationAlt:
-      "Editorial illustration — a single white motoryacht heading toward a golden sunset across calm water with distant mountain silhouettes.",
+      "Editorial illustration — Granfort 3000TX motoryacht cruising along the coast at sunset with distant mountain silhouettes.",
     ctaPrimary: "View brands",
     ctaPrimaryHref: "/en#brands",
     ctaSecondary: "Contact",
@@ -498,8 +496,7 @@ export const en: typeof tr = {
     },
     pageVisual: {
       slug: "about-coastal" as BrandImageSlug,
-      imageAlt:
-        "Editorial illustration — a single white motoryacht cruising across a calm bay with soft, warm-lit mountains on the horizon.",
+      imageAlt: "Tunera blue runabout cruising along the Aegean coast.",
       kicker: "Working area",
       caption:
         "Coordinating the boat owner’s contact with the sales, service and brand sides from one point.",
@@ -666,7 +663,7 @@ export const en: typeof tr = {
         title: "Yard & Haul-Out Operations Management",
         slug: "service-yard" as BrandImageSlug,
         illustrationAlt:
-          "Editorial illustration of a motoryacht held in travel-lift slings at a haul-out yard, with a lighthouse far on the left and a hangar building on the right.",
+          "Tunera service yard — boat hauled by travel lift with the dock crew at work.",
         paragraphs: [
           "Yard operations require planning, area management, security, equipment coordination and follow-up.",
           "Tunera handles hauling boats out of the water, positioning them on site, preparing them for maintenance and running the operational flow safely within this scope.",
