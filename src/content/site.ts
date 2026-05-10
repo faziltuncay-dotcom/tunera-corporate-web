@@ -90,9 +90,9 @@ export const tr = {
     heroIllustrationAlt:
       "Editoryal illüstrasyon: gün batımında kıyıda seyir halinde Granfort 3000TX motoryat ve uzakta dağ silüetleri.",
     ctaPrimary: "Marka",
-    ctaPrimaryHref: "/tr#markalar",
+    ctaPrimaryHref: "/tr/markalar",
     ctaSecondary: "İletişim",
-    ctaSecondaryHref: "/tr#iletisim",
+    ctaSecondaryHref: "/tr/iletisim",
   },
   aboutPage: {
     hero: {
@@ -169,36 +169,36 @@ export const tr = {
       caption: "Tekne sahibinin satış, servis ve marka tarafıyla temasını tek noktadan yürütür.",
     },
     scrollStory: {
-      eyebrow: "Akış",
+      eyebrow: "",
       ariaLabel: "Tunera kurumsal hikaye akışı",
       stages: [
         {
           id: "experience-vision",
-          kicker: "01 — Tecrübe",
+          kicker: "1 — Tecrübe",
           title: "Sahadan gelen birikim",
           body: "Aile ve firma tecrübesi, müşteri ihtiyacını anlamaya ve süreci sade tutmaya yönelik bir çalışma biçimine dönüşür.",
         },
         {
           id: "new-era-name",
-          kicker: "02 — Adın Anlamı",
+          kicker: "2 — Adın Anlamı",
           title: "Açık iletişim, düzenli süreç",
           body: "İletişimi açık, süreci düzenli ve marka ilişkisini takip edilebilir tutmaya yönelik bir çalışma anlayışı.",
         },
         {
           id: "values",
-          kicker: "03 — Değerler",
+          kicker: "3 — Değerler",
           title: "Dürüstlük, yenilik, profesyonellik, girişimcilik.",
           body: "Çalışma biçimini şekillendiren dört temel değer.",
         },
         {
           id: "working-structure",
-          kicker: "04 — Çalışma Yapısı",
+          kicker: "4 — Çalışma Yapısı",
           title: "Dört işlevsel rol",
           body: "Yönetim, satış, servis koordinasyonu ve operasyon süreç takibi.",
         },
         {
           id: "explore",
-          kicker: "05 — Devamı",
+          kicker: "5 — Devamı",
           title: "Markalar ve İletişim",
           body: "Diğer bölümler için aşağıdaki bağlantılar.",
         },
@@ -206,9 +206,9 @@ export const tr = {
     },
     cta: {
       primaryLabel: "Markalar",
-      primaryHref: "/tr#markalar",
+      primaryHref: "/tr/markalar",
       secondaryLabel: "İletişim",
-      secondaryHref: "/tr#iletisim",
+      secondaryHref: "/tr/iletisim",
     },
   },
   brandsSection: {
@@ -235,24 +235,24 @@ export const tr = {
       caption: "Granfort ve Ranieri markalarının Türkiye’deki temsil ve distribütörlük noktası.",
     },
     scrollStory: {
-      eyebrow: "Akış",
+      eyebrow: "",
       ariaLabel: "Tunera marka çalışmaları akışı",
       stages: [
         {
           id: "brand-hub",
-          kicker: "01 — Türkiye Temsilciliği",
+          kicker: "1 — Türkiye Temsilciliği",
           title: "Granfort ve Ranieri için Türkiye distribütörü",
           body: "Tunera Denizcilik, Granfort ve Ranieri markalarının Türkiye distribütörü ve temsilcisidir. Detaylı bilgi ilgili marka sayfalarında yayına alınacaktır.",
         },
         {
           id: "granfort",
-          kicker: "02 — Granfort",
+          kicker: "2 — Granfort",
           title: "Granfort — Türkiye temsilciliği",
           body: "Modeller, donanım seçenekleri ve satın alma süreci için markaya özel web sitesi hazırlanmaktadır. Yayına alındığında bağlantı bu bölümden paylaşılır.",
         },
         {
           id: "ranieri",
-          kicker: "03 — Ranieri",
+          kicker: "3 — Ranieri",
           title: "Ranieri — Türkiye temsilciliği",
           body: "Ranieri için ayrı marka web sitesi planlama aşamasındadır. Bilgiler hazır olduğunda bu bölümden duyurulur.",
         },
@@ -366,24 +366,24 @@ export const tr = {
       caption: "Marka, satış ve servis süreçleri için doğrudan iletişim noktası.",
     },
     scrollStory: {
-      eyebrow: "Akış",
+      eyebrow: "",
       ariaLabel: "Tunera iletişim akışı",
       stages: [
         {
           id: "status",
-          kicker: "01 — Doğrudan İletişim",
+          kicker: "1 — Doğrudan İletişim",
           title: "Doğrudan iletişim noktası",
           body: "Marka temsili, satış ve servis süreçlerine ilişkin başvurular doğrudan Tunera Denizcilik üzerinden değerlendirilir.",
         },
         {
           id: "channels",
-          kicker: "02 — Kanallar",
+          kicker: "2 — Kanallar",
           title: "E-posta ve ofisler",
           body: "info@tunera.com.tr adresine yazabilir, Yönetim Ofisi (Kartal) veya Operasyon Tesisi (Tuzla) bilgilerine bu bölümden ulaşabilirsiniz.",
         },
         {
           id: "explore",
-          kicker: "03 — Devamı",
+          kicker: "3 — Devamı",
           title: "Markalar ve Hizmetler",
           body: "Diğer bölümler için aşağıdaki bağlantılar.",
         },
@@ -424,10 +424,10 @@ export const en: typeof tr = {
     lead: "A marine company working on brand representation, boat sales and service coordination.",
     heroIllustrationAlt:
       "Editorial illustration — Granfort 3000TX motoryacht cruising along the coast at sunset with distant mountain silhouettes.",
-    ctaPrimary: "View brands",
-    ctaPrimaryHref: "/en#brands",
+    ctaPrimary: "Brands",
+    ctaPrimaryHref: "/en/brands",
     ctaSecondary: "Contact",
-    ctaSecondaryHref: "/en#contact",
+    ctaSecondaryHref: "/en/contact",
   },
   aboutPage: {
     hero: {
@@ -505,36 +505,36 @@ export const en: typeof tr = {
         "Coordinating the boat owner’s contact with the sales, service and brand sides from one point.",
     },
     scrollStory: {
-      eyebrow: "Flow",
+      eyebrow: "",
       ariaLabel: "Tunera corporate story flow",
       stages: [
         {
           id: "experience-vision",
-          kicker: "01 — Experience",
+          kicker: "1 — Experience",
           title: "Working knowledge from the field",
           body: "Family and company experience shape into a way of working that focuses on understanding the customer’s need and keeping the process simple.",
         },
         {
           id: "new-era-name",
-          kicker: "02 — Meaning of the name",
+          kicker: "2 — Meaning of the name",
           title: "Clearer communication, orderly process",
           body: "An approach that keeps communication open, the process orderly, and the brand relationship trackable.",
         },
         {
           id: "values",
-          kicker: "03 — Values",
+          kicker: "3 — Values",
           title: "Honesty, adaptation, professionalism, initiative.",
           body: "Four working values that shape how Tunera approaches its work.",
         },
         {
           id: "working-structure",
-          kicker: "04 — Working Structure",
+          kicker: "4 — Working Structure",
           title: "Four functional roles",
           body: "Management, sales, service coordination and operations follow-up.",
         },
         {
           id: "explore",
-          kicker: "05 — More",
+          kicker: "5 — More",
           title: "Brands & Contact",
           body: "Use the links below to jump to the related sections.",
         },
@@ -542,9 +542,9 @@ export const en: typeof tr = {
     },
     cta: {
       primaryLabel: "Brands",
-      primaryHref: "/en#brands",
+      primaryHref: "/en/brands",
       secondaryLabel: "Contact",
-      secondaryHref: "/en#contact",
+      secondaryHref: "/en/contact",
     },
   },
   brandsSection: {
@@ -571,24 +571,24 @@ export const en: typeof tr = {
       caption: "Türkiye representation and distribution point for Granfort and Ranieri.",
     },
     scrollStory: {
-      eyebrow: "Flow",
+      eyebrow: "",
       ariaLabel: "Tunera brand work flow",
       stages: [
         {
           id: "brand-hub",
-          kicker: "01 — Türkiye representation",
+          kicker: "1 — Türkiye representation",
           title: "Türkiye distributor for Granfort and Ranieri",
           body: "Tunera Denizcilik is the Türkiye distributor and representative for Granfort and Ranieri. Detailed information will live on each brand’s dedicated site.",
         },
         {
           id: "granfort",
-          kicker: "02 — Granfort",
+          kicker: "2 — Granfort",
           title: "Granfort — Türkiye representation",
           body: "A dedicated brand site covering models, equipment and the buying process is in development. The link will be shared from this section once it goes live.",
         },
         {
           id: "ranieri",
-          kicker: "03 — Ranieri",
+          kicker: "3 — Ranieri",
           title: "Ranieri — Türkiye representation",
           body: "A dedicated Ranieri brand site is in planning. Information will be shared from this section once it is ready.",
         },
@@ -703,24 +703,24 @@ export const en: typeof tr = {
       caption: "Direct point of contact for brand, sales and service enquiries.",
     },
     scrollStory: {
-      eyebrow: "Flow",
+      eyebrow: "",
       ariaLabel: "Tunera contact flow",
       stages: [
         {
           id: "status",
-          kicker: "01 — Direct contact",
+          kicker: "1 — Direct contact",
           title: "Direct point of contact",
           body: "Brand representation, sales and service enquiries are handled directly by Tunera Denizcilik.",
         },
         {
           id: "channels",
-          kicker: "02 — Channels",
+          kicker: "2 — Channels",
           title: "Email and offices",
           body: "Write to info@tunera.com.tr, or reach the Management Office (Kartal) and Operations Facility (Tuzla) listed in this section.",
         },
         {
           id: "explore",
-          kicker: "03 — More",
+          kicker: "3 — More",
           title: "Brands & Services",
           body: "Use the links below to jump to the related sections.",
         },

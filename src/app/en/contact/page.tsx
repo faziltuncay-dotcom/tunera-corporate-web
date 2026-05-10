@@ -1,5 +1,9 @@
-import { redirect } from "next/navigation";
+import type { Metadata } from "next";
+import { ContactPage } from "@/components/ContactPage";
+import { pageMetadata } from "@/content/metadata";
+
+export const metadata: Metadata = pageMetadata("en", "contact");
 
 export default function EnContact() {
-  redirect("/en#contact");
+  return <ContactPage locale="en" />;
 }

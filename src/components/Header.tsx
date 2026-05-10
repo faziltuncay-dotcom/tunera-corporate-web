@@ -20,12 +20,17 @@ export function Header({ locale }: Props) {
   const t = copy(locale);
   const base = `/${locale}`;
   const ids = anchors(locale);
+  // Brands and Contact have dedicated standalone routes (/{locale}/markalar
+  // | /en/brands and /{locale}/iletisim | /en/contact). About and Services
+  // remain anchored sections on the homepage flow.
+  const brandsHref = locale === "en" ? "/en/brands" : "/tr/markalar";
+  const contactHref = locale === "en" ? "/en/contact" : "/tr/iletisim";
   const links: Array<{ href: string; label: string; segment: NavSegment }> = [
     { href: `${base}#${ids.home}`, label: t.nav.home, segment: "home" },
     { href: `${base}#${ids.about}`, label: t.nav.about, segment: "about" },
-    { href: `${base}#${ids.brands}`, label: t.nav.brands, segment: "brands" },
+    { href: brandsHref, label: t.nav.brands, segment: "brands" },
     { href: `${base}#${ids.services}`, label: t.nav.services, segment: "services" },
-    { href: `${base}#${ids.contact}`, label: t.nav.contact, segment: "contact" },
+    { href: contactHref, label: t.nav.contact, segment: "contact" },
   ];
 
   const linkClass =

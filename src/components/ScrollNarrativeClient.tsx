@@ -263,7 +263,7 @@ export function ScrollNarrativeClient({ payload }: { payload: NarrativePayload }
                   aria-hidden
                   className={`h-px transition-all duration-500 ${active ? "w-6 bg-tunera-orange" : "w-3 bg-tunera-ink/30"}`}
                 />
-                <span>{String(i + 1).padStart(2, "0")}</span>
+                <span>{String(i + 1)}</span>
               </li>
             );
           })}

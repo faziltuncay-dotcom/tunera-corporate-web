@@ -49,7 +49,7 @@ export function AboutScrollStory({ locale }: Props) {
                 aria-hidden
                 className="text-[11px] font-medium tabular-nums tracking-[0.18em] text-tunera-orange/80"
               >
-                {String(i + 1).padStart(2, "0")}
+                {String(i + 1)}
               </span>
               <span className="text-sm font-semibold tracking-tightish text-tunera-ink">
                 {item.title}
@@ -69,7 +69,7 @@ export function AboutScrollStory({ locale }: Props) {
                 aria-hidden
                 className="text-[11px] font-medium tabular-nums tracking-[0.18em] text-tunera-orange/80"
               >
-                {String(i + 1).padStart(2, "0")}
+                {String(i + 1)}
               </span>
               <span className="text-sm font-semibold tracking-tightish text-tunera-ink">
                 {item.title}

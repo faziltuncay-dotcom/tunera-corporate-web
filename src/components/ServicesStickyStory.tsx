@@ -115,7 +115,7 @@ export function ServicesStickyStory({ ariaLabel, items }: Props) {
     };
   }, [stageCount]);
 
-  const totalLabel = String(stageCount).padStart(2, "0");
+  const totalLabel = String(stageCount);
 
   return (
     <>
@@ -156,7 +156,7 @@ export function ServicesStickyStory({ ariaLabel, items }: Props) {
                   </span>
                 </div>
                 <div className="mt-3 text-[11px] font-medium tabular-nums tracking-[0.22em] text-tunera-orange/80">
-                  {String(i + 1).padStart(2, "0")}
+                  {String(i + 1)}
                   <span className="text-tunera-ivory/40"> / {totalLabel}</span>
                 </div>
                 <h3 className="mt-3 text-2xl font-semibold leading-[1.1] tracking-tighter2 text-tunera-ivory sm:text-3xl">
@@ -263,7 +263,7 @@ export function ServicesStickyStory({ ariaLabel, items }: Props) {
                     </span>
                   </div>
                   <div className="tunera-stagger tunera-stagger--number mt-4 text-[11px] font-medium tabular-nums tracking-[0.22em] text-tunera-orange/80">
-                    {String(stageIdx + 1).padStart(2, "0")}
+                    {String(stageIdx + 1)}
                     <span className="text-tunera-ivory/45"> / {totalLabel}</span>
                   </div>
                   <h2 className="tunera-stagger tunera-stagger--title mt-3 text-3xl font-semibold leading-[1.05] tracking-tighter2 text-tunera-ivory md:text-4xl xl:text-5xl">
@@ -302,7 +302,7 @@ export function ServicesStickyStory({ ariaLabel, items }: Props) {
                       active ? "w-6 bg-tunera-orange" : "w-3 bg-tunera-ivory/40"
                     }`}
                   />
-                  <span>{String(i + 1).padStart(2, "0")}</span>
+                  <span>{String(i + 1)}</span>
                 </li>
               );
             })}

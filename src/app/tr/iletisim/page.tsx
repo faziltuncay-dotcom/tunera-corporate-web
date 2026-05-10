@@ -1,5 +1,9 @@
-import { redirect } from "next/navigation";
+import type { Metadata } from "next";
+import { ContactPage } from "@/components/ContactPage";
+import { pageMetadata } from "@/content/metadata";
+
+export const metadata: Metadata = pageMetadata("tr", "contact");
 
 export default function TrIletisim() {
-  redirect("/tr#iletisim");
+  return <ContactPage locale="tr" />;
 }

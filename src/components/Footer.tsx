@@ -30,11 +30,15 @@ export function Footer({ locale }: Props) {
   const year = new Date().getFullYear();
   const base = `/${locale}`;
   const ids = anchors(locale);
+  // Brands and Contact are dedicated routes; About and Services are
+  // anchored sections on the homepage flow.
+  const brandsHref = locale === "en" ? "/en/brands" : "/tr/markalar";
+  const contactHref = locale === "en" ? "/en/contact" : "/tr/iletisim";
   const quickLinks = [
     { href: `${base}#${ids.about}`, label: t.nav.about },
-    { href: `${base}#${ids.brands}`, label: t.nav.brands },
+    { href: brandsHref, label: t.nav.brands },
     { href: `${base}#${ids.services}`, label: t.nav.services },
-    { href: `${base}#${ids.contact}`, label: t.nav.contact },
+    { href: contactHref, label: t.nav.contact },
   ];
 
   const offices = [

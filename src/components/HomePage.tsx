@@ -1,15 +1,11 @@
 import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { Section } from "@/components/Section";
 import { PageHero } from "@/components/PageHero";
 import { PageVisualBleed } from "@/components/PageVisualBleed";
 import { SectionTransition } from "@/components/SectionTransition";
 import { AboutScrollStory } from "@/components/AboutScrollStory";
-import { BrandsScrollStory } from "@/components/BrandsScrollStory";
-import { ContactScrollStory } from "@/components/ContactScrollStory";
 import { ServicesStickyStory, type ServiceStoryItem } from "@/components/ServicesStickyStory";
-import { ContactMaps } from "@/components/ContactMaps";
 import { ImageReveal } from "@/components/ImageReveal";
 import { ResponsiveBrandImage } from "@/components/ResponsiveBrandImage";
 import { SmoothAnchorNav } from "@/components/SmoothAnchorNav";
@@ -51,9 +47,7 @@ const SERVICE_COMPOSITION: ReadonlyArray<{
 export function HomePage({ locale }: Props) {
   const t = copy(locale);
   const a = t.aboutPage;
-  const b = t.brandsSection;
   const s = t.servicesPage;
-  const c = t.contactSection;
   const ids = anchors(locale);
 
   const serviceStoryItems: ServiceStoryItem[] = s.items.map((item, i) => {
@@ -70,22 +64,6 @@ export function HomePage({ locale }: Props) {
       panelPlacement: comp.panelPlacement,
     };
   });
-
-  const officeBlocks = [
-    { label: c.fieldOfficeManagement, ...contact.offices.management },
-    { label: c.fieldOfficeOperations, ...contact.offices.operations },
-  ];
-  const companyRows = [
-    { label: c.fieldCompanyLegalName, value: contact.companyLegalFull },
-    {
-      label: c.fieldCompanyAddress,
-      value: `${contact.offices.management.line1}, ${contact.offices.management.line2}`,
-    },
-    { label: c.fieldTaxOffice, value: contact.taxOffice },
-    { label: c.fieldTaxNumber, value: contact.taxNumber },
-    { label: c.fieldMersisNo, value: contact.mersisNo },
-    { label: c.fieldTicaretSicilNo, value: contact.ticaretSicilNo },
-  ];
 
   return (
     <div lang={locale}>
@@ -265,29 +243,6 @@ export function HomePage({ locale }: Props) {
 
         <SectionTransition />
 
-        {/* BRANDS — anchor target for "brands" / "markalar". Hub layout
-            with the two-yachts visual then per-brand sticky stages
-            (Granfort active, Ranieri planned). */}
-        <PageHero id={ids.brands} eyebrow={b.title} title={b.title} lead={b.description} />
-        {/* Brands visual: TWO motoryachts side-by-side passing each other in the
-            lower-center band, soft sun behind upper-right, cliffs+villa+palms
-            upper-left. Safe zone is the top-right sky band so the panel anchors
-            top-right at lg+ — never sits over either boat and clears the soft
-            sun haze. Mobile crop moves the focal centre slightly right so both
-            boats stay in frame on portrait. */}
-        <PageVisualBleed
-          slug={b.pageVisual.slug}
-          imageAlt={b.pageVisual.imageAlt}
-          kicker={b.pageVisual.kicker}
-          caption={b.pageVisual.caption}
-          panelPlacement="top-right"
-          imagePosition="center 60%"
-          imagePositionMobile="60% 60%"
-        />
-        <BrandsScrollStory locale={locale} />
-
-        <SectionTransition />
-
         {/* SERVICES — anchor target for "services" / "hizmetler".
             Section hero, calm 6-item model index, then the sticky
             cross-fade story across all six service illustrations. */}
@@ -312,7 +267,7 @@ export function HomePage({ locale }: Props) {
                     aria-hidden
                     className="text-[11px] font-medium tabular-nums tracking-[0.18em] text-tunera-orange/70"
                   >
-                    {String(i + 1).padStart(2, "0")}
+                    {String(i + 1)}
                   </span>
                   <span className="text-sm font-semibold tracking-tightish text-tunera-ink">
                     {label}
@@ -323,94 +278,6 @@ export function HomePage({ locale }: Props) {
           </div>
         </section>
         <ServicesStickyStory ariaLabel={s.scrollStory.ariaLabel} items={serviceStoryItems} />
-
-        <SectionTransition />
-
-        {/* CONTACT — anchor target for "contact" / "iletisim". The
-            calmest scene on the site (single boat at sunset) seats the
-            pre-launch posture, the channels stage carries placeholder
-            email/phone/address, and the closing card mirrors the same
-            fields without inventing a submission flow. */}
-        <PageHero id={ids.contact} eyebrow={c.title} title={c.title} lead={c.body} />
-        {/* Contact visual: boat moored at private dock center-left with villa
-            and dock lights, distant calm sunset on the right horizon. Safe
-            zone is the top-right sky band — the panel anchors top-right at
-            lg+, never covers the boat / dock / villa and never sits on the
-            sunset (which is mid-vertical, while the panel is top). Mobile
-            crop favours the dock+boat side to keep the subject visible. */}
-        <PageVisualBleed
-          slug={c.pageVisual.slug}
-          imageAlt={c.pageVisual.imageAlt}
-          kicker={c.pageVisual.kicker}
-          caption={c.pageVisual.caption}
-          panelPlacement="top-right"
-          imagePosition="30% 55%"
-          imagePositionMobile="30% 60%"
-        />
-        <ContactScrollStory locale={locale} />
-
-        <SectionTransition />
-
-        <Section tight>
-          {/* Two-card stack: the top card carries the real, day-to-day
-              channels (email + the two offices); the bottom card carries
-              the formal company information (legal name, tax office,
-              tax/MERSİS/trade-registry numbers). Splitting the two keeps
-              the everyday channels prominent while the formal record is
-              still available for visitors who need it. */}
-          <div className="relative overflow-hidden rounded-md border border-tunera-stone/60 bg-white p-7 sm:p-9">
-            <span aria-hidden className="absolute inset-x-0 top-0 h-[3px] bg-tunera-orange" />
-            <h3 className="text-base font-semibold tracking-tightish text-tunera-ink sm:text-lg">
-              {c.detailsTitle}
-            </h3>
-            <dl className="mt-7 grid grid-cols-1 gap-x-12 gap-y-7 md:grid-cols-3">
-              <div>
-                <dt className="text-[11px] font-medium uppercase tracking-[0.22em] text-tunera-orange">
-                  {c.fieldEmail}
-                </dt>
-                <dd className="mt-2 text-base">
-                  <a
-                    href={`mailto:${contact.email}`}
-                    className="text-tunera-ink underline-offset-4 transition-colors hover:text-tunera-orange hover:underline"
-                  >
-                    {contact.email}
-                  </a>
-                </dd>
-              </div>
-              {officeBlocks.map((o) => (
-                <div key={o.label}>
-                  <dt className="text-[11px] font-medium uppercase tracking-[0.22em] text-tunera-orange">
-                    {o.label}
-                  </dt>
-                  <dd className="mt-2 text-base text-tunera-ink">
-                    <span className="block">{o.line1}</span>
-                    <span className="mt-1 block text-tunera-muted-ink">{o.line2}</span>
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-
-          <div className="mt-6">
-            <ContactMaps locale={locale} />
-          </div>
-
-          <div className="mt-6 relative overflow-hidden rounded-md border border-tunera-stone/60 bg-tunera-ivory p-7 sm:p-9">
-            <h3 className="text-base font-semibold tracking-tightish text-tunera-ink sm:text-lg">
-              {c.companyInfoTitle}
-            </h3>
-            <dl className="mt-7 grid grid-cols-1 gap-x-12 gap-y-5 md:grid-cols-2">
-              {companyRows.map((row) => (
-                <div key={row.label}>
-                  <dt className="text-[11px] font-medium uppercase tracking-[0.22em] text-tunera-orange">
-                    {row.label}
-                  </dt>
-                  <dd className="mt-2 text-sm text-tunera-ink">{row.value}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-        </Section>
       </main>
       <Footer locale={locale} />
     </div>
