@@ -68,25 +68,21 @@ export function CtaTransition({ eyebrow, title, body, primary, secondary, ariaLa
       {/* Seam wave motif — same token used by SectionTransition, so
           the motif reads as one continuous brand thread between the
           adjacent surface and the footer. No top or bottom graphite
-          absorb is rendered on the CTA itself: when the section
-          above is ivory (Brand page Section), there is nothing to
-          bridge; when the section above is dark (home page services
-          sticky scene), the home page renders an external dark→ivory
-          gradient strip immediately before this CTA so the bridge
-          lives outside the CTA's own breathing room and never
-          compresses its content. The Footer owns the page→footer
-          fade on the bottom side. */}
+          absorb is rendered on the CTA itself: the user explicitly
+          rejected any shadow/fade/intermediate separator at the
+          image-to-CTA join, so the upper visual ends and this CTA
+          begins side by side. The Footer owns the page→footer fade
+          on the bottom side. */}
       <div aria-hidden className="tunera-wave-motif--seam" />
 
       {/*
-        Premium symmetric vertical rhythm restored. The CTA needs a
-        full breathing band on both sides so the eyebrow, headline,
-        body and button row read as a complete pre-footer section
-        rather than a compressed strip. The dark-side boundary on the
-        home page is handled by an external bridge (see HomePage.tsx),
-        so the top padding here can stay generous without re-creating
-        the "blank ivory strip under the dark sticky image" the user
-        called out earlier.
+        Premium symmetric vertical rhythm. The CTA needs a full
+        breathing band on both sides so the eyebrow, headline, body
+        and button row read as a complete pre-footer section rather
+        than a compressed strip. There is no external bridge above
+        the CTA on the home page — the dark services sticky scene
+        ends and this ivory CTA starts immediately, as the user
+        requested.
       */}
       <div className="relative mx-auto max-w-3xl px-6 py-14 text-center sm:py-16 md:py-20">
         {eyebrow ? (
