@@ -69,30 +69,63 @@ body {
  * Tunera wave motif — shared brand-thread layer.
  *
  * Single utility used by every ivory section opening (PageHero,
- * PageVisualBleed mobile caption, ScrollNarrative mobile stack,
- * SectionTransition seam, drawer panel) so the wave motif feels
- * like one continuous system instead of many disjointed bits. The
- * pattern image, opacity, scale and fade-mask all live here — bump
- * once, propagate everywhere.
+ * model-strip, PageVisualBleed mobile caption, ScrollNarrative
+ * mobile stack, SectionTransition seam, CtaTransition, drawer panel)
+ * so the wave motif feels like one continuous system instead of many
+ * disjointed bits.
+ *
+ * Coordinate system — the key to continuity:
+ *
+ *   Every variant draws the SAME pattern with the SAME fixed pixel
+ *   scale (`--motif-scale`) anchored to the SAME horizontal origin
+ *   (`background-position: top center`). Containers of different
+ *   heights therefore sample the *same* horizontal slice of the
+ *   pattern; the wave crests line up across section boundaries and
+ *   the eye reads the whole page as one surface instead of "pasted"
+ *   motif fragments restarting at every section.
+ *
+ *   On mobile the pattern is scaled down so the motif doesn't read
+ *   as oversized at narrow widths.
  *
  * Variants:
- *   - default `.tunera-wave-motif` — top-right fade, ~5% opacity.
- *   - `.tunera-wave-motif--seam` — symmetrical fade for transitions
- *     between two ivory sections so the motif joins instead of
- *     cutting at the boundary.
- *   - `.tunera-wave-motif--ambient` — full-bleed, slightly lower
- *     opacity, used as a calm background under stacked content.
+ *   - `.tunera-wave-motif` — top-right diagonal fade, ~4.5%.
+ *   - `.tunera-wave-motif--seam` — symmetric top/bottom fade for
+ *     SectionTransition and CtaTransition bands.
+ *   - `.tunera-wave-motif--ambient` — full-bleed, slightly calmer,
+ *     used under stacked content blocks.
+ *   - `.tunera-wave-motif--dark` — same coords, inverted colours,
+ *     used in dark surfaces (e.g. the Hero / Services seam fade
+ *     and Footer atmosphere) so the brand thread continues into
+ *     graphite sections.
+ *
+ * Bump once, propagate everywhere.
  */
+:root {
+  --motif-scale: 1600px;
+  --motif-scale-mobile: 900px;
+}
+
 .tunera-wave-motif,
 .tunera-wave-motif--seam,
-.tunera-wave-motif--ambient {
+.tunera-wave-motif--ambient,
+.tunera-wave-motif--dark {
   position: absolute;
   inset: 0;
   pointer-events: none;
   background-image: url("/assets/brand/tunera/tunera-pattern.png");
-  background-size: cover;
-  background-position: center;
-  opacity: 0.05;
+  background-size: var(--motif-scale-mobile) auto;
+  background-position: top center;
+  background-repeat: no-repeat;
+  opacity: 0.045;
+}
+
+@media (min-width: 768px) {
+  .tunera-wave-motif,
+  .tunera-wave-motif--seam,
+  .tunera-wave-motif--ambient,
+  .tunera-wave-motif--dark {
+    background-size: var(--motif-scale) auto;
+  }
 }
 
 .tunera-wave-motif {
@@ -113,6 +146,15 @@ body {
 
 .tunera-wave-motif--ambient {
   opacity: 0.04;
+}
+
+.tunera-wave-motif--dark {
+  /* Same pattern, inverted into ivory-on-graphite. Sits on dark
+     surfaces (e.g. the graphite seam between the model-strip and
+     ServicesStickyStory) so the brand thread continues from light
+     surfaces into dark ones. */
+  opacity: 0.06;
+  filter: invert(1);
 }
 
 /*

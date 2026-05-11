@@ -253,8 +253,16 @@ export function HomePage({ locale }: Props) {
           title={s.hero.title}
           lead={s.hero.lead}
         />
-        <section aria-label={s.modelStripLabel} className="bg-tunera-ivory">
-          <div className="mx-auto max-w-6xl px-6 py-10 sm:py-12">
+        <section
+          aria-label={s.modelStripLabel}
+          className="relative isolate overflow-hidden bg-tunera-ivory"
+        >
+          {/* Same wave motif token the PageHero above carries; the
+              fixed pattern coords from globals.css mean the wave
+              crests align across the two adjacent ivory surfaces
+              instead of restarting at the section boundary. */}
+          <div aria-hidden className="tunera-wave-motif--ambient" />
+          <div className="relative mx-auto max-w-6xl px-6 py-10 sm:py-12">
             <div className="mb-4 flex items-center gap-3">
               <span aria-hidden className="h-px w-8 bg-tunera-orange" />
               <span className="text-[11px] font-medium uppercase tracking-[0.28em] text-tunera-orange">
@@ -277,6 +285,13 @@ export function HomePage({ locale }: Props) {
               ))}
             </ol>
           </div>
+          {/* Bottom seam — fades the ivory surface into the dark
+              ServicesStickyStory below so the dark scene doesn't
+              hard-cut against the ivory model strip. */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-tunera-ivory/0 via-tunera-graphite/35 to-tunera-graphite"
+          />
         </section>
         <ServicesStickyStory ariaLabel={s.scrollStory.ariaLabel} items={serviceStoryItems} />
 
