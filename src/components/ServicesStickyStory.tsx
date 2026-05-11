@@ -126,8 +126,17 @@ export function ServicesStickyStory({ ariaLabel, items }: Props) {
           scroll. */}
       <section
         aria-label={ariaLabel}
-        className="block bg-tunera-graphite text-tunera-ivory lg:hidden"
+        className="relative block bg-tunera-graphite text-tunera-ivory lg:hidden"
       >
+        {/* Top absorb — a short ivory-to-transparent band layered over
+            the first stage's image so the dark scene rises out of the
+            ivory Hizmetler intro above instead of hard-cutting against
+            it. Sits inside the dark section (so it scrolls with the
+            section and doesn't leak into the rest of the stack). */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 top-0 z-10 h-20 bg-gradient-to-b from-tunera-ivory via-tunera-ivory/55 to-transparent"
+        />
         <ol role="list" className="divide-y divide-tunera-ivory/10">
           {items.map((item, i) => (
             <li key={`stack-${item.title}`} className="relative">
@@ -190,6 +199,20 @@ export function ServicesStickyStory({ ariaLabel, items }: Props) {
         data-stages={stageCount}
         data-active-stage={activeStage}
       >
+        {/* Top absorb — a short ivory-to-transparent fade pinned to the
+            section's top (NOT the sticky child). Smooths the boundary
+            between the ivory Hizmetler intro above and the dark sticky
+            scene at the moment the user crosses into this section, then
+            scrolls off as the section advances. Once the sticky child
+            sticks to the viewport top, this band has scrolled away, so
+            the rest of the scroll story shows the pure marine artwork
+            without any haze. z-30 keeps it above the image stack but
+            below interactive panels (the panels themselves don't paint
+            this high up at lg+). */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 top-0 z-30 h-32 bg-gradient-to-b from-tunera-ivory via-tunera-ivory/45 to-transparent"
+        />
         <div
           ref={stickyRef}
           className="sticky top-0 h-[100svh] w-full overflow-hidden"

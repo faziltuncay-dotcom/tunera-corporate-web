@@ -245,54 +245,57 @@ export function HomePage({ locale }: Props) {
         <SectionTransition />
 
         {/* SERVICES — anchor target for "services" / "hizmetler".
-            Section hero, calm 6-item model index, then the sticky
-            cross-fade story across all six service illustrations. */}
-        <PageHero
-          id={ids.services}
-          eyebrow={s.hero.eyebrow}
-          title={s.hero.title}
-          lead={s.hero.lead}
-        />
-        <section
-          aria-label={s.modelStripLabel}
-          className="relative isolate overflow-hidden bg-tunera-ivory"
-        >
-          {/* Same wave motif token the PageHero above carries; the
-              fixed pattern coords from globals.css mean the wave
-              crests align across the two adjacent ivory surfaces
-              instead of restarting at the section boundary. */}
+            The hero intro and the 6-item model index used to be two
+            separate ivory <section>s, each painting its own wave
+            motif. Even with shared coords the eye read a seam between
+            them, and the previous "absorb into dark" gradient at the
+            bottom of the model strip surfaced as a dirty grey band
+            against the dark sticky story below.
+
+            Both blocks now share ONE ivory wrapper with ONE shared
+            wave motif layer — so the brand wave crests run
+            unbroken from the section title through the model strip,
+            and the model strip carries no dark fade of its own. The
+            handoff into the dark sticky story is absorbed on the
+            other side: ServicesStickyStory paints a thin ivory-to-
+            image fade at the top of its first stage so the dark
+            scene rises out of the ivory page instead of cutting
+            against it. */}
+        <div className="relative isolate overflow-hidden bg-tunera-ivory">
           <div aria-hidden className="tunera-wave-motif--ambient" />
-          <div className="relative mx-auto max-w-6xl px-6 py-10 sm:py-12">
-            <div className="mb-4 flex items-center gap-3">
-              <span aria-hidden className="h-px w-8 bg-tunera-orange" />
-              <span className="text-[11px] font-medium uppercase tracking-[0.28em] text-tunera-orange">
-                {s.modelStripLabel}
-              </span>
-            </div>
-            <ol role="list" className="flex flex-wrap items-baseline gap-x-7 gap-y-3">
-              {s.modelStrip.map((label, i) => (
-                <li key={label} className="flex items-baseline gap-2">
-                  <span
-                    aria-hidden
-                    className="text-[11px] font-medium tabular-nums tracking-[0.18em] text-tunera-orange/70"
-                  >
-                    {String(i + 1)}
-                  </span>
-                  <span className="text-sm font-semibold tracking-tightish text-tunera-ink">
-                    {label}
-                  </span>
-                </li>
-              ))}
-            </ol>
-          </div>
-          {/* Bottom seam — fades the ivory surface into the dark
-              ServicesStickyStory below so the dark scene doesn't
-              hard-cut against the ivory model strip. */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-tunera-ivory/0 via-tunera-graphite/35 to-tunera-graphite"
+          <PageHero
+            id={ids.services}
+            eyebrow={s.hero.eyebrow}
+            title={s.hero.title}
+            lead={s.hero.lead}
+            bare
           />
-        </section>
+          <section aria-label={s.modelStripLabel} className="relative">
+            <div className="mx-auto max-w-6xl px-6 pb-12 sm:pb-14 md:pb-16 lg:pb-20">
+              <div className="mb-4 flex items-center gap-3">
+                <span aria-hidden className="h-px w-8 bg-tunera-orange" />
+                <span className="text-[11px] font-medium uppercase tracking-[0.28em] text-tunera-orange">
+                  {s.modelStripLabel}
+                </span>
+              </div>
+              <ol role="list" className="flex flex-wrap items-baseline gap-x-7 gap-y-3">
+                {s.modelStrip.map((label, i) => (
+                  <li key={label} className="flex items-baseline gap-2">
+                    <span
+                      aria-hidden
+                      className="text-[11px] font-medium tabular-nums tracking-[0.18em] text-tunera-orange/70"
+                    >
+                      {String(i + 1)}
+                    </span>
+                    <span className="text-sm font-semibold tracking-tightish text-tunera-ink">
+                      {label}
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </section>
+        </div>
         <ServicesStickyStory ariaLabel={s.scrollStory.ariaLabel} items={serviceStoryItems} />
 
         {/* Compact pre-footer routing bridge. Replaces the previous
