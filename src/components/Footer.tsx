@@ -36,8 +36,8 @@ export function Footer({ locale }: Props) {
   const contactHref = locale === "en" ? "/en/contact" : "/tr/iletisim";
   const quickLinks = [
     { href: `${base}#${ids.about}`, label: t.nav.about },
-    { href: brandsHref, label: t.nav.brands },
     { href: `${base}#${ids.services}`, label: t.nav.services },
+    { href: brandsHref, label: t.nav.brands },
     { href: contactHref, label: t.nav.contact },
   ];
 

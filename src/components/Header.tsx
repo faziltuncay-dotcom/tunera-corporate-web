@@ -28,8 +28,8 @@ export function Header({ locale }: Props) {
   const links: Array<{ href: string; label: string; segment: NavSegment }> = [
     { href: `${base}#${ids.home}`, label: t.nav.home, segment: "home" },
     { href: `${base}#${ids.about}`, label: t.nav.about, segment: "about" },
-    { href: brandsHref, label: t.nav.brands, segment: "brands" },
     { href: `${base}#${ids.services}`, label: t.nav.services, segment: "services" },
+    { href: brandsHref, label: t.nav.brands, segment: "brands" },
     { href: contactHref, label: t.nav.contact, segment: "contact" },
   ];
 
