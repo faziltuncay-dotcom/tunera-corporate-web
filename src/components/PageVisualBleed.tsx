@@ -36,6 +36,21 @@ type Props = {
    * Services keeps its own 100svh treatment via ServicesStickyStory.
    */
   height?: "tall" | "full";
+  /**
+   * Top-edge ivory→transparent absorb. Use when the previous section
+   * is an ivory intermediate (PageHero, SectionTransition,
+   * CtaTransition) so the dark marine artwork rises out of the
+   * ivory page above instead of hard-cutting against it. Same
+   * technique used at the top of `ServicesStickyStory`: the absorb
+   * sits inside the dark section, scrolls in only at the boundary,
+   * and leaves the rest of the image untouched.
+   */
+  topAbsorb?: boolean;
+  /**
+   * Bottom-edge ivory→transparent absorb. Mirror of `topAbsorb` for
+   * sections that lead into an ivory intermediate below.
+   */
+  bottomAbsorb?: boolean;
 };
 
 /**
@@ -83,6 +98,8 @@ export function PageVisualBleed({
   kicker,
   caption,
   height = "tall",
+  topAbsorb = false,
+  bottomAbsorb = false,
 }: Props) {
   const mobileImageHeight =
     height === "full" ? "h-[60svh] min-h-[420px]" : "h-[52svh] min-h-[360px]";
@@ -90,6 +107,25 @@ export function PageVisualBleed({
 
   const { flexClass, gradientClass } = panelPlacementClasses(panelPlacement);
   const showPanel = Boolean(kicker || caption);
+  // Soft ivory→transparent absorb bands. Painted INSIDE the dark
+  // image so the dark scene rises out of the adjacent ivory page
+  // instead of presenting a hard horizontal cut. z-20 keeps them
+  // above the image and image-gradient layers but below the
+  // floating caption panel (z-10 is the panel wrapper's stacking
+  // context, but absolute z-20 here paints over the image-layer
+  // gradients which sit at default stacking).
+  const topAbsorbBand = topAbsorb ? (
+    <div
+      aria-hidden
+      className="pointer-events-none absolute inset-x-0 top-0 z-20 h-24 bg-gradient-to-b from-tunera-ivory via-tunera-ivory/50 to-transparent"
+    />
+  ) : null;
+  const bottomAbsorbBand = bottomAbsorb ? (
+    <div
+      aria-hidden
+      className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-24 bg-gradient-to-t from-tunera-ivory via-tunera-ivory/50 to-transparent"
+    />
+  ) : null;
 
   return (
     <ImageReveal className="tunera-service-story relative isolate block bg-tunera-graphite text-tunera-ivory">
@@ -115,15 +151,17 @@ export function PageVisualBleed({
               aria-hidden
               className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-tunera-graphite/55 to-transparent"
             />
+            {topAbsorbBand}
+            {bottomAbsorbBand}
           </div>
         </section>
         {showPanel ? (
           <section
             aria-label={kicker || caption}
-            className="relative isolate overflow-hidden bg-tunera-ivory text-tunera-ink"
+            className="relative isolate overflow-hidden bg-gradient-to-b from-tunera-ivory to-tunera-sand/55 text-tunera-ink"
           >
-            <div aria-hidden className="tunera-wave-motif--ambient" />
-            <div className="relative mx-auto max-w-2xl px-6 py-10 sm:py-12">
+            <div aria-hidden className="tunera-wave-motif--seam" />
+            <div className="relative mx-auto max-w-2xl px-6 py-12 sm:py-14">
               {kicker ? (
                 <div className="flex items-center gap-3">
                   <span aria-hidden className="h-px w-8 bg-tunera-orange" />
@@ -170,6 +208,8 @@ export function PageVisualBleed({
             />
           )}
         </div>
+        {topAbsorbBand}
+        {bottomAbsorbBand}
 
         {showPanel ? (
           <div

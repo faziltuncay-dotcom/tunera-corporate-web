@@ -1,49 +1,51 @@
 type Props = {
   /**
-   * Surface treatment of the seam itself.
-   *
-   * - `ivory` (default) — solid ivory band. Use between two ivory
-   *   sections; the seam disappears against its neighbours and only
-   *   the masked, drifting wave-pattern reads as connective brand
-   *   atmosphere.
-   *
-   * - `to-sand` — vertical gradient from ivory at the top to
-   *   `tunera-sand/60` at the bottom. Use at boundaries where the
-   *   section above is ivory and the section below is a sand band, so
-   *   the surface morphs smoothly instead of presenting a hard
-   *   colour-change edge.
+   * Top edge dark→ivory absorb. Use when the previous section is a
+   * dark surface (full-bleed image, sticky scroll story). Paints a
+   * short graphite→ivory gradient at the section's top edge so the
+   * boundary reads as smooth flow instead of a horizontal cut. Same
+   * treatment as `PageHero` and `CtaTransition` so every dark→ivory
+   * boundary on the site uses one shared technique.
    */
-  surface?: "ivory" | "to-sand";
+  topAbsorb?: boolean;
+  /**
+   * Bottom edge ivory→dark absorb. Mirrors `topAbsorb` for sections
+   * that lead into a dark surface below. Rarely used — most
+   * ivory→dark boundaries on the site are handled by the dark
+   * section painting an ivory-to-transparent fade at its own top.
+   */
+  bottomAbsorb?: boolean;
 };
 
 /**
- * Section-flow veil at narrative pivots.
+ * Atmospheric bridge band between two surfaces.
  *
- * Replaces the previous "pattern band + centered orange line"
- * separator. The new treatment is a soft brand-flow dissolve:
+ * Visual language is shared with `PageHero` and `CtaTransition` (the
+ * "Markalar ve İletişim" pre-footer bridge), so every intermediate
+ * surface on the site reads as part of one calm corporate system:
  *
- *   - the wrapper either matches the surrounding tone or smoothly
- *     morphs surface colour, so its top and bottom edges never read
- *     as a hard band
- *   - a single decorative pattern layer carries `.tunera-section-veil`
- *     (vertical mask-gradient that fades the pattern in and out at
- *     top/bottom + slow horizontal drift on a 36s loop, transform-only)
+ *   - warm ivory→sand vertical gradient surface
+ *   - `.tunera-wave-motif--seam` shared brand-thread motif
+ *   - optional top/bottom dark-edge absorbs that smooth the join with
+ *     a dark neighbour
  *
- * Decorative; `aria-hidden`, `pointer-events-none`. No interactive
- * content. Reduced motion is handled in `globals.css`.
+ * No content; this is a purely atmospheric band used between two
+ * already-titled content sections. Decorative — `aria-hidden`,
+ * `pointer-events-none`. Reduced motion is handled in globals.css.
  */
-export function SectionTransition({ surface = "ivory" }: Props) {
-  const bg =
-    surface === "to-sand"
-      ? "bg-gradient-to-b from-tunera-ivory to-tunera-sand/60"
-      : "bg-tunera-ivory";
+export function SectionTransition({ topAbsorb = false, bottomAbsorb = false }: Props) {
   return (
-    <div aria-hidden className={`relative isolate overflow-hidden ${bg}`}>
-      {/* Symmetric seam: motif fades in then out across the band so
-          the wave reads as continuous thread between the two ivory
-          sections it joins, not a hard cut. Drift loop kept on
-          .tunera-section-veil. */}
+    <div
+      aria-hidden
+      className="relative isolate overflow-hidden bg-gradient-to-b from-tunera-ivory to-tunera-sand/55"
+    >
       <div className="tunera-section-veil tunera-wave-motif--seam" />
+      {topAbsorb ? (
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-tunera-graphite/35 via-tunera-graphite/10 to-tunera-ivory/0" />
+      ) : null}
+      {bottomAbsorb ? (
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-b from-tunera-sand/0 via-tunera-graphite/15 to-tunera-graphite/55" />
+      ) : null}
       <div className="h-16 sm:h-20 md:h-24" />
     </div>
   );

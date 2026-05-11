@@ -3,7 +3,6 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { PageHero } from "@/components/PageHero";
 import { PageVisualBleed } from "@/components/PageVisualBleed";
-import { SectionTransition } from "@/components/SectionTransition";
 import { AboutScrollStory } from "@/components/AboutScrollStory";
 import { ServicesStickyStory, type ServiceStoryItem } from "@/components/ServicesStickyStory";
 import { CtaTransition } from "@/components/CtaTransition";
@@ -220,17 +219,27 @@ export function HomePage({ locale }: Props) {
           </ImageReveal>
         </section>
 
-        <SectionTransition />
-
-        {/* ABOUT — anchor target for "about" / "hakkimizda". Section
-            hero (h2) + full-bleed coastal visual + sticky scroll story
-            carrying the corporate detail. */}
-        <PageHero id={ids.about} eyebrow={a.hero.eyebrow} title={a.hero.title} lead={a.hero.lead} />
-        {/* About visual: single boat lower-left + soft golden glow upper-right
-            + decorative gold arc lines across upper-right. Safe zone is the
-            top-left sky band, so the panel anchors top-left at lg+.
-            Mobile crop shifts right of source center to keep the boat visible
-            in portrait windows. */}
+        {/* ABOUT — anchor target for "about" / "hakkimizda".
+            The PageHero now owns its own dark→ivory absorb at the top
+            (replacing the previous standalone `<SectionTransition />`
+            band that used to bridge Hero → PageHero) so the boundary
+            reads as one continuous flow with the same technique used
+            at every other dark→ivory boundary on the site. */}
+        <PageHero
+          id={ids.about}
+          eyebrow={a.hero.eyebrow}
+          title={a.hero.title}
+          lead={a.hero.lead}
+          topAbsorb
+        />
+        {/* About visual — `topAbsorb` paints a short ivory→transparent
+            band at the top of the dark image so the marine scene rises
+            out of the ivory PageHero above instead of cutting against
+            it. About visual: single boat lower-left + soft golden glow
+            upper-right + decorative gold arc lines across upper-right.
+            Safe zone is the top-left sky band, so the panel anchors
+            top-left at lg+. Mobile crop shifts right of source center
+            to keep the boat visible in portrait windows. */}
         <PageVisualBleed
           slug={a.pageVisual.slug}
           imageAlt={a.pageVisual.imageAlt}
@@ -239,10 +248,10 @@ export function HomePage({ locale }: Props) {
           panelPlacement="top-left"
           imagePosition="30% 50%"
           imagePositionMobile="30% 55%"
+          topAbsorb
+          bottomAbsorb
         />
         <AboutScrollStory locale={locale} />
-
-        <SectionTransition />
 
         {/* SERVICES — anchor target for "services" / "hizmetler".
             The hero intro and the 6-item model index used to be two
@@ -252,17 +261,22 @@ export function HomePage({ locale }: Props) {
             bottom of the model strip surfaced as a dirty grey band
             against the dark sticky story below.
 
-            Both blocks now share ONE ivory wrapper with ONE shared
-            wave motif layer — so the brand wave crests run
-            unbroken from the section title through the model strip,
-            and the model strip carries no dark fade of its own. The
-            handoff into the dark sticky story is absorbed on the
-            other side: ServicesStickyStory paints a thin ivory-to-
-            image fade at the top of its first stage so the dark
-            scene rises out of the ivory page instead of cutting
-            against it. */}
-        <div className="relative isolate overflow-hidden bg-tunera-ivory">
-          <div aria-hidden className="tunera-wave-motif--ambient" />
+            Both blocks now share ONE ivory→sand wrapper with ONE
+            shared seam wave motif (same tokens as `CtaTransition` /
+            `PageHero` / `SectionTransition`) — so the brand wave
+            crests run unbroken from the section title through the
+            model strip, and every intermediate ivory surface on the
+            site reads as one continuous corporate canvas. The
+            AboutScrollStory above is itself ivory, so no
+            graphite-darkening top absorb is needed at this boundary
+            — adding one would paint a visible smudge against the
+            ivory neighbour. The handoff into the dark sticky story
+            below is absorbed on the other side: ServicesStickyStory
+            paints a thin ivory→transparent fade at the top of its
+            first stage so the dark scene rises out of the ivory
+            page. */}
+        <div className="relative isolate overflow-hidden bg-gradient-to-b from-tunera-ivory to-tunera-sand/55">
+          <div aria-hidden className="tunera-wave-motif--seam" />
           <PageHero
             id={ids.services}
             eyebrow={s.hero.eyebrow}
