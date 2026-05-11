@@ -65,27 +65,25 @@ export function CtaTransition({ eyebrow, title, body, primary, secondary, ariaLa
       aria-label={ariaLabel ?? title}
       className="relative isolate overflow-hidden bg-gradient-to-b from-tunera-ivory to-tunera-sand/55"
     >
-      {/* Top edge — when the previous section is dark (the graphite
-          ServicesStickyStory), this band fades the dark surface down
-          into the ivory bridge so the transition reads as one flow
-          instead of a hard horizontal cut. On Brand page (where the
-          previous section is already ivory) the gradient sits on
-          ivory and becomes effectively invisible. */}
+      {/* Top edge — softened from the previous heavy
+          `graphite/35 via graphite/10 h-24` band the user called out
+          ("transition daha yumuşak olsun. gölge azalsın"). The
+          dark→ivory absorb is now a short, very faint tonal bridge:
+          the graphite is barely visible against the ivory at the
+          edge and dissolves immediately as the section continues. */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-tunera-graphite/35 via-tunera-graphite/10 to-tunera-ivory/0"
+        className="pointer-events-none absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-tunera-graphite/12 to-transparent"
       />
       {/* Same motif token used by SectionTransition seams; reads as
           continuous brand thread between the previous section, this
           bridge, and the footer. */}
       <div aria-hidden className="tunera-wave-motif--seam" />
-      {/* Bottom edge — fades the sand surface down into graphite so
-          the Footer below picks up the gradient cleanly without a
-          horizontal cut where the section colors flip. */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-b from-tunera-sand/0 via-tunera-graphite/15 to-tunera-graphite/55"
-      />
+      {/* Bottom-edge graphite scrim removed — it stacked under the
+          Footer's own top absorb and created the dirty shadow band
+          the user wanted gone. The Footer alone now owns the
+          page→footer fade, and its own gradient has been softened
+          in tandem (see Footer.tsx). */}
 
       <div className="relative mx-auto max-w-3xl px-6 py-14 text-center sm:py-16 md:py-20">
         {eyebrow ? (

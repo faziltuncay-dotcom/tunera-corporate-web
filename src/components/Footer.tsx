@@ -56,14 +56,17 @@ export function Footer({ locale }: Props) {
   return (
     <footer className="relative isolate overflow-hidden bg-tunera-graphite text-tunera-ivory">
       {/*
-        Top seam: a soft graphite-to-graphite gradient that fades from
-        transparent to solid over a tall band. It sits above the brand
-        pattern layers so the page-to-footer transition reads as one
-        atmospheric flow rather than a hard cut to a dark block.
+        Top seam: softened from the previous `via-graphite/60 h-32`
+        band — together with the CtaTransition's old bottom-edge
+        scrim it created the heavy grey strip the user called out
+        ("transition daha yumuşak olsun. gölge azalsın"). The
+        gradient now eases through a single, low-opacity midpoint so
+        the page-to-footer transition feels like one atmospheric
+        flow without a visible dark band stacked under the CTA.
       */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-tunera-graphite/0 via-tunera-graphite/60 to-tunera-graphite"
+        className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-tunera-graphite/0 via-tunera-graphite/25 to-tunera-graphite"
       />
       {/* Layer A — broad pattern atmosphere, masked to fade in from the top */}
       <div
