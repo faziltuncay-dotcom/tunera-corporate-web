@@ -6,6 +6,7 @@ import { PageVisualBleed } from "@/components/PageVisualBleed";
 import { SectionTransition } from "@/components/SectionTransition";
 import { AboutScrollStory } from "@/components/AboutScrollStory";
 import { ServicesStickyStory, type ServiceStoryItem } from "@/components/ServicesStickyStory";
+import { CtaTransition } from "@/components/CtaTransition";
 import { ImageReveal } from "@/components/ImageReveal";
 import { ResponsiveBrandImage } from "@/components/ResponsiveBrandImage";
 import { SmoothAnchorNav } from "@/components/SmoothAnchorNav";
@@ -278,6 +279,25 @@ export function HomePage({ locale }: Props) {
           </div>
         </section>
         <ServicesStickyStory ariaLabel={s.scrollStory.ariaLabel} items={serviceStoryItems} />
+
+        {/* Compact pre-footer routing bridge. Replaces the previous
+            full Markalar + İletişim homepage sections — just an
+            eyebrow + headline + two buttons pointing at the dedicated
+            Brand and Contact pages. No cards, no addresses, no firma
+            bilgileri. */}
+        <CtaTransition
+          eyebrow={t.home.transitionCta.eyebrow}
+          title={t.home.transitionCta.title}
+          body={t.home.transitionCta.body}
+          primary={{
+            label: t.home.transitionCta.primaryLabel,
+            href: t.home.transitionCta.primaryHref,
+          }}
+          secondary={{
+            label: t.home.transitionCta.secondaryLabel,
+            href: t.home.transitionCta.secondaryHref,
+          }}
+        />
       </main>
       <Footer locale={locale} />
     </div>

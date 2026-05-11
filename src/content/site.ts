@@ -89,10 +89,19 @@ export const tr = {
     lead: "Marka temsili, tekne satışı ve servis koordinasyonu üzerine çalışan bir denizcilik şirketi.",
     heroIllustrationAlt:
       "Editoryal illüstrasyon: gün batımında kıyıda seyir halinde Granfort 3000TX motoryat ve uzakta dağ silüetleri.",
-    ctaPrimary: "Marka",
+    ctaPrimary: "Markalar",
     ctaPrimaryHref: "/tr/markalar",
     ctaSecondary: "İletişim",
     ctaSecondaryHref: "/tr/iletisim",
+    transitionCta: {
+      eyebrow: "Sonraki adım",
+      title: "Markalar ve iletişim",
+      body: "Temsil edilen markaları inceleyebilir veya satış, servis ve yönlendirme süreçleri için doğrudan iletişime geçebilirsiniz.",
+      primaryLabel: "Markalar",
+      primaryHref: "/tr/markalar",
+      secondaryLabel: "İletişim",
+      secondaryHref: "/tr/iletisim",
+    },
   },
   aboutPage: {
     hero: {
@@ -227,6 +236,13 @@ export const tr = {
     siteInProgress: "Marka web sitesi geliştirme aşamasında",
     sitePlanned: "Marka web sitesi planlama aşamasında",
     siteComingSoon: "Marka web sitesi yakında",
+    transitionCta: {
+      eyebrow: "İletişim",
+      title: "Marka süreçleri için iletişime geçin",
+      body: "Satış, temsilcilik ve marka yönlendirmeleriyle ilgili detaylar için Tunera Denizcilik ile iletişime geçebilirsiniz.",
+      primaryLabel: "İletişim",
+      primaryHref: "/tr/iletisim",
+    },
     pageVisual: {
       slug: "brands-passing" as BrandImageSlug,
       imageAlt:
@@ -428,6 +444,15 @@ export const en: typeof tr = {
     ctaPrimaryHref: "/en/brands",
     ctaSecondary: "Contact",
     ctaSecondaryHref: "/en/contact",
+    transitionCta: {
+      eyebrow: "Next step",
+      title: "Brands and contact",
+      body: "Explore the represented brands or contact Tunera directly for sales, service and guidance processes.",
+      primaryLabel: "Brands",
+      primaryHref: "/en/brands",
+      secondaryLabel: "Contact",
+      secondaryHref: "/en/contact",
+    },
   },
   aboutPage: {
     hero: {
@@ -563,6 +588,13 @@ export const en: typeof tr = {
     siteInProgress: "Brand website in development",
     sitePlanned: "Brand website in planning",
     siteComingSoon: "Brand website coming soon",
+    transitionCta: {
+      eyebrow: "Contact",
+      title: "Contact us for brand-related processes",
+      body: "For sales, representation and brand guidance details, you can contact Tunera Denizcilik directly.",
+      primaryLabel: "Contact",
+      primaryHref: "/en/contact",
+    },
     pageVisual: {
       slug: "brands-passing" as BrandImageSlug,
       imageAlt:

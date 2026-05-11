@@ -5,6 +5,7 @@ import { PageVisualBleed } from "@/components/PageVisualBleed";
 import { SectionTransition } from "@/components/SectionTransition";
 import { BrandCard } from "@/components/BrandCard";
 import { Section } from "@/components/Section";
+import { CtaTransition } from "@/components/CtaTransition";
 import { SmoothAnchorNav } from "@/components/SmoothAnchorNav";
 import { brands, copy, type Locale } from "@/content/site";
 
@@ -78,6 +79,16 @@ export function BrandPage({ locale }: Props) {
             />
           </div>
         </Section>
+
+        {/* Compact pre-footer routing bridge — single İletişim button.
+            No maps, no addresses, no firma bilgileri (those live on the
+            dedicated Contact page and in the footer respectively). */}
+        <CtaTransition
+          eyebrow={b.transitionCta.eyebrow}
+          title={b.transitionCta.title}
+          body={b.transitionCta.body}
+          primary={{ label: b.transitionCta.primaryLabel, href: b.transitionCta.primaryHref }}
+        />
       </main>
       <Footer locale={locale} />
     </div>
