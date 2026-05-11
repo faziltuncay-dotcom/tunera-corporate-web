@@ -128,15 +128,6 @@ export function ServicesStickyStory({ ariaLabel, items }: Props) {
         aria-label={ariaLabel}
         className="relative block bg-tunera-graphite text-tunera-ivory lg:hidden"
       >
-        {/* Top absorb — short, low-opacity tonal bridge so the dark
-            scene rises gently out of the ivory Hizmetler intro
-            above. Deliberately understated (h-14, single-stop) so the
-            boundary smooths without leaving a visible ivory haze
-            band over the first marine image. */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 top-0 z-10 h-14 bg-gradient-to-b from-tunera-ivory/75 to-transparent"
-        />
         <ol role="list" className="divide-y divide-tunera-ivory/10">
           {items.map((item, i) => (
             <li key={`stack-${item.title}`} className="relative">
@@ -152,10 +143,6 @@ export function ServicesStickyStory({ ariaLabel, items }: Props) {
                     objectPositionMobile={item.imagePositionMobile}
                   />
                 </div>
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-tunera-graphite/30 to-transparent"
-                />
               </div>
               <article className="relative px-5 pb-12 pt-9 sm:px-8 sm:pb-14 sm:pt-10">
                 <div className="flex items-center gap-3">
@@ -199,21 +186,6 @@ export function ServicesStickyStory({ ariaLabel, items }: Props) {
         data-stages={stageCount}
         data-active-stage={activeStage}
       >
-        {/* Top absorb — short, low-opacity tonal bridge pinned to the
-            section's top (NOT the sticky child). Smooths the boundary
-            between the ivory Hizmetler intro above and the dark
-            sticky scene at the moment the user crosses into the
-            section, then scrolls off as the section advances. Once
-            the sticky child sticks to viewport top, this band has
-            scrolled away, so the rest of the scroll story shows the
-            pure marine artwork without any haze. Deliberately
-            understated (h-16, single-stop) — the user asked for a
-            lighter, less shadow-heavy treatment than the previous
-            two-stop absorb. */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 top-0 z-30 h-16 bg-gradient-to-b from-tunera-ivory/75 to-transparent"
-        />
         <div
           ref={stickyRef}
           className="sticky top-0 h-[100svh] w-full overflow-hidden"

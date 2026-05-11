@@ -45,12 +45,6 @@ export function BrandPage({ locale }: Props) {
       <Header locale={locale} />
       <main id="main">
         <PageHero eyebrow={b.title} title={b.title} lead={b.description} headingLevel="h1" />
-        {/* `topAbsorb` / `bottomAbsorb` paint short ivory→transparent
-            bands at the top and bottom of the dark image so it rises
-            out of the ivory PageHero above and sinks back into the
-            ivory SectionTransition / Section below without horizontal
-            cuts. Same technique used at the top of `ServicesStickyStory`
-            so every ivory↔dark boundary on the site reads the same. */}
         <PageVisualBleed
           slug={b.pageVisual.slug}
           imageAlt={b.pageVisual.imageAlt}
@@ -59,8 +53,6 @@ export function BrandPage({ locale }: Props) {
           panelPlacement="top-right"
           imagePosition="center 60%"
           imagePositionMobile="60% 60%"
-          topAbsorb
-          bottomAbsorb
         />
 
         <SectionTransition />

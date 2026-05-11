@@ -43,11 +43,6 @@ export function ContactPage({ locale }: Props) {
       <Header locale={locale} />
       <main id="main">
         <PageHero eyebrow={c.title} title={c.title} lead={c.body} headingLevel="h1" />
-        {/* `topAbsorb` / `bottomAbsorb` paint short ivory→transparent
-            bands at the top and bottom of the dark image so it rises
-            out of the ivory PageHero above and sinks back into the
-            ivory SectionTransition / Section below without horizontal
-            cuts. */}
         <PageVisualBleed
           slug={c.pageVisual.slug}
           imageAlt={c.pageVisual.imageAlt}
@@ -56,8 +51,6 @@ export function ContactPage({ locale }: Props) {
           panelPlacement="top-right"
           imagePosition="30% 55%"
           imagePositionMobile="30% 60%"
-          topAbsorb
-          bottomAbsorb
         />
 
         <SectionTransition />

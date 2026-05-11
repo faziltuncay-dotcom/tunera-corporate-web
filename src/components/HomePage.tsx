@@ -219,22 +219,17 @@ export function HomePage({ locale }: Props) {
           </ImageReveal>
         </section>
 
-        {/* ABOUT — anchor target for "about" / "hakkimizda".
-            The intro sits on a clean ivory surface with no decorative
-            motif. The boundary from the dark Hero above is absorbed
-            on the *image* side below (see `topAbsorb` on
-            PageVisualBleed); the Hero's own bottom gradient handles
-            the dark→ivory transition into this PageHero without
-            painting a dark band over the ivory intro itself. */}
+        {/* ABOUT — anchor target for "about" / "hakkimizda". The
+            intro sits on a clean ivory surface with no decorative
+            motif. */}
         <PageHero id={ids.about} eyebrow={a.hero.eyebrow} title={a.hero.title} lead={a.hero.lead} />
-        {/* About visual — `topAbsorb` paints a short ivory→transparent
-            band at the top of the dark image so the marine scene rises
-            out of the ivory PageHero above instead of cutting against
-            it. About visual: single boat lower-left + soft golden glow
+        {/* About visual: single boat lower-left + soft golden glow
             upper-right + decorative gold arc lines across upper-right.
             Safe zone is the top-left sky band, so the panel anchors
             top-left at lg+. Mobile crop shifts right of source center
-            to keep the boat visible in portrait windows. */}
+            to keep the boat visible in portrait windows. No top/bottom
+            absorbs — the image edges read as clean cuts per the user's
+            "görsel üzerinde transition değişimi olmasın" direction. */}
         <PageVisualBleed
           slug={a.pageVisual.slug}
           imageAlt={a.pageVisual.imageAlt}
@@ -243,8 +238,6 @@ export function HomePage({ locale }: Props) {
           panelPlacement="top-left"
           imagePosition="30% 50%"
           imagePositionMobile="30% 55%"
-          topAbsorb
-          bottomAbsorb
         />
         <AboutScrollStory locale={locale} />
 

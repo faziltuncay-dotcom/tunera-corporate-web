@@ -36,21 +36,6 @@ type Props = {
    * Services keeps its own 100svh treatment via ServicesStickyStory.
    */
   height?: "tall" | "full";
-  /**
-   * Top-edge ivory→transparent absorb. Use when the previous section
-   * is an ivory intermediate (PageHero, SectionTransition,
-   * CtaTransition) so the dark marine artwork rises out of the
-   * ivory page above instead of hard-cutting against it. Same
-   * technique used at the top of `ServicesStickyStory`: the absorb
-   * sits inside the dark section, scrolls in only at the boundary,
-   * and leaves the rest of the image untouched.
-   */
-  topAbsorb?: boolean;
-  /**
-   * Bottom-edge ivory→transparent absorb. Mirror of `topAbsorb` for
-   * sections that lead into an ivory intermediate below.
-   */
-  bottomAbsorb?: boolean;
 };
 
 /**
@@ -62,17 +47,21 @@ type Props = {
  *
  * Composition split by breakpoint:
  *
- *   - **lg+** — original full-bleed editorial: image fills the
- *     section, the kicker + caption panel floats over a safe zone via
- *     `panelPlacement` and a side gradient. The 4K marine illustration
- *     carries the page emotionally.
+ *   - **lg+** — full-bleed editorial: image fills the section, the
+ *     kicker + caption panel floats over a safe zone via
+ *     `panelPlacement` and a diagonal corner gradient under that
+ *     panel only. The 4K marine illustration carries the page
+ *     emotionally and its top/bottom edges read as clean cuts
+ *     (no horizontal ivory absorbs, no decorative graphite scrims) —
+ *     the user explicitly asked for "görsel üzerinde transition
+ *     değişimi olmasın".
  *
  *   - **sub-lg** — image and caption are intentionally separated. The
  *     image gets its own clean cinematic strip (no overlay, no panel,
- *     soft bottom-fade only), then a short caption block sits in
- *     ivory underneath with a subtle Tunera wave motif. This stops
- *     burying the marine art under text on portrait-oriented mobile
- *     viewports while keeping the editorial / brand language premium.
+ *     no top/bottom transition band), then a short caption block sits
+ *     in ivory underneath. This stops burying the marine art under
+ *     text on portrait-oriented mobile viewports while keeping the
+ *     editorial / brand language premium.
  *
  * Image delivery is handled by `<ResponsiveBrandImage>`, which emits
  * a `<picture>` with AVIF / WebP / JPG sources pointing at the
@@ -98,8 +87,6 @@ export function PageVisualBleed({
   kicker,
   caption,
   height = "tall",
-  topAbsorb = false,
-  bottomAbsorb = false,
 }: Props) {
   const mobileImageHeight =
     height === "full" ? "h-[60svh] min-h-[420px]" : "h-[52svh] min-h-[360px]";
@@ -107,28 +94,13 @@ export function PageVisualBleed({
 
   const { flexClass, gradientClass } = panelPlacementClasses(panelPlacement);
   const showPanel = Boolean(kicker || caption);
-  // Soft ivory→transparent absorb bands. Tonal bridge only — short
-  // (h-14) and low-opacity so the dark scene rises gently out of the
-  // ivory page without painting a visible haze over the marine
-  // artwork. The previous taller / heavier absorbs were over-shadowing
-  // the image; this lighter pass keeps the boundary smooth without
-  // muting the picture.
-  const topAbsorbBand = topAbsorb ? (
-    <div
-      aria-hidden
-      className="pointer-events-none absolute inset-x-0 top-0 z-20 h-14 bg-gradient-to-b from-tunera-ivory/75 to-transparent"
-    />
-  ) : null;
-  const bottomAbsorbBand = bottomAbsorb ? (
-    <div
-      aria-hidden
-      className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-14 bg-gradient-to-t from-tunera-ivory/75 to-transparent"
-    />
-  ) : null;
 
   return (
     <ImageReveal className="tunera-service-story relative isolate block bg-tunera-graphite text-tunera-ivory">
-      {/* MOBILE / TABLET (< lg) — image on top, caption block below. */}
+      {/* MOBILE / TABLET (< lg) — image on top, caption block below.
+          The image strip has no top/bottom overlays — the user
+          explicitly asked the image edges to read as clean cuts,
+          not as graphite-faded bands. */}
       <div className="block lg:hidden">
         <section
           aria-hidden={!showPanel}
@@ -146,12 +118,6 @@ export function PageVisualBleed({
                 imgClassName="tunera-service-image"
               />
             </div>
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-x-0 bottom-0 h-1/5 bg-gradient-to-t from-tunera-graphite/30 to-transparent"
-            />
-            {topAbsorbBand}
-            {bottomAbsorbBand}
           </div>
         </section>
         {showPanel ? (
@@ -180,7 +146,11 @@ export function PageVisualBleed({
         ) : null}
       </div>
 
-      {/* DESKTOP (lg+) — full-bleed editorial overlay. */}
+      {/* DESKTOP (lg+) — full-bleed editorial overlay. The panel-side
+          diagonal gradient is the *only* darkening overlay, and it is
+          structural: it darkens the corner the floating caption sits
+          over so the text stays readable. The opposite side of the
+          image stays clean. No top or bottom horizontal bands. */}
       <section
         aria-hidden={!showPanel}
         className={`relative isolate hidden w-full overflow-hidden lg:block ${desktopHeightClass}`}
@@ -199,15 +169,8 @@ export function PageVisualBleed({
           </div>
           {showPanel ? (
             <div aria-hidden className={`pointer-events-none absolute inset-0 ${gradientClass}`} />
-          ) : (
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-0 bg-gradient-to-t from-tunera-graphite/30 via-tunera-graphite/0 to-transparent"
-            />
-          )}
+          ) : null}
         </div>
-        {topAbsorbBand}
-        {bottomAbsorbBand}
 
         {showPanel ? (
           <div

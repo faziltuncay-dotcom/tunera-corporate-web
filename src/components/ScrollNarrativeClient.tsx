@@ -180,13 +180,24 @@ export function ScrollNarrativeClient({ payload }: { payload: NarrativePayload }
         className="tunera-narrative-sticky sticky top-0 hidden h-screen items-center overflow-hidden lg:flex"
         style={{ ["--story-progress" as string]: "0" }}
       >
-        {/* Pattern backdrop removed — the user asked for plain
-            ivory intermediate surfaces; the wave pattern that used
-            to drift behind this sticky scene rendered far stronger
-            than its claimed low opacity and dominated the page. The
-            stage cross-fade carries the narrative on its own; the
-            wave motif now lives only in the pre-footer
-            `CtaTransition` where it stays meaningful. */}
+        {/* Faint pattern backdrop — this is the *animated sticky*
+            feature surface, not a simple intro band, so the calm
+            Tunera wave atmosphere belongs here. The transform
+            personality is set per-variant in globals.css under
+            `.tunera-narrative[data-variant="…"]` so each page
+            carries its own drift. Opacity is read from
+            `variant.patternOpacity` so individual pages can
+            soften / amplify the brand thread without touching the
+            JS. */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-tunera-pattern bg-cover bg-center"
+          style={{
+            opacity: variant.patternOpacity,
+            willChange: "transform",
+            transition: "transform 900ms cubic-bezier(0.22, 1, 0.36, 1)",
+          }}
+        />
 
         {/* Stage stack */}
         <div className="relative mx-auto w-full max-w-3xl px-6">
@@ -265,7 +276,13 @@ export function ScrollNarrativeClient({ payload }: { payload: NarrativePayload }
           sub-lg and on prefers-reduced-motion. Always rendered so
           screen-readers and search-engine snapshots see the full
           narrative regardless of breakpoint. */}
-      <div className="tunera-narrative-stack relative block lg:hidden">
+      <div className="tunera-narrative-stack relative isolate block overflow-hidden lg:hidden">
+        {/* Calm ambient wave layer — restored so the mobile fallback
+            of the sticky animated feature carries the same brand
+            thread the desktop sticky scene drifts behind. Stays
+            opt-in to this *feature* surface only; simple intro /
+            transition sections stay plain ivory. */}
+        <div aria-hidden className="tunera-wave-motif--ambient" />
         <div className="relative mx-auto max-w-3xl px-6 py-16 sm:py-20">
           {payload.eyebrow ? (
             <div className="mb-10 flex items-center gap-3">
