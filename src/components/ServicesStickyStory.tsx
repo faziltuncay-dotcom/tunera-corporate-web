@@ -219,9 +219,17 @@ export function ServicesStickyStory({ ariaLabel, items }: Props) {
           </div>
 
           {/* Per-stage side gradient at lg+ keeps the panel side legible
-              without darkening the whole image. */}
+              without darkening the whole image. On the LAST stage we
+              mask the gradient's bottom half to transparent: the
+              top-left panel still sits over its heavy graphite/85
+              corner (panel readability preserved) but the bottom edge
+              of the image is not double-darkened by the diagonal
+              gradient on top of the naturally cooler ground pixels —
+              which together had been reading as a "shadow band"
+              directly above the ivory CtaTransition. */}
           {items.map((item, i) => {
             const isActive = i === activeStage;
+            const isLast = i === items.length - 1;
             const placement = item.panelPlacement ?? "left";
             const { gradientClass } = panelPlacementClasses(placement);
             return (
@@ -230,6 +238,15 @@ export function ServicesStickyStory({ ariaLabel, items }: Props) {
                 aria-hidden
                 data-active={isActive}
                 className={`tunera-services-sticky-image pointer-events-none absolute inset-0 ${gradientClass}`}
+                style={
+                  isLast
+                    ? {
+                        WebkitMaskImage:
+                          "linear-gradient(to bottom, #000 0%, #000 40%, transparent 72%)",
+                        maskImage: "linear-gradient(to bottom, #000 0%, #000 40%, transparent 72%)",
+                      }
+                    : undefined
+                }
               />
             );
           })}
