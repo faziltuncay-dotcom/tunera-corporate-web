@@ -85,7 +85,18 @@ export function CtaTransition({ eyebrow, title, body, primary, secondary, ariaLa
           page→footer fade, and its own gradient has been softened
           in tandem (see Footer.tsx). */}
 
-      <div className="relative mx-auto max-w-3xl px-6 py-14 text-center sm:py-16 md:py-20">
+      {/*
+        Asymmetric vertical rhythm: the top padding is tightened so
+        the eyebrow sits close to the section boundary instead of
+        leaving a blank ivory strip under the dark sticky-story image
+        on /tr ("ana sayfadaki marka iletişim bölümünde görsel alt
+        kısmında bir şerit boşluk kalmış"). The bottom padding stays
+        generous so the CTA still breathes before flowing into the
+        footer. On Brand / Contact pages the section above is
+        already ivory, so the tighter top padding reads as a calm,
+        intentional rhythm rather than an empty gap.
+      */}
+      <div className="relative mx-auto max-w-3xl px-6 pb-14 pt-6 text-center sm:pb-16 sm:pt-8 md:pb-20 md:pt-10">
         {eyebrow ? (
           <div className="mb-5 flex items-center justify-center gap-3">
             <span aria-hidden className="tunera-floating-rail" />
