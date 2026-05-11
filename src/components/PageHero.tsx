@@ -8,90 +8,41 @@ type Props = {
    *  (rendered inline), so section heros default to h2. */
   headingLevel?: "h1" | "h2";
   /**
-   * When the hero is wrapped inside a shared atmospheric container that
-   * already paints the ivory surface and wave motif (e.g. the Hizmetler
-   * intro that flows directly into the model strip), pass `bare` to
-   * suppress this component's own background, motif, and bottom border
-   * so the parent's surface stays continuous across both sub-sections.
+   * When the hero is wrapped inside a shared container that already
+   * paints the background (e.g. the Hizmetler intro that flows
+   * directly into the model strip), pass `bare` to suppress this
+   * section's own background colour so the parent's surface stays
+   * continuous across both sub-sections.
    */
   bare?: boolean;
-  /**
-   * Top edge dark→ivory absorb. Use when the previous section is a
-   * dark surface (Hero, full-bleed image scene, sticky scroll story).
-   * Paints a short graphite→ivory gradient at the section's top edge
-   * so the dark scene above flows into this ivory intro instead of
-   * presenting a hard horizontal cut. Same treatment as the top of
-   * `CtaTransition` so every dark→ivory boundary on the site reads
-   * the same.
-   */
-  topAbsorb?: boolean;
-  /**
-   * Bottom edge ivory→dark absorb. Use when the next section is a
-   * dark surface (full-bleed image scene). Paints a short
-   * sand→graphite gradient at the section's bottom edge — same
-   * treatment as the bottom of `CtaTransition` flowing into the
-   * Footer.
-   */
-  bottomAbsorb?: boolean;
 };
 
 /**
  * Page / section intro block.
  *
- * Visual language is shared with `CtaTransition` (the
- * "Markalar ve İletişim" pre-footer bridge) so every intermediate
- * surface on the site reads as part of one calm corporate system:
+ * Deliberately calm and pattern-free: plain warm-ivory surface, a
+ * single thin orange accent line prefixing the eyebrow, a strong
+ * understated heading, and a lead paragraph capped at a readable
+ * column width. There is no decorative wave motif, no full-surface
+ * texture, and no heavy shadow at the boundary with adjacent
+ * sections — the visual rhythm comes from typography and
+ * whitespace, not from layered atmospheric pattern.
  *
- *   - warm ivory→sand vertical gradient surface
- *   - `.tunera-wave-motif--seam` shared brand-thread motif
- *   - orange eyebrow rail prefixing an uppercase spaced label
- *   - generous editorial padding
- *   - optional top/bottom dark-edge absorb bands so adjacent dark
- *     sections (Hero, PageVisualBleed, ServicesStickyStory) flow
- *     into / out of the ivory surface without horizontal cuts
- *
- * Unlike the centered CtaTransition, the intro block stays
- * **left-aligned** because it leads page or section reading flow.
- * The eyebrow uses a single left rail (not the centered dual rails),
- * the heading aligns left at all breakpoints, and the lead paragraph
- * caps at `max-w-2xl` so editorial line length stays readable.
+ * The wave motif is intentionally reserved for the pre-footer
+ * `CtaTransition` bridge so it stays meaningful there. Section
+ * boundaries with adjacent dark scenes (Hero, full-bleed image,
+ * sticky scroll story) are absorbed on the *dark* side instead — see
+ * `PageVisualBleed` `topAbsorb` / `bottomAbsorb` and the matching
+ * fade at the top of `ServicesStickyStory` — so the dark scene rises
+ * out of the ivory page without painting a dark band over the ivory
+ * intro itself.
  */
-export function PageHero({
-  eyebrow,
-  title,
-  lead,
-  id,
-  headingLevel = "h2",
-  bare = false,
-  topAbsorb = false,
-  bottomAbsorb = false,
-}: Props) {
+export function PageHero({ eyebrow, title, lead, id, headingLevel = "h2", bare = false }: Props) {
   const Heading = headingLevel;
   const titleId = id ? `${id}-title` : undefined;
-  const sectionClass = bare
-    ? "relative"
-    : "relative isolate overflow-hidden bg-gradient-to-b from-tunera-ivory to-tunera-sand/55";
+  const sectionClass = bare ? "relative" : "relative isolate bg-tunera-ivory";
   return (
     <section id={id} aria-labelledby={titleId} className={sectionClass}>
-      {bare ? null : (
-        // Shared Tunera wave motif — see `.tunera-wave-motif--seam` in
-        // globals.css. Same coords and opacity as CtaTransition / other
-        // intermediate sections, so the wave crests read as one
-        // continuous thread across every ivory surface on the site.
-        <div aria-hidden className="tunera-wave-motif--seam" />
-      )}
-      {!bare && topAbsorb ? (
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-tunera-graphite/35 via-tunera-graphite/10 to-tunera-ivory/0"
-        />
-      ) : null}
-      {!bare && bottomAbsorb ? (
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-b from-tunera-sand/0 via-tunera-graphite/15 to-tunera-graphite/55"
-        />
-      ) : null}
       <div className="relative mx-auto max-w-6xl px-6 py-14 sm:py-16 md:py-20 lg:py-24">
         <div className="mb-6 flex items-center gap-3">
           <span aria-hidden className="h-px w-8 bg-tunera-orange" />

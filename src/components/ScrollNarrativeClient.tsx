@@ -180,22 +180,13 @@ export function ScrollNarrativeClient({ payload }: { payload: NarrativePayload }
         className="tunera-narrative-sticky sticky top-0 hidden h-screen items-center overflow-hidden lg:flex"
         style={{ ["--story-progress" as string]: "0" }}
       >
-        {/*
-          Faint pattern layer.
-          The transform itself comes from `.tunera-narrative[data-variant="…"]`
-          rules in globals.css so each page can carry its own drift
-          personality (horizontal / diagonal / vertical / cropped /
-          fading) without the JS knowing anything about it.
-        */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 bg-tunera-pattern bg-cover bg-center"
-          style={{
-            opacity: variant.patternOpacity,
-            willChange: "transform",
-            transition: "transform 900ms cubic-bezier(0.22, 1, 0.36, 1)",
-          }}
-        />
+        {/* Pattern backdrop removed — the user asked for plain
+            ivory intermediate surfaces; the wave pattern that used
+            to drift behind this sticky scene rendered far stronger
+            than its claimed low opacity and dominated the page. The
+            stage cross-fade carries the narrative on its own; the
+            wave motif now lives only in the pre-footer
+            `CtaTransition` where it stays meaningful. */}
 
         {/* Stage stack */}
         <div className="relative mx-auto w-full max-w-3xl px-6">
@@ -274,11 +265,7 @@ export function ScrollNarrativeClient({ payload }: { payload: NarrativePayload }
           sub-lg and on prefers-reduced-motion. Always rendered so
           screen-readers and search-engine snapshots see the full
           narrative regardless of breakpoint. */}
-      <div className="tunera-narrative-stack relative isolate block overflow-hidden lg:hidden">
-        {/* Shared Tunera wave motif — calm full-bleed ambient layer so
-            the mobile narrative stack carries the same brand thread
-            the desktop sticky scene drifts behind. */}
-        <div aria-hidden className="tunera-wave-motif--ambient" />
+      <div className="tunera-narrative-stack relative block lg:hidden">
         <div className="relative mx-auto max-w-3xl px-6 py-16 sm:py-20">
           {payload.eyebrow ? (
             <div className="mb-10 flex items-center gap-3">

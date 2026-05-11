@@ -220,18 +220,13 @@ export function HomePage({ locale }: Props) {
         </section>
 
         {/* ABOUT — anchor target for "about" / "hakkimizda".
-            The PageHero now owns its own dark→ivory absorb at the top
-            (replacing the previous standalone `<SectionTransition />`
-            band that used to bridge Hero → PageHero) so the boundary
-            reads as one continuous flow with the same technique used
-            at every other dark→ivory boundary on the site. */}
-        <PageHero
-          id={ids.about}
-          eyebrow={a.hero.eyebrow}
-          title={a.hero.title}
-          lead={a.hero.lead}
-          topAbsorb
-        />
+            The intro sits on a clean ivory surface with no decorative
+            motif. The boundary from the dark Hero above is absorbed
+            on the *image* side below (see `topAbsorb` on
+            PageVisualBleed); the Hero's own bottom gradient handles
+            the dark→ivory transition into this PageHero without
+            painting a dark band over the ivory intro itself. */}
+        <PageHero id={ids.about} eyebrow={a.hero.eyebrow} title={a.hero.title} lead={a.hero.lead} />
         {/* About visual — `topAbsorb` paints a short ivory→transparent
             band at the top of the dark image so the marine scene rises
             out of the ivory PageHero above instead of cutting against
@@ -254,29 +249,17 @@ export function HomePage({ locale }: Props) {
         <AboutScrollStory locale={locale} />
 
         {/* SERVICES — anchor target for "services" / "hizmetler".
-            The hero intro and the 6-item model index used to be two
-            separate ivory <section>s, each painting its own wave
-            motif. Even with shared coords the eye read a seam between
-            them, and the previous "absorb into dark" gradient at the
-            bottom of the model strip surfaced as a dirty grey band
-            against the dark sticky story below.
-
-            Both blocks now share ONE ivory→sand wrapper with ONE
-            shared seam wave motif (same tokens as `CtaTransition` /
-            `PageHero` / `SectionTransition`) — so the brand wave
-            crests run unbroken from the section title through the
-            model strip, and every intermediate ivory surface on the
-            site reads as one continuous corporate canvas. The
-            AboutScrollStory above is itself ivory, so no
-            graphite-darkening top absorb is needed at this boundary
-            — adding one would paint a visible smudge against the
-            ivory neighbour. The handoff into the dark sticky story
-            below is absorbed on the other side: ServicesStickyStory
+            The intro hero and the 6-item model index share ONE clean
+            ivory wrapper. No decorative wave motif and no atmospheric
+            gradient — the user explicitly asked for these intermediate
+            sections to read as plain, calm, corporate surfaces, with
+            the orange eyebrow rails + typography carrying all of the
+            visual rhythm. The boundary into the dark sticky story
+            below is absorbed on the dark side: `ServicesStickyStory`
             paints a thin ivory→transparent fade at the top of its
-            first stage so the dark scene rises out of the ivory
-            page. */}
-        <div className="relative isolate overflow-hidden bg-gradient-to-b from-tunera-ivory to-tunera-sand/55">
-          <div aria-hidden className="tunera-wave-motif--seam" />
+            first stage so the dark scene rises out of the ivory page
+            without painting a dark band over the ivory intro. */}
+        <div className="relative bg-tunera-ivory">
           <PageHero
             id={ids.services}
             eyebrow={s.hero.eyebrow}

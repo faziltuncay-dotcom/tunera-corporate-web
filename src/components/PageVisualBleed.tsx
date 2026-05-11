@@ -107,23 +107,22 @@ export function PageVisualBleed({
 
   const { flexClass, gradientClass } = panelPlacementClasses(panelPlacement);
   const showPanel = Boolean(kicker || caption);
-  // Soft ivory→transparent absorb bands. Painted INSIDE the dark
-  // image so the dark scene rises out of the adjacent ivory page
-  // instead of presenting a hard horizontal cut. z-20 keeps them
-  // above the image and image-gradient layers but below the
-  // floating caption panel (z-10 is the panel wrapper's stacking
-  // context, but absolute z-20 here paints over the image-layer
-  // gradients which sit at default stacking).
+  // Soft ivory→transparent absorb bands. Tonal bridge only — short
+  // (h-14) and low-opacity so the dark scene rises gently out of the
+  // ivory page without painting a visible haze over the marine
+  // artwork. The previous taller / heavier absorbs were over-shadowing
+  // the image; this lighter pass keeps the boundary smooth without
+  // muting the picture.
   const topAbsorbBand = topAbsorb ? (
     <div
       aria-hidden
-      className="pointer-events-none absolute inset-x-0 top-0 z-20 h-24 bg-gradient-to-b from-tunera-ivory via-tunera-ivory/50 to-transparent"
+      className="pointer-events-none absolute inset-x-0 top-0 z-20 h-14 bg-gradient-to-b from-tunera-ivory/75 to-transparent"
     />
   ) : null;
   const bottomAbsorbBand = bottomAbsorb ? (
     <div
       aria-hidden
-      className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-24 bg-gradient-to-t from-tunera-ivory via-tunera-ivory/50 to-transparent"
+      className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-14 bg-gradient-to-t from-tunera-ivory/75 to-transparent"
     />
   ) : null;
 
@@ -149,7 +148,7 @@ export function PageVisualBleed({
             </div>
             <div
               aria-hidden
-              className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-tunera-graphite/55 to-transparent"
+              className="pointer-events-none absolute inset-x-0 bottom-0 h-1/5 bg-gradient-to-t from-tunera-graphite/30 to-transparent"
             />
             {topAbsorbBand}
             {bottomAbsorbBand}
@@ -158,10 +157,9 @@ export function PageVisualBleed({
         {showPanel ? (
           <section
             aria-label={kicker || caption}
-            className="relative isolate overflow-hidden bg-gradient-to-b from-tunera-ivory to-tunera-sand/55 text-tunera-ink"
+            className="relative bg-tunera-ivory text-tunera-ink"
           >
-            <div aria-hidden className="tunera-wave-motif--seam" />
-            <div className="relative mx-auto max-w-2xl px-6 py-12 sm:py-14">
+            <div className="relative mx-auto max-w-2xl px-6 py-10 sm:py-12">
               {kicker ? (
                 <div className="flex items-center gap-3">
                   <span aria-hidden className="h-px w-8 bg-tunera-orange" />
@@ -204,7 +202,7 @@ export function PageVisualBleed({
           ) : (
             <div
               aria-hidden
-              className="pointer-events-none absolute inset-0 bg-gradient-to-t from-tunera-graphite/55 via-tunera-graphite/0 to-transparent"
+              className="pointer-events-none absolute inset-0 bg-gradient-to-t from-tunera-graphite/30 via-tunera-graphite/0 to-transparent"
             />
           )}
         </div>
