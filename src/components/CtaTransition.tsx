@@ -65,38 +65,30 @@ export function CtaTransition({ eyebrow, title, body, primary, secondary, ariaLa
       aria-label={ariaLabel ?? title}
       className="relative isolate overflow-hidden bg-gradient-to-b from-tunera-ivory to-tunera-sand/55"
     >
-      {/* Top edge — softened from the previous heavy
-          `graphite/35 via graphite/10 h-24` band the user called out
-          ("transition daha yumuşak olsun. gölge azalsın"). The
-          dark→ivory absorb is now a short, very faint tonal bridge:
-          the graphite is barely visible against the ivory at the
-          edge and dissolves immediately as the section continues. */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-tunera-graphite/12 to-transparent"
-      />
-      {/* Same motif token used by SectionTransition seams; reads as
-          continuous brand thread between the previous section, this
-          bridge, and the footer. */}
+      {/* Seam wave motif — same token used by SectionTransition, so
+          the motif reads as one continuous brand thread between the
+          adjacent surface and the footer. No top or bottom graphite
+          absorb is rendered on the CTA itself: when the section
+          above is ivory (Brand page Section), there is nothing to
+          bridge; when the section above is dark (home page services
+          sticky scene), the home page renders an external dark→ivory
+          gradient strip immediately before this CTA so the bridge
+          lives outside the CTA's own breathing room and never
+          compresses its content. The Footer owns the page→footer
+          fade on the bottom side. */}
       <div aria-hidden className="tunera-wave-motif--seam" />
-      {/* Bottom-edge graphite scrim removed — it stacked under the
-          Footer's own top absorb and created the dirty shadow band
-          the user wanted gone. The Footer alone now owns the
-          page→footer fade, and its own gradient has been softened
-          in tandem (see Footer.tsx). */}
 
       {/*
-        Asymmetric vertical rhythm: the top padding is tightened so
-        the eyebrow sits close to the section boundary instead of
-        leaving a blank ivory strip under the dark sticky-story image
-        on /tr ("ana sayfadaki marka iletişim bölümünde görsel alt
-        kısmında bir şerit boşluk kalmış"). The bottom padding stays
-        generous so the CTA still breathes before flowing into the
-        footer. On Brand / Contact pages the section above is
-        already ivory, so the tighter top padding reads as a calm,
-        intentional rhythm rather than an empty gap.
+        Premium symmetric vertical rhythm restored. The CTA needs a
+        full breathing band on both sides so the eyebrow, headline,
+        body and button row read as a complete pre-footer section
+        rather than a compressed strip. The dark-side boundary on the
+        home page is handled by an external bridge (see HomePage.tsx),
+        so the top padding here can stay generous without re-creating
+        the "blank ivory strip under the dark sticky image" the user
+        called out earlier.
       */}
-      <div className="relative mx-auto max-w-3xl px-6 pb-14 pt-6 text-center sm:pb-16 sm:pt-8 md:pb-20 md:pt-10">
+      <div className="relative mx-auto max-w-3xl px-6 py-14 text-center sm:py-16 md:py-20">
         {eyebrow ? (
           <div className="mb-5 flex items-center justify-center gap-3">
             <span aria-hidden className="tunera-floating-rail" />

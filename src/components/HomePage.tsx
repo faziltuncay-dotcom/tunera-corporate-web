@@ -288,6 +288,21 @@ export function HomePage({ locale }: Props) {
         </div>
         <ServicesStickyStory ariaLabel={s.scrollStory.ariaLabel} items={serviceStoryItems} />
 
+        {/* Dark→ivory bridge. The section above is the graphite
+            ServicesStickyStory; the CtaTransition below is an
+            ivory/sand surface. Without a bridge, the boundary either
+            reads as a hard cut (no transition) or as a blank ivory
+            strip under the dark image (the artefact the user called
+            out: "ana sayfadaki marka iletişim bölümünde görsel alt
+            kısmında bir şerit boşluk kalmış"). Spreading the
+            graphite→ivory transition across a dedicated strip keeps
+            the CTA's own premium breathing room intact while making
+            the image-to-CTA join feel like one continuous flow. */}
+        <div
+          aria-hidden
+          className="relative h-24 bg-gradient-to-b from-tunera-graphite to-tunera-ivory sm:h-28 md:h-32"
+        />
+
         {/* Compact pre-footer routing bridge. Replaces the previous
             full Markalar + İletişim homepage sections — just an
             eyebrow + headline + two buttons pointing at the dedicated
