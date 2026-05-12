@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import {
+  isInternalPath,
   parseClientPayload,
   sanitizeLocale,
   sanitizeMetadata,
@@ -64,6 +65,18 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     return new NextResponse("invalid event", { status: 400, headers: noStoreHeaders });
   }
 
+  // Even though the client tracker already filters internal paths,
+  // a hand-crafted POST could still arrive with `path: "/admin"`.
+  // Returning 204 (rather than 4xx) keeps the contract identical to
+  // the no-DB code path: the caller sees success, but the row is
+  // never inserted. Doing this BEFORE the geo/UA/identifier work
+  // also keeps the database load and identifier hashing off the
+  // critical path for noise traffic.
+  const sanitizedPath = sanitizePath(payload.path);
+  if (isInternalPath(sanitizedPath)) {
+    return new NextResponse(null, { status: 204, headers: noStoreHeaders });
+  }
+
   const geo = deriveGeoFromHeaders(req.headers);
   const ua = parseUserAgent(req.headers.get("user-agent"));
 
@@ -77,7 +90,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
   const stored: StoredAnalyticsEvent = {
     eventName: payload.event,
-    path: sanitizePath(payload.path),
+    path: sanitizedPath,
     locale: sanitizeLocale(payload.locale),
     referrer: sanitizeReferrer(payload.referrer),
     utmSource: sanitizeUtm(payload.utmSource),

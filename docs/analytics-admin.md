@@ -225,6 +225,52 @@ connected at least once for the current request, and a populated
 "Last event" timestamp confirms inserts are landing in
 `analytics_events`.
 
+## Cleaning up pre-1.2 internal-traffic rows (optional)
+
+Phase Analytics 1.2 added an exclusion list (`isInternalPath()` in
+`src/lib/analytics/sanitize.ts`) so the client tracker, the API
+collector, and the aggregate queries all ignore admin / API /
+framework paths. New events from those surfaces never land in the
+table any more, and the dashboard already filters legacy ones out at
+read-time.
+
+If you also want to physically remove rows that landed before the
+fix (recommended once you're confident the filter is working as
+expected), run the following one-shot DELETE against the production
+database. **It is destructive — do not run it without owner
+approval and a fresh backup.** Take a backup or snapshot first; on
+managed Postgres providers (Vercel Postgres, Neon, Supabase) a point-
+in-time recovery is enough.
+
+```sql
+-- One-shot cleanup. Optional. Owner-approved-only.
+-- Run inside a transaction so you can inspect the count before COMMIT.
+BEGIN;
+SELECT COUNT(*) AS rows_to_delete
+FROM analytics_events
+WHERE path = '/admin'
+   OR path LIKE '/admin/%'
+   OR path = '/api'
+   OR path LIKE '/api/%'
+   OR path LIKE '/_next/%';
+
+DELETE FROM analytics_events
+WHERE path = '/admin'
+   OR path LIKE '/admin/%'
+   OR path = '/api'
+   OR path LIKE '/api/%'
+   OR path LIKE '/_next/%';
+
+-- Inspect the count first; if it matches expectations:
+COMMIT;
+-- Or, to back out:
+-- ROLLBACK;
+```
+
+This statement intentionally lives in the docs rather than as an
+auto-run migration: production data deletion should be a deliberate
+operator action, not something a code deploy does on its behalf.
+
 ## Limitations
 
 - Visitor counts depend on consent. Without granted consent, only

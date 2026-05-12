@@ -1,5 +1,6 @@
 "use client";
 
+import { isInternalPath } from "./sanitize";
 import { ALLOWED_EVENT_SET, type AnalyticsEventName } from "./types";
 
 /**
@@ -161,6 +162,13 @@ export async function trackTuneraEvent(
   if (!ALLOWED_EVENT_SET.has(eventName)) return;
 
   const path = options.path ?? window.location.pathname;
+  // Internal Tunera surfaces (admin dashboard, framework assets,
+  // API endpoints, crawler files) must not pollute the public
+  // traffic counters. We exit early here so the network request is
+  // never issued — the same predicate is also enforced at the API
+  // layer in case someone calls trackTuneraEvent from a client
+  // route the predicate doesn't yet know about.
+  if (isInternalPath(path)) return;
   const locale = options.locale ?? detectLocaleFromPath(path);
   const consent = getConsentState();
   const consentGranted = consent === "granted";

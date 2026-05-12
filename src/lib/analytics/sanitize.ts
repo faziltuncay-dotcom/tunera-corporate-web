@@ -34,6 +34,58 @@ export function isAllowedEventName(name: unknown): name is AnalyticsEventName {
   return typeof name === "string" && ALLOWED_EVENT_SET.has(name);
 }
 
+/**
+ * Path prefixes (and exact paths) that must never be counted as
+ * public website traffic.
+ *
+ *   - `/admin`           — gated dashboard surface
+ *   - `/api`             — internal endpoints, including the
+ *                          analytics collector itself
+ *   - `/_next`           — Next.js framework assets
+ *   - `/favicon.ico`,
+ *     `/robots.txt`,
+ *     `/sitemap.xml`     — crawler housekeeping requests
+ *
+ * The list is the single source of truth used by the client tracker
+ * (skip the fetch entirely), the API collector (no-op return 204
+ * even if a client manually crafts an excluded path), and the
+ * aggregate SQL helpers (filter the rows out of every dashboard
+ * card). Centralising it here keeps "what counts as public traffic"
+ * as one decision in one file.
+ */
+export const INTERNAL_PATH_PREFIXES = ["/admin", "/api", "/_next"] as const;
+export const INTERNAL_EXACT_PATHS: ReadonlySet<string> = new Set([
+  "/favicon.ico",
+  "/robots.txt",
+  "/sitemap.xml",
+]);
+
+/**
+ * True when the supplied path must be excluded from public analytics.
+ *
+ * Accepts arbitrary input. Non-strings, empty strings, and bare `/`
+ * all fall through to `false` so the homepage and any caller error
+ * never silently disappear from analytics.
+ *
+ * Matching is prefix + exact:
+ *   - `/admin`           → true
+ *   - `/admin/analytics` → true   (prefix + boundary)
+ *   - `/administer`      → false  (no boundary after the prefix)
+ *   - `/api/x`           → true
+ *   - `/_next/static/…`  → true
+ *   - `/favicon.ico`     → true
+ *   - `/`                → false  (homepage stays public)
+ */
+export function isInternalPath(input: unknown): boolean {
+  if (typeof input !== "string" || input.length === 0) return false;
+  if (INTERNAL_EXACT_PATHS.has(input)) return true;
+  for (const prefix of INTERNAL_PATH_PREFIXES) {
+    if (input === prefix) return true;
+    if (input.startsWith(`${prefix}/`)) return true;
+  }
+  return false;
+}
+
 export function sanitizePath(input: unknown): string {
   if (typeof input !== "string" || input.length === 0) return "/";
   // Keep only the path portion. We deliberately drop the query string

@@ -1,3 +1,4 @@
+import type { Sql } from "postgres";
 import { getAnalyticsDb } from "./server";
 import type { CountRow, DailySeriesPoint, RecentEventRow, SummaryMetrics } from "./types";
 
@@ -30,6 +31,31 @@ const CONTACT_CTA_EVENTS = [
   "contact_email_click",
   "contact_map_click",
 ];
+
+/**
+ * SQL fragment that limits every aggregate query to public traffic.
+ *
+ * The collector (`/api/analytics/event`) already drops events whose
+ * sanitised path is internal, so newly ingested rows are clean. This
+ * filter exists for the historical rows that landed BEFORE the fix
+ * — until the operator runs the optional `DELETE FROM
+ * analytics_events WHERE …` block in `docs/analytics-admin.md`, the
+ * polluted /admin, /api and /_next page_views still live in the
+ * table. Filtering at read-time means the dashboard already reads
+ * cleanly without anyone being forced to mutate production data.
+ *
+ * The clause mirrors `isInternalPath()` in `sanitize.ts`. Keep the
+ * two in sync: change the JS predicate and the SQL filter
+ * together. The unit test in
+ * `tests/analytics-internal-paths.test.mjs` documents the path set
+ * the two ends agree on.
+ */
+const publicPathFilter = (sql: Sql) => sql`(
+  path NOT IN ('/admin', '/api', '/favicon.ico', '/robots.txt', '/sitemap.xml')
+  AND path NOT LIKE '/admin/%'
+  AND path NOT LIKE '/api/%'
+  AND path NOT LIKE '/_next/%'
+)`;
 
 export async function getSummaryMetrics(): Promise<SummaryMetrics> {
   const sql = await getAnalyticsDb();
@@ -73,6 +99,7 @@ export async function getSummaryMetrics(): Promise<SummaryMetrics> {
             AND created_at >= NOW() - INTERVAL '7 days'
         )::int AS contact_cta_7d
       FROM analytics_events
+      WHERE ${publicPathFilter(sql)}
     `;
     if (!row) return EMPTY_SUMMARY;
     return {
@@ -109,6 +136,7 @@ export async function getDailyTimeSeries(days = 14): Promise<DailySeriesPoint[]>
       FROM days
       LEFT JOIN analytics_events e
         ON DATE(e.created_at) = days.day
+        AND ${publicPathFilter(sql)}
       GROUP BY days.day
       ORDER BY days.day ASC
     `;
@@ -136,6 +164,7 @@ async function topByColumn(
         AND (${filter}::text IS NULL OR event_name = ${filter})
         AND ${sql(safeColumn)} IS NOT NULL
         AND ${sql(safeColumn)} <> ''
+        AND ${publicPathFilter(sql)}
       GROUP BY ${sql(safeColumn)}
       ORDER BY count DESC
       LIMIT ${limit}
@@ -163,6 +192,7 @@ export async function getBrandRedirectBreakdown(): Promise<CountRow[]> {
       FROM analytics_events
       WHERE event_name IN ('brand_redirect_click','brand_card_click')
         AND created_at >= NOW() - INTERVAL '30 days'
+        AND ${publicPathFilter(sql)}
       GROUP BY brand
       ORDER BY count DESC
       LIMIT 10
@@ -183,6 +213,7 @@ export async function getContactCtaBreakdown(): Promise<CountRow[]> {
       FROM analytics_events
       WHERE event_name = ANY(${CONTACT_CTA_EVENTS})
         AND created_at >= NOW() - INTERVAL '30 days'
+        AND ${publicPathFilter(sql)}
       GROUP BY event_name
       ORDER BY count DESC
     `;
@@ -205,6 +236,7 @@ export async function getLastEventAt(): Promise<string | null> {
   try {
     const [row] = await sql<{ created_at: Date | null }[]>`
       SELECT MAX(created_at) AS created_at FROM analytics_events
+      WHERE ${publicPathFilter(sql)}
     `;
     if (!row || !row.created_at) return null;
     return row.created_at.toISOString();
@@ -232,6 +264,7 @@ export async function getRecentEvents(limit = 50): Promise<RecentEventRow[]> {
     >`
       SELECT created_at, event_name, path, locale, country, device_type, consent_analytics
       FROM analytics_events
+      WHERE ${publicPathFilter(sql)}
       ORDER BY created_at DESC
       LIMIT ${clamped}
     `;

@@ -40,6 +40,19 @@ const MAX_METADATA_VALUE_LENGTH = 256;
 const SAFE_PATH_RE = /^[\w\-./:#?&=%]+$/;
 const SAFE_UTM_RE = /^[\w\-.]{1,128}$/;
 
+export const INTERNAL_PATH_PREFIXES = ["/admin", "/api", "/_next"];
+export const INTERNAL_EXACT_PATHS = new Set(["/favicon.ico", "/robots.txt", "/sitemap.xml"]);
+
+export function isInternalPath(input) {
+  if (typeof input !== "string" || input.length === 0) return false;
+  if (INTERNAL_EXACT_PATHS.has(input)) return true;
+  for (const prefix of INTERNAL_PATH_PREFIXES) {
+    if (input === prefix) return true;
+    if (input.startsWith(`${prefix}/`)) return true;
+  }
+  return false;
+}
+
 export function isAllowedEventName(name) {
   return typeof name === "string" && ALLOWED_EVENT_SET.has(name);
 }
