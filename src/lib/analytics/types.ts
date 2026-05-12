@@ -87,10 +87,10 @@ export type SummaryWindow = "today" | "last7d";
 export type SummaryMetrics = {
   pageViewsToday: number;
   visitorsToday: number;
-  pageViewsLast7d: number;
-  visitorsLast7d: number;
-  brandRedirectsLast7d: number;
-  contactCtaLast7d: number;
+  pageViewsInRange: number;
+  visitorsInRange: number;
+  brandRedirectsInRange: number;
+  contactCtaInRange: number;
 };
 
 export type DailySeriesPoint = {

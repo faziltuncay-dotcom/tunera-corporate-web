@@ -43,7 +43,14 @@ export function ContactPage({ locale }: Props) {
       <SmoothAnchorNav />
       <Header locale={locale} />
       <main id="main">
-        <PageHero eyebrow={c.title} title={c.title} lead={c.body} headingLevel="h1" />
+        <PageHero
+          eyebrow={c.title}
+          title={c.title}
+          lead={c.body}
+          headingLevel="h1"
+          trackSection="contact_intro"
+          trackSectionLabel="Contact intro"
+        />
         <PageVisualBleed
           slug={c.pageVisual.slug}
           imageAlt={c.pageVisual.imageAlt}
@@ -59,7 +66,11 @@ export function ContactPage({ locale }: Props) {
         <Section tight>
           {/* Contact channels — email only. Physical addresses live
               under Konumlar below; firma bilgileri live in the footer. */}
-          <div className="relative overflow-hidden rounded-md border border-tunera-stone/60 bg-white p-7 sm:p-9">
+          <div
+            className="relative overflow-hidden rounded-md border border-tunera-stone/60 bg-white p-7 sm:p-9"
+            data-track-section="contact_details"
+            data-track-section-label="Contact details"
+          >
             <span aria-hidden className="absolute inset-x-0 top-0 h-[3px] bg-tunera-orange" />
             <h2 className="text-base font-semibold tracking-tightish text-tunera-ink sm:text-lg">
               {c.detailsTitle}
@@ -83,7 +94,11 @@ export function ContactPage({ locale }: Props) {
             </dl>
           </div>
 
-          <div className="mt-6">
+          <div
+            className="mt-6"
+            data-track-section="contact_maps"
+            data-track-section-label="Contact maps"
+          >
             <ContactMaps locale={locale} />
           </div>
         </Section>

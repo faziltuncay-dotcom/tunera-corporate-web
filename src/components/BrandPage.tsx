@@ -44,7 +44,14 @@ export function BrandPage({ locale }: Props) {
       <SmoothAnchorNav />
       <Header locale={locale} />
       <main id="main">
-        <PageHero eyebrow={b.title} title={b.title} lead={b.description} headingLevel="h1" />
+        <PageHero
+          eyebrow={b.title}
+          title={b.title}
+          lead={b.description}
+          headingLevel="h1"
+          trackSection="brands_intro"
+          trackSectionLabel="Brands intro"
+        />
         <PageVisualBleed
           slug={b.pageVisual.slug}
           imageAlt={b.pageVisual.imageAlt}
@@ -58,7 +65,11 @@ export function BrandPage({ locale }: Props) {
         <SectionTransition />
 
         <Section tight>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-7">
+          <div
+            className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-7"
+            data-track-section="brands_cards"
+            data-track-section-label="Brand cards"
+          >
             <BrandCard
               locale={locale}
               id={granfort.id}

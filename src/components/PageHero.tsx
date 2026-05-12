@@ -15,6 +15,15 @@ type Props = {
    * continuous across both sub-sections.
    */
   bare?: boolean;
+  /**
+   * Stable section key forwarded to the analytics `section_view`
+   * tracker via `data-track-section`. Optional — when omitted, the
+   * section is not tracked. The matching label can be supplied via
+   * `trackSectionLabel`. The tracker only fires after analytics
+   * consent has been granted.
+   */
+  trackSection?: string;
+  trackSectionLabel?: string;
 };
 
 /**
@@ -37,12 +46,27 @@ type Props = {
  * out of the ivory page without painting a dark band over the ivory
  * intro itself.
  */
-export function PageHero({ eyebrow, title, lead, id, headingLevel = "h2", bare = false }: Props) {
+export function PageHero({
+  eyebrow,
+  title,
+  lead,
+  id,
+  headingLevel = "h2",
+  bare = false,
+  trackSection,
+  trackSectionLabel,
+}: Props) {
   const Heading = headingLevel;
   const titleId = id ? `${id}-title` : undefined;
   const sectionClass = bare ? "relative" : "relative isolate bg-tunera-ivory";
   return (
-    <section id={id} aria-labelledby={titleId} className={sectionClass}>
+    <section
+      id={id}
+      aria-labelledby={titleId}
+      className={sectionClass}
+      data-track-section={trackSection}
+      data-track-section-label={trackSectionLabel}
+    >
       <div className="relative mx-auto max-w-6xl px-6 py-14 sm:py-16 md:py-20 lg:py-24">
         <div className="mb-6 flex items-center gap-3">
           <span aria-hidden className="h-px w-8 bg-tunera-orange" />

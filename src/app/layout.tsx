@@ -4,6 +4,8 @@ import { tr } from "@/content/site";
 import { launch } from "@/config/launch";
 import { AnalyticsPageView } from "@/components/analytics/AnalyticsPageView";
 import { AnalyticsConsentBanner } from "@/components/analytics/AnalyticsConsentBanner";
+import { ScrollDepthTracker } from "@/components/analytics/ScrollDepthTracker";
+import { SectionViewTracker } from "@/components/analytics/SectionViewTracker";
 
 export const metadata: Metadata = {
   title: tr.meta.title,
@@ -24,6 +26,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-screen bg-tunera-ivory text-tunera-ink antialiased">
         {children}
         <AnalyticsPageView />
+        <SectionViewTracker />
+        <ScrollDepthTracker />
         <AnalyticsConsentBanner />
       </body>
     </html>

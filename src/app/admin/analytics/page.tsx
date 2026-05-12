@@ -1,35 +1,53 @@
 import type { Metadata } from "next";
 import {
+  DEFAULT_RANGE_DAYS,
+  getBrandFunnel,
   getBrandRedirectBreakdown,
   getContactCtaBreakdown,
+  getContactIntentBySource,
   getDailyTimeSeries,
+  getDateRangeFromSearchParam,
   getDeviceDistribution,
   getLastEventAt,
   getRecentEvents,
+  getSalesSignals,
+  getScrollDepthDistribution,
+  getSectionViews,
   getSummaryMetrics,
   getTopCountries,
+  getTopJourneys,
   getTopPages,
   getTopReferrers,
 } from "@/lib/analytics/aggregate";
 import { isAnalyticsConfigured, isAnalyticsSaltConfigured } from "@/lib/analytics/server";
-import { MetricCard } from "./_components/MetricCard";
+import { BrandFunnel } from "./_components/BrandFunnel";
 import { CountList } from "./_components/CountList";
-import { TimeSeriesChart } from "./_components/TimeSeriesChart";
+import { JourneyList } from "./_components/JourneyList";
+import { MetricCard } from "./_components/MetricCard";
+import { RangePicker } from "./_components/RangePicker";
 import { RecentEventsTable } from "./_components/RecentEventsTable";
+import { SignalsPanel } from "./_components/SignalsPanel";
 import { StatusBlock } from "./_components/StatusBlock";
+import { TimeSeriesChart } from "./_components/TimeSeriesChart";
 
 /**
  * Admin analytics dashboard.
  *
  * Server component, force-dynamic — every render reads live counts
- * from `analytics_events`. The page deliberately stays small and
- * legible:
+ * from `analytics_events`. The page accepts a single search param,
+ * `?range=7d|30d|90d` (default 30d), which threads through every
+ * aggregate helper so all cards / charts agree on the same window.
  *
- *   - Six metric tiles for the overview (today + last 7 days).
- *   - A daily trend chart over 14 days.
- *   - A grid of count-lists for top pages, referrers, devices,
- *     countries, brand redirects and contact CTAs.
- *   - A recent-events table with sanitised columns only.
+ * Phase 2 added five additional surfaces below the original
+ * overview + recent-events strip:
+ *
+ *   - Engagement: section views, scroll-depth distribution.
+ *   - Brand interest: brand funnel rollup per brand.
+ *   - Contact intent: top pages CTAs originate from.
+ *   - Top consented journeys: aggregated path sequences (visitor
+ *     ids stay in Postgres; only counts surface).
+ *   - Sales signals: a five-row "where is the most signal coming
+ *     from?" digest with explicit counts and no fake conversion.
  *
  * When the database is not configured the page renders the same
  * shell with an honest "analytics storage not configured" banner —
@@ -43,7 +61,23 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default async function AnalyticsAdminPage() {
+type Props = {
+  searchParams?: Record<string, string | string[] | undefined>;
+};
+
+const RANGE_LABEL: Record<7 | 30 | 90, string> = {
+  7: "Last 7 days",
+  30: "Last 30 days",
+  90: "Last 90 days",
+};
+
+export default async function AnalyticsAdminPage({ searchParams }: Props) {
+  const rangeParam = searchParams?.range;
+  const rangeDays = getDateRangeFromSearchParam(
+    Array.isArray(rangeParam) ? rangeParam[0] : rangeParam,
+  );
+  const rangeLabel = RANGE_LABEL[rangeDays] ?? RANGE_LABEL[DEFAULT_RANGE_DAYS];
+
   const configured = isAnalyticsConfigured();
   const saltConfigured = isAnalyticsSaltConfigured();
 
@@ -58,17 +92,29 @@ export default async function AnalyticsAdminPage() {
     contactCta,
     recentEvents,
     lastEventAt,
+    sectionViews,
+    scrollDepth,
+    brandFunnel,
+    contactIntent,
+    journeys,
+    signals,
   ] = await Promise.all([
-    getSummaryMetrics(),
-    getDailyTimeSeries(14),
-    getTopPages(10),
-    getTopReferrers(10),
-    getDeviceDistribution(),
-    getTopCountries(10),
-    getBrandRedirectBreakdown(),
-    getContactCtaBreakdown(),
+    getSummaryMetrics(rangeDays),
+    getDailyTimeSeries(rangeDays),
+    getTopPages(rangeDays, 10),
+    getTopReferrers(rangeDays, 10),
+    getDeviceDistribution(rangeDays),
+    getTopCountries(rangeDays, 10),
+    getBrandRedirectBreakdown(rangeDays),
+    getContactCtaBreakdown(rangeDays),
     getRecentEvents(50),
     getLastEventAt(),
+    getSectionViews(rangeDays, 12),
+    getScrollDepthDistribution(rangeDays),
+    getBrandFunnel(rangeDays),
+    getContactIntentBySource(rangeDays, 8),
+    getTopJourneys(rangeDays, 2, 8),
+    getSalesSignals(rangeDays),
   ]);
 
   return (
@@ -82,14 +128,17 @@ export default async function AnalyticsAdminPage() {
             </span>
           </div>
           <h1 className="mt-3 text-3xl font-semibold tracking-tighter2 sm:text-4xl">Analytics</h1>
-          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-tunera-muted-ink sm:text-base">
-            Live counts from the Tunera corporate site. Every metric here is derived from the events
-            ingested through
-            <code className="mx-1 rounded-sm bg-tunera-sand/60 px-1 py-0.5 text-[12px] text-tunera-ink">
-              /api/analytics/event
-            </code>
-            — no third-party SDK and no raw IP storage.
-          </p>
+          <div className="mt-3 flex flex-wrap items-end justify-between gap-4">
+            <p className="max-w-2xl text-sm leading-relaxed text-tunera-muted-ink sm:text-base">
+              Live counts from the Tunera corporate site. Every metric here is derived from the
+              events ingested through
+              <code className="mx-1 rounded-sm bg-tunera-sand/60 px-1 py-0.5 text-[12px] text-tunera-ink">
+                /api/analytics/event
+              </code>
+              — no third-party SDK and no raw IP storage.
+            </p>
+            <RangePicker current={rangeDays} />
+          </div>
           {!configured ? (
             <div className="mt-6 rounded-md border border-tunera-orange/40 bg-tunera-orange/5 px-4 py-3 text-sm text-tunera-ink">
               <strong>Analytics storage is not configured.</strong> Set <code>DATABASE_URL</code>{" "}
@@ -113,41 +162,119 @@ export default async function AnalyticsAdminPage() {
         >
           <MetricCard label="Page views today" value={summary.pageViewsToday} />
           <MetricCard label="Visitors today" value={summary.visitorsToday} hint="consented" />
-          <MetricCard label="Page views 7d" value={summary.pageViewsLast7d} />
-          <MetricCard label="Visitors 7d" value={summary.visitorsLast7d} hint="consented" />
-          <MetricCard label="Brand redirects 7d" value={summary.brandRedirectsLast7d} />
-          <MetricCard label="Contact CTAs 7d" value={summary.contactCtaLast7d} />
+          <MetricCard
+            label={`Page views ${rangeLabel.toLowerCase()}`}
+            value={summary.pageViewsInRange}
+          />
+          <MetricCard
+            label={`Visitors ${rangeLabel.toLowerCase()}`}
+            value={summary.visitorsInRange}
+            hint="consented"
+          />
+          <MetricCard
+            label={`Brand redirects ${rangeLabel.toLowerCase()}`}
+            value={summary.brandRedirectsInRange}
+          />
+          <MetricCard
+            label={`Contact CTAs ${rangeLabel.toLowerCase()}`}
+            value={summary.contactCtaInRange}
+          />
         </section>
 
         <section className="mt-8">
           <TimeSeriesChart
             data={series}
-            emptyLabel="No daily activity recorded in the last 14 days."
+            emptyLabel={`No daily activity recorded in the ${rangeLabel.toLowerCase()}.`}
           />
         </section>
 
         <section className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
-          <CountList title="Top pages (7d)" rows={topPages} emptyLabel="No page views yet." />
           <CountList
-            title="Top referrers (7d)"
+            title={`Top pages (${rangeLabel.toLowerCase()})`}
+            rows={topPages}
+            emptyLabel="No page views yet."
+          />
+          <CountList
+            title={`Top referrers (${rangeLabel.toLowerCase()})`}
             rows={topReferrers}
             emptyLabel="No referrers yet."
           />
-          <CountList title="Devices (7d)" rows={devices} emptyLabel="No device data yet." />
-          <CountList title="Countries (7d)" rows={countries} emptyLabel="No country data yet." />
           <CountList
-            title="Brand redirects (30d)"
+            title={`Devices (${rangeLabel.toLowerCase()})`}
+            rows={devices}
+            emptyLabel="No device data yet."
+          />
+          <CountList
+            title={`Countries (${rangeLabel.toLowerCase()})`}
+            rows={countries}
+            emptyLabel="No country data yet."
+          />
+          <CountList
+            title={`Brand redirects (${rangeLabel.toLowerCase()})`}
             rows={brandRedirects}
             emptyLabel="No brand redirect clicks yet."
           />
           <CountList
-            title="Contact CTAs (30d)"
+            title={`Contact CTAs (${rangeLabel.toLowerCase()})`}
             rows={contactCta}
             emptyLabel="No contact CTA clicks yet."
           />
         </section>
 
-        <section className="mt-8">
+        <section className="mt-10">
+          <h2 className="mb-4 text-[11px] font-medium uppercase tracking-[0.28em] text-tunera-orange">
+            Engagement
+          </h2>
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+            <CountList
+              title="Section views"
+              rows={sectionViews.map((s) => ({ label: s.label, count: s.count }))}
+              emptyLabel="No section_view events yet (consent required)."
+            />
+            <CountList
+              title="Scroll depth"
+              rows={scrollDepth}
+              emptyLabel="No scroll_depth events yet (consent required)."
+            />
+          </div>
+        </section>
+
+        <section className="mt-10">
+          <h2 className="mb-4 text-[11px] font-medium uppercase tracking-[0.28em] text-tunera-orange">
+            Brand interest
+          </h2>
+          <BrandFunnel rows={brandFunnel} emptyLabel="No brand events yet." />
+        </section>
+
+        <section className="mt-10">
+          <h2 className="mb-4 text-[11px] font-medium uppercase tracking-[0.28em] text-tunera-orange">
+            Contact intent
+          </h2>
+          <CountList
+            title="Top pages where contact CTAs originated"
+            rows={contactIntent}
+            emptyLabel="No contact CTAs yet."
+          />
+        </section>
+
+        <section className="mt-10">
+          <h2 className="mb-4 text-[11px] font-medium uppercase tracking-[0.28em] text-tunera-orange">
+            Journey
+          </h2>
+          <JourneyList
+            rows={journeys}
+            emptyLabel="Not enough consented journey data yet. Sequences shorter than two visitors are not shown."
+          />
+        </section>
+
+        <section className="mt-10">
+          <h2 className="mb-4 text-[11px] font-medium uppercase tracking-[0.28em] text-tunera-orange">
+            Signals
+          </h2>
+          <SignalsPanel signals={signals} emptyLabel="No CTA activity yet in this range." />
+        </section>
+
+        <section className="mt-10">
           <RecentEventsTable rows={recentEvents} />
         </section>
 

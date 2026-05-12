@@ -87,6 +87,8 @@ export function HomePage({ locale }: Props) {
           id={ids.home}
           aria-label={t.home.title}
           className="tunera-anchor relative overflow-hidden bg-tunera-graphite text-tunera-ivory"
+          data-track-section="home_hero"
+          data-track-section-label="Home Hero"
         >
           {/* MOBILE / TABLET (< lg) — image strip on top, content block
               below. Same pattern as PageVisualBleed mobile so the hero
@@ -222,7 +224,14 @@ export function HomePage({ locale }: Props) {
         {/* ABOUT — anchor target for "about" / "hakkimizda". The
             intro sits on a clean ivory surface with no decorative
             motif. */}
-        <PageHero id={ids.about} eyebrow={a.hero.eyebrow} title={a.hero.title} lead={a.hero.lead} />
+        <PageHero
+          id={ids.about}
+          eyebrow={a.hero.eyebrow}
+          title={a.hero.title}
+          lead={a.hero.lead}
+          trackSection="home_about"
+          trackSectionLabel="About / Hakkımızda"
+        />
         {/* About visual: single boat lower-left + soft golden glow
             upper-right + decorative gold arc lines across upper-right.
             Safe zone is the top-left sky band, so the panel anchors
@@ -252,7 +261,11 @@ export function HomePage({ locale }: Props) {
             paints a thin ivory→transparent fade at the top of its
             first stage so the dark scene rises out of the ivory page
             without painting a dark band over the ivory intro. */}
-        <div className="relative bg-tunera-ivory">
+        <div
+          className="relative bg-tunera-ivory"
+          data-track-section="home_services"
+          data-track-section-label="Services / Hizmetler"
+        >
           <PageHero
             id={ids.services}
             eyebrow={s.hero.eyebrow}

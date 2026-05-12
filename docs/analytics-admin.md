@@ -36,23 +36,23 @@ All accepted event names are enumerated in
 `src/lib/analytics/types.ts → ALLOWED_EVENT_NAMES`. The list is the
 contract between the client tracker and the API:
 
-| Event                    | Where it fires                                         |
-| ------------------------ | ------------------------------------------------------ |
-| `page_view`              | Every route change (auto, via `AnalyticsPageView`)     |
-| `section_view`           | Reserved — see "Future phases" below                   |
-| `brand_card_click`       | Brand card visit link (when site is live but internal) |
-| `brand_redirect_click`   | Brand card visit link (external `target="_blank"`)     |
-| `contact_whatsapp_click` | Reserved — no WhatsApp surface yet                     |
-| `contact_phone_click`    | Reserved — no published phone yet                      |
-| `contact_email_click`    | `mailto:` link in footer and on /iletisim              |
-| `contact_map_click`      | "Open in Google Maps" anchor on /iletisim              |
-| `language_switch`        | Header EN ↔ TR toggle                                 |
-| `service_card_click`     | Reserved — no clickable service card surface yet       |
-| `scroll_depth`           | Reserved — see "Future phases" below                   |
-| `external_link_click`    | Reserved                                               |
-| `form_submit_attempt`    | Reserved — no form surface yet                         |
-| `form_submit_success`    | Reserved                                               |
-| `form_submit_error`      | Reserved                                               |
+| Event                    | Where it fires                                                                |
+| ------------------------ | ----------------------------------------------------------------------------- |
+| `page_view`              | Every route change (auto, via `AnalyticsPageView`)                            |
+| `section_view`           | Major public sections via `SectionViewTracker` — **consent required**         |
+| `brand_card_click`       | Brand card visit link (when site is live but internal)                        |
+| `brand_redirect_click`   | Brand card visit link (external `target="_blank"`)                            |
+| `contact_whatsapp_click` | Reserved — no WhatsApp surface yet                                            |
+| `contact_phone_click`    | Reserved — no published phone yet                                             |
+| `contact_email_click`    | `mailto:` link in footer and on /iletisim                                     |
+| `contact_map_click`      | "Open in Google Maps" anchor on /iletisim                                     |
+| `language_switch`        | Header EN ↔ TR toggle                                                        |
+| `service_card_click`     | Reserved — no clickable service card surface yet                              |
+| `scroll_depth`           | 25 / 50 / 75 / 100 milestones via `ScrollDepthTracker` — **consent required** |
+| `external_link_click`    | Reserved                                                                      |
+| `form_submit_attempt`    | Reserved — no form surface yet                                                |
+| `form_submit_success`    | Reserved                                                                      |
+| `form_submit_error`      | Reserved                                                                      |
 
 Each accepted event carries the following sanitised columns:
 
@@ -224,6 +224,68 @@ indicator: a green `active` pill on Storage mode means the driver
 connected at least once for the current request, and a populated
 "Last event" timestamp confirms inserts are landing in
 `analytics_events`.
+
+## Phase 2 — sales and journey signals
+
+The dashboard surfaces five Phase-2 read-outs alongside the original
+overview + recent-events strip. Every one of them respects the same
+consent + internal-route rules as the rest of the analytics module
+and runs under the selected date range (see "Date ranges" below).
+
+- **Engagement** — section views grouped by stable key + label, and
+  the scroll-depth distribution at the documented milestones (25 /
+  50 / 75 / 100). Both depend on consent: visitors who decline only
+  contribute to the basic anonymous `page_view` counter.
+- **Brand interest** — per-brand funnel rollup with three integers
+  side by side: brand-cards section impressions, `brand_card_click`,
+  and `brand_redirect_click`. The dashboard does **not** compute a
+  conversion percentage — the impressions number is shared across
+  the cards on the page (the section is the brand-cards container,
+  not per-card), and any percentage would mislead more than it
+  helps. Once per-card impressions are measured we can revisit.
+- **Contact intent** — the top public pages where contact CTAs
+  (`contact_email_click`, `contact_map_click`, plus the reserved
+  WhatsApp / phone events) originated.
+- **Top consented journeys** — most common path sequences inside
+  consented sessions. Same-path consecutive visits collapse, raw
+  `visitor_id_hash` values stay in Postgres, sequences shorter than
+  two distinct visitors are not surfaced. Per-visitor timelines are
+  intentionally not built.
+- **Sales signals** — five coarse readings: top contact-intent
+  page, top brand-interest page, top CTA referrer, top contact-CTA
+  country, and the mobile vs desktop split among contact CTAs.
+  Counts only — explicitly not "leads" and not a conversion score.
+
+### Date ranges
+
+The dashboard URL accepts a single `?range=` parameter:
+
+- `?range=7d` — last 7 days
+- `?range=30d` — last 30 days (default)
+- `?range=90d` — last 90 days
+
+`getDateRangeFromSearchParam()` in `src/lib/analytics/aggregate.ts`
+whitelists the three tokens and falls back to the default for
+anything else, so a hand-typed `?range=garbage` cannot trigger an
+unbounded scan. Every aggregate helper accepts the resolved value;
+the picker control on the dashboard regenerates the URL.
+
+### Phase 2 limitations
+
+- Journey aggregation only works for consented sessions. Visitors
+  who declined the analytics consent contribute to the public
+  page-view counter but never appear in journey rollups.
+- Section views and scroll-depth events did not exist before
+  Phase 2 — historical rows from before this commit have no
+  section / scroll history. Brand funnel impressions are likewise
+  only available from Phase 2 onward.
+- Sparse data may render as empty panels with truthful
+  empty-state copy. The dashboard does not invent numbers.
+- Daily buckets in the trend chart still use the Postgres host's
+  local time (UTC on Vercel). For the current 7/30/90-day windows
+  this rarely matters; if the boundary becomes visible to the
+  operator we can move to `DATE(created_at AT TIME ZONE
+'Europe/Istanbul')` in a follow-up phase.
 
 ## Cleaning up pre-1.2 internal-traffic rows (optional)
 
