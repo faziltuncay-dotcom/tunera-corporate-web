@@ -172,7 +172,7 @@ export const tr = {
     },
     pageVisual: {
       slug: "about-coastal" as BrandImageSlug,
-      imageAlt: "Tunera mavi tekne — Ege kıyısında seyir halinde.",
+      imageAlt: "Mavi Granfort tekne — Akdeniz kıyısında seyir",
       kicker: "Çalışma alanı",
       caption:
         "Sahadan gelen tecrübeyi düzenli, takip edilebilir bir çalışma akışına çeviren denizcilik yaklaşımı.",
@@ -245,8 +245,7 @@ export const tr = {
     },
     pageVisual: {
       slug: "brands-passing" as BrandImageSlug,
-      imageAlt:
-        "Editoryal illüstrasyon: sakin sularda yan yana geçen iki beyaz motoryat ve uzakta yumuşak günbatımı.",
+      imageAlt: "Tunera marka portföyü — kıyıda seyir halinde tekneler",
       kicker: "Türkiye temsilciliği",
       caption: "Granfort ve Ranieri markalarının Türkiye’deki temsil ve distribütörlük noktası.",
     },
@@ -287,8 +286,7 @@ export const tr = {
       {
         title: "Marka Temsili ve Yeni Tekne Satışı",
         slug: "service-representation" as BrandImageSlug,
-        illustrationAlt:
-          "Editoryal illüstrasyon: modern bir villa iskelesine yanaşmış yeni bir beyaz motoryat ve sağ ufukta altın bir günbatımı.",
+        illustrationAlt: "Marka temsilciliği ve yeni tekne satışı — gün batımında demirli filo",
         paragraphs: [
           "Temsil edilen markaların model, kullanım amacı ve satış süreçleri hakkında doğru bilgi aktarımı sağlanır.",
           "Müşterinin ihtiyacı; modelin teknik özellikleri, kullanım biçimi ve teslim koşullarıyla birlikte değerlendirilir.",
@@ -321,8 +319,7 @@ export const tr = {
       {
         title: "Marin Römork Satış ve Satış Sonrası Hizmetleri",
         slug: "service-trailer" as BrandImageSlug,
-        illustrationAlt:
-          "Editoryal illüstrasyon: marin römork üzerinde beyaz bir motoryat çeken turuncu bir pikap ve sahil yolunda altın bir günbatımı.",
+        illustrationAlt: "Tunera marin römork hizmeti — Amarok ile çekiş",
         paragraphs: [
           "Tekne taşıma ve römork süreçlerinde güvenli kullanım, doğru eşleşme ve operasyonel uygunluk dikkate alınır.",
           "Marin tip römork ürünlerinin satışı, kurulumu ve satış sonrası ihtiyaçları aynı süreç içinde takip edilir.",
@@ -521,7 +518,7 @@ export const en: typeof tr = {
     },
     pageVisual: {
       slug: "about-coastal" as BrandImageSlug,
-      imageAlt: "Tunera blue runabout cruising along the Aegean coast.",
+      imageAlt: "Blue Granfort runabout cruising along the Mediterranean coast.",
       kicker: "Working area",
       caption: "Field experience translated into an orderly, trackable working flow in marine.",
     },
@@ -593,8 +590,7 @@ export const en: typeof tr = {
     },
     pageVisual: {
       slug: "brands-passing" as BrandImageSlug,
-      imageAlt:
-        "Editorial illustration — two white motoryachts passing each other on calm water with a soft sunset behind.",
+      imageAlt: "Tunera brand portfolio — boats cruising past the coast.",
       kicker: "Türkiye representation",
       caption: "Türkiye representation and distribution point for Granfort and Ranieri.",
     },
@@ -635,8 +631,7 @@ export const en: typeof tr = {
       {
         title: "Brand Representation & New Boat Sales",
         slug: "service-representation" as BrandImageSlug,
-        illustrationAlt:
-          "Editorial illustration of a new white motoryacht moored at a modern villa private dock with a golden sunset on the right horizon.",
+        illustrationAlt: "Brand representation and new boat sales — fleet moored at sunset.",
         paragraphs: [
           "Models, intended use and the sales process for represented brands are explained with accurate, first-hand information.",
           "The customer’s need is reviewed alongside the model’s technical specs, usage pattern and delivery conditions.",
@@ -669,8 +664,7 @@ export const en: typeof tr = {
       {
         title: "Marine Trailer Sales & After-Sales Support",
         slug: "service-trailer" as BrandImageSlug,
-        illustrationAlt:
-          "Editorial illustration of an orange pickup truck towing a white motoryacht on a marine trailer along a coastal road at golden hour.",
+        illustrationAlt: "Tunera marine trailer service — Amarok towing a Tunera boat.",
         paragraphs: [
           "Boat transport and trailer work are handled with safe use, correct pairing and operational fit in mind.",
           "Sales, fitting and after-sales needs for marine-type trailer products are followed through the same process.",

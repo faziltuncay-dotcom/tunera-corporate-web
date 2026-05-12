@@ -24,23 +24,35 @@ const WIDTHS = [640, 1280, 1920, 2560, 3840] as const;
 const FALLBACK_WIDTH = 1920 as const;
 
 /**
- * Cache-bust token for slugs whose master + variants were re-rendered
- * in place. Filenames stay the same (no broken references), but the
- * URL gains a `?v=…` query so CDN / browser caches don't serve the
- * stale bytes. Only the slugs in `REFRESHED_SLUGS` carry the token;
- * the untouched seven slugs keep their original URLs (no needless
- * cache miss). Bump the token whenever the same artwork is replaced
- * again.
+ * Per-slug cache-bust tokens. Filenames stay the same when artwork
+ * is re-rendered in place (so every existing reference keeps
+ * working), but the URL gains a `?v=YYYY-MM-DD` query so CDN /
+ * browser caches don't serve the stale bytes. Each round of refreshed
+ * slugs gets its own date — bumping a slug's date forces the four
+ * variants × three formats × two-srcset-and-fallback entries to
+ * pick up the new artwork without invalidating the URLs of untouched
+ * slugs (no needless cache miss).
+ *
+ *   2026-05-10 — round 1: hero-marine-pair, service-yard
+ *   2026-05-12 — round 2: about-coastal (bumped from round 1),
+ *                          brands-passing, service-representation,
+ *                          service-trailer
+ *
+ * Slugs not listed here keep their original (token-less) URLs.
  */
-const CACHE_BUST_TOKEN = "2026-05-10";
-const REFRESHED_SLUGS: ReadonlySet<BrandImageSlug> = new Set([
-  "hero-marine-pair",
-  "about-coastal",
-  "service-yard",
-]);
+const SLUG_CACHE_BUST: Partial<Record<BrandImageSlug, string>> = {
+  "hero-marine-pair": "2026-05-10",
+  "service-yard": "2026-05-10",
+  "about-coastal": "2026-05-12",
+  "brands-passing": "2026-05-12",
+  "service-representation": "2026-05-12",
+  "service-trailer": "2026-05-12",
+};
 
-const versionSuffix = (slug: BrandImageSlug) =>
-  REFRESHED_SLUGS.has(slug) ? `?v=${CACHE_BUST_TOKEN}` : "";
+const versionSuffix = (slug: BrandImageSlug) => {
+  const token = SLUG_CACHE_BUST[slug];
+  return token ? `?v=${token}` : "";
+};
 
 const buildSrcSet = (slug: BrandImageSlug, ext: "avif" | "webp" | "jpg") => {
   const v = versionSuffix(slug);
