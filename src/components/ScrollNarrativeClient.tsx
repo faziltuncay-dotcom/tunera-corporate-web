@@ -23,6 +23,15 @@ export type NarrativePayload = {
    * settling feel.
    */
   microContent: Record<string, ReactNode>;
+  /**
+   * Optional per-stage heading override. When a node is supplied for a
+   * stage id, the heading (`<h2>`) renders that node instead of the
+   * plain `stage.title` string — used for the Tunera / New Era
+   * wordmark where "NEW ERA" sits as a small typographic annotation
+   * at the upper-right of "Tunera". The `<h2>`'s aria text is derived
+   * from `stage.title` so screen readers still get a clean string.
+   */
+  titleNodes?: Record<string, ReactNode>;
 };
 
 const variantStyles: Record<
@@ -214,6 +223,7 @@ export function ScrollNarrativeClient({ payload }: { payload: NarrativePayload }
             {payload.stages.map((stage, i) => {
               const dir = i - activeStage;
               const stateClass = dir === 0 ? "is-active" : dir < 0 ? "is-prev" : "is-next";
+              const titleNode = payload.titleNodes?.[stage.id];
               return (
                 <article
                   key={stage.id}
@@ -227,9 +237,10 @@ export function ScrollNarrativeClient({ payload }: { payload: NarrativePayload }
                     </div>
                   ) : null}
                   <h2
+                    aria-label={titleNode ? stage.title : undefined}
                     className={`narrative-stage-title ${stage.kicker ? "mt-5" : ""} max-w-2xl font-semibold leading-[1.05] tracking-tighter2 text-tunera-ink ${variant.titleSize}`}
                   >
-                    {stage.title}
+                    {titleNode ?? stage.title}
                   </h2>
                   {stage.body ? (
                     <p className="narrative-stage-body mt-6 max-w-xl text-base leading-relaxed text-tunera-muted-ink sm:text-lg">
@@ -293,31 +304,35 @@ export function ScrollNarrativeClient({ payload }: { payload: NarrativePayload }
             </div>
           ) : null}
           <ol role="list" className="space-y-14 sm:space-y-20">
-            {payload.stages.map((stage) => (
-              <li
-                key={stage.id}
-                className="border-t border-tunera-stone/50 pt-10 first:border-t-0 first:pt-0"
-              >
-                {stage.kicker ? (
-                  <div className="text-[11px] font-medium uppercase tracking-[0.32em] text-tunera-orange/80">
-                    {stage.kicker}
-                  </div>
-                ) : null}
-                <h2
-                  className={`${stage.kicker ? "mt-4" : ""} text-3xl font-semibold leading-[1.1] tracking-tighter2 text-tunera-ink sm:text-4xl`}
+            {payload.stages.map((stage) => {
+              const titleNode = payload.titleNodes?.[stage.id];
+              return (
+                <li
+                  key={stage.id}
+                  className="border-t border-tunera-stone/50 pt-10 first:border-t-0 first:pt-0"
                 >
-                  {stage.title}
-                </h2>
-                {stage.body ? (
-                  <p className="mt-5 text-base leading-relaxed text-tunera-muted-ink sm:text-lg">
-                    {stage.body}
-                  </p>
-                ) : null}
-                {payload.microContent[stage.id] ? (
-                  <div className="mt-7">{payload.microContent[stage.id]}</div>
-                ) : null}
-              </li>
-            ))}
+                  {stage.kicker ? (
+                    <div className="text-[11px] font-medium uppercase tracking-[0.32em] text-tunera-orange/80">
+                      {stage.kicker}
+                    </div>
+                  ) : null}
+                  <h2
+                    aria-label={titleNode ? stage.title : undefined}
+                    className={`${stage.kicker ? "mt-4" : ""} text-3xl font-semibold leading-[1.1] tracking-tighter2 text-tunera-ink sm:text-4xl`}
+                  >
+                    {titleNode ?? stage.title}
+                  </h2>
+                  {stage.body ? (
+                    <p className="mt-5 text-base leading-relaxed text-tunera-muted-ink sm:text-lg">
+                      {stage.body}
+                    </p>
+                  ) : null}
+                  {payload.microContent[stage.id] ? (
+                    <div className="mt-7">{payload.microContent[stage.id]}</div>
+                  ) : null}
+                </li>
+              );
+            })}
           </ol>
         </div>
       </div>

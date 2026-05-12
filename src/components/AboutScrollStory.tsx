@@ -36,7 +36,7 @@ export function AboutScrollStory({ locale }: Props) {
       </div>
     ),
     "new-era-name": (
-      <p className="text-[11px] font-medium uppercase tracking-[0.32em] text-tunera-orange">
+      <p className="max-w-xl text-sm leading-relaxed text-tunera-ink/75 sm:text-[15px]">
         {a.newEra.closingLine}
       </p>
     ),
@@ -98,12 +98,33 @@ export function AboutScrollStory({ locale }: Props) {
     ),
   };
 
+  /**
+   * The "Adın Anlamı" stage carries the Tunera / New Era wordmark
+   * instead of a plain title string: "Tunera" reads as the editorial
+   * headline, "New Era" sits as a small typographic annotation at the
+   * upper-right of the word. The visible text is still announced as
+   * "Tunera" via the `<h2 aria-label>` override in
+   * `ScrollNarrativeClient` so screen readers receive a clean string,
+   * and the `New Era` mark is `aria-hidden`.
+   */
+  const titleNodes: NarrativePayload["titleNodes"] = {
+    "new-era-name": (
+      <span className="tunera-newera relative inline-block whitespace-nowrap">
+        Tunera
+        <span aria-hidden className="tunera-newera-tag">
+          New Era
+        </span>
+      </span>
+    ),
+  };
+
   const payload: NarrativePayload = {
     ariaLabel: a.scrollStory.ariaLabel,
     eyebrow: a.scrollStory.eyebrow,
     variant: "about",
     stages,
     microContent,
+    titleNodes,
   };
 
   return <ScrollNarrativeClient payload={payload} />;

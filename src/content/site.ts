@@ -86,7 +86,7 @@ export const tr = {
   home: {
     eyebrow: "Denizcilik",
     title: "Tunera Denizcilik",
-    lead: "Marka temsili, tekne satışı ve servis koordinasyonu üzerine çalışan bir denizcilik şirketi.",
+    lead: "Marka temsili, tekne satışı, servis koordinasyonu ve satış sonrası süreçlerde profesyonel denizcilik desteği.",
     heroIllustrationAlt:
       "Editoryal illüstrasyon: gün batımında kıyıda seyir halinde Granfort 3000TX motoryat ve uzakta dağ silüetleri.",
     ctaPrimary: "Markalar",
@@ -107,22 +107,21 @@ export const tr = {
     hero: {
       eyebrow: "Hakkımızda",
       title: "Hakkımızda",
-      lead: "Tunera Denizcilik; marka temsili, tekne satışı, servis ve bakım koordinasyonu ile satış sonrası süreçlerin takibi üzerine çalışan bir denizcilik şirketidir.",
+      lead: "Tunera Denizcilik, tekne sahipliği sürecini yalnızca satış anı olarak değil; seçim, teslim, servis, bakım ve satış sonrası takipten oluşan bütünlüklü bir süreç olarak ele alır.",
     },
     story: {
       eyebrow: "Kurumsal",
       paragraphs: [
-        "Tunera Denizcilik Ticaret A.Ş., özel denizcilik, tekne ve motoryat alanında müşteriye eşlik etmek üzere kurulmuş bir şirkettir.",
-        "Aile ve firma tecrübesinden gelen saha bilgisi, Tunera çatısı altında müşteri ihtiyacını anlamaya ve süreci sade tutmaya yönelik bir çalışma biçimine dönüşür.",
-        "Şirket; marka temsili, satış danışmanlığı, satış sonrası süreç takibi, servis koordinasyonu, depolama ve operasyonel denizcilik konularını tek noktada toplayan bir kurumsal yönlendirme merkezi olarak çalışır.",
-        "Hedef, müşterinin doğru marka ve doğru süreçle buluşmasına yardımcı olmak ve süreç boyunca bilgiyi açık tutmaktır.",
+        "Tunera Denizcilik Ticaret A.Ş., özel denizcilik alanında sahadan gelen tecrübeyi profesyonel bir çalışma yapısıyla buluşturmak üzere kurulmuştur.",
+        "Aile ve firma tecrübesinden gelen saha bilgisi, müşteri ihtiyacını anlamaya ve süreci sade tutmaya yönelik bir çalışma biçimine dönüşür.",
+        "Yaklaşım; açık iletişim, doğru yönlendirme ve sahadan gelen tecrübeye dayanır. Amaç, müşterinin karar alma sürecini sadeleştirmek ve her adımı daha takip edilebilir hâle getirmektir.",
       ],
     },
     newEra: {
-      eyebrow: "Adın Anlamı",
-      body: "Adında taşıdığı “new era” fikri Tunera için süreçleri daha açık, ilişkileri daha düzenli ve müşteri tarafına bilgi akışını daha net tutmak anlamına gelir.",
+      eyebrow: "Tunera New Era",
+      body: "Tunera isminin marka hikâyesindeki karşılığı “yeni dönem” fikridir. Bu yeni dönem; denizcilik süreçlerinde daha açık iletişim, daha doğru yönlendirme ve satış sonrası sorumluluğu merkeze alan bir çalışma anlayışını ifade eder.",
       closingLine:
-        "Tunera New Era, bizim için yalnızca bir slogan değil; denizcilik süreçlerini dürüst, şeffaf ve profesyonel bir yaklaşımla yürütme anlayışıdır.",
+        "Tunera için satış, teknenin teslim edildiği noktada biten bir işlem değildir. Doğru ürün seçimi, servis koordinasyonu, bakım takibi ve müşterinin süreç boyunca bilgilendirilmesi aynı bütünün parçalarıdır.",
     },
     values: {
       eyebrow: "Değerler",
@@ -175,7 +174,8 @@ export const tr = {
       slug: "about-coastal" as BrandImageSlug,
       imageAlt: "Tunera mavi tekne — Ege kıyısında seyir halinde.",
       kicker: "Çalışma alanı",
-      caption: "Tekne sahibinin satış, servis ve marka tarafıyla temasını tek noktadan yürütür.",
+      caption:
+        "Sahadan gelen tecrübeyi düzenli, takip edilebilir bir çalışma akışına çeviren denizcilik yaklaşımı.",
     },
     scrollStory: {
       eyebrow: "",
@@ -185,19 +185,19 @@ export const tr = {
           id: "experience-vision",
           kicker: "1 — Tecrübe",
           title: "Sahadan gelen birikim",
-          body: "Aile ve firma tecrübesi, müşteri ihtiyacını anlamaya ve süreci sade tutmaya yönelik bir çalışma biçimine dönüşür.",
+          body: "Yıllar içinde edinilen saha bilgisi, müşteriye eşlik eden bir çalışma anlayışına dönüşür.",
         },
         {
           id: "new-era-name",
           kicker: "2 — Adın Anlamı",
-          title: "Açık iletişim, düzenli süreç",
-          body: "İletişimi açık, süreci düzenli ve marka ilişkisini takip edilebilir tutmaya yönelik bir çalışma anlayışı.",
+          title: "Tunera",
+          body: "Tunera isminin marka hikâyesindeki karşılığı “yeni dönem” fikridir; daha açık iletişim, daha doğru yönlendirme ve satış sonrası sorumluluğu merkeze alan bir çalışma anlayışını ifade eder.",
         },
         {
           id: "values",
           kicker: "3 — Değerler",
           title: "Dürüstlük, yenilik, profesyonellik, girişimcilik.",
-          body: "Çalışma biçimini şekillendiren dört temel değer.",
+          body: "Müşteri, marka ve süreç tarafında günlük kararları aynı çizgide tutan dört çıpa.",
         },
         {
           id: "working-structure",
@@ -223,11 +223,11 @@ export const tr = {
   brandsSection: {
     title: "Markalar",
     description:
-      "Tunera Denizcilik, Granfort ve Ranieri markalarının Türkiye distribütörü ve temsilcisidir. Markalara dair detaylı içerik ilgili marka sayfalarında yer alacaktır.",
+      "Tunera Denizcilik, Granfort ve Ranieri markalarının Türkiye distribütörü ve temsilcisidir. Modeller, donanım seçenekleri ve süreç detayları markalara özel web sitelerinden paylaşılır.",
     granfortNote:
-      "Granfort, Tunera Denizcilik’in Türkiye’de temsil ettiği motoryat markasıdır. Markaya özel web sitesi geliştirme aşamasındadır; modeller, donanım ve süreç detayları yayına alındığında bu bölümden ulaşılabilir olacaktır.",
+      "Granfort motoryat markasının Türkiye temsili Tunera Denizcilik tarafından yürütülür. Markaya özel web sitesi geliştirme aşamasındadır; yayına alındığında bağlantı bu bölümden paylaşılır.",
     ranieriNote:
-      "Ranieri, Tunera Denizcilik’in Türkiye’de temsil ettiği bir diğer markadır. Markaya özel web sitesi planlama aşamasındadır; site yayına alındığında bağlantı bu bölümden paylaşılır.",
+      "Ranieri markasının Türkiye temsili Tunera Denizcilik tarafından yürütülür. Markaya özel web sitesi planlama aşamasındadır; site hazır olduğunda bağlantı bu bölümden paylaşılır.",
     statusActive: "Aktif",
     statusComingSoon: "Yakında",
     visit: "Marka sayfası",
@@ -239,7 +239,7 @@ export const tr = {
     transitionCta: {
       eyebrow: "İletişim",
       title: "Marka süreçleri için iletişime geçin",
-      body: "Satış, temsilcilik ve marka yönlendirmeleriyle ilgili detaylar için Tunera Denizcilik ile iletişime geçebilirsiniz.",
+      body: "Satış, temsilcilik ve marka yönlendirmesi süreçlerinde Tunera Denizcilik ile doğrudan iletişime geçebilirsiniz.",
       primaryLabel: "İletişim",
       primaryHref: "/tr/iletisim",
     },
@@ -258,19 +258,19 @@ export const tr = {
           id: "brand-hub",
           kicker: "1 — Türkiye Temsilciliği",
           title: "Granfort ve Ranieri için Türkiye distribütörü",
-          body: "Tunera Denizcilik, Granfort ve Ranieri markalarının Türkiye distribütörü ve temsilcisidir. Detaylı bilgi ilgili marka sayfalarında yayına alınacaktır.",
+          body: "Markaya özel içerik, ilgili marka sitelerinde yayına alınır.",
         },
         {
           id: "granfort",
           kicker: "2 — Granfort",
           title: "Granfort — Türkiye temsilciliği",
-          body: "Modeller, donanım seçenekleri ve satın alma süreci için markaya özel web sitesi hazırlanmaktadır. Yayına alındığında bağlantı bu bölümden paylaşılır.",
+          body: "Markaya özel web sitesi geliştirme aşamasındadır.",
         },
         {
           id: "ranieri",
           kicker: "3 — Ranieri",
           title: "Ranieri — Türkiye temsilciliği",
-          body: "Ranieri için ayrı marka web sitesi planlama aşamasındadır. Bilgiler hazır olduğunda bu bölümden duyurulur.",
+          body: "Markaya özel web sitesi planlama aşamasındadır.",
         },
       ],
     },
@@ -279,7 +279,7 @@ export const tr = {
     hero: {
       eyebrow: "Hizmetler",
       title: "Hizmetler",
-      lead: "Marka temsili, satış, servis koordinasyonu, römork süreçleri, depolama ve çekek sahası operasyonları altı çalışma alanı olarak yürütülür.",
+      lead: "Tunera Denizcilik; satış, danışmanlık, servis koordinasyonu, römork süreçleri, depolama ve çekek sahası operasyonlarını birbirinden kopuk hizmetler olarak değil, aynı müşteri yolculuğunun parçaları olarak yönetir.",
     },
     modelStripLabel: "Hizmet alanları",
     modelStrip: ["Temsil", "Danışmanlık", "Servis", "Römork", "Depolama", "Operasyon"],
@@ -290,9 +290,9 @@ export const tr = {
         illustrationAlt:
           "Editoryal illüstrasyon: modern bir villa iskelesine yanaşmış yeni bir beyaz motoryat ve sağ ufukta altın bir günbatımı.",
         paragraphs: [
-          "Yurt dışında bilinirlik kazanmış tekne ve motoryat markalarının Türkiye’deki satış ve satış sonrası süreçleri Tunera tarafından yürütülür.",
-          "Müşterinin doğru marka, doğru model ve doğru kullanım biçimine ulaşması için ürün tanıtımı, satış yönlendirmesi ve süreç koordinasyonu sağlanır.",
-          "Çalışma yalnızca satış anını değil, markanın Türkiye’de düzenli temsilini ve satış sonrası süreçlerin takibini de kapsar.",
+          "Temsil edilen markaların model, kullanım amacı ve satış süreçleri hakkında doğru bilgi aktarımı sağlanır.",
+          "Müşterinin ihtiyacı; modelin teknik özellikleri, kullanım biçimi ve teslim koşullarıyla birlikte değerlendirilir.",
+          "Çalışma, markanın Türkiye’deki temsilini düzenli bir akışa oturtmayı ve satış sonrası süreçlerin takibini sağlamayı kapsar.",
         ],
         note: null,
       },
@@ -302,9 +302,8 @@ export const tr = {
         illustrationAlt:
           "Editoryal illüstrasyon: çekek sahası önünde hareket halindeki birkaç motoryat ve arka planda hangar ile travel-lift.",
         paragraphs: [
-          "İkinci el tekne ve deniz araçlarının alım-satım süreçlerinde müşterilere danışmanlık verilir.",
-          "Teknenin kullanım amacı, teknik durumu, piyasa konumu ve operasyonel ihtiyaçları birlikte değerlendirilir.",
-          "Amaç, alıcı ve satıcı için açık ve takip edilebilir bir süreç oluşturmaktır.",
+          "Tekne alım-satım kararlarında kullanım beklentisi, teknik durum ve süreç şeffaflığı birlikte değerlendirilir.",
+          "Alıcı ve satıcı tarafı için süreç, açık bilgi paylaşımı üzerine kurulur ve adımları takip edilebilir tutulur.",
         ],
         note: null,
       },
@@ -314,8 +313,8 @@ export const tr = {
         illustrationAlt:
           "Editoryal illüstrasyon: modern bir hangarda servis sehpasındaki beyaz bir motoryata eşlik eden iki teknisyen ve arka planda deniz manzarası.",
         paragraphs: [
-          "Tekne, motor ve marin ekipman için servis ve bakım süreçlerinin planlanmasında, ilgili teknik ekiplerle eşgüdümünde ve takibinde Tunera müşterinin yanında durur.",
-          "Yaklaşım yalnızca arıza çözümüne değil, kullanım sürekliliğine ve düzenli süreç takibine odaklanır.",
+          "Servis ve bakım süreçlerinde doğru yönlendirme, iş takibi ve müşteriye anlaşılır bilgilendirme esastır.",
+          "Yaklaşım, kullanım sürekliliğini gözeterek bakım takvimini ve teknik koordinasyonu düzenli tutar.",
         ],
         note: "Servis kapsamı ve süreleri ilgili marka ve servis ekibi tarafından netleştirilir.",
       },
@@ -325,9 +324,8 @@ export const tr = {
         illustrationAlt:
           "Editoryal illüstrasyon: marin römork üzerinde beyaz bir motoryat çeken turuncu bir pikap ve sahil yolunda altın bir günbatımı.",
         paragraphs: [
-          "Marin tip römork ürünlerinin satış, servis ve bakım süreçlerinde müşterilere çözüm sağlanır.",
-          "Teknenin taşınması, güvenli konumlandırılması ve doğru ekipmanla desteklenmesi denizcilik operasyonunun bir parçasıdır.",
-          "Römork süreçleri, tekne kullanımının lojistik tarafını tamamlayan bir hizmet alanı olarak ele alınır.",
+          "Tekne taşıma ve römork süreçlerinde güvenli kullanım, doğru eşleşme ve operasyonel uygunluk dikkate alınır.",
+          "Marin tip römork ürünlerinin satışı, kurulumu ve satış sonrası ihtiyaçları aynı süreç içinde takip edilir.",
         ],
         note: null,
       },
@@ -337,8 +335,8 @@ export const tr = {
         illustrationAlt:
           "Editoryal illüstrasyon: solda çok katlı tekne depolama rafları, sağda aydınlatılmış modern bir hangar ve önünde forklift ile bekleyen tekneler.",
         paragraphs: [
-          "Üçüncü kişilere ait tekne, deniz aracı ve marin römorklar için güvenlik önlemleri alınmış tesis içinde depolama hizmeti sunulur.",
-          "Hizmet; güvenlik, düzen, erişilebilirlik ve operasyonel kontrol başlıkları üzerine kurulur.",
+          "Depolama süreçlerinde teknenin güvenli, düzenli ve erişilebilir şekilde konumlandırılması hedeflenir.",
+          "Tesis içi düzen, güvenlik önlemleri ve operasyonel kontrol başlıkları birlikte yürütülür.",
         ],
         note: "Sigorta kapsamı ve koşulları ilgili süreçte ayrıca netleştirilir.",
       },
@@ -347,8 +345,8 @@ export const tr = {
         slug: "service-yard" as BrandImageSlug,
         illustrationAlt: "Tunera servis tersanesi — travel-lift ile çekiliş ve iskele ekibi.",
         paragraphs: [
-          "Çekek sahası işlemleri planlama, alan yönetimi, güvenlik, ekipman koordinasyonu ve operasyon takibi gerektirir.",
-          "Tunera; teknenin karaya alınmasını, sahada konumlandırılmasını, bakım sürecine hazırlanmasını ve operasyonel akışın güvenli yürütülmesini bu çerçevede ele alır.",
+          "Çekek, saha ve hazırlık süreçleri; planlama, koordinasyon ve takip disipliniyle yürütülür.",
+          "Teknenin karaya alınması, sahada konumlandırılması ve operasyonel akışın güvenli yürütülmesi bu çerçevede ele alınır.",
         ],
         note: null,
       },
@@ -359,7 +357,7 @@ export const tr = {
   },
   contactSection: {
     title: "İletişim",
-    body: "Marka temsili, satış ve servis süreçlerine ilişkin başvurular için doğrudan iletişime geçebilirsiniz.",
+    body: "Satış, servis, marka yönlendirmesi ve operasyon süreçleriyle ilgili başvurular için Tunera Denizcilik ile doğrudan iletişime geçebilirsiniz.",
     detailsTitle: "İletişim bilgileri",
     mapsTitle: "Konumlar",
     mapsDescription: "Yönetim ofisi ve operasyon tesisinin Google Haritalar konumları.",
@@ -379,7 +377,7 @@ export const tr = {
       imageAlt:
         "Editoryal illüstrasyon: özel bir iskeleye yanaşmış tek bir beyaz motoryat, kıyıdaki villa ışıkları ve uzakta dingin bir günbatımı.",
       kicker: "İletişim",
-      caption: "Marka, satış ve servis süreçleri için doğrudan iletişim noktası.",
+      caption: "Satış, servis ve marka süreçleri için tek noktadan ulaşılabilen iletişim noktası.",
     },
     scrollStory: {
       eyebrow: "",
@@ -389,7 +387,7 @@ export const tr = {
           id: "status",
           kicker: "1 — Doğrudan İletişim",
           title: "Doğrudan iletişim noktası",
-          body: "Marka temsili, satış ve servis süreçlerine ilişkin başvurular doğrudan Tunera Denizcilik üzerinden değerlendirilir.",
+          body: "Başvurular Tunera Denizcilik tarafından doğrudan değerlendirilir; aracı süreç bulunmaz.",
         },
         {
           id: "channels",
@@ -437,7 +435,7 @@ export const en: typeof tr = {
   home: {
     eyebrow: "Marine",
     title: "Tunera Denizcilik",
-    lead: "A marine company working on brand representation, boat sales and service coordination.",
+    lead: "A marine company supporting customers through brand representation, boat sales, service coordination and after-sales follow-up.",
     heroIllustrationAlt:
       "Editorial illustration — Granfort 3000TX motoryacht cruising along the coast at sunset with distant mountain silhouettes.",
     ctaPrimary: "Brands",
@@ -458,22 +456,21 @@ export const en: typeof tr = {
     hero: {
       eyebrow: "About",
       title: "About",
-      lead: "Tunera Denizcilik is a marine company working on brand representation, boat sales, service and maintenance coordination, and after-sales process follow-up.",
+      lead: "Tunera Denizcilik approaches boat ownership as a complete process: selection, sales, delivery, service coordination and after-sales follow-up — not as a single point of purchase.",
     },
     story: {
       eyebrow: "Corporate",
       paragraphs: [
-        "Tunera Denizcilik Ticaret A.Ş. is a company set up to support customers in the private marine, boat and motor-yacht space.",
-        "The field knowledge that comes from family and company experience is shaped at Tunera into a way of working that focuses on understanding the customer’s need and keeping the process simple.",
-        "The company gathers brand representation, sales advisory, after-sales process follow-up, service coordination, storage and operational marine work into a single corporate point of contact.",
-        "The aim is to help customers reach the right brand and the right process, and to keep information clear at every step.",
+        "Tunera Denizcilik Ticaret A.Ş. was set up to bring field-earned marine experience together with a professional working structure.",
+        "The field knowledge that comes from family and company experience is shaped into a way of working that focuses on understanding the customer’s need and keeping the process simple.",
+        "The approach rests on open communication, accurate guidance and field experience. The aim is to simplify the customer’s decision-making and keep every step easier to follow.",
       ],
     },
     newEra: {
-      eyebrow: "Meaning of the name",
-      body: "The “new era” idea in the name means keeping processes clearer, relationships more orderly and information to the customer side more direct.",
+      eyebrow: "Tunera New Era",
+      body: "The “new era” idea in the Tunera name describes a different way of working in marine: clearer communication, sharper guidance and after-sales responsibility kept at the centre of the process.",
       closingLine:
-        "Tunera New Era is more than a slogan for us; it reflects our commitment to handling marine processes with honesty, transparency, and professional care.",
+        "For Tunera, a sale does not end at the moment of delivery. Choosing the right product, coordinating service, following up on maintenance and keeping the customer informed are all parts of the same whole.",
     },
     values: {
       eyebrow: "Values",
@@ -526,8 +523,7 @@ export const en: typeof tr = {
       slug: "about-coastal" as BrandImageSlug,
       imageAlt: "Tunera blue runabout cruising along the Aegean coast.",
       kicker: "Working area",
-      caption:
-        "Coordinating the boat owner’s contact with the sales, service and brand sides from one point.",
+      caption: "Field experience translated into an orderly, trackable working flow in marine.",
     },
     scrollStory: {
       eyebrow: "",
@@ -537,19 +533,19 @@ export const en: typeof tr = {
           id: "experience-vision",
           kicker: "1 — Experience",
           title: "Working knowledge from the field",
-          body: "Family and company experience shape into a way of working that focuses on understanding the customer’s need and keeping the process simple.",
+          body: "Years of marine experience translate into a way of working that stays close to the customer.",
         },
         {
           id: "new-era-name",
           kicker: "2 — Meaning of the name",
-          title: "Clearer communication, orderly process",
-          body: "An approach that keeps communication open, the process orderly, and the brand relationship trackable.",
+          title: "Tunera",
+          body: "The Tunera name carries a “new era” idea — clearer communication, sharper guidance and after-sales responsibility kept at the centre of the process.",
         },
         {
           id: "values",
           kicker: "3 — Values",
           title: "Honesty, adaptation, professionalism, initiative.",
-          body: "Four working values that shape how Tunera approaches its work.",
+          body: "Four anchors that keep customer, brand and process decisions on the same line day to day.",
         },
         {
           id: "working-structure",
@@ -575,11 +571,11 @@ export const en: typeof tr = {
   brandsSection: {
     title: "Brands",
     description:
-      "Tunera Denizcilik is the Türkiye distributor and representative for Granfort and Ranieri. Detailed brand content will live on each brand’s dedicated site.",
+      "Tunera Denizcilik is the Türkiye distributor and representative for Granfort and Ranieri. Models, equipment options and process detail are shared on each brand’s dedicated site.",
     granfortNote:
-      "Granfort is a motoryacht brand represented by Tunera Denizcilik in Türkiye. The brand’s dedicated website is in development; once it goes live, model, equipment and process detail will be reachable from this section.",
+      "Türkiye representation for the Granfort motoryacht brand is handled by Tunera Denizcilik. The brand’s dedicated website is in development; the link will be shared here once it goes live.",
     ranieriNote:
-      "Ranieri is another marine brand represented by Tunera Denizcilik in Türkiye. The brand’s dedicated website is in planning; the link will be shared from this section once a launch date is confirmed.",
+      "Türkiye representation for Ranieri is handled by Tunera Denizcilik. The brand’s dedicated website is in planning; the link will be shared here once it is ready.",
     statusActive: "Active",
     statusComingSoon: "Coming soon",
     visit: "Brand page",
@@ -591,7 +587,7 @@ export const en: typeof tr = {
     transitionCta: {
       eyebrow: "Contact",
       title: "Contact us for brand-related processes",
-      body: "For sales, representation and brand guidance details, you can contact Tunera Denizcilik directly.",
+      body: "For sales, representation and brand-guidance topics, reach Tunera Denizcilik directly.",
       primaryLabel: "Contact",
       primaryHref: "/en/contact",
     },
@@ -610,19 +606,19 @@ export const en: typeof tr = {
           id: "brand-hub",
           kicker: "1 — Türkiye representation",
           title: "Türkiye distributor for Granfort and Ranieri",
-          body: "Tunera Denizcilik is the Türkiye distributor and representative for Granfort and Ranieri. Detailed information will live on each brand’s dedicated site.",
+          body: "Brand-specific content lives on each brand’s dedicated site.",
         },
         {
           id: "granfort",
           kicker: "2 — Granfort",
           title: "Granfort — Türkiye representation",
-          body: "A dedicated brand site covering models, equipment and the buying process is in development. The link will be shared from this section once it goes live.",
+          body: "The dedicated brand website is in development.",
         },
         {
           id: "ranieri",
           kicker: "3 — Ranieri",
           title: "Ranieri — Türkiye representation",
-          body: "A dedicated Ranieri brand site is in planning. Information will be shared from this section once it is ready.",
+          body: "The dedicated brand website is in planning.",
         },
       ],
     },
@@ -631,7 +627,7 @@ export const en: typeof tr = {
     hero: {
       eyebrow: "Services",
       title: "Services",
-      lead: "Brand representation, sales, service coordination, trailer processes, storage and yard operations are run as six working areas.",
+      lead: "Tunera Denizcilik runs sales, advisory, service coordination, trailer work, storage and yard operations as parts of the same customer journey, not as disconnected services.",
     },
     modelStripLabel: "Working areas",
     modelStrip: ["Representation", "Advisory", "Service", "Trailer", "Storage", "Operations"],
@@ -642,9 +638,9 @@ export const en: typeof tr = {
         illustrationAlt:
           "Editorial illustration of a new white motoryacht moored at a modern villa private dock with a golden sunset on the right horizon.",
         paragraphs: [
-          "Sales and after-sales processes for boat and motor-yacht brands with established recognition abroad are handled by Tunera in the Türkiye market.",
-          "Customers are supported in reaching the right brand, the right model and the right way of using the boat through product introduction, sales guidance and process coordination.",
-          "The work covers more than the sale itself; it also includes orderly representation of the brand in Türkiye and follow-up of after-sales steps.",
+          "Models, intended use and the sales process for represented brands are explained with accurate, first-hand information.",
+          "The customer’s need is reviewed alongside the model’s technical specs, usage pattern and delivery conditions.",
+          "The work covers steady representation of the brand in Türkiye and follow-up of after-sales steps.",
         ],
         note: null,
       },
@@ -654,9 +650,8 @@ export const en: typeof tr = {
         illustrationAlt:
           "Editorial illustration of several motoryachts moving in front of a marine yard, with hangars and a travel-lift gantry in the background.",
         paragraphs: [
-          "Tunera advises customers through the buying and selling of pre-owned boats and marine vessels.",
-          "The boat’s intended use, technical condition, market position and operational needs are reviewed together.",
-          "The aim is to set up a clear and trackable process for both buyer and seller.",
+          "Buying and selling decisions are weighed against intended use, technical condition and process transparency.",
+          "Both buyer and seller see a process built on open information sharing, with each step kept easy to follow.",
         ],
         note: null,
       },
@@ -666,8 +661,8 @@ export const en: typeof tr = {
         illustrationAlt:
           "Editorial illustration of a white motoryacht on a service stand inside a modern hangar, with two technicians attending the boat and a sea view through the opening.",
         paragraphs: [
-          "Tunera supports customers through planning service and maintenance work for boats, engines and marine equipment, coordinating with the relevant technical teams and following up on each step.",
-          "The approach focuses not only on resolving faults but on continuity of use and orderly process follow-up.",
+          "In service and maintenance work, accurate guidance, task follow-up and clear customer updates are the basics.",
+          "The approach watches continuity of use and keeps the maintenance schedule and technical coordination orderly.",
         ],
         note: "Service scope and timelines are clarified by the relevant brand and service team.",
       },
@@ -677,9 +672,8 @@ export const en: typeof tr = {
         illustrationAlt:
           "Editorial illustration of an orange pickup truck towing a white motoryacht on a marine trailer along a coastal road at golden hour.",
         paragraphs: [
-          "Sales, service and maintenance for marine-type trailer products are supported by Tunera.",
-          "Transporting a boat, positioning it safely and pairing it with the right equipment is part of marine operations.",
-          "Trailer work is treated as the area that completes the logistics side of using the boat.",
+          "Boat transport and trailer work are handled with safe use, correct pairing and operational fit in mind.",
+          "Sales, fitting and after-sales needs for marine-type trailer products are followed through the same process.",
         ],
         note: null,
       },
@@ -689,8 +683,8 @@ export const en: typeof tr = {
         illustrationAlt:
           "Editorial illustration of a marine storage yard — multi-level boat racks on the left, a lit modern hangar on the right with a forklift and stored vessels in front.",
         paragraphs: [
-          "Storage is offered for third-party boats, marine vessels and marine trailers within a facility that has security measures in place.",
-          "The service is built on security, order, accessibility and operational control.",
+          "Storage is set up so the boat is positioned safely, in order, and easy to access.",
+          "Facility layout, security measures and operational control are run together.",
         ],
         note: "Insurance scope and conditions are clarified separately within the relevant process.",
       },
@@ -700,8 +694,8 @@ export const en: typeof tr = {
         illustrationAlt:
           "Tunera service yard — boat hauled by travel lift with the dock crew at work.",
         paragraphs: [
-          "Yard operations require planning, area management, security, equipment coordination and follow-up.",
-          "Tunera handles hauling boats out of the water, positioning them on site, preparing them for maintenance and running the operational flow safely within this scope.",
+          "Yard, site and preparation work is run with planning, coordination and follow-up discipline.",
+          "Hauling the boat out, positioning it on site and running the operational flow safely sit within this scope.",
         ],
         note: null,
       },
@@ -712,7 +706,7 @@ export const en: typeof tr = {
   },
   contactSection: {
     title: "Contact",
-    body: "For brand representation, sales and service enquiries you can reach Tunera Denizcilik directly.",
+    body: "Reach Tunera Denizcilik directly for sales, service, brand representation and operational enquiries.",
     detailsTitle: "Contact details",
     mapsTitle: "Locations",
     mapsDescription: "Google Maps locations for the management office and the operations facility.",
@@ -732,7 +726,7 @@ export const en: typeof tr = {
       imageAlt:
         "Editorial illustration — a single white motoryacht moored at a private dock beside a cliffside villa with dock lights and a calm distant sunset.",
       kicker: "Contact",
-      caption: "Direct point of contact for brand, sales and service enquiries.",
+      caption: "A single point of contact across sales, service and brand topics.",
     },
     scrollStory: {
       eyebrow: "",
@@ -742,7 +736,7 @@ export const en: typeof tr = {
           id: "status",
           kicker: "1 — Direct contact",
           title: "Direct point of contact",
-          body: "Brand representation, sales and service enquiries are handled directly by Tunera Denizcilik.",
+          body: "Enquiries are reviewed by Tunera Denizcilik directly, with no intermediary step.",
         },
         {
           id: "channels",

@@ -324,6 +324,56 @@ body {
 }
 
 /*
+ * Tunera / New Era wordmark.
+ *
+ * The "Adın Anlamı" stage on the About narrative replaces its plain
+ * title with a tiny editorial wordmark: "Tunera" reads as the
+ * headline; "NEW ERA" sits as a small, all-caps, orange annotation
+ * pinned to the upper-right of the word — the typographic equivalent
+ * of a brand-mark signature, not a separate heading.
+ *
+ * The mark is `aria-hidden`; the heading's `aria-label` carries the
+ * plain string "Tunera" so screen readers do not get the visual
+ * "Tunera New Era" combination read as one word. Sizing is set in
+ * absolute rems rather than ems so the annotation stays comfortably
+ * legible at every breakpoint of the parent `<h2>` (which scales
+ * from text-4xl up to text-6xl), while staying clearly subordinate
+ * to the headline itself.
+ */
+.tunera-newera {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.tunera-newera-tag {
+  position: absolute;
+  bottom: calc(100% - 0.18em);
+  left: calc(100% + 0.35rem);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #e4591c;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+@media (min-width: 640px) {
+  .tunera-newera-tag {
+    font-size: 0.7rem;
+    left: calc(100% + 0.45rem);
+  }
+}
+
+@media (min-width: 1024px) {
+  .tunera-newera-tag {
+    font-size: 0.78rem;
+    left: calc(100% + 0.55rem);
+  }
+}
+
+/*
  * Per-page wave personalities (Phase 2B).
  *
  * The wave-pattern background drift varies subtly per page so each
