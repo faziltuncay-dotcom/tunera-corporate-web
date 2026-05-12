@@ -6,18 +6,56 @@ import { getConsentState, setConsentState, type ConsentState } from "@/lib/analy
 
 type Locale = "tr" | "en";
 
-const COPY: Record<Locale, { body: string; accept: string; reject: string; details: string }> = {
+type Copy = {
+  title: string;
+  body: string;
+  acceptAll: string;
+  necessaryOnly: string;
+  manage: string;
+  save: string;
+  back: string;
+  necessaryTitle: string;
+  necessaryBody: string;
+  necessaryPill: string;
+  analyticsTitle: string;
+  analyticsBody: string;
+  analyticsToggleAria: string;
+};
+
+const COPY: Record<Locale, Copy> = {
   tr: {
-    body: "Site deneyimini iyileştirmek için anonim ziyaret istatistikleri toplamak istiyoruz. Reddetseniz de site tam olarak çalışmaya devam eder.",
-    accept: "Kabul ediyorum",
-    reject: "İstemiyorum",
-    details: "Yalnızca anonim sayfa ve etkinlik sayımı; kişisel veri saklanmaz.",
+    title: "Çerez ve Kişisel Veri Tercihleri",
+    body: "Sitenin kullanımını anlamak için anonimleştirilmiş veya toplulaştırılmış ölçüm verileri toplayabiliriz. Site, tercihinizden bağımsız olarak çalışmaya devam eder.",
+    acceptAll: "Tümünü kabul et",
+    necessaryOnly: "Sadece zorunlu olanlar",
+    manage: "Tercihleri yönet",
+    save: "Tercihleri kaydet",
+    back: "Geri",
+    necessaryTitle: "Zorunlu Çerezler",
+    necessaryBody:
+      "Sayfa gezintisi, tercih hatırlama ve site güvenliği gibi temel işlevler için gereklidir. Devre dışı bırakılamaz.",
+    necessaryPill: "Her zaman aktif",
+    analyticsTitle: "Analitik ve Performans",
+    analyticsBody:
+      "Hangi sayfaların ziyaret edildiğini anlamak için anonimleştirilmiş veya toplulaştırılmış ölçüm verileri toplanır. Reklam, pazarlama veya satış takibi yapılmaz.",
+    analyticsToggleAria: "Analitik ve Performans tercihini değiştir",
   },
   en: {
-    body: "We collect anonymous visit statistics to understand how this site is used. You can decline and the site keeps working in full.",
-    accept: "Accept",
-    reject: "Decline",
-    details: "Only anonymous page and event counts; no personal data is stored.",
+    title: "Cookie and Personal Data Preferences",
+    body: "We may collect anonymized or aggregated measurement data to understand how the site is used. The site keeps working regardless of your choice.",
+    acceptAll: "Accept all",
+    necessaryOnly: "Necessary only",
+    manage: "Manage preferences",
+    save: "Save preferences",
+    back: "Back",
+    necessaryTitle: "Necessary Cookies",
+    necessaryBody:
+      "Required for basic functions such as navigation, preference recall, and site security. Cannot be disabled.",
+    necessaryPill: "Always active",
+    analyticsTitle: "Analytics and Performance",
+    analyticsBody:
+      "Anonymized or aggregated measurement data so we can understand which pages are visited. No advertising, marketing, or sales tracking.",
+    analyticsToggleAria: "Toggle Analytics and Performance",
   },
 };
 
@@ -30,32 +68,55 @@ type Props = {
   locale?: Locale;
 };
 
-/**
- * Minimal opt-in analytics consent banner.
- *
- * Mounted once near the root of the visible page. Shows only when the
- * consent state is "unset"; clicking accept / decline persists the
- * choice via `setConsentState` (which also broadcasts a
- * `tunera-analytics-consent-change` event so the page-view tracker
- * can immediately start attaching the visitor / session id).
- *
- * The banner is not a tracking wall — anonymous page counts still
- * record while the banner is visible, the banner only affects
- * whether the visitor / session ids are derived. Visual treatment
- * matches the rest of the site (calm orange accent, no blur, no
- * heavy shadow). Dismissable via Esc and the explicit buttons; never
- * blocks navigation.
- */
 const inferLocaleFromPath = (pathname: string | null): Locale => {
   if (pathname && pathname.startsWith("/en")) return "en";
   return "tr";
 };
 
+type Mode = "compact" | "manage";
+
+/**
+ * Cookie and personal-data preferences surface.
+ *
+ * The underlying analytics consent state remains a binary
+ * "granted" | "denied" | "unset" decision (see `getConsentState`
+ * / `setConsentState`). This component is purely the user-facing
+ * UI on top of that. It exposes three actions:
+ *
+ *   1. "Tümünü kabul et" / "Accept all"
+ *      → records analytics consent as granted.
+ *   2. "Sadece zorunlu olanlar" / "Necessary only"
+ *      → records analytics consent as denied; necessary cookies
+ *        (navigation, preference recall, security) remain active
+ *        because they are not analytics.
+ *   3. "Tercihleri yönet" / "Manage preferences"
+ *      → expands the panel into a categorised view. Necessary is
+ *        listed as always-active (not a checkbox). Analytics &
+ *        Performance is a real toggle whose stored state becomes
+ *        the user's analytics consent when "Save preferences" is
+ *        clicked.
+ *
+ * The wording deliberately does NOT claim "fully anonymous":
+ * Phase Analytics 1.0 stores HMAC-hashed visitor / session ids
+ * when consent is granted, so the language we surface here is
+ * "anonimleştirilmiş veya toplulaştırılmış ölçüm verileri" /
+ * "anonymized or aggregated measurement data". Marketing,
+ * advertising, CRM, email automation, lead tracking — none of
+ * those are claimed because none of them exist in this codebase.
+ *
+ * The banner remains opt-in only: it is not a tracking wall and
+ * the site stays fully usable regardless of the choice. Hitting
+ * Escape with the panel open is treated as "Necessary only" so
+ * the panel can be dismissed without forcing a decision through
+ * a button.
+ */
 export function AnalyticsConsentBanner({ locale: localeProp }: Props) {
   const pathname = usePathname();
   const locale: Locale = localeProp ?? inferLocaleFromPath(pathname);
   const [state, setState] = useState<ConsentState>("unset");
   const [mounted, setMounted] = useState(false);
+  const [mode, setMode] = useState<Mode>("compact");
+  const [analyticsChecked, setAnalyticsChecked] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -84,35 +145,106 @@ export function AnalyticsConsentBanner({ locale: localeProp }: Props) {
     setState(next);
   };
 
+  const saveManaged = () => choose(analyticsChecked ? "granted" : "denied");
+
   return (
     <div
       role="region"
-      aria-label={copy.accept + " / " + copy.reject}
-      className="fixed inset-x-4 bottom-4 z-50 mx-auto max-w-3xl rounded-md border border-tunera-stone/60 bg-white/95 px-5 py-4 shadow-[0_8px_28px_-12px_rgba(35,31,32,0.18)] backdrop-blur-sm sm:px-6 sm:py-5"
+      aria-label={copy.title}
+      className="fixed inset-x-4 bottom-4 z-50 mx-auto max-w-3xl rounded-md border border-tunera-stone/60 bg-white/95 shadow-[0_8px_28px_-12px_rgba(35,31,32,0.18)] backdrop-blur-sm"
     >
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div className="space-y-1 text-sm leading-relaxed text-tunera-ink/85">
-          <p>{copy.body}</p>
-          <p className="text-[11px] uppercase tracking-[0.18em] text-tunera-muted-ink">
-            {copy.details}
-          </p>
+      <div className="px-5 py-4 sm:px-6 sm:py-5">
+        <div className="flex items-center gap-3">
+          <span aria-hidden className="h-px w-8 bg-tunera-orange" />
+          <h2 className="text-[11px] font-medium uppercase tracking-[0.22em] text-tunera-orange">
+            {copy.title}
+          </h2>
         </div>
-        <div className="flex flex-wrap items-center gap-2">
-          <button
-            type="button"
-            onClick={() => choose("denied")}
-            className="rounded-sm border border-tunera-ink/15 px-4 py-2 text-sm text-tunera-ink transition-colors hover:border-tunera-orange hover:text-tunera-orange"
-          >
-            {copy.reject}
-          </button>
-          <button
-            type="button"
-            onClick={() => choose("granted")}
-            className="rounded-sm bg-tunera-orange px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-[#E64500]"
-          >
-            {copy.accept}
-          </button>
-        </div>
+
+        {mode === "compact" ? (
+          <div className="mt-3 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-sm leading-relaxed text-tunera-ink/85">{copy.body}</p>
+            <div className="flex flex-wrap items-center gap-2">
+              <button
+                type="button"
+                onClick={() => setMode("manage")}
+                className="rounded-sm border border-tunera-ink/15 px-4 py-2 text-sm text-tunera-ink transition-colors hover:border-tunera-orange hover:text-tunera-orange"
+              >
+                {copy.manage}
+              </button>
+              <button
+                type="button"
+                onClick={() => choose("denied")}
+                className="rounded-sm border border-tunera-ink/15 px-4 py-2 text-sm text-tunera-ink transition-colors hover:border-tunera-orange hover:text-tunera-orange"
+              >
+                {copy.necessaryOnly}
+              </button>
+              <button
+                type="button"
+                onClick={() => choose("granted")}
+                className="rounded-sm bg-tunera-orange px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-[#E64500]"
+              >
+                {copy.acceptAll}
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="mt-4 space-y-4">
+            <p className="text-sm leading-relaxed text-tunera-ink/85">{copy.body}</p>
+
+            <ul className="divide-y divide-tunera-stone/60 rounded-sm border border-tunera-stone/60">
+              <li className="flex items-start justify-between gap-4 px-4 py-4">
+                <div className="space-y-1.5">
+                  <div className="text-sm font-semibold tracking-tightish text-tunera-ink">
+                    {copy.necessaryTitle}
+                  </div>
+                  <p className="text-[13px] leading-relaxed text-tunera-muted-ink">
+                    {copy.necessaryBody}
+                  </p>
+                </div>
+                <span className="shrink-0 rounded-sm border border-tunera-ink/15 px-2 py-1 text-[10px] uppercase tracking-[0.2em] text-tunera-muted-ink">
+                  {copy.necessaryPill}
+                </span>
+              </li>
+              <li className="flex items-start justify-between gap-4 px-4 py-4">
+                <div className="space-y-1.5">
+                  <div className="text-sm font-semibold tracking-tightish text-tunera-ink">
+                    {copy.analyticsTitle}
+                  </div>
+                  <p className="text-[13px] leading-relaxed text-tunera-muted-ink">
+                    {copy.analyticsBody}
+                  </p>
+                </div>
+                <label className="flex shrink-0 cursor-pointer items-center gap-2 select-none">
+                  <input
+                    type="checkbox"
+                    checked={analyticsChecked}
+                    onChange={(e) => setAnalyticsChecked(e.target.checked)}
+                    aria-label={copy.analyticsToggleAria}
+                    className="h-4 w-4 cursor-pointer accent-tunera-orange"
+                  />
+                </label>
+              </li>
+            </ul>
+
+            <div className="flex flex-wrap items-center justify-end gap-2">
+              <button
+                type="button"
+                onClick={() => setMode("compact")}
+                className="rounded-sm border border-tunera-ink/15 px-4 py-2 text-sm text-tunera-ink transition-colors hover:border-tunera-orange hover:text-tunera-orange"
+              >
+                {copy.back}
+              </button>
+              <button
+                type="button"
+                onClick={saveManaged}
+                className="rounded-sm bg-tunera-orange px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-[#E64500]"
+              >
+                {copy.save}
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
