@@ -4,17 +4,19 @@ import {
   getContactCtaBreakdown,
   getDailyTimeSeries,
   getDeviceDistribution,
+  getLastEventAt,
   getRecentEvents,
   getSummaryMetrics,
   getTopCountries,
   getTopPages,
   getTopReferrers,
 } from "@/lib/analytics/aggregate";
-import { isAnalyticsConfigured } from "@/lib/analytics/server";
+import { isAnalyticsConfigured, isAnalyticsSaltConfigured } from "@/lib/analytics/server";
 import { MetricCard } from "./_components/MetricCard";
 import { CountList } from "./_components/CountList";
 import { TimeSeriesChart } from "./_components/TimeSeriesChart";
 import { RecentEventsTable } from "./_components/RecentEventsTable";
+import { StatusBlock } from "./_components/StatusBlock";
 
 /**
  * Admin analytics dashboard.
@@ -43,6 +45,7 @@ export const metadata: Metadata = {
 
 export default async function AnalyticsAdminPage() {
   const configured = isAnalyticsConfigured();
+  const saltConfigured = isAnalyticsSaltConfigured();
 
   const [
     summary,
@@ -54,6 +57,7 @@ export default async function AnalyticsAdminPage() {
     brandRedirects,
     contactCta,
     recentEvents,
+    lastEventAt,
   ] = await Promise.all([
     getSummaryMetrics(),
     getDailyTimeSeries(14),
@@ -64,6 +68,7 @@ export default async function AnalyticsAdminPage() {
     getBrandRedirectBreakdown(),
     getContactCtaBreakdown(),
     getRecentEvents(50),
+    getLastEventAt(),
   ]);
 
   return (
@@ -93,6 +98,14 @@ export default async function AnalyticsAdminPage() {
             </div>
           ) : null}
         </header>
+
+        <section className="mb-6">
+          <StatusBlock
+            databaseConfigured={configured}
+            saltConfigured={saltConfigured}
+            lastEventAt={lastEventAt}
+          />
+        </section>
 
         <section
           aria-label="Overview metrics"

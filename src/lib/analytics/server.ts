@@ -40,6 +40,15 @@ export function isAnalyticsConfigured(): boolean {
   return getDatabaseUrl() !== null;
 }
 
+/**
+ * True only when `ANALYTICS_SALT` is set AND ≥ 16 characters. Used by
+ * the admin diagnostics block to surface "salt configured" without
+ * ever returning the salt itself.
+ */
+export function isAnalyticsSaltConfigured(): boolean {
+  return getAnalyticsSalt() !== null;
+}
+
 function getPool(): Sql | null {
   const url = getDatabaseUrl();
   if (!url) {

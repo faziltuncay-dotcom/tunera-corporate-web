@@ -156,6 +156,75 @@ If you don't provision a Postgres, every analytics call no-ops with a
 4. Visit `/admin/analytics` to confirm counts start arriving. The
    first row of `analytics_events` proves the round trip works.
 
+### Vercel production checklist
+
+Use this checklist when activating analytics on a Vercel deployment.
+Every step is reversible — set the env, redeploy, verify, move on.
+
+1. **Provision Postgres.** From the Vercel project: Storage → Create
+   Database → Postgres (or use Neon / Supabase). Copy the pooled
+   `DATABASE_URL` Vercel offers; the pool size in
+   `src/lib/analytics/server.ts` is intentionally small (`max: 4`)
+   so a serverless function instance can't exhaust the pool.
+2. **Generate the salt locally** so it is never committed:
+   `openssl rand -hex 32`. Anything ≥ 16 chars is accepted, ≥ 32
+   chars is recommended.
+3. **Add four env vars** on the project (Project → Settings →
+   Environment Variables), all scoped to **Production** (and
+   optionally Preview):
+   - `DATABASE_URL` — paste the Vercel-supplied URL
+   - `ANALYTICS_SALT` — paste the 64-hex-char string from step 2
+   - `ADMIN_ANALYTICS_USERNAME` — short operator handle
+   - `ADMIN_ANALYTICS_PASSWORD` — generated, ≥ 24 chars
+4. **Do NOT set `PGSSL=disable`.** Vercel's managed Postgres expects
+   TLS; the default `ssl: "prefer"` in the driver handles it.
+5. **Redeploy** (Deployments → ⋯ → Redeploy, or `git push`). Vercel
+   reads the new envs only after a new build.
+6. **Smoke the production deploy** with the same checklist below.
+
+### Post-deploy smoke checklist
+
+Replace `https://tunera.example` with the actual production origin
+and `USER:PASS` with the credentials from step 3.
+
+```bash
+# 1. Public routes — must serve 200 (static)
+for r in / /tr /en /tr/markalar /en/brands /tr/iletisim /en/contact; do
+  curl -s -o /dev/null -w "%{http_code}  $r\n" "https://tunera.example$r"
+done
+
+# 2. Event API — unknown event rejected, valid event accepted
+curl -s -o /dev/null -w "unknown=%{http_code}\n" \
+  -X POST -H "Content-Type: application/json" \
+  -d '{"event":"nope"}' "https://tunera.example/api/analytics/event"
+curl -s -o /dev/null -w "valid=%{http_code}\n" \
+  -X POST -H "Content-Type: application/json" \
+  -d '{"event":"page_view","path":"/tr","locale":"tr"}' \
+  "https://tunera.example/api/analytics/event"
+# unknown=400, valid=204
+
+# 3. Admin route — basic-auth gate
+curl -s -o /dev/null -w "no-auth=%{http_code}\n" \
+  "https://tunera.example/admin/analytics"
+curl -s -o /dev/null -w "good-auth=%{http_code}\n" \
+  -u "USER:PASS" "https://tunera.example/admin/analytics"
+# no-auth=401, good-auth=200
+
+# 4. End-to-end persistence — visit the homepage in a browser, then
+#    open /admin/analytics. The Diagnostics block at the top of the
+#    page must show:
+#      Storage mode = active
+#      Visitor id hashing = configured (only after consent is granted)
+#      Last event = <recent timestamp>
+#    The page_view counter should also be ≥ 1.
+```
+
+The dashboard's Diagnostics strip is the operator's "is it on?"
+indicator: a green `active` pill on Storage mode means the driver
+connected at least once for the current request, and a populated
+"Last event" timestamp confirms inserts are landing in
+`analytics_events`.
+
 ## Limitations
 
 - Visitor counts depend on consent. Without granted consent, only

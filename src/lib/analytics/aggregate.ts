@@ -193,6 +193,27 @@ export async function getContactCtaBreakdown(): Promise<CountRow[]> {
   }
 }
 
+/**
+ * Returns the wall-clock timestamp of the most recent event in
+ * `analytics_events`, or `null` if the database is unconfigured /
+ * empty. Used by the admin diagnostics block to surface "events are
+ * actually arriving" without dumping any per-event detail.
+ */
+export async function getLastEventAt(): Promise<string | null> {
+  const sql = await getAnalyticsDb();
+  if (!sql) return null;
+  try {
+    const [row] = await sql<{ created_at: Date | null }[]>`
+      SELECT MAX(created_at) AS created_at FROM analytics_events
+    `;
+    if (!row || !row.created_at) return null;
+    return row.created_at.toISOString();
+  } catch (err) {
+    console.error("[analytics] getLastEventAt failed", err);
+    return null;
+  }
+}
+
 export async function getRecentEvents(limit = 50): Promise<RecentEventRow[]> {
   const sql = await getAnalyticsDb();
   if (!sql) return [];
