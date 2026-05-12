@@ -1,18 +1,9 @@
+import { formatIstanbulDateTime } from "@/lib/analytics/format";
+
 type Props = {
   databaseConfigured: boolean;
   saltConfigured: boolean;
   lastEventAt: string | null;
-};
-
-const formatTimestamp = (iso: string): string => {
-  try {
-    return new Date(iso).toLocaleString("tr-TR", {
-      dateStyle: "medium",
-      timeStyle: "medium",
-    });
-  } catch {
-    return iso;
-  }
 };
 
 const Pill = ({ ok, label }: { ok: boolean; label: string }) => (
@@ -91,7 +82,7 @@ export function StatusBlock({ databaseConfigured, saltConfigured, lastEventAt }:
             Last event
           </dt>
           <dd className="mt-1.5 text-tunera-ink tabular-nums">
-            {lastEventAt ? formatTimestamp(lastEventAt) : "—"}
+            {formatIstanbulDateTime(lastEventAt)}
           </dd>
         </div>
       </dl>

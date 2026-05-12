@@ -1,15 +1,8 @@
+import { formatIstanbulDateTime } from "@/lib/analytics/format";
 import type { RecentEventRow } from "@/lib/analytics/types";
 
 type Props = {
   rows: RecentEventRow[];
-};
-
-const formatTime = (iso: string): string => {
-  try {
-    return new Date(iso).toLocaleString("tr-TR", { dateStyle: "short", timeStyle: "medium" });
-  } catch {
-    return iso;
-  }
 };
 
 /**
@@ -72,7 +65,7 @@ export function RecentEventsTable({ rows }: Props) {
             {rows.map((r, i) => (
               <tr key={`${r.createdAt}-${i}`} className="border-t border-tunera-stone/30 align-top">
                 <td className="whitespace-nowrap px-5 py-3 tabular-nums text-tunera-muted-ink">
-                  {formatTime(r.createdAt)}
+                  {formatIstanbulDateTime(r.createdAt)}
                 </td>
                 <td className="px-5 py-3 text-tunera-ink">{r.eventName}</td>
                 <td className="max-w-[220px] truncate px-5 py-3 text-tunera-ink" title={r.path}>

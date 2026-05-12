@@ -1,5 +1,17 @@
 import type { DailySeriesPoint } from "@/lib/analytics/types";
 
+/**
+ * Reformats a `YYYY-MM-DD` bucket key into Turkish-order `DD.MM` for
+ * the x-axis label. The bucket boundary itself is computed
+ * server-side in `getDailyTimeSeries` (via `DATE(created_at)` on the
+ * Postgres host's local time, which is UTC on Vercel) — that
+ * boundary is not reinterpreted here. Only the label text changes.
+ */
+const formatDayLabel = (yyyyMmDd: string): string => {
+  if (typeof yyyyMmDd !== "string" || yyyyMmDd.length < 10) return yyyyMmDd;
+  return `${yyyyMmDd.slice(8, 10)}.${yyyyMmDd.slice(5, 7)}`;
+};
+
 type Props = {
   data: DailySeriesPoint[];
   emptyLabel: string;
@@ -119,7 +131,7 @@ export function TimeSeriesChart({ data, emptyLabel }: Props) {
               textAnchor="middle"
               fontFamily="ui-sans-serif"
             >
-              {d.day.slice(5)}
+              {formatDayLabel(d.day)}
             </text>
           );
         })}
