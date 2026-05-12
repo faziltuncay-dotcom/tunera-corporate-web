@@ -23,8 +23,9 @@ const TOKEN_FOR: Record<RangeDays, string> = { 7: "7d", 30: "30d", 90: "90d" };
  * still renders a usable dashboard with the default option lit.
  */
 export function RangePicker({ current }: Props) {
+  const exportToken = TOKEN_FOR[current];
   return (
-    <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.2em]">
+    <div className="flex flex-wrap items-center gap-2 text-[11px] uppercase tracking-[0.2em]">
       <span className="text-tunera-muted-ink">Range</span>
       {VALID_RANGE_DAYS.map((days) => {
         const token = TOKEN_FOR[days];
@@ -45,6 +46,13 @@ export function RangePicker({ current }: Props) {
           </Link>
         );
       })}
+      <a
+        href={`/admin/analytics/export?range=${exportToken}`}
+        className="rounded-sm border border-tunera-ink/15 px-3 py-1 text-tunera-ink/70 transition-colors hover:border-tunera-orange hover:text-tunera-orange"
+        title="Download a CSV of the dashboard's aggregate read-outs for the selected range"
+      >
+        CSV
+      </a>
     </div>
   );
 }

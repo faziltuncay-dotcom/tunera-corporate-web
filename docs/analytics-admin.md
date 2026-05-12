@@ -270,7 +270,66 @@ anything else, so a hand-typed `?range=garbage` cannot trigger an
 unbounded scan. Every aggregate helper accepts the resolved value;
 the picker control on the dashboard regenerates the URL.
 
-### Phase 2 limitations
+### Reading the dashboard (Phase 2.1 polish)
+
+- **Engagement** — `Section views` and `Scroll depth` only fill in
+  for visitors who **accepted** analytics preferences. If both
+  panels read empty, the most likely cause is "no consent yet",
+  not "low traffic". Reaching `100% reached` on a long page is
+  rare and not a failure signal on shorter pages.
+- **Brand interest** — three honest counts per brand: how many
+  visitors saw the brand-cards section, how many clicked into a
+  card, how many continued to a brand site. Section views are
+  shared across the cards on the page — per-card impressions
+  remain deferred — so **no conversion percentage is shown**.
+  Read the three numbers on their own.
+- **Contact intent** — public pages from which a contact CTA
+  (email or map) was clicked. Phone and WhatsApp event names are
+  reserved but unwired today; they only appear here once the
+  matching CTA ships.
+- **Top journeys** — aggregated path sequences inside consented
+  sessions. **Single-visitor walks are never shown**; a sequence
+  must be followed by at least two consented visitors before it
+  appears. Per-visitor consecutive same-path views collapse. No
+  raw session id leaves Postgres; no per-visitor timeline is
+  built.
+- **Sales signals** — directional indicators only. **Signals,
+  not leads.** No CRM row is created, no probability is computed,
+  no revenue is estimated. A low-data disclaimer fires below the
+  cards when CTA volume is below the documented threshold (5
+  events / sequences) so the rankings are read as direction, not
+  evidence.
+- **Low data** — for any panel showing a derived ranking, the
+  threshold is `LOW_DATA_THRESHOLD = 5` (see
+  `src/lib/analytics/labels.ts`). Below that, the panel adds a
+  small disclaimer rather than implying confidence.
+
+### CSV export
+
+A protected admin-only export endpoint sits behind the same Basic
+Auth gate as the dashboard:
+
+```
+GET /admin/analytics/export?range=7d|30d|90d
+```
+
+It returns a single multi-section UTF-8 CSV file via
+`Content-Disposition: attachment` containing the same aggregate
+read-outs the dashboard renders (overview, daily series, top
+pages / referrers / devices / countries, brand redirects, contact
+CTAs, section views, scroll depth, brand funnel, contact intent
+by source, top consented journeys, sales signals). Each section is
+prefixed with a `# section: <name>` comment row.
+
+What is **not** in the file:
+
+- raw `visitor_id_hash` or `session_id_hash` values
+- raw IP, geo coordinates, or any PII
+- per-event metadata blobs
+- any row from `/admin`, `/api`, `/_next`, `/favicon.ico`,
+  `/robots.txt`, `/sitemap.xml` (filtered at the aggregate layer)
+
+### Phase 2.1 limitations
 
 - Journey aggregation only works for consented sessions. Visitors
   who declined the analytics consent contribute to the public

@@ -19,6 +19,7 @@ import {
   getTopPages,
   getTopReferrers,
 } from "@/lib/analytics/aggregate";
+import { eventLabel, pathLabel, scrollDepthLabel, sectionLabel } from "@/lib/analytics/labels";
 import { isAnalyticsConfigured, isAnalyticsSaltConfigured } from "@/lib/analytics/server";
 import { BrandFunnel } from "./_components/BrandFunnel";
 import { CountList } from "./_components/CountList";
@@ -38,16 +39,18 @@ import { TimeSeriesChart } from "./_components/TimeSeriesChart";
  * `?range=7d|30d|90d` (default 30d), which threads through every
  * aggregate helper so all cards / charts agree on the same window.
  *
- * Phase 2 added five additional surfaces below the original
- * overview + recent-events strip:
- *
- *   - Engagement: section views, scroll-depth distribution.
- *   - Brand interest: brand funnel rollup per brand.
- *   - Contact intent: top pages CTAs originate from.
- *   - Top consented journeys: aggregated path sequences (visitor
- *     ids stay in Postgres; only counts surface).
- *   - Sales signals: a five-row "where is the most signal coming
- *     from?" digest with explicit counts and no fake conversion.
+ * Phase 2.1 polish (this commit):
+ *   - Path / section / event names are humanised everywhere via
+ *     `labels.ts`; raw values stay accessible in small secondary
+ *     text where it helps debugging.
+ *   - Each Phase-2 surface ships a one-line helper paragraph that
+ *     names the consent dependency and tells the operator how to
+ *     read the panel honestly.
+ *   - The diagnostics strip is now a two-row "Data quality" panel
+ *     with range-aware presence flags (section / scroll / journey /
+ *     consented data).
+ *   - Sales signals call themselves signals, not leads, and a
+ *     low-data disclaimer fires below `LOW_DATA_THRESHOLD` events.
  *
  * When the database is not configured the page renders the same
  * shell with an honest "analytics storage not configured" banner —
@@ -70,6 +73,18 @@ const RANGE_LABEL: Record<7 | 30 | 90, string> = {
   30: "Last 30 days",
   90: "Last 90 days",
 };
+
+const Helper = ({ children }: { children: React.ReactNode }) => (
+  <p className="-mt-2 mb-4 max-w-3xl text-[12px] leading-relaxed text-tunera-muted-ink">
+    {children}
+  </p>
+);
+
+const SectionHeading = ({ children }: { children: React.ReactNode }) => (
+  <h2 className="mb-3 text-[11px] font-medium uppercase tracking-[0.28em] text-tunera-orange">
+    {children}
+  </h2>
+);
 
 export default async function AnalyticsAdminPage({ searchParams }: Props) {
   const rangeParam = searchParams?.range;
@@ -117,6 +132,33 @@ export default async function AnalyticsAdminPage({ searchParams }: Props) {
     getSalesSignals(rangeDays),
   ]);
 
+  // Display normalisations — labels stay display-only; raw values
+  // remain in the database untouched.
+  const lowerRange = rangeLabel.toLowerCase();
+  const topPagesDisplay = topPages.map((r) => ({ label: pathLabel(r.label), count: r.count }));
+  const contactIntentDisplay = contactIntent.map((r) => ({
+    label: pathLabel(r.label),
+    count: r.count,
+  }));
+  const sectionViewsDisplay = sectionViews.map((s) => ({
+    label: sectionLabel(s.section),
+    count: s.count,
+  }));
+  const scrollDepthDisplay = scrollDepth.map((r) => ({
+    label: scrollDepthLabel(r.label.replace(/%$/, "")),
+    count: r.count,
+  }));
+  const contactCtaDisplay = contactCta.map((r) => ({
+    label: eventLabel(r.label),
+    count: r.count,
+  }));
+
+  // Range-aware data-quality flags for the StatusBlock.
+  const hasSectionData = sectionViews.length > 0;
+  const hasScrollData = scrollDepth.length > 0;
+  const hasJourneyData = journeys.length > 0;
+  const hasConsentedVisitors = summary.visitorsInRange > 0;
+
   return (
     <main className="min-h-screen bg-tunera-ivory px-4 py-10 text-tunera-ink sm:px-8 sm:py-12">
       <div className="mx-auto max-w-6xl">
@@ -135,7 +177,7 @@ export default async function AnalyticsAdminPage({ searchParams }: Props) {
               <code className="mx-1 rounded-sm bg-tunera-sand/60 px-1 py-0.5 text-[12px] text-tunera-ink">
                 /api/analytics/event
               </code>
-              — no third-party SDK and no raw IP storage.
+              — no third-party SDK, no raw IP storage, no individual visitor identification.
             </p>
             <RangePicker current={rangeDays} />
           </div>
@@ -148,133 +190,161 @@ export default async function AnalyticsAdminPage({ searchParams }: Props) {
           ) : null}
         </header>
 
-        <section className="mb-6">
+        <section className="mb-8">
           <StatusBlock
             databaseConfigured={configured}
             saltConfigured={saltConfigured}
             lastEventAt={lastEventAt}
+            rangeLabel={rangeLabel}
+            hasSectionData={hasSectionData}
+            hasScrollData={hasScrollData}
+            hasJourneyData={hasJourneyData}
+            hasConsentedVisitors={hasConsentedVisitors}
           />
         </section>
 
+        <SectionHeading>Overview</SectionHeading>
+        <Helper>
+          Today is the calendar day in the server&apos;s timezone. Range counts cover the
+          {` ${lowerRange}`}. Visitor counts only include sessions that accepted analytics
+          preferences; page-view counts include every visitor.
+        </Helper>
         <section
           aria-label="Overview metrics"
           className="grid grid-cols-2 gap-4 sm:gap-5 md:grid-cols-3 lg:grid-cols-6"
         >
           <MetricCard label="Page views today" value={summary.pageViewsToday} />
           <MetricCard label="Visitors today" value={summary.visitorsToday} hint="consented" />
+          <MetricCard label={`Page views ${lowerRange}`} value={summary.pageViewsInRange} />
           <MetricCard
-            label={`Page views ${rangeLabel.toLowerCase()}`}
-            value={summary.pageViewsInRange}
-          />
-          <MetricCard
-            label={`Visitors ${rangeLabel.toLowerCase()}`}
+            label={`Visitors ${lowerRange}`}
             value={summary.visitorsInRange}
             hint="consented"
           />
           <MetricCard
-            label={`Brand redirects ${rangeLabel.toLowerCase()}`}
+            label={`Brand redirects ${lowerRange}`}
             value={summary.brandRedirectsInRange}
           />
-          <MetricCard
-            label={`Contact CTAs ${rangeLabel.toLowerCase()}`}
-            value={summary.contactCtaInRange}
-          />
+          <MetricCard label={`Contact CTAs ${lowerRange}`} value={summary.contactCtaInRange} />
         </section>
 
         <section className="mt-8">
           <TimeSeriesChart
             data={series}
-            emptyLabel={`No daily activity recorded in the ${rangeLabel.toLowerCase()}.`}
+            emptyLabel={`No daily activity recorded in the ${lowerRange}.`}
           />
         </section>
 
         <section className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
           <CountList
-            title={`Top pages (${rangeLabel.toLowerCase()})`}
-            rows={topPages}
+            title={`Top pages (${lowerRange})`}
+            rows={topPagesDisplay}
             emptyLabel="No page views yet."
           />
           <CountList
-            title={`Top referrers (${rangeLabel.toLowerCase()})`}
+            title={`Top referrers (${lowerRange})`}
             rows={topReferrers}
             emptyLabel="No referrers yet."
           />
           <CountList
-            title={`Devices (${rangeLabel.toLowerCase()})`}
+            title={`Devices (${lowerRange})`}
             rows={devices}
             emptyLabel="No device data yet."
           />
           <CountList
-            title={`Countries (${rangeLabel.toLowerCase()})`}
+            title={`Countries (${lowerRange})`}
             rows={countries}
             emptyLabel="No country data yet."
           />
           <CountList
-            title={`Brand redirects (${rangeLabel.toLowerCase()})`}
+            title={`Brand redirects (${lowerRange})`}
             rows={brandRedirects}
             emptyLabel="No brand redirect clicks yet."
           />
           <CountList
-            title={`Contact CTAs (${rangeLabel.toLowerCase()})`}
-            rows={contactCta}
+            title={`Contact CTAs (${lowerRange})`}
+            rows={contactCtaDisplay}
             emptyLabel="No contact CTA clicks yet."
           />
         </section>
 
-        <section className="mt-10">
-          <h2 className="mb-4 text-[11px] font-medium uppercase tracking-[0.28em] text-tunera-orange">
-            Engagement
-          </h2>
+        <section className="mt-12">
+          <SectionHeading>Engagement</SectionHeading>
+          <Helper>
+            Section views and scroll-depth milestones are{" "}
+            <strong>only collected from visitors who accepted analytics preferences</strong>. If
+            both panels are empty, the most likely cause is no consent yet — not low traffic.
+            Reaching 100% scroll on a long page is rare and should not be read as failure on shorter
+            pages.
+          </Helper>
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
             <CountList
               title="Section views"
-              rows={sectionViews.map((s) => ({ label: s.label, count: s.count }))}
+              rows={sectionViewsDisplay}
               emptyLabel="No section_view events yet (consent required)."
             />
             <CountList
               title="Scroll depth"
-              rows={scrollDepth}
+              rows={scrollDepthDisplay}
               emptyLabel="No scroll_depth events yet (consent required)."
             />
           </div>
         </section>
 
-        <section className="mt-10">
-          <h2 className="mb-4 text-[11px] font-medium uppercase tracking-[0.28em] text-tunera-orange">
-            Brand interest
-          </h2>
+        <section className="mt-12">
+          <SectionHeading>Brand interest</SectionHeading>
+          <Helper>
+            Three honest counts per brand: how many visitors saw the brand-cards section, how many
+            clicked into a card, and how many continued to a brand site redirect. Section views are
+            shared across the cards on the page; per-card impressions are deferred — that is why no
+            conversion percentage is shown.
+          </Helper>
           <BrandFunnel rows={brandFunnel} emptyLabel="No brand events yet." />
         </section>
 
-        <section className="mt-10">
-          <h2 className="mb-4 text-[11px] font-medium uppercase tracking-[0.28em] text-tunera-orange">
-            Contact intent
-          </h2>
+        <section className="mt-12">
+          <SectionHeading>Contact intent</SectionHeading>
+          <Helper>
+            Public pages from which a contact CTA (email or map) was clicked. Phone and WhatsApp
+            CTAs are reserved event names but not yet wired to a UI surface, so they would only
+            appear here once those CTAs ship.
+          </Helper>
           <CountList
             title="Top pages where contact CTAs originated"
-            rows={contactIntent}
+            rows={contactIntentDisplay}
             emptyLabel="No contact CTAs yet."
           />
         </section>
 
-        <section className="mt-10">
-          <h2 className="mb-4 text-[11px] font-medium uppercase tracking-[0.28em] text-tunera-orange">
-            Journey
-          </h2>
-          <JourneyList
-            rows={journeys}
-            emptyLabel="Not enough consented journey data yet. Sequences shorter than two visitors are not shown."
-          />
+        <section className="mt-12">
+          <SectionHeading>Top journeys</SectionHeading>
+          <Helper>
+            Aggregated visitor path sequences. Requires accepted analytics preferences. A sequence
+            must be followed by at least two consented visitors before it appears here, so an empty
+            list usually means &quot;not enough repeated journeys yet&quot; rather than &quot;no
+            journeys at all&quot;.
+          </Helper>
+          <JourneyList rows={journeys} emptyLabel="No repeated consented journey pattern yet." />
         </section>
 
-        <section className="mt-10">
-          <h2 className="mb-4 text-[11px] font-medium uppercase tracking-[0.28em] text-tunera-orange">
-            Signals
-          </h2>
+        <section className="mt-12">
+          <SectionHeading>Sales signals</SectionHeading>
+          <Helper>
+            Directional indicators only — these are <strong>signals, not leads</strong>. No CRM row
+            is created, no probability is computed, no revenue is estimated. A low-data disclaimer
+            appears below the cards when the underlying CTA volume is too small to read
+            meaningfully.
+          </Helper>
           <SignalsPanel signals={signals} emptyLabel="No CTA activity yet in this range." />
         </section>
 
-        <section className="mt-10">
+        <section className="mt-12">
+          <SectionHeading>Recent events</SectionHeading>
+          <Helper>
+            Latest 50 events across the public site, with internal admin / API / framework rows
+            already filtered out. Path and event-name columns show humanised labels with the raw
+            value underneath.
+          </Helper>
           <RecentEventsTable rows={recentEvents} />
         </section>
 

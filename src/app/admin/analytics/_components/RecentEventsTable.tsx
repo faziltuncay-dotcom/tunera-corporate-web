@@ -1,4 +1,5 @@
 import { formatIstanbulDateTime } from "@/lib/analytics/format";
+import { eventLabel, pathLabel } from "@/lib/analytics/labels";
 import type { RecentEventRow } from "@/lib/analytics/types";
 
 type Props = {
@@ -67,9 +68,12 @@ export function RecentEventsTable({ rows }: Props) {
                 <td className="whitespace-nowrap px-5 py-3 tabular-nums text-tunera-muted-ink">
                   {formatIstanbulDateTime(r.createdAt)}
                 </td>
-                <td className="px-5 py-3 text-tunera-ink">{r.eventName}</td>
-                <td className="max-w-[220px] truncate px-5 py-3 text-tunera-ink" title={r.path}>
-                  {r.path}
+                <td className="px-5 py-3 text-tunera-ink">
+                  <span title={r.eventName}>{eventLabel(r.eventName)}</span>
+                </td>
+                <td className="max-w-[260px] px-5 py-3 text-tunera-ink" title={r.path}>
+                  <div className="truncate">{pathLabel(r.path)}</div>
+                  <div className="truncate text-[11px] text-tunera-muted-ink">{r.path}</div>
                 </td>
                 <td className="px-5 py-3 text-tunera-muted-ink">{r.locale ?? "—"}</td>
                 <td className="px-5 py-3 text-tunera-muted-ink">{r.country ?? "—"}</td>
