@@ -42,3 +42,11 @@ yarn-error.log*
 
 # Local brand-input drop zone (source PDFs are committed in brand/source/tunera/)
 brand-input/
+
+# Promo video pipeline — intermediate website screenshots are
+# regenerated on demand by `pnpm capture` (see tools/promo-video).
+# The final mp4/png deliverables under public/generated/promo/ ARE
+# committed because they are end-state artefacts the brand team
+# consumes; only the captures folder is recomputable from the live
+# dev server and stays out of git.
+public/generated/promo-captures/

@@ -10,7 +10,10 @@
     "typecheck": "tsc --noEmit",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test": "node --test --test-reporter=spec tests"
+    "test": "node --test --test-reporter=spec tests",
+    "promo:capture": "pnpm --dir tools/promo-video --ignore-workspace run capture",
+    "promo:render": "pnpm --dir tools/promo-video --ignore-workspace run render",
+    "promo:video": "pnpm promo:capture && pnpm promo:render"
   },
   "dependencies": {
     "next": "14.2.35",

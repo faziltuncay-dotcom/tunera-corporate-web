@@ -1,0 +1,27 @@
+{
+  "name": "tunera-promo-video",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Render pipeline for the Tunera Denizcilik website launch promo video (Instagram Reels + Story).",
+  "scripts": {
+    "capture": "node scripts/capture.mjs",
+    "render:main": "remotion render src/index.ts ReelsMain ../../public/generated/promo/tunera-website-launch-reels.mp4 --concurrency=4 --log=verbose",
+    "render:story": "remotion render src/index.ts ReelsStory ../../public/generated/promo/tunera-website-launch-story.mp4 --concurrency=4",
+    "render:cover": "remotion still src/index.ts CoverStill ../../public/generated/promo/tunera-website-launch-cover.png --frame=45",
+    "render": "pnpm run render:cover && pnpm run render:story && pnpm run render:main"
+  },
+  "dependencies": {
+    "@remotion/bundler": "4.0.460",
+    "@remotion/cli": "4.0.460",
+    "@remotion/renderer": "4.0.460",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "remotion": "4.0.460"
+  },
+  "devDependencies": {
+    "@types/node": "20.14.10",
+    "@types/react": "18.3.3",
+    "playwright": "1.48.2",
+    "typescript": "5.5.4"
+  }
+}

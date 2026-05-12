@@ -1,0 +1,9 @@
+node_modules
+.next
+out
+dist
+*.tsbuildinfo
+.DS_Store
+
+# Local artifact left behind by pre-fix renders.
+captures/
