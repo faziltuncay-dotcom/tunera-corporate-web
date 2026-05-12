@@ -7,6 +7,7 @@ import { Section } from "@/components/Section";
 import { ContactMaps } from "@/components/ContactMaps";
 import { SmoothAnchorNav } from "@/components/SmoothAnchorNav";
 import { contact, copy, type Locale } from "@/content/site";
+import { TrackedAnchor } from "@/components/analytics/TrackedLink";
 
 type Props = {
   locale: Locale;
@@ -69,12 +70,14 @@ export function ContactPage({ locale }: Props) {
                   {c.fieldEmail}
                 </dt>
                 <dd className="mt-2 text-base">
-                  <a
+                  <TrackedAnchor
                     href={`mailto:${contact.email}`}
                     className="-mx-1 inline-block rounded-sm px-1 py-1.5 text-tunera-ink underline-offset-4 transition-colors hover:text-tunera-orange hover:underline"
+                    trackEvent="contact_email_click"
+                    trackMetadata={{ surface: "contact_page" }}
                   >
                     {contact.email}
-                  </a>
+                  </TrackedAnchor>
                 </dd>
               </div>
             </dl>

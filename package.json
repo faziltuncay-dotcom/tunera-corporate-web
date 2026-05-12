@@ -9,10 +9,12 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "test": "node --test --test-reporter=spec tests"
   },
   "dependencies": {
     "next": "14.2.35",
+    "postgres": "3.4.4",
     "react": "18.3.1",
     "react-dom": "18.3.1"
   },

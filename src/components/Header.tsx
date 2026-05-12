@@ -3,6 +3,7 @@ import Link from "next/link";
 import { anchors, copy, type Locale } from "@/content/site";
 import { HeaderProgress } from "@/components/HeaderProgress";
 import { MobileMenu } from "@/components/MobileMenu";
+import { TrackedLink } from "@/components/analytics/TrackedLink";
 
 /**
  * NavSegment is kept for callers that still pass a `current` prop, but
@@ -74,13 +75,15 @@ export function Header({ locale }: Props) {
               </li>
             ))}
           </ul>
-          <Link
+          <TrackedLink
             href={t.nav.languageSwitchHref}
             aria-label={t.nav.languageSwitchAria}
             className="rounded-sm border border-tunera-ink/15 px-3 py-1 text-xs tracking-widest text-tunera-ink/80 transition-colors hover:border-tunera-orange hover:text-tunera-orange"
+            trackEvent="language_switch"
+            trackMetadata={{ from: locale, to: locale === "tr" ? "en" : "tr" }}
           >
             {t.nav.languageSwitch}
-          </Link>
+          </TrackedLink>
         </nav>
         <MobileMenu
           links={links.map((l) => ({ href: l.href, label: l.label }))}

@@ -1,4 +1,5 @@
 import { contact, copy, type Locale } from "@/content/site";
+import { TrackedAnchor } from "@/components/analytics/TrackedLink";
 
 type Props = {
   locale: Locale;
@@ -79,15 +80,17 @@ export function ContactMaps({ locale }: Props) {
                   <span className="block">{o.line1}</span>
                   <span className="mt-0.5 block text-tunera-muted-ink">{o.line2}</span>
                 </div>
-                <a
+                <TrackedAnchor
                   href={openUrl}
                   target="_blank"
                   rel="noreferrer noopener"
                   className="-mx-1 inline-flex items-center gap-2 rounded-sm px-1 py-2 text-sm font-medium text-tunera-ink transition-colors hover:text-tunera-orange"
+                  trackEvent="contact_map_click"
+                  trackMetadata={{ office: o.label }}
                 >
                   <span>{c.mapsOpenInGoogle}</span>
                   <span aria-hidden>↗</span>
-                </a>
+                </TrackedAnchor>
               </div>
             </article>
           );

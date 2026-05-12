@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { anchors, contact, copy, type Locale } from "@/content/site";
 import { FooterReveal } from "@/components/FooterReveal";
+import { TrackedAnchor } from "@/components/analytics/TrackedLink";
 
 type Props = {
   locale: Locale;
@@ -137,12 +138,14 @@ export function Footer({ locale }: Props) {
                     {t.contactSection.fieldEmail}
                   </dt>
                   <dd className="mt-1.5">
-                    <a
+                    <TrackedAnchor
                       href={`mailto:${contact.email}`}
                       className="-mx-1 inline-block rounded-sm px-1 py-1.5 text-tunera-ivory underline-offset-4 transition-colors hover:text-tunera-orange hover:underline"
+                      trackEvent="contact_email_click"
+                      trackMetadata={{ surface: "footer" }}
                     >
                       {contact.email}
-                    </a>
+                    </TrackedAnchor>
                   </dd>
                 </div>
                 {offices.map((o) => (

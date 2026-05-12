@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { copy, type Locale } from "@/content/site";
+import { TrackedLink } from "@/components/analytics/TrackedLink";
 
 type Props = {
   locale: Locale;
@@ -56,11 +56,13 @@ export function BrandCard({ locale, id, name, status, href, external, isProducti
       <p className="mt-5 text-sm leading-relaxed text-tunera-muted-ink sm:text-[15px]">{note}</p>
       <div className="mt-auto flex flex-wrap items-center gap-3 pt-8">
         {siteLive ? (
-          <Link
+          <TrackedLink
             href={href}
             target={external ? "_blank" : undefined}
             rel={external ? "noreferrer noopener" : undefined}
             className="-mx-1 inline-flex items-center gap-2 rounded-sm px-1 py-2 text-sm font-medium text-tunera-ink transition-colors hover:text-tunera-orange"
+            trackEvent={external ? "brand_redirect_click" : "brand_card_click"}
+            trackMetadata={{ brand: id, external }}
           >
             <span>{t.brandsSection.visit}</span>
             <span
@@ -69,7 +71,7 @@ export function BrandCard({ locale, id, name, status, href, external, isProducti
             >
               →
             </span>
-          </Link>
+          </TrackedLink>
         ) : (
           <span
             aria-disabled="true"
