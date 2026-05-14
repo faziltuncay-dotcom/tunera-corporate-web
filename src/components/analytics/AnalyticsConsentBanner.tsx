@@ -25,7 +25,7 @@ type Copy = {
 const COPY: Record<Locale, Copy> = {
   tr: {
     title: "Çerez ve Kişisel Veri Tercihleri",
-    body: "Sitenin kullanımını anlamak için anonimleştirilmiş veya toplulaştırılmış ölçüm verileri toplayabiliriz. Site, tercihinizden bağımsız olarak çalışmaya devam eder.",
+    body: "Zorunlu çerezler siteyi güvenli ve düzgün çalıştırır. Onay verirseniz ziyaret ve tıklama verilerini anonimleştirilmiş veya toplulaştırılmış şekilde ölçeriz.",
     acceptAll: "Tümünü kabul et",
     necessaryOnly: "Sadece zorunlu olanlar",
     manage: "Tercihleri yönet",
@@ -33,16 +33,16 @@ const COPY: Record<Locale, Copy> = {
     back: "Geri",
     necessaryTitle: "Zorunlu Çerezler",
     necessaryBody:
-      "Sayfa gezintisi, tercih hatırlama ve site güvenliği gibi temel işlevler için gereklidir. Devre dışı bırakılamaz.",
+      "Sitenin çalışması, güvenliği ve tercihlerin hatırlanması için gereklidir. Her zaman aktiftir.",
     necessaryPill: "Her zaman aktif",
     analyticsTitle: "Analitik ve Performans",
     analyticsBody:
-      "Hangi sayfaların ziyaret edildiğini anlamak için anonimleştirilmiş veya toplulaştırılmış ölçüm verileri toplanır. Reklam, pazarlama veya satış takibi yapılmaz.",
+      "Ziyaretleri, sayfa görüntülemelerini ve önemli tıklamaları ölçerek siteyi geliştirmemize yardımcı olur.",
     analyticsToggleAria: "Analitik ve Performans tercihini değiştir",
   },
   en: {
     title: "Cookie and Personal Data Preferences",
-    body: "We may collect anonymized or aggregated measurement data to understand how the site is used. The site keeps working regardless of your choice.",
+    body: "Necessary cookies keep the site secure and working properly. With your permission, we measure visits and clicks using anonymized or aggregated data.",
     acceptAll: "Accept all",
     necessaryOnly: "Necessary only",
     manage: "Manage preferences",
@@ -50,11 +50,11 @@ const COPY: Record<Locale, Copy> = {
     back: "Back",
     necessaryTitle: "Necessary Cookies",
     necessaryBody:
-      "Required for basic functions such as navigation, preference recall, and site security. Cannot be disabled.",
+      "Required for site operation, security, and remembering preferences. Always active.",
     necessaryPill: "Always active",
     analyticsTitle: "Analytics and Performance",
     analyticsBody:
-      "Anonymized or aggregated measurement data so we can understand which pages are visited. No advertising, marketing, or sales tracking.",
+      "Helps us improve the site by measuring visits, page views, and important clicks.",
     analyticsToggleAria: "Toggle Analytics and Performance",
   },
 };
