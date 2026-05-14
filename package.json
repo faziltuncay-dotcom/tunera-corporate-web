@@ -11,6 +11,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "node --test --test-reporter=spec tests",
+    "seo:smoke": "node scripts/seo-smoke.mjs",
     "promo:capture": "pnpm --dir tools/promo-video --ignore-workspace run capture",
     "promo:render": "pnpm --dir tools/promo-video --ignore-workspace run render",
     "promo:video": "pnpm promo:capture && pnpm promo:render"
