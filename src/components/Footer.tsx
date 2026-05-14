@@ -211,10 +211,10 @@ export function Footer({ locale }: Props) {
                   aria-label="Granfort"
                 >
                   <Image
-                    src="/assets/brand/granfort/granfort-logo-color.png"
+                    src="/assets/brand/granfort/granfort-logo-master.png"
                     alt="Granfort"
-                    width={2767}
-                    height={771}
+                    width={2000}
+                    height={557}
                     sizes="120px"
                     className="h-6 w-auto"
                   />

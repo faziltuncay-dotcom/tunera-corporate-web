@@ -21,13 +21,17 @@ type Props = {
 /**
  * Brand asset map for the brand cards.
  *
- * Files live in `public/assets/brand/{id}/`. Both entries point at
- * the colour PNG masters — the Granfort SVG variants in the same
- * folder carry an explicit `PLACEHOLDER — NOT the official
- * Granfort logo` header in their XML, so we use the colour PNG
- * which is the actual owner-provided master. A future asset pass
- * with real Granfort SVGs (or a Ranieri SVG) only needs to update
- * the path here; the call site does not change.
+ * Granfort points at `granfort-logo-master.png`, the only Granfort
+ * artwork actually shipped in `public/assets/brand/granfort/`. It
+ * was rendered straight from `brand/source/granfort/granfort-master.pdf`
+ * (the owner-supplied vector master); every previous "color" /
+ * "white" / "horizontal" / "emblem" variant in that folder was a
+ * token-shape placeholder and is no longer in the repo — see
+ * `brand/source/granfort/README.md` for the cleanup history.
+ *
+ * Ranieri points at the colour PNG derivative documented in
+ * `brand/source/ranieri/README.md`. A future asset pass with a
+ * vector Ranieri master would only need to update the `src` here.
  *
  * Intrinsic widths and heights mirror the source files exactly so
  * Next/Image can reserve the box without layout shift on hydration.
@@ -37,9 +41,9 @@ const BRAND_LOGOS: Record<
   { src: string; width: number; height: number; sizes: string } | undefined
 > = {
   granfort: {
-    src: "/assets/brand/granfort/granfort-logo-color.png",
-    width: 2767,
-    height: 771,
+    src: "/assets/brand/granfort/granfort-logo-master.png",
+    width: 2000,
+    height: 557,
     sizes: "(min-width: 640px) 200px, 170px",
   },
   ranieri: {

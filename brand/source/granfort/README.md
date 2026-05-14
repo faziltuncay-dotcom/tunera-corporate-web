@@ -14,34 +14,43 @@ authoritative source. Public-shipped derivatives in
 
 ## Public derivatives
 
-`public/assets/brand/granfort/` ships:
+`public/assets/brand/granfort/` ships exactly one file today:
 
-- `granfort-logo-color.{svg,png}` — stacked Ink Deep `#001F49`,
-  matches Tunera card-grid proportion (≈ 3.6 : 1).
-- `granfort-logo-white.{svg,png}` — stacked pure white reverse,
-  for use on Ink Deep / dark surfaces.
-- `granfort-logo-black.{svg,png}` — stacked Ink Deep, alias of
-  color (kept for naming-convention parity with `tunera-*`).
-- `granfort-logo-light.svg` — stacked Off-White `#F7F5F0` for
-  warm dark surfaces.
-- `granfort-emblem.{svg,png}` — emblem only, for compact /
-  watermark / favicon use.
-- `granfort-emblem-on-ink.svg` — Off-White emblem on Ink Deep
-  tile (PWA / app-icon look).
-- `granfort-wordmark.svg` — wordmark only.
-- `granfort-logo-horizontal-{color,white,black,light}.{svg,png}` —
-  alternative ≈ 12 : 1 horizontal lockup (emblem-left + wordmark).
-  Useful for full-width banners; too wide for the brand card grid.
+- `granfort-logo-master.png` — `2000 × 557 RGBA`, transparent
+  background, rendered directly from `granfort-master.pdf` via
+  `qlmanage -t -s 2000 -o … granfort-master.pdf`. This is the
+  authoritative stacked emblem-over-wordmark lockup in pure black
+  on transparent (matching what the master PDF contains). The
+  Tunera corporate site uses it on the brand card and in the
+  footer brand row.
 
-## Notes
+A previous round of "public derivatives" (`granfort-logo-{color,
+white,black,light,horizontal-*,wordmark,emblem,emblem-on-ink}`)
+was removed because every one of those files carried an explicit
+`PLACEHOLDER — see apps/web/public/brand/LOGO_ASSETS_TODO.md`
+header in the SVG XML and was not produced from this master PDF.
+They were token shapes, not brand artwork — using them as final
+art would have shipped a wrong logo.
 
-- The horizontal lockup files were derived from the stacked master
-  by repositioning the original emblem and wordmark vector paths
-  side-by-side. **No glyph was redrawn** — only an `M`/`L`/`C`
-  translation transform was applied. If brand standards require a
-  specific horizontal proportion (emblem-to-wordmark size ratio,
-  baseline alignment, gap), supply a horizontal-master PDF and the
-  derivatives can be regenerated as a pure asset swap.
-- Color palette tokens: Ink Deep `#001F49`, Off-White `#F7F5F0`,
-  Coral `#EF7051` — all sourced from
-  `granfort-web-app/packages/brand-tokens/tokens.json`.
+## Outstanding — needs brand action
+
+These variants are **deferred** until either (a) the brand team
+supplies vector masters with proper colour swaps, or (b) someone
+runs an Adobe Illustrator colour-swap pass on the master and
+re-exports:
+
+- White-on-dark variant for use on the Ink Deep / dark footer.
+  The current footer renders the master inside a small
+  `bg-white/95` chip so the black-on-transparent master reads
+  cleanly without a wrong colour invert. Once a real white
+  variant exists, the chip wrapper can be dropped.
+- Horizontal lockup (emblem-left + wordmark) for full-width
+  banners. Not used by the corporate site today.
+- Per-model wordmarks. The `granfort-models-master.pdf`
+  (26 pages) is the source; the Granfort web app consumes those
+  separately and the corporate site does not need them.
+
+Brand colour tokens (Ink Deep `#001F49`, Off-White `#F7F5F0`,
+Coral `#EF7051`) live in
+`granfort-web-app/packages/brand-tokens/tokens.json` for whoever
+runs the colour swap.
