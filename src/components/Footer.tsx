@@ -214,7 +214,7 @@ export function Footer({ locale }: Props) {
                   width={2000}
                   height={557}
                   sizes="120px"
-                  className="tunera-footer-brand-mark h-6 w-auto"
+                  className="tunera-footer-brand-mark h-8 w-auto sm:h-9"
                 />
               </li>
               <li>
@@ -224,7 +224,7 @@ export function Footer({ locale }: Props) {
                   width={2560}
                   height={776}
                   sizes="120px"
-                  className="tunera-footer-brand-mark h-6 w-auto"
+                  className="tunera-footer-brand-mark h-8 w-auto sm:h-9"
                 />
               </li>
             </ul>
