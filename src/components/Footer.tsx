@@ -188,52 +188,44 @@ export function Footer({ locale }: Props) {
 
           {/*
             Represented brands strip.
-            Compact row immediately above the copyright line. Each
-            badge is a non-linked light chip — the brand sites are
-            not in production today, so the footer mark only
-            communicates the representation, never advertises a live
-            outbound URL. The chip background is `bg-white/95` so the
-            colour-PNG marks read cleanly against the graphite
-            footer atmosphere without per-brand white/colour
-            inconsistency.
+            Compact row above the copyright line. Both marks render
+            directly on the graphite footer with no chip — a CSS
+            `brightness(0) invert(1)` filter (defined as
+            `.tunera-footer-brand-mark` in globals.css) flattens the
+            black-on-transparent Granfort master and the colour
+            Ranieri PNG into pure white silhouettes so they read
+            cleanly on the dark surface. Original brand colour is
+            sacrificed for legibility on the dark footer; the
+            brand-card surface (light card on ivory) keeps the
+            unfiltered, full-colour artwork.
           */}
           <div className="mt-14 border-t border-tunera-stone/15 pt-6">
             <div className="text-[10px] font-medium uppercase tracking-[0.28em] text-tunera-orange">
               {t.brandsSection.title}
             </div>
             <ul
-              className="mt-3 flex flex-wrap items-center gap-3"
+              className="mt-4 flex flex-wrap items-center gap-x-8 gap-y-3"
               aria-label={t.brandsSection.title}
             >
               <li>
-                <span
-                  className="inline-flex items-center rounded-sm bg-white/95 px-3 py-2"
-                  aria-label="Granfort"
-                >
-                  <Image
-                    src="/assets/brand/granfort/granfort-logo-master.png"
-                    alt="Granfort"
-                    width={2000}
-                    height={557}
-                    sizes="120px"
-                    className="h-6 w-auto"
-                  />
-                </span>
+                <Image
+                  src="/assets/brand/granfort/granfort-logo-master.png"
+                  alt="Granfort"
+                  width={2000}
+                  height={557}
+                  sizes="120px"
+                  className="tunera-footer-brand-mark h-6 w-auto"
+                />
               </li>
               <li>
-                <span
-                  className="inline-flex items-center rounded-sm bg-white/95 px-3 py-2"
-                  aria-label="Ranieri"
-                >
-                  <Image
-                    src="/assets/brand/ranieri/ranieri-logo-color.png"
-                    alt="Ranieri"
-                    width={2560}
-                    height={776}
-                    sizes="120px"
-                    className="h-6 w-auto"
-                  />
-                </span>
+                <Image
+                  src="/assets/brand/ranieri/ranieri-logo-color.png"
+                  alt="Ranieri"
+                  width={2560}
+                  height={776}
+                  sizes="120px"
+                  className="tunera-footer-brand-mark h-6 w-auto"
+                />
               </li>
             </ul>
           </div>

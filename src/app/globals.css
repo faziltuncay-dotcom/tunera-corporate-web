@@ -804,6 +804,31 @@ footer[data-revealed="true"] .tunera-footer-pattern-b {
 }
 
 /*
+ * Footer brand row marks.
+ *
+ * The brand-card surface uses the unfiltered, full-colour Granfort
+ * + Ranieri artwork. The footer surface is dark graphite and the
+ * Granfort master is black-on-transparent — so without help the
+ * footer mark would render as a black silhouette inside a black
+ * panel. `brightness(0) invert(1)` flattens any source colour to
+ * pure white (alpha preserved), giving both marks a clean monochrome
+ * footer treatment without per-brand chip backgrounds.
+ *
+ * Trade-off: brand colour identity is sacrificed on the footer for
+ * legibility. The brand-card surface (where the colour matters most)
+ * keeps the original artwork.
+ */
+.tunera-footer-brand-mark {
+  filter: brightness(0) invert(1);
+  opacity: 0.92;
+  transition: opacity 200ms ease-out;
+}
+
+.tunera-footer-brand-mark:hover {
+  opacity: 1;
+}
+
+/*
  * Section-flow veil.
  *
  * Used by the SectionTransition component at narrative pivots between
