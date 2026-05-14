@@ -186,8 +186,60 @@ export function Footer({ locale }: Props) {
             </div>
           </div>
 
+          {/*
+            Represented brands strip.
+            Compact row immediately above the copyright line. Each
+            badge is a non-linked light chip — the brand sites are
+            not in production today, so the footer mark only
+            communicates the representation, never advertises a live
+            outbound URL. The chip background is `bg-white/95` so the
+            colour-PNG marks read cleanly against the graphite
+            footer atmosphere without per-brand white/colour
+            inconsistency.
+          */}
+          <div className="mt-14 border-t border-tunera-stone/15 pt-6">
+            <div className="text-[10px] font-medium uppercase tracking-[0.28em] text-tunera-orange">
+              {t.brandsSection.title}
+            </div>
+            <ul
+              className="mt-3 flex flex-wrap items-center gap-3"
+              aria-label={t.brandsSection.title}
+            >
+              <li>
+                <span
+                  className="inline-flex items-center rounded-sm bg-white/95 px-3 py-2"
+                  aria-label="Granfort"
+                >
+                  <Image
+                    src="/assets/brand/granfort/granfort-logo-color.png"
+                    alt="Granfort"
+                    width={2767}
+                    height={771}
+                    sizes="120px"
+                    className="h-6 w-auto"
+                  />
+                </span>
+              </li>
+              <li>
+                <span
+                  className="inline-flex items-center rounded-sm bg-white/95 px-3 py-2"
+                  aria-label="Ranieri"
+                >
+                  <Image
+                    src="/assets/brand/ranieri/ranieri-logo-color.png"
+                    alt="Ranieri"
+                    width={2560}
+                    height={776}
+                    sizes="120px"
+                    className="h-6 w-auto"
+                  />
+                </span>
+              </li>
+            </ul>
+          </div>
+
           {/* Copyright bottom strip — unchanged closing line. */}
-          <div className="mt-14 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-t border-tunera-stone/15 pt-6 text-xs text-tunera-stone/55">
+          <div className="mt-8 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-t border-tunera-stone/15 pt-6 text-xs text-tunera-stone/55">
             <div>
               © {year} {contact.companyShort}. {t.footer.rights}
             </div>

@@ -1,5 +1,6 @@
 import type { Sql } from "postgres";
 import { getAnalyticsDb } from "./server";
+import { aggregateReferrers } from "./referrer";
 import type { CountRow, DailySeriesPoint, RecentEventRow, SummaryMetrics } from "./types";
 
 /**
@@ -216,12 +217,64 @@ async function topByColumn(
 
 export const getTopPages = (rangeDays: RangeDays = DEFAULT_RANGE_DAYS, limit = 10) =>
   topByColumn("path", "page_view", rangeDays, limit);
-export const getTopReferrers = (rangeDays: RangeDays = DEFAULT_RANGE_DAYS, limit = 10) =>
-  topByColumn("referrer", null, rangeDays, limit);
+
+/**
+ * Top referrers for the selected range.
+ *
+ * Acquisition surface — counts ONLY `page_view` events. Engagement
+ * events (`scroll_depth`, `section_view`, brand / contact CTAs) are
+ * excluded so a single Instagram visitor that scrolls four times
+ * does not register four extra Instagram referrers (production bug
+ * fixed in SEO 1.1).
+ *
+ * Self-referrers (tunera.com.tr / www.tunera.com.tr) are filtered
+ * out at the SQL layer with case-insensitive `NOT ILIKE` patterns,
+ * and any that slip through are dropped again in JS by
+ * `aggregateReferrers` before grouping. Known social and search
+ * hosts collapse to a friendly label (Instagram, Facebook, Google,
+ * LinkedIn, X / Twitter, WhatsApp).
+ */
+export async function getTopReferrers(
+  rangeDays: RangeDays = DEFAULT_RANGE_DAYS,
+  limit = 10,
+): Promise<CountRow[]> {
+  const sql = await getAnalyticsDb();
+  if (!sql) return [];
+  const days = clampDays(rangeDays);
+  try {
+    // We pull more raw rows than `limit` because a single normalized
+    // label (e.g. Instagram) often consolidates several stored hosts;
+    // 10x the requested limit is plenty for the small site this
+    // dashboard serves and is still a tight LIMIT on the SQL side.
+    const rawLimit = Math.max(50, limit * 10);
+    const rows = await sql<{ referrer: string | null; count: number }[]>`
+      SELECT referrer, COUNT(*)::int AS count
+      FROM analytics_events
+      WHERE event_name = 'page_view'
+        AND referrer IS NOT NULL
+        AND referrer <> ''
+        AND referrer NOT ILIKE 'http%://tunera.com.tr%'
+        AND referrer NOT ILIKE 'http%://www.tunera.com.tr%'
+        AND ${publicPathFilter(sql)}
+        AND created_at >= NOW() - make_interval(days => ${days})
+      GROUP BY referrer
+      ORDER BY count DESC
+      LIMIT ${rawLimit}
+    `;
+    return aggregateReferrers(rows, limit);
+  } catch (err) {
+    console.error("[analytics] getTopReferrers failed", err);
+    return [];
+  }
+}
+
+// Devices and countries are also acquisition surfaces — count
+// `page_view` only so engagement events (scroll_depth, section_view,
+// CTAs) can not inflate the device / country breakdown.
 export const getDeviceDistribution = (rangeDays: RangeDays = DEFAULT_RANGE_DAYS) =>
-  topByColumn("device_type", null, rangeDays, 10);
+  topByColumn("device_type", "page_view", rangeDays, 10);
 export const getTopCountries = (rangeDays: RangeDays = DEFAULT_RANGE_DAYS, limit = 10) =>
-  topByColumn("country", null, rangeDays, limit);
+  topByColumn("country", "page_view", rangeDays, limit);
 
 export async function getBrandRedirectBreakdown(
   rangeDays: RangeDays = DEFAULT_RANGE_DAYS,

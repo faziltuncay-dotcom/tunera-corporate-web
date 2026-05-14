@@ -304,6 +304,55 @@ the picker control on the dashboard regenerates the URL.
   `src/lib/analytics/labels.ts`). Below that, the panel adds a
   small disclaimer rather than implying confidence.
 
+### Acquisition vs engagement metrics
+
+Phase SEO 1.1 separated the dashboard surfaces into **acquisition**
+and **engagement** scopes so a single visitor scrolling four times
+can no longer inflate the source-of-traffic numbers.
+
+**Acquisition surfaces** count `event_name = 'page_view'` only:
+
+- `Page views today` / `Page views in range`
+- `Visitors today` / `Visitors in range`
+- `Top pages`
+- `Top referrers`
+- `Devices`
+- `Countries`
+
+The Top referrers panel additionally:
+
+- excludes self-referrers (`tunera.com.tr`, `www.tunera.com.tr`)
+  via case-insensitive `NOT ILIKE` patterns at the SQL layer plus a
+  defensive JS filter in `aggregateReferrers`,
+- normalises known social / search hosts so the three Instagram
+  link-shim variants (`l.instagram.com`, `www.instagram.com`,
+  `instagram.com`) collapse to a single "Instagram" row,
+- and falls back to the bare hostname for anything unknown, so the
+  operator still sees something truthful.
+
+**Engagement surfaces** keep their dedicated event-name filter and
+are unaffected by the acquisition fix:
+
+- `Section views` — `event_name = 'section_view'`
+- `Scroll depth` — `event_name = 'scroll_depth'`
+- `Brand interest` — `brand_card_click` + `brand_redirect_click`
+- `Contact intent` — the four `contact_*` CTA event names
+- `Top journeys` — page_view-only sequences inside consented sessions
+- `Sales signals` — derived from the contact CTA event names
+
+**Older numbers may shift after the fix.** No production data is
+mutated — the change is read-time only — so historical referrer
+counts inflated by scroll/section events will _appear_ to drop on
+the dashboard the next time the operator opens the page. That is
+expected and correct.
+
+The first `page_view` of every browser tab now carries
+`metadata.isLandingPage = true` and `metadata.landingPath = <path>`
+in `sessionStorage`. The metadata is purely additive and adds no
+PII; future analytics queries can use it to distinguish "session
+entry" from "in-session navigation" without changing existing
+counters.
+
 ### CSV export
 
 A protected admin-only export endpoint sits behind the same Basic

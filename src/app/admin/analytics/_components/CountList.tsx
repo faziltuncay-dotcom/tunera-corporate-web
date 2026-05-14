@@ -5,6 +5,8 @@ type Props = {
   rows: CountRow[];
   /** Empty-state copy shown when no data exists yet. */
   emptyLabel: string;
+  /** Optional clarifying line shown under the title (e.g. acquisition vs engagement scope). */
+  helper?: string;
 };
 
 /**
@@ -14,14 +16,19 @@ type Props = {
  * Pure server component; renders SVG-free using CSS-only widths so a
  * deeply nested 0-row state still works without invented data.
  */
-export function CountList({ title, rows, emptyLabel }: Props) {
+export function CountList({ title, rows, emptyLabel, helper }: Props) {
   const max = rows.reduce((a, r) => Math.max(a, r.count), 0);
   return (
     <section className="rounded-md border border-tunera-stone/60 bg-white p-5">
-      <header className="mb-4 flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.22em] text-tunera-orange">
+      <header className="mb-2 flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.22em] text-tunera-orange">
         <span aria-hidden className="h-px w-6 bg-tunera-orange" />
         <span>{title}</span>
       </header>
+      {helper ? (
+        <p className="mb-4 text-[11px] leading-relaxed text-tunera-muted-ink">{helper}</p>
+      ) : (
+        <div className="mb-2" />
+      )}
       {rows.length === 0 ? (
         <p className="text-sm text-tunera-muted-ink">{emptyLabel}</p>
       ) : (

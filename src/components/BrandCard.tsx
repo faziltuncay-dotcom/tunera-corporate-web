@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { copy, type Locale } from "@/content/site";
 import { TrackedLink } from "@/components/analytics/TrackedLink";
 
@@ -17,12 +18,45 @@ type Props = {
   isProduction: boolean;
 };
 
+/**
+ * Brand asset map for the brand cards.
+ *
+ * Files live in `public/assets/brand/{id}/`. Both entries point at
+ * the colour PNG masters — the Granfort SVG variants in the same
+ * folder carry an explicit `PLACEHOLDER — NOT the official
+ * Granfort logo` header in their XML, so we use the colour PNG
+ * which is the actual owner-provided master. A future asset pass
+ * with real Granfort SVGs (or a Ranieri SVG) only needs to update
+ * the path here; the call site does not change.
+ *
+ * Intrinsic widths and heights mirror the source files exactly so
+ * Next/Image can reserve the box without layout shift on hydration.
+ */
+const BRAND_LOGOS: Record<
+  string,
+  { src: string; width: number; height: number; sizes: string } | undefined
+> = {
+  granfort: {
+    src: "/assets/brand/granfort/granfort-logo-color.png",
+    width: 2767,
+    height: 771,
+    sizes: "(min-width: 640px) 200px, 170px",
+  },
+  ranieri: {
+    src: "/assets/brand/ranieri/ranieri-logo-color.png",
+    width: 2560,
+    height: 776,
+    sizes: "(min-width: 640px) 200px, 170px",
+  },
+};
+
 export function BrandCard({ locale, id, name, status, href, external, isProduction }: Props) {
   const t = copy(locale);
   const isActive = status === "active";
   const note = id === "granfort" ? t.brandsSection.granfortNote : t.brandsSection.ranieriNote;
   const statusLabel = isActive ? t.brandsSection.statusActive : t.brandsSection.statusComingSoon;
   const siteLive = isActive && !!href && isProduction;
+  const logo = BRAND_LOGOS[id];
 
   return (
     <article
@@ -33,12 +67,33 @@ export function BrandCard({ locale, id, name, status, href, external, isProducti
         <span aria-hidden className="absolute inset-x-0 top-0 h-[3px] bg-tunera-orange" />
       ) : null}
       <div className="flex items-start justify-between gap-4">
-        <h3
-          id={`brand-${id}-title`}
-          className="text-2xl font-semibold tracking-tighter2 text-tunera-ink sm:text-3xl"
-        >
-          {name}
-        </h3>
+        {logo ? (
+          // Logo replaces the wordmark heading visually. The H3 is
+          // kept in the DOM (sr-only) so the existing
+          // `aria-labelledby` reference stays valid for screen
+          // readers and the visual hierarchy upgrades from text to
+          // brand mark for sighted users without an a11y regression.
+          <>
+            <Image
+              src={logo.src}
+              alt={`${name} logosu`}
+              width={logo.width}
+              height={logo.height}
+              sizes={logo.sizes}
+              className="h-9 w-auto sm:h-10"
+            />
+            <h3 id={`brand-${id}-title`} className="sr-only">
+              {name}
+            </h3>
+          </>
+        ) : (
+          <h3
+            id={`brand-${id}-title`}
+            className="text-2xl font-semibold tracking-tighter2 text-tunera-ink sm:text-3xl"
+          >
+            {name}
+          </h3>
+        )}
         <span
           className={
             "inline-flex shrink-0 items-center gap-2 rounded-sm border px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.2em] " +

@@ -148,9 +148,7 @@ for (const route of ADMIN_ROUTES) {
   let tag = "✓";
   if (!expected.includes(res.status)) {
     tag = `✗ status=${res.status} (expected one of ${expected.join("/")})`;
-    failures.push(
-      `${route.path}: status ${res.status} (expected one of ${expected.join("/")})`,
-    );
+    failures.push(`${route.path}: status ${res.status} (expected one of ${expected.join("/")})`);
   }
   console.log(`  ${route.path.padEnd(35)} status=${res.status} ${tag}`);
 }

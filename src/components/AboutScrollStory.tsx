@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { copy, type Locale } from "@/content/site";
 import { ScrollNarrativeClient, type NarrativePayload } from "@/components/ScrollNarrativeClient";
@@ -100,17 +101,32 @@ export function AboutScrollStory({ locale }: Props) {
 
   /**
    * The "Adın Anlamı" stage carries the Tunera / New Era wordmark
-   * instead of a plain title string: "Tunera" reads as the editorial
-   * headline, "New Era" sits as a small typographic annotation at the
-   * upper-right of the word. The visible text is still announced as
-   * "Tunera" via the `<h2 aria-label>` override in
-   * `ScrollNarrativeClient` so screen readers receive a clean string,
-   * and the `New Era` mark is `aria-hidden`.
+   * instead of a plain title string: the official Tunera wordmark
+   * sits where "Tunera" used to be typeset, and "New Era" sits as a
+   * small typographic annotation at the upper-right of the logo.
+   * The visible text is still announced as "Tunera" via the
+   * `<h2 aria-label>` override in `ScrollNarrativeClient` so screen
+   * readers receive a clean string; the logo image carries an empty
+   * alt because the heading already labels it, and the `New Era`
+   * mark is `aria-hidden`.
+   *
+   * The `tunera-newera-logo` height ramp matches the `narrative-stage-title`
+   * type ramp at each breakpoint so the logo fills the same visual
+   * footprint the text occupied previously: shorter on mobile,
+   * progressively taller on `sm` / `lg`, never overflowing.
    */
   const titleNodes: NarrativePayload["titleNodes"] = {
     "new-era-name": (
       <span className="tunera-newera relative inline-block whitespace-nowrap">
-        Tunera
+        <Image
+          src="/assets/brand/tunera/tunera-logo-color.png"
+          alt=""
+          width={1482}
+          height={343}
+          priority={false}
+          sizes="(min-width: 1024px) 320px, (min-width: 640px) 240px, 180px"
+          className="tunera-newera-logo h-10 w-auto sm:h-12 lg:h-16"
+        />
         <span aria-hidden className="tunera-newera-tag">
           New Era
         </span>

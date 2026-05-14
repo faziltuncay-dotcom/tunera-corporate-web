@@ -245,6 +245,7 @@ export default async function AnalyticsAdminPage({ searchParams }: Props) {
             title={`Top referrers (${lowerRange})`}
             rows={topReferrers}
             emptyLabel="No referrers yet."
+            helper="External sources that brought visitors to the site. Only landing page views count — scroll and section events are not counted here. Self-referrals are excluded."
           />
           <CountList
             title={`Devices (${lowerRange})`}

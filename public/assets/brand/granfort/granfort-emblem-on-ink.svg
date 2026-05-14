@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- PLACEHOLDER — see apps/web/public/brand/LOGO_ASSETS_TODO.md -->
+<!-- Emblem variant on Ink Deep tile — used as favicon source until icon set is generated. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img"
+     aria-label="Granfort (placeholder, emblem on ink)" data-placeholder="true">
+  <title>Granfort (placeholder, emblem on ink)</title>
+  <rect width="64" height="64" rx="8" fill="#001F49"/>
+  <circle cx="32" cy="32" r="22" fill="#EF7051"/>
+  <text x="32" y="40" text-anchor="middle"
+        font-family="Inter Tight, Helvetica Neue, Arial, sans-serif"
+        font-size="24" font-weight="700" fill="#FFFFFF">G</text>
+</svg>
