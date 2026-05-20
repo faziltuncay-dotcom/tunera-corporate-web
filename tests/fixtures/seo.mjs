@@ -4,7 +4,7 @@
 // the production maps move.
 
 export const siteConfig = {
-  baseUrl: "https://tunera.com.tr",
+  baseUrl: "https://www.tunera.com.tr",
   siteName: "Tunera Denizcilik",
   legalName: "Tunera Denizcilik Ticaret A.Ş.",
   defaultLocale: "tr",

@@ -47,7 +47,7 @@ Real, indexable pages — these live in `src/lib/seo/routes.ts` as the
 Special case:
 
 - `/` — renders the TR home identically to `/tr`. Its metadata
-  forces `<link rel="canonical" href="https://tunera.com.tr/tr">`
+  forces `<link rel="canonical" href="https://www.tunera.com.tr/tr">`
   so search engines consolidate the duplicate URL into `/tr`.
   `/` is intentionally **not** in the sitemap.
 
@@ -106,7 +106,7 @@ SLAs, certifications, or stock.
 
 Every canonical page emits:
 
-- `<link rel="canonical" href="https://tunera.com.tr/<path>">`
+- `<link rel="canonical" href="https://www.tunera.com.tr/<path>">`
 - `<link rel="alternate" hreflang="tr-TR" href=".../tr/...">`
 - `<link rel="alternate" hreflang="en"    href=".../en/...">`
 - `<link rel="alternate" hreflang="x-default" href=".../tr/...">`
@@ -190,19 +190,22 @@ deploy is verified.
    account that should own the property.
 2. Add a new property for `tunera.com.tr`.
    Prefer the **Domain** property type (DNS verification) so the
-   record covers `https://tunera.com.tr` and any future
-   subdomains. URL-prefix is acceptable as a fallback.
+   record covers both `https://tunera.com.tr` and
+   `https://www.tunera.com.tr` once the apex DNS fix below is
+   complete. URL-prefix is acceptable as a fallback — if used,
+   add the **`https://www.tunera.com.tr`** prefix that matches
+   the current canonical baseUrl.
 3. Complete the DNS or HTML verification flow.
 4. In the property's left sidebar, open **Sitemaps** and submit:
-   `https://tunera.com.tr/sitemap.xml`
+   `https://www.tunera.com.tr/sitemap.xml`
 5. Use **URL Inspection** on the canonical pages and request
    indexing for at least:
-   - `https://tunera.com.tr/tr`
-   - `https://tunera.com.tr/en`
-   - `https://tunera.com.tr/tr/markalar`
-   - `https://tunera.com.tr/en/brands`
-   - `https://tunera.com.tr/tr/iletisim`
-   - `https://tunera.com.tr/en/contact`
+   - `https://www.tunera.com.tr/tr`
+   - `https://www.tunera.com.tr/en`
+   - `https://www.tunera.com.tr/tr/markalar`
+   - `https://www.tunera.com.tr/en/brands`
+   - `https://www.tunera.com.tr/tr/iletisim`
+   - `https://www.tunera.com.tr/en/contact`
 6. Confirm in the **Coverage** report after a few days that:
    - `/admin/**`, `/api/**`, `/_next/**` are not indexed
    - the redirect routes are recognised as 307s and not indexed
@@ -254,3 +257,181 @@ routes plus `/robots.txt` and `/sitemap.xml` and reports the
 status code, page title, and presence of canonical/OG/hreflang
 tags. It is supplementary — it does not replace the production
 verification described above.
+
+## Apex domain DNS fix (registrar-side, outside this repo)
+
+The apex `tunera.com.tr` currently resolves to Google service IPs
+(the `216.239.32.x` family) instead of Vercel, and the TLS
+handshake fails outright — apex HTTPS is unreachable, apex HTTP
+returns a `404` from `server: ghs`. The site is only reachable at
+`www.tunera.com.tr`.
+
+That mismatch was the most likely cause of the Instagram "link
+not safe" / "güvenli değil" warning: Meta's `facebookexternalhit`
+crawler was hitting `og:url = https://tunera.com.tr/...` and
+failing the connection, which falls through to a reputation
+warning. The immediate fix in this repo was to switch
+`siteConfig.baseUrl` to `https://www.tunera.com.tr` so every
+canonical URL, sitemap entry, OG URL, Twitter card URL,
+hreflang link and JSON-LD URL resolves to the deployed app. That
+unblocks social previews without waiting on DNS.
+
+The proper long-term fix happens at the registrar:
+
+1. Open the domain registrar's DNS panel for `tunera.com.tr`.
+2. For the apex (`@`) record, point it at Vercel's anycast IP
+   (currently `76.76.21.21`) — or use an `ALIAS` / `ANAME` record
+   pointing at `cname.vercel-dns.com` if the registrar supports
+   it (apex `CNAME` is not allowed by DNS spec).
+3. Leave the existing `www` CNAME pointing at
+   `cname.vercel-dns.com` untouched.
+4. In the Vercel project settings, ensure both `tunera.com.tr` and
+   `www.tunera.com.tr` are added as domains and that one is set as
+   the primary; configure the redirect direction (typically
+   apex → www, though either works as long as both terminate TLS
+   at Vercel).
+5. After DNS propagates, verify with:
+
+   ```sh
+   curl -sI https://tunera.com.tr/
+   curl -sI https://www.tunera.com.tr/
+   ```
+
+   Both should return `HTTP/2 200` (or the chosen redirect chain)
+   and present a valid Vercel certificate.
+
+Once apex serves the app, canonical can stay on `www` (no SEO
+work required, since the site is currently `noindex` and nothing
+is indexed yet) or be moved back to apex by reverting
+`siteConfig.baseUrl` in a single line.
+
+## Security headers
+
+The site sends a baseline of low-risk security headers from
+`next.config.mjs` `headers()`:
+
+| Header                   | Value                                                  |
+| ------------------------ | ------------------------------------------------------ |
+| `X-Content-Type-Options` | `nosniff`                                              |
+| `Referrer-Policy`        | `strict-origin-when-cross-origin`                      |
+| `X-Frame-Options`        | `DENY`                                                 |
+| `Permissions-Policy`     | `camera=(), microphone=(), geolocation=(), payment=()` |
+
+What is **not** sent from Next.js, and why:
+
+- `Strict-Transport-Security` — Vercel already attaches HSTS
+  (`max-age=63072000`) on every `www` response. Re-emitting from
+  Next would duplicate without value, and the `preload` directive
+  cannot be added until apex `tunera.com.tr` is repointed at
+  Vercel (preload requires both apex and www to present a valid
+  certificate; apex currently fails TLS).
+- `Content-Security-Policy` — deferred. A strict CSP without a
+  report-only pass risks breaking Next.js inline bootstrap
+  scripts, the analytics consent banner inline styles, and Vercel
+  deployment instrumentation. When tackled, expect a 1–2 day
+  rollout: ship CSP-Report-Only first, collect violation reports
+  from real traffic for 48–72 h, then promote to enforcing CSP.
+- `Cross-Origin-Opener-Policy` / `Cross-Origin-Embedder-Policy`
+  — deferred. They can interfere with Open Graph scrapers and
+  embedded map tiles, and are not required for the link-safety
+  signal we are aiming at in this phase.
+
+## Robots / social crawler posture
+
+There are two reasonable robots postures while the site is
+pre-launch. The site currently runs Option 1. Switching to
+Option 2 is a one-line change in `src/app/robots.ts` (or, more
+cleanly, a new flag separate from `launch.allowIndexing`).
+
+### Option 1 — Pre-launch private posture _(current)_
+
+- `robots.txt` emits `User-agent: *` / `Disallow: /`
+- Every page metadata sets `robots: noindex, nofollow, nocache`
+  (with an explicit `googleBot` block of the same) via
+  `robotsForCurrentLaunch()`
+- Compliant search crawlers stay out entirely
+- Social preview crawlers that respect `robots.txt` may also
+  refuse to fetch, **but** in practice Meta's
+  `facebookexternalhit` and the Instagram / Twitter preview
+  crawlers ignore `robots.txt` for Open Graph fetching, so social
+  previews usually still work as long as the OG URL itself
+  resolves
+- Safe default while go-live SEO sign-off is outstanding
+
+### Option 2 — Public crawler access, still noindex
+
+- `robots.txt` emits `User-agent: *` / `Allow: /` plus
+  `Disallow: /admin/`, `Disallow: /api/`, `Disallow: /_next/`
+- Page-level `<meta name="robots" content="noindex,nofollow,nocache">`
+  remains in place via `robotsForCurrentLaunch()`
+- Social preview crawlers that honour `robots.txt` can now fetch
+  the page; Google still respects the page-level `noindex` when
+  it crawls and will not index the URL
+- This is **not** SEO go-live. `launch.allowIndexing` stays
+  `false`. Search Console submission stays deferred.
+- Useful when (a) the apex DNS fix is still pending and (b)
+  there's evidence that a robots-respecting crawler is blocking
+  link previews. Today, the suspected blocker is the apex URL
+  failing TLS, not robots, so this switch is on hold.
+
+## Instagram / social link safety checklist
+
+When Instagram, Facebook, WhatsApp, Threads, or LinkedIn shows a
+"link not safe" / "güvenli değil" warning on a Tunera URL, walk
+the checklist below. Each step is a manual browser-side check —
+do **not** automate scoring from code, and do not call external
+APIs.
+
+1. **Confirm apex and www both resolve.** Open both
+   `https://tunera.com.tr/` and `https://www.tunera.com.tr/` in a
+   private window. Either both should load the site, or apex
+   should 308 to www (after the registrar-side fix). A TLS error,
+   a `ghs` 404, or a certificate warning is an automatic fail —
+   see "Apex domain DNS fix" above.
+2. **Confirm `og:url` matches `siteConfig.baseUrl`.** View the
+   page source of the shared URL and confirm
+   `<meta property="og:url" content="https://www.tunera.com.tr/...">`
+   resolves over HTTPS without a redirect through an unknown
+   domain.
+3. **Confirm `og:image` returns 200.** `curl -I` the OG image:
+
+   ```sh
+   curl -sI https://www.tunera.com.tr/assets/brand/web/optimized/hero-marine-pair-1920w.jpg
+   ```
+
+   Expect `HTTP/2 200` and `content-type: image/jpeg`.
+
+4. **Re-scrape via the Meta Sharing Debugger.**
+   <https://developers.facebook.com/tools/debug/>. Paste the
+   shared URL, click "Scrape Again", and confirm the preview card
+   renders. Fix any reported warnings before re-testing on
+   Instagram itself, because Meta caches preview metadata for
+   24–48 h.
+5. **Re-scrape via the LinkedIn Post Inspector** if LinkedIn was
+   affected: <https://www.linkedin.com/post-inspector/>.
+6. **Check Google Safe Browsing status.**
+   <https://transparencyreport.google.com/safe-browsing/search>.
+   Test `https://tunera.com.tr` and `https://www.tunera.com.tr`.
+   A clean status here is necessary but not sufficient — Meta
+   maintains its own reputation system.
+7. **Confirm no `http://` links survive.** A single mixed-content
+   URL in shared metadata can trip warnings:
+
+   ```sh
+   grep -rn "http://" src public next.config.* 2>/dev/null \
+     | grep -vE 'localhost|generated/promo-captures'
+   ```
+
+   Expect zero matches outside of the dev-only Granfort
+   localhost reference and the promo-capture screenshot tool.
+
+8. **Confirm no redirect chain through unknown domains.** Trace
+   the link with `curl -sIL` and confirm every hop is on a
+   `*.tunera.com.tr` or trusted Vercel domain — no URL
+   shorteners, no `bit.ly`, no analytics-tracking domains
+   wrapping the URL.
+9. **Wait for reputation refresh.** A newly-registered domain or
+   one that recently failed to load can be flagged for several
+   days even after every technical signal is correct. Do not
+   spam re-tests or wrap the URL in a shortener; let the
+   reputation cache decay.

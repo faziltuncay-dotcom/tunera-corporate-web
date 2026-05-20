@@ -21,18 +21,18 @@ import {
 } from "./fixtures/seo.mjs";
 
 test("siteConfig exposes baseUrl, locales and default locale", () => {
-  assert.equal(siteConfig.baseUrl, "https://tunera.com.tr");
+  assert.equal(siteConfig.baseUrl, "https://www.tunera.com.tr");
   assert.deepEqual([...siteConfig.locales], ["tr", "en"]);
   assert.equal(siteConfig.defaultLocale, "tr");
 });
 
 test("canonicalUrl returns absolute URLs for every (locale, key) pair", () => {
-  assert.equal(canonicalUrl("tr", "home"), "https://tunera.com.tr/tr");
-  assert.equal(canonicalUrl("tr", "brands"), "https://tunera.com.tr/tr/markalar");
-  assert.equal(canonicalUrl("tr", "contact"), "https://tunera.com.tr/tr/iletisim");
-  assert.equal(canonicalUrl("en", "home"), "https://tunera.com.tr/en");
-  assert.equal(canonicalUrl("en", "brands"), "https://tunera.com.tr/en/brands");
-  assert.equal(canonicalUrl("en", "contact"), "https://tunera.com.tr/en/contact");
+  assert.equal(canonicalUrl("tr", "home"), "https://www.tunera.com.tr/tr");
+  assert.equal(canonicalUrl("tr", "brands"), "https://www.tunera.com.tr/tr/markalar");
+  assert.equal(canonicalUrl("tr", "contact"), "https://www.tunera.com.tr/tr/iletisim");
+  assert.equal(canonicalUrl("en", "home"), "https://www.tunera.com.tr/en");
+  assert.equal(canonicalUrl("en", "brands"), "https://www.tunera.com.tr/en/brands");
+  assert.equal(canonicalUrl("en", "contact"), "https://www.tunera.com.tr/en/contact");
 });
 
 test("hreflangMap always includes tr-TR, en and x-default", () => {
