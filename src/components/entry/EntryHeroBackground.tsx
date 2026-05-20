@@ -1,33 +1,39 @@
 /**
  * Cinematic background for the Tunera entry gate.
  *
- * Renders a layered scene whose primary motion is a real 10-second
- * 1920×1080 H.264 / VP9 video baked from the same hero-marine-pair
- * editorial illustration the corporate homepage already uses (no new
- * artwork is introduced). The video is muted, autoplay, loop and
- * playsInline so iOS Safari treats it as a decorative ambient
- * background rather than blocking media.
+ * Renders a layered scene whose primary motion is the accepted
+ * Runway-rendered cinematic master encoded from the same
+ * hero-marine-pair editorial illustration the corporate homepage
+ * uses (no new artwork is introduced). The video is muted, autoplay,
+ * loop and playsInline so iOS Safari treats it as a decorative
+ * ambient background rather than blocking media.
+ *
+ * Source priority — the browser walks the `<source>` list top to
+ * bottom and uses the first format it can decode. Two cinematic
+ * sources are listed before the two engineered-zoompan fallback
+ * sources so the cinematic master always wins when present, but the
+ * old assets remain on the wire as a safety net if the cinematic
+ * files 404, get blocked by a CDN, or fail to decode:
+ *
+ *   1. `tunera-entry-cinematic.webm`  — VP9, cinematic master
+ *   2. `tunera-entry-cinematic.mp4`   — H.264, cinematic master
+ *   3. `tunera-entry-hero.webm`       — VP9, zoompan fallback
+ *   4. `tunera-entry-hero.mp4`        — H.264, zoompan fallback
  *
  * Three layers, in z-order from back to front:
  *   1. `<picture>` — the same AVIF / WebP / JPG variants the homepage
- *      hero uses, served via the prebuilt files under
- *      `/assets/brand/web/optimized/`. Carries `.tunera-entry-kenburns`
- *      so this layer remains a self-contained animated fallback. It
- *      paints first (no decode cost the homepage hero hasn't already
- *      paid) and shows through if the browser cannot play either
- *      video codec, if the network drops the video, or while the
- *      video's first frame is still being decoded.
+ *      hero uses. Carries `.tunera-entry-kenburns` so the picture
+ *      layer is a self-contained animated fallback if every video
+ *      source above fails (no codec match, hard network failure,
+ *      etc).
  *   2. `<video>` — primary motion. `preload="metadata"` so the asset
  *      starts streaming as soon as the gate's main bundle is on the
- *      wire without blocking first paint. The same JPG poster is
+ *      wire without blocking first paint. The cinematic poster is
  *      handed in so the video paints the right colour while data
- *      arrives. Sources are ordered WebM-first (smaller, ~657 KB) so
- *      Chromium/Firefox skip the MP4 entirely; Safari falls through
- *      to the MP4 (~1.7 MB).
- *   3. Two graphite overlays — the same petrol-warm scrim the
- *      previous-phase gate already used, so the gate copy and CTA
- *      remain legible at the same contrast regardless of which
- *      motion layer is showing.
+ *      arrives.
+ *   3. Two graphite overlays — the existing petrol-warm scrim so
+ *      gate copy and CTA remain legible at the same contrast
+ *      regardless of which motion layer is showing.
  *
  * Reduced motion handling lives in `globals.css`: a single
  * `prefers-reduced-motion: reduce` rule sets `display: none` on the
@@ -40,9 +46,11 @@ const CACHE_BUST = "?v=2026-05-10";
 const WIDTHS = [640, 1280, 1920, 2560, 3840] as const;
 
 const VIDEO_BASE = "/assets/video";
-const VIDEO_WEBM = `${VIDEO_BASE}/tunera-entry-hero.webm`;
-const VIDEO_MP4 = `${VIDEO_BASE}/tunera-entry-hero.mp4`;
-const VIDEO_POSTER = `${VIDEO_BASE}/tunera-entry-hero-poster.jpg`;
+const VIDEO_CINEMATIC_WEBM = `${VIDEO_BASE}/tunera-entry-cinematic.webm`;
+const VIDEO_CINEMATIC_MP4 = `${VIDEO_BASE}/tunera-entry-cinematic.mp4`;
+const VIDEO_FALLBACK_WEBM = `${VIDEO_BASE}/tunera-entry-hero.webm`;
+const VIDEO_FALLBACK_MP4 = `${VIDEO_BASE}/tunera-entry-hero.mp4`;
+const VIDEO_POSTER = `${VIDEO_BASE}/tunera-entry-cinematic-poster.jpg`;
 
 const srcset = (ext: "avif" | "webp" | "jpg") =>
   WIDTHS.map((w) => `${OPTIMIZED_BASE}/${SLUG}-${w}w.${ext}${CACHE_BUST} ${w}w`).join(", ");
@@ -80,8 +88,10 @@ export function EntryHeroBackground() {
         aria-hidden
         tabIndex={-1}
       >
-        <source src={VIDEO_WEBM} type="video/webm" />
-        <source src={VIDEO_MP4} type="video/mp4" />
+        <source src={VIDEO_CINEMATIC_WEBM} type="video/webm" />
+        <source src={VIDEO_CINEMATIC_MP4} type="video/mp4" />
+        <source src={VIDEO_FALLBACK_WEBM} type="video/webm" />
+        <source src={VIDEO_FALLBACK_MP4} type="video/mp4" />
       </video>
 
       <div
