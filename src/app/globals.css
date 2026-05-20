@@ -1005,3 +1005,29 @@ html[data-tunera-gate="dismissed"] .tunera-entry-gate {
     transform: none !important;
   }
 }
+
+/*
+ * Entry-gate primary motion layer.
+ *
+ * The video sits on top of the picture/Ken-Burns layer and is the
+ * default motion path. Under `prefers-reduced-motion: reduce` it is
+ * removed from the layout (`display: none`) so the browser does not
+ * autoplay it and the user sees the static picture below — together
+ * with the reduced-motion rule above that already freezes the
+ * Ken-Burns keyframes, this produces a fully static cinematic poster
+ * for reduced-motion users without any JS branching.
+ *
+ * The element is rendered with `object-cover` so it fills the gate
+ * viewport at every aspect ratio without distortion. iOS Safari only
+ * autoplays a `<video>` that is both `muted` and `playsInline`; both
+ * attributes are set in the React component.
+ */
+.tunera-entry-video {
+  background-color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tunera-entry-video {
+    display: none !important;
+  }
+}
