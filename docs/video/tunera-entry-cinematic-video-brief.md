@@ -170,11 +170,44 @@ The reviewer (§8) rejects any take that contains any of the following:
 
 ## 6. Generator Prompts
 
-The three prompts below are written to be pasted into an
-image-to-video tool (e.g. Runway Gen-3 / Kling / Sora-style I2V,
-Pika, Luma Dream Machine — the exact tool is the producer's call).
-Each prompt is self-contained and uses the supplied image as the
-first frame / visual reference.
+The prompts below are written to be pasted into an image-to-video
+tool (e.g. Runway Gen-3 / Kling / Sora-style I2V, Pika, Luma Dream
+Machine — the exact tool is the producer's call). Each prompt is
+self-contained and uses the supplied image as the first frame /
+visual reference.
+
+### Locked-in producer prompt — _use this version_
+
+This is the authoritative prompt for the accepted production run.
+Paste it verbatim into the chosen I2V tool together with
+`public/assets/brand/web/optimized/hero-marine-pair-3840w.jpg` as
+the first-frame / reference image. Variants A / B / C below remain
+on file as alternates if the locked-in version needs to be tuned
+toward a calmer or more dynamic feel.
+
+```
+Use the supplied Tunera hero image as the first frame and strict
+visual reference. Create a premium cinematic 10-second 16:9 marine
+entry video.
+
+The main boat should gently sail forward through calm petrol-blue
+water. Animate believable sea movement: subtle bow displacement,
+natural wake trailing behind the hull, soft foam, small ripples
+expanding outward, and moving golden-hour reflections on the water.
+
+Preserve the original artwork style, composition, color palette,
+boat proportions, lighting, and premium understated marine
+atmosphere. Keep the motion elegant, slow, and confident, not fast
+racing.
+
+Maintain clean negative space for website overlay text and CTA. Do
+not add text. Do not add logos. Do not add people. Do not add extra
+random boats. Do not change the boat design. Do not distort the
+hull or engines.
+
+Smooth loop if possible. Output 10 seconds, 16:9, no audio, high
+quality.
+```
 
 ### A) Premium Cinematic Sailing — _safest version_
 
