@@ -50,3 +50,10 @@ brand-input/
 # consumes; only the captures folder is recomputable from the live
 # dev server and stays out of git.
 public/generated/promo-captures/
+
+# Cinematic video masters drop here (image-to-video / generative
+# renders, ProRes intermediates, etc). See
+# docs/video/tunera-entry-cinematic-video-brief.md. Only the
+# optimised web outputs under public/assets/video/ are committed.
+_private/
+*.mov
