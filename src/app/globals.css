@@ -939,3 +939,69 @@ footer[data-revealed="true"] .tunera-footer-pattern-b {
     transform: none;
   }
 }
+
+/*
+ * Tunera entry gate.
+ *
+ * Visual treatment for the premium session-entry overlay rendered on
+ * `/`, `/tr` and `/en`. The gate is a `position: fixed` full-viewport
+ * surface shown above the corporate homepage on first visit in a
+ * browsing session; dismissing it (Siteye Gir / Enter Site) reveals
+ * the homepage already painted underneath.
+ *
+ * Initial visibility is controlled by the matching pre-paint inline
+ * script in `app/layout.tsx`. The script sets `html[data-tunera-gate]`
+ * synchronously from `sessionStorage`, so a returning visitor never
+ * sees a one-frame flash of the gate, and a fresh visitor never sees
+ * a flash of the homepage behind a still-checking gate.
+ *
+ * Motion is a slow Ken-Burns push-in on the underlying hero
+ * illustration (~24 s, ease-in-out, drifts ±0.4 % while held at
+ * scale 1.06). This is the project's video fallback: ffmpeg is not
+ * available in the build environment, and per the brief a CSS image
+ * motion is preferred over a fabricated video. Reduced-motion users
+ * see the same composition without any animation.
+ *
+ * Mobile uses `100svh` for the gate height so iOS Safari's collapsing
+ * URL bar never crops the bottom store-teaser row.
+ */
+.tunera-entry-gate {
+  visibility: hidden;
+}
+
+html[data-tunera-gate="visible"] .tunera-entry-gate {
+  visibility: visible;
+}
+
+html[data-tunera-gate="visible"] body {
+  overflow: hidden;
+}
+
+html[data-tunera-gate="dismissed"] .tunera-entry-gate {
+  display: none;
+}
+
+@keyframes tunera-entry-kenburns {
+  0% {
+    transform: scale(1.06) translate3d(-0.4%, 0.4%, 0);
+  }
+  50% {
+    transform: scale(1.08) translate3d(0.4%, -0.4%, 0);
+  }
+  100% {
+    transform: scale(1.06) translate3d(-0.4%, 0.4%, 0);
+  }
+}
+
+.tunera-entry-kenburns {
+  animation: tunera-entry-kenburns 24s ease-in-out infinite;
+  transform: scale(1.06);
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tunera-entry-kenburns {
+    animation: none !important;
+    transform: none !important;
+  }
+}
